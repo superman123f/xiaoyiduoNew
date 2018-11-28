@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+标签名称							        标签条件（均是显示标签内容） <br>
+< shiro:authenticated>			        登录之后<br>
+< shiro:notAuthenticated>		        不在登录状态时<br>
+< shiro:guest>					        用户在没有RememberMe时<br>
+< shiro:user>					        用户在RememberMe时<br>
+< shiro:hasAnyRoles name="abc,123" >		在有abc或者123角色时<br>
+< shiro:hasRole name="abc">				拥有角色abc<br>
+< shiro:lacksRole name="abc">			没有角色abc<br>
+< shiro:hasPermission name="abc">		拥有权限资源abc<br>
+< shiro:lacksPermission name="abc">		没有abc权限资源<br>
+< shiro:principal>						显示用户身份名称<br>
+< shiro:principal property="username"/>  显示用户身份中的属性值<br>
+</body>
+</html>
