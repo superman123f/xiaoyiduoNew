@@ -81,6 +81,20 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/s/a", "anon");
         filterChainDefinitionMap.put("/s/logout*", "anon");
 
+        filterChainDefinitionMap.put("/admin", "anon");
+        filterChainDefinitionMap.put("/adminRole", "anon");
+        filterChainDefinitionMap.put("/control", "anon");
+        filterChainDefinitionMap.put("/create", "anon");
+        filterChainDefinitionMap.put("/index", "anon");
+        filterChainDefinitionMap.put("/role", "anon");
+        filterChainDefinitionMap.put("/rule", "anon");
+        filterChainDefinitionMap.put("/sysConfig", "anon");
+        filterChainDefinitionMap.put("/upload", "anon");
+        filterChainDefinitionMap.put("/member", "anon");
+
+
+
+
         //        jsp访问
         filterChainDefinitionMap.put("/jsp/error.jsp*", "anon");
         filterChainDefinitionMap.put("/jsp/login.jsp*", "authc"); //表示需要认证访问
@@ -88,6 +102,8 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/html/**", "anon");
         filterChainDefinitionMap.put("/res/**", "anon");
 
+        filterChainDefinitionMap.put("/styles/**", "anon"); //访问静态资源
+        filterChainDefinitionMap.put("/scripts/**", "anon");
 
         // 具有某个角色的用户可以访问
         filterChainDefinitionMap.put("/s/admin", "roles[admin]");
@@ -98,8 +114,6 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/s/delete", "perms[delete]");
         filterChainDefinitionMap.put("/s/update", "perms[update]");
         filterChainDefinitionMap.put("/s/query", "perms[query]");
-
-
         filterChainDefinitionMap.put("/static/**", "anon"); //匿名访问静态资源,注意是兩個星星
 
         filterChainDefinitionMap.put("/*", "authc");//表示需要认证才可以访问
