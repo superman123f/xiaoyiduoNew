@@ -4,7 +4,10 @@ import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGEncodeParam;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
 import com.xh.xiaoyiduo.utils.baidu.entity.CustomBean;
+import com.xh.xiaoyiduo.utils.baidu.entity.Results;
 import com.xh.xiaoyiduo.utils.baidu.entity.Student;
+import net.sf.ezmorph.bean.MorphDynaBean;
+import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 //import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -17,6 +20,10 @@ import java.awt.image.Kernel;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static com.xh.xiaoyiduo.utils.baidu.getToken.AuthService.getAuth;
 
@@ -78,44 +85,58 @@ public class BaiduExample {
     }
 
     public static void main(String[] args) {
-        easydl();
-        String str = "{\"log_id\":5335490535393425199,\"results\":[{\"name\":\"[default]\",\"score\":0.9850209951400757},{\"name\":\"vacuum\",\"score\":0.014979000203311443}]}";
-//        //1、使用JSONObject
-////        JSONObject jsonObject = JSONObject.fromObject(easydl());
-////        CustomBean stu=(CustomBean)JSONObject.toBean(jsonObject, CustomBean.class);
-//        String str = "[\"log_id\":7163574342778981581,\"results\":[{\"name\":\"[default]\",\"score\":0.9850209951400757},{\"name\":\"vacuum\",\"score\":0.014979000203311443}]]";
-//
+//String returnStr = "{\"key\":\"success\",\"message\":\"查询成功\",\"relationKey\":[{\"keybd_state\":1,\"keybd_code\":\"cXzDdfOcHC\"}],\"success\":true}";
+//        JSONObject jsonObject=JSONObject.fromObject(returnStr);
+
+//     /   MorphDynaBean bean = (MorphDynaBean) JSONArray.toList((JSONArray) jsonObject.get("relationKey")).get(0);
+//        int keybd_state = (int) bean.get("keybd_state");
+//        System.out.println(bean);
+
+//        //检测商品种类范围的json结果数据
+//        String results =  easydl();
+        String results = "{\"log_id\":5132558772297159724,\"results\":[{\"name\":\"[default]\",\"score\":0.9850209951400757},{\"name\":\"vacuum\",\"score\":0.014979000203311443}]}";
+//        //json转Object
+//        Map classMap = new HashMap();
+//        classMap.put(results, Results.class);
+        JSONObject jsonObject = JSONObject.fromObject(results);
+        Map<String, Class> classMap = new HashMap<>();
+        classMap.put("results", Results.class);
+        CustomBean customBean = (CustomBean) JSONObject.toBean(jsonObject, CustomBean.class, classMap);
+
+        List<Results> rsList = customBean.getResults();
+        System.out.println(rsList);
+        for(Results rs : rsList){
+            if(rs.getName().equals("vacuum")){
+                System.out.println(rs.getScore() + " " + rs.getName());
+            }
+        }
+//        System.out.println(customBean.getResults().get);
+
+//        CustomBean customBean = (CustomBean) JSONObject.toBean(object,CustomBean.class);
+//        MorphDynaBean bean = (MorphDynaBean) JSONArray.toList((JSONArray) object.get("results")).get(0);
+//        System.out.println(bean.get("name"));
+//        System.out.println(bean.get("score"));
+//        object.size();
+//        MorphDynaBean bean = (MorphDynaBean) JSONArray.toList((JSONArray) object.get("results"));
+
+//        System.out.println(customBean.getResults());
+//        System.out.println("=============");
+////        List<Results> rsList = customBean.getResults();
+////        for(Results rs : rsList){
+////            System.out.println("...." + rs.getScore());
+////            System.out.println("...." + rs.getName());
+////        }
+////        List<Results> list = customBean.getResults();
+//        System.out.println(customBean);
+//        System.out.println(customBean.getLog_id());
+//        System.out.println(customBean.getResults());
+
 //        //2、使用JSONArray
 //        JSONArray jsonArray= JSONArray.fromObject(str);
 //        //获得jsonArray的第一个元素
 //        Object o=jsonArray.get(0);
 //        JSONObject jsonObject2= JSONObject.fromObject(o);
 //        CustomBean stu2=(CustomBean)JSONObject.toBean(jsonObject2, CustomBean.class);
-////        System.out.println("stu:"+stu);
-//        System.out.println("stu2:"+stu2);
-
-        //定义两种不同格式的字符串
-        String objectStr="{\"name\":\"JSON\",\"age\":\"24\",\"address\":\"北京市西城区\"}";
-        String arrayStr="[{\"name\":\"JSON\",\"age\":\"24\",\"address\":\"北京市西城区\"}]";
-
-        String baidu = "{\"log_id\":\"123\",[\"name\":\"zhangsha\",\"score\":\"99\"]}";
-
-        //1、使用JSONObject
-        JSONObject jsonObject=JSONObject.fromObject(baidu);
-        CustomBean stu=(CustomBean)JSONObject.toBean(jsonObject, CustomBean.class);
-
-        System.out.println("stu:"+stu+" id:"+stu.getLog_id()+" result:"+stu.getResults());
-//        System.out.println("stu:"+stu.getAddress());
-//        System.out.println("stu:"+stu.getAge());
-//        System.out.println("stu:"+stu.getName());
-
-        //2、使用JSONArray
-//        JSONArray jsonArray=JSONArray.fromObject(arrayStr);
-//        //获得jsonArray的第一个元素
-//        Object o=jsonArray.get(0);
-//        JSONObject jsonObject2=JSONObject.fromObject(o);
-//        Student stu2=(Student)JSONObject.toBean(jsonObject2, Student.class);
-
 //        System.out.println("stu2:"+stu2);
     }
 
