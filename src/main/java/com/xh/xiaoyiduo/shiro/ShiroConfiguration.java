@@ -72,7 +72,7 @@ public class ShiroConfiguration {
         // 登录成功跳转的页面
         bean.setSuccessUrl("/s/home");
         //设置未授权跳转的页面
-        bean.setUnauthorizedUrl("/jsp/unauthorized.jsp");
+//        bean.setUnauthorizedUrl("/jsp/unauthorized.jsp");
 
         //配置访问权限
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
@@ -92,18 +92,17 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/upload", "anon");
         filterChainDefinitionMap.put("/member", "anon");
 
-
-
-
-        //        jsp访问
+        //jsp访问
         filterChainDefinitionMap.put("/jsp/error.jsp*", "anon");
         filterChainDefinitionMap.put("/jsp/login.jsp*", "authc"); //表示需要认证访问
         filterChainDefinitionMap.put("/documents/**", "anon");
-        filterChainDefinitionMap.put("/html/**", "anon");
-        filterChainDefinitionMap.put("/res/**", "anon");
 
-        filterChainDefinitionMap.put("/styles/**", "anon"); //访问静态资源
+        filterChainDefinitionMap.put("/images/**", "anon"); //访问静态资源
+        filterChainDefinitionMap.put("/styles/**", "anon");
         filterChainDefinitionMap.put("/scripts/**", "anon");
+
+        filterChainDefinitionMap.put("/shop/**", "anon"); //访问商城资源
+        filterChainDefinitionMap.put("/admin/**", "anon"); //访问后端模板资源
 
         // 具有某个角色的用户可以访问
         filterChainDefinitionMap.put("/s/admin", "roles[admin]");
