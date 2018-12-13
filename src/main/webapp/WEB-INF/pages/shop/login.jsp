@@ -125,7 +125,7 @@
                             <%--lay-submit--%>
                         </div>
                     </div>
-                    <p><a href="/shop/register" style="float:left;">立即注册</a><a href="/shop/register" style="float:right;">忘记密码？</a></p>
+                    <p><a href="/user/toRegisterPage" style="float:left;">立即注册</a><a href="/user/toRegisterPage" style="float:right;">忘记密码？</a></p>
                 </form>
             </div>
         </div>
@@ -159,3 +159,9 @@
 </div>
 </body>
 </html>
+<script>
+    layui.use('layer', 'form', function(){
+       var layer = layui.layer;
+       var form = layui.form;
+    });
+</script>

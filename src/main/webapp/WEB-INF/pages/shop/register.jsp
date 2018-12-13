@@ -17,10 +17,12 @@
     <link rel="stylesheet" type="text/css" href="../../../styles/layui/css/layui.css">
     <script type="text/javascript" src="../../../scripts/jquery.min.js"></script>
     <script type="text/javascript" src="../../../styles/layui/layui.js"></script>
+    <script type="text/javascript" src="../../../scripts/shop/register.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 </head>
 
+<%--<body style="text-align:center">--%>
 <body>
 <div class="site-nav-bg">
     <div class="site-nav w1200">
@@ -58,7 +60,6 @@
     </div>
 </div>
 
-
 <div class="content content-nav-base  login-content">
     <div class="main-nav">
         <div class="inner-cont0">
@@ -72,41 +73,141 @@
             </div>
         </div>
     </div>
+
     <div class="login-bg">
-        <div class="login-cont w1200">
-            <div class="form-box1">
-                <form class="layui-form" action="">
-                    <%--<legend style="padding:40px 0;">用户登录</legend>--%>
-                    <a href="/shop/register">已有账号登录</a>
+        studentNo学号，nickName昵称，password密码，realName真实姓名，sex性别，email电子邮箱，dormitoryAddress宿舍地址，phone手机号，</br>
+
+        <%--<div class="login-cont w1200">--%>
+            <%--<div class="form-box1">--%>
+        <div class="form-box1">
+            <div class="form-box2">
+                <form class="layui-form" action="/register" method="post">
+
                     <div class="layui-form-item">
-                        <div class="layui-inline iphone">
-                            <div class="layui-input-inline">
-                                <i class="layui-icon layui-icon-cellphone iphone-icon"></i>
-                                <input type="tel" name="phone" id="phone" lay-verify="required|phone" placeholder="请输入手机号 / 学号" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline iphone">
-                            <div class="layui-input-inline">
-                                <i class="layui-icon layui-icon-password iphone-icon"></i>
-                                <input type="tel" name="password" id="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline veri-code">
-                            <div class="layui-input-inline">
-                                <input style="width:185px;display:inline-block;" id="pnum" type="text" name="pnum" lay-verify="required" placeholder="请输入验证码" autocomplete="off" class="layui-input">
-                                <canvas id="canvas" width="100" height="38"></canvas>
-                                <%--<input type="button" class="layui-btn" id="find"  value="验证码" />--%>
-                            </div>
+                        <label class="layui-form-label">学号</label>
+                        <div class="layui-input-block">
+                            <input type="text" id="studentNo" name="studentNo" class="layui-input" placeholder="请输入学号" autocomplete="off">
                         </div>
                     </div>
-                    <div class="layui-form-item login-btn">
-                        <div class="layui-input-block" style="padding-top:7px;">
-                            <button class="layui-btn" lay-submit="" lay-filter="demo1" onclick="return false">登录</button>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">昵称</label>
+                        <div class="layui-input-block">
+                            <input type="text" id="nickname" name="nickname" class="layui-input" placeholder="请输入昵称" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">密码</label>
+                        <div class="layui-input-block">
+                            <input type="password" id="password" name="password" class="layui-input" placeholder="请输入密码" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">确认密码</label>
+                        <div class="layui-input-block">
+                            <input type="password" id="confrimPwd" name="confrimPwd" class="layui-input" placeholder="请确认密码" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <%--<div class="layui-form-item">--%>
+                        <%--<label class="layui-form-label">真实姓名</label>--%>
+                        <%--<div class="layui-input-block">--%>
+                            <%--<input type="text" name="realName" class="layui-input" placeholder="请输入真实姓名" autocomplete="off">--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+
+                    <%--<div class="layui-form-item">--%>
+                        <%--<label class="layui-form-label">性别</label>--%>
+                        <%--<div class="layui-input-block">--%>
+                            <%--<input type="radio" name="sex" value="0" checked title="男">--%>
+                            <%--<input type="radio" name="sex" value="1" title="女">--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+
+                    <%--<div class="layui-form-item">--%>
+                        <%--<label class="layui-form-label">电子邮箱</label>--%>
+                        <%--<div class="layui-input-block">--%>
+                            <%--<input type="text" name="email" class="layui-input" placeholder="请输入电子邮箱" autocomplete="off">--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+
+                    <%--<div class="layui-form-item">--%>
+                        <%--<label class="layui-form-label">宿舍地址</label>--%>
+                        <%--<div class="layui-input-block">--%>
+                            <%--<input type="text" name="dormitoryAddress" class="layui-input" placeholder="请填写宿舍地址" autocomplete="off">--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">手机号码</label>
+                        <div class="layui-input-block">
+                            <input type="text" id="phone" name="phone" class="layui-input" placeholder="请输入手机号码" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <%--手机验证码--%>
+                    <div class="layui-inline veri-code">
+                        <label class="layui-form-label">手机验证码</label>
+                        <div class="layui-input-inline" style="display: inline-flex;">
+                            <input id="pnum" type="text" name="pnum" lay-verify="required" placeholder="请输入验证码" autocomplete="off" class="layui-input" autocomplete="off">
+                            <input type="button" class="layui-btn" id="find"  value="验证码" />
+                        </div>
+                    </div>
+
+                    </br>
+                    </br>
+                    <%--<span id="msg"></span>--%>
+
+                    <%--按钮区--%>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <input type="submit" class="layui-btn" value="注册">
+                            <input type="reset" class="layui-btn" value="重置">
                         </div>
                     </div>
                 </form>
             </div>
         </div>
+        <%--</div>--%>
+
+        <%--<div class="login-cont w1200">--%>
+            <%--<div class="form-box1">--%>
+                <%--<form class="layui-form" action="">--%>
+                    <%--&lt;%&ndash;<legend style="padding:40px 0;">用户登录</legend>&ndash;%&gt;--%>
+                    <%--<a href="/shop/register">已有账号登录</a>--%>
+                    <%--<div class="layui-form-item">--%>
+                        <%--<div class="layui-inline iphone">--%>
+                            <%--<div class="layui-input-inline">--%>
+                                <%--<i class="layui-icon layui-icon-cellphone iphone-icon"></i>--%>
+                                <%--<input type="tel" name="phone" id="phone" lay-verify="required|phone" placeholder="请输入手机号 / 学号" autocomplete="off" class="layui-input">--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
+
+                        <%--<input>--%>
+                        <%--<div class="layui-inline iphone">--%>
+                            <%--<div class="layui-input-inline">--%>
+                                <%--<i class="layui-icon layui-icon-password iphone-icon"></i>--%>
+                                <%--<input type="tel" name="password" id="password" placeholder="请输入密码" autocomplete="off" class="layui-input">--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
+                        <%--<div class="layui-inline veri-code">--%>
+                            <%--<div class="layui-input-inline">--%>
+                                <%--<input style="width:185px;display:inline-block;" id="pnum" type="text" name="pnum" lay-verify="required" placeholder="请输入验证码" autocomplete="off" class="layui-input">--%>
+                                <%--<canvas id="canvas" width="100" height="38"></canvas>--%>
+                                <%--&lt;%&ndash;<input type="button" class="layui-btn" id="find"  value="验证码" />&ndash;%&gt;--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+                    <%--<div class="layui-form-item login-btn">--%>
+                        <%--<div class="layui-input-block" style="padding-top:7px;">--%>
+                            <%--<button class="layui-btn" lay-submit="" lay-filter="demo1" onclick="return false">登录</button>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+                <%--</form>--%>
+            <%--</div>--%>
+        <%--</div>--%>
     </div>
 </div>
 

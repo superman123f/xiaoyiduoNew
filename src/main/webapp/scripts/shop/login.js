@@ -32,7 +32,8 @@ $(function(){
         var authCode_val = $('#authCode').val(); //验证码
 
         if(phone_val == '') {
-            alert("请输入手机号或学号");
+            layer.msg("请输入手机号或学号");
+            // alert("请输入手机号或学号");
             $('#phone').focus();
             return false;
         }

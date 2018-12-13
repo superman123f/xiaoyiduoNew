@@ -96,6 +96,7 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/jsp/error.jsp*", "anon");
         filterChainDefinitionMap.put("/jsp/login.jsp*", "authc"); //表示需要认证访问
         filterChainDefinitionMap.put("/documents/**", "anon");
+        filterChainDefinitionMap.put("/user/**", "anon"); //访问用户页面
 
         filterChainDefinitionMap.put("/images/**", "anon"); //访问静态资源
         filterChainDefinitionMap.put("/styles/**", "anon");
@@ -103,6 +104,7 @@ public class ShiroConfiguration {
 
         filterChainDefinitionMap.put("/shop/**", "anon"); //访问商城资源
         filterChainDefinitionMap.put("/admin/**", "anon"); //访问后端模板资源
+        filterChainDefinitionMap.put("/register", "anon");
 
         // 具有某个角色的用户可以访问
         filterChainDefinitionMap.put("/s/admin", "roles[admin]");
