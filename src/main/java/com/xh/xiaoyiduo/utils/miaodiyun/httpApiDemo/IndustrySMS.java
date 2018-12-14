@@ -26,7 +26,7 @@ public class IndustrySMS
 	/**
 	 * 验证码通知短信
 	 */
-	public static void execute(String phoneNumber, int random)
+	public static String execute(String phoneNumber, int random)
 	{
 		String to = phoneNumber;
 		System.out.println("手机号为" + to);
@@ -45,5 +45,6 @@ public class IndustrySMS
 	    // 提交请求
 	    String result = HttpUtil.post(url, body);
 	    System.out.println("result:" + System.lineSeparator() + result);
+	    return result;
 	}
 }

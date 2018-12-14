@@ -35,8 +35,8 @@ layui.config({
                     $("#find").addClass(" layui-btn-disabled");
                     $('#find').attr('disabled',"true");
                     settime(obj);
-                    layer.msg("短信发送成功");
-                    $("#msg").text(data.msg);
+                    layer.msg(data.msg);
+                    // $("#msg").text(data.msg); //text方法，给元素赋值
                 }else{
                     layer.msg(data.msg);
                 }

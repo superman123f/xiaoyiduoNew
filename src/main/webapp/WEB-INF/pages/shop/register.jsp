@@ -81,7 +81,7 @@
             <%--<div class="form-box1">--%>
         <div class="form-box1">
             <div class="form-box2">
-                <form class="layui-form" action="/register" method="post">
+                <form class="layui-form" action="/user/register" method="post">
 
                     <div class="layui-form-item">
                         <label class="layui-form-label">学号</label>
