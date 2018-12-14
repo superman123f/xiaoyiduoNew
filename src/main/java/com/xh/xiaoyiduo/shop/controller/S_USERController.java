@@ -4,9 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.xh.xiaoyiduo.shop.pojo.S_USER;
 import com.xh.xiaoyiduo.shop.service.IS_USERService;
-import com.xh.xiaoyiduo.utils.miaodiyun.httpApiDemo.AccountInfo;
-import com.xh.xiaoyiduo.utils.miaodiyun.httpApiDemo.IndustrySMS;
-import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,13 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -82,7 +76,7 @@ public class S_USERController {
 //        }else {
 //            System.out.println("添加失败！");
 //        }
-        return "/shop/commodity";
+        return "/shop/login";
     }
 
 //    获取手机验证码
@@ -135,4 +129,11 @@ public class S_USERController {
             e.printStackTrace();
         }
     }
+
+    @RequestMapping("/findPwd")
+    public String findPwd(){
+        System.out.println("跳转到找回密码页面");
+        return "/shop/findPwd";
+    }
+
 }

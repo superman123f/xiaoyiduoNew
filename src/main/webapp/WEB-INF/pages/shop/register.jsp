@@ -149,10 +149,10 @@
 
                     <%--手机验证码--%>
                     <div class="layui-inline veri-code">
-                        <label class="layui-form-label">手机验证码</label>
+                        <label class="layui-form-label">验证码</label>
                         <div class="layui-input-inline" style="display: inline-flex;">
                             <input id="pnum" type="text" name="pnum" lay-verify="required" placeholder="请输入验证码" autocomplete="off" class="layui-input" autocomplete="off">
-                            <input type="button" class="layui-btn" id="find"  value="验证码" />
+                            <input type="button" class="layui-btn layui-btn-normal" id="find"  value="获取验证码" />
                         </div>
                     </div>
 

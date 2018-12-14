@@ -11,7 +11,7 @@ public class ShopController {
     public final static String ABOUT_VIEW = "/shop/about";
     public final static String BUYTODAY = "/shop/buytoday";
     public final static String COMMODITY= "/shop/commodity";
-    public final static String DETAIL = "/shop/detail";
+    public final static String DETAILS = "/shop/details";
     public final static String INDEX = "/shop/index";
     public final static String INFORMATION = "/shop/information";
     public final static String LOGIN = "/shop/login";
@@ -39,7 +39,7 @@ public class ShopController {
     @RequestMapping("/details")
     public String details(){
         System.out.println("view to details pages success");
-        return DETAIL;
+        return DETAILS;
     }
 
     @RequestMapping("/index")
