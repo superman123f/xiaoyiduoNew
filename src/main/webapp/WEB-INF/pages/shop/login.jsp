@@ -33,42 +33,7 @@
 </style>
 <body>
 
-<div class="site-nav-bg">
-    <div class="site-nav w1200">
-        <p class="sn-back-home">
-            <i class="layui-icon layui-icon-home"></i>
-            <a href="#">首页</a>
-        </p>
-        <div class="sn-quick-menu">
-            <div class="login"><a href="/shop/login">登录</a></div>
-            <div class="sp-cart"><a href="/shop/shopcart">购物车</a><span>2</span></div>
-        </div>
-    </div>
-</div>
-
-
-
-<div class="header">
-    <div class="headerLayout w1200">
-        <div class="headerCon">
-            <h1 class="mallLogo">
-                <a href="#" title="校益多商城">
-                    <img src="../../../images/shop/logo.png">
-                </a>
-            </h1>
-            <div class="mallSearch">
-                <form action="" class="layui-form" novalidate>
-                    <input type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input" placeholder="请输入需要的商品">
-                    <button class="layui-btn" lay-submit lay-filter="formDemo">
-                        <i class="layui-icon layui-icon-search"></i>
-                    </button>
-                    <input type="hidden" name="" value="">
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
+<%@ include file="../main_header.jsp"%> <!--引入头部jsp样式-->
 
 <div class="content content-nav-base  login-content">
     <div class="main-nav">
@@ -86,13 +51,13 @@
     <div class="login-bg">
         <div class="login-cont w1200">
             <div class="form-box">
-                <form class="layui-form" action="" onsubmit="return login();">
+                <form class="layui-form" action="/user/login" onsubmit="return login();" method="post">
                     <legend style="padding:40px 0;">用户登录</legend>
                     <div class="layui-form-item">
                         <div class="layui-inline iphone">
                             <div class="layui-input-inline">
                                 <i class="layui-icon layui-icon-cellphone iphone-icon"></i>
-                                <input type="tel" name="phone" id="phone" lay-verify="required" placeholder="手机号 / 学号 / 昵称" autocomplete="off" class="layui-input">
+                                <input type="tel" name="userAccount" id="phone" lay-verify="required" placeholder="手机号 / 学号 / 昵称" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline iphone">
@@ -132,31 +97,8 @@
     </div>
 </div>
 
-<div class="footer">
-    <div class="ng-promise-box">
-        <div class="ng-promise w1200">
-            <p class="text">
-                <a class="icon1" href="javascript:;">7天无理由退换货</a>
-                <a class="icon2" href="javascript:;">满99元全场免邮</a>
-                <a class="icon3" style="margin-right: 0" href="javascript:;">100%品质保证</a>
-            </p>
-        </div>
-    </div>
-    <div class="mod_help w1200">
-        <p>
-            <a href="javascript:;">关于我们</a>
-            <span>|</span>
-            <a href="javascript:;">帮助中心</a>
-            <span>|</span>
-            <a href="javascript:;">售后服务</a>
-            <span>|</span>
-            <a href="javascript:;">商品资讯</a>
-            <span>|</span>
-            <a href="javascript:;">关于货源</a>
-        </p>
-        <p class="coty">校益多商城版权所有 &copy; 2018-2050</p>
-    </div>
-</div>
+<%@ include file="/WEB-INF/pages/rooter.jsp" %> <!--引入尾部样式-->
+
 </body>
 </html>
 <script>

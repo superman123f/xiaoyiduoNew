@@ -15,12 +15,31 @@
   <sql id="Base_Column_List" >
     STUDENT_NO, USER_ID, NICKNAME, PASSWORD, REAL_NAME, SEX, EMAIL, PHONE, DORMITORY_ADDRESS
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+
+  <!--根据手机号查询-->
+  <select id="selectByPhone" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
+    <include refid="Base_Column_List" />
+    from S_USER
+    where PHONE = #{phone,jdbcType=VARCHAR}
+  </select>
+
+  <!--根据学号查询-->
+  <select id="selectByStudentNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
     <include refid="Base_Column_List" />
     from S_USER
     where STUDENT_NO = #{studentNo,jdbcType=VARCHAR}
   </select>
+
+  <!--根据昵称查询-->
+  <select id="selectByNickname" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from S_USER
+    where NICKNAME = #{nickname,jdbcType=VARCHAR}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from S_USER
     where STUDENT_NO = #{studentNo,jdbcType=VARCHAR}

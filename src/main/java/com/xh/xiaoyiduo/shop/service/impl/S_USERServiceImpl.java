@@ -16,4 +16,19 @@ public class S_USERServiceImpl implements IS_USERService {
     public int insert(S_USER user) {
         return userMapper.insert(user);
     }
+
+    @Override
+    public S_USER selectByPhone(String phone) {
+        return userMapper.selectByPhone(phone);
+    }
+
+    @Override
+    public S_USER selectByStudentNo(String studentNo) {
+        return userMapper.selectByStudentNo(studentNo);
+    }
+
+    @Override
+    public S_USER selectByNickname(String nickname) {
+        return userMapper.selectByNickname(nickname);
+    }
 }

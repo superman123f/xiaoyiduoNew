@@ -32,7 +32,7 @@ $(function(){
         var authCode_val = $('#authCode').val(); //验证码
 
         if(phone_val == '') {
-            layer.msg("请输入手机号或学号");
+            layer.msg("请输入账号");
             // alert("请输入手机号或学号");
             $('#phone').focus();
             return false;

@@ -1,5 +1,7 @@
 package com.xh.xiaoyiduo.shiro.realm;
 
+import com.xh.xiaoyiduo.shop.dao.S_USERMapper;
+import com.xh.xiaoyiduo.shop.pojo.S_USER;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -18,31 +20,67 @@ public class AuthRealm extends AuthorizingRealm {
         return null;
     }
 
-    @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        return null;
-    }
-
-    //    @Autowired
-//    private UserMapper myUserMapper;
-//
-//    //认证.登录
 //    @Override
-//    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-//        UsernamePasswordToken utoken = (UsernamePasswordToken) token;//获取用户输入的token
-//        System.out.println(utoken);
-//        String username = utoken.getUsername();
-//
-//        User user = myUserMapper.queryUserName(username);
-//
-//        if(!user.getUsername().equals(username)){
-//            System.out.println("用戶名不存在");
-//            return null;
-//        }
-//        //放入shiro.调用CredentialsMatcher检验密码
-////        return new SimpleAuthenticationInfo(user, user.getPassword(), this.getClass().getName());
-//        return new SimpleAuthenticationInfo(user, user.getPassword(), ByteSource.Util.bytes(user.getUsername()), this.getClass().getName());
+//    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+//        return null;
 //    }
+
+
+    @Autowired
+    private S_USERMapper userMapper;
+
+    //认证.登录
+    @Override
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+        UsernamePasswordToken utoken = (UsernamePasswordToken) token;//获取用户输入的token
+//        System.out.println(utoken);
+        String userAccount = utoken.getUsername();
+
+        S_USER user = userMapper.selectByPhone(userAccount);
+
+        // 检验手机号
+        if(user == null){
+            // 检验学号
+            user = userMapper.selectByStudentNo(userAccount);
+            if(user == null){
+                // 检验昵称
+                user = userMapper.selectByNickname(userAccount);
+                if(user == null){
+                   System.out.println("用户不存在");
+                   return null;
+                }else{
+                    System.out.println("匹配昵称成功");
+                    return new SimpleAuthenticationInfo(user, user.getPassword(), ByteSource.Util.bytes(user.getNickname()), this.getClass().getName());
+                }
+            } else {
+                System.out.println("匹配学号成功");
+                return new SimpleAuthenticationInfo(user, user.getPassword(), ByteSource.Util.bytes(user.getNickname()), this.getClass().getName());
+            }
+        } else {
+            System.out.println("匹配手机号成功");
+            return new SimpleAuthenticationInfo(user, user.getPassword(), ByteSource.Util.bytes(user.getNickname()), this.getClass().getName());
+        }
+
+//        if(user != null){
+            //        检验手机哈
+//            if(user.getPhone().equals(userAccount)){
+//                System.out.println("匹配手机号成功");
+//                //放入shiro.调用CredentialsMatcher检验密码
+//                return new SimpleAuthenticationInfo(user, user.getPassword(), ByteSource.Util.bytes(user.getNickname()), this.getClass().getName());
+//            } else {
+//                user = userMapper.selectByStudentNo(userAccount);
+//            }
+
+//        }
+
+
+
+        //放入shiro.调用CredentialsMatcher检验密码
+//        return new SimpleAuthenticationInfo(user, user.getPassword(), this.getClass().getName());
+//        return new SimpleAuthenticationInfo(user, user.getPassword(), ByteSource.Util.bytes(user.getUsername()), this.getClass().getName());
+//        System.out.println("该用户不存在");
+//        return null;
+    }
 //
 //    //授权
 //    @Override
