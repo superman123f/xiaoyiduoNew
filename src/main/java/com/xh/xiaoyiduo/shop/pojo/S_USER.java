@@ -1,12 +1,12 @@
 package com.xh.xiaoyiduo.shop.pojo;
 
-import org.springframework.stereotype.Component;
+import java.util.HashSet;
+import java.util.Set;
 
-@Component
 public class S_USER {
-    private String studentNo;
-
     private String userId;
+
+    private String studentNo;
 
     private String nickname;
 
@@ -22,13 +22,7 @@ public class S_USER {
 
     private String dormitoryAddress;
 
-    public String getStudentNo() {
-        return studentNo;
-    }
-
-    public void setStudentNo(String studentNo) {
-        this.studentNo = studentNo == null ? null : studentNo.trim();
-    }
+    private Set<S_USER_ROLES> roles = new HashSet<>();
 
     public String getUserId() {
         return userId;
@@ -36,6 +30,14 @@ public class S_USER {
 
     public void setUserId(String userId) {
         this.userId = userId == null ? null : userId.trim();
+    }
+
+    public String getStudentNo() {
+        return studentNo;
+    }
+
+    public void setStudentNo(String studentNo) {
+        this.studentNo = studentNo == null ? null : studentNo.trim();
     }
 
     public String getNickname() {
@@ -92,5 +94,13 @@ public class S_USER {
 
     public void setDormitoryAddress(String dormitoryAddress) {
         this.dormitoryAddress = dormitoryAddress == null ? null : dormitoryAddress.trim();
+    }
+
+    public Set<S_USER_ROLES> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<S_USER_ROLES> roles) {
+        this.roles = roles;
     }
 }

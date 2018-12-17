@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xh.xiaoyiduo.shop.dao.S_USER_PermissionsMapper" >
+  <resultMap id="BaseResultMap" type="com.xh.xiaoyiduo.shop.pojo.S_USER_PERMISSIONS" >
+    <id column="PERMISSION_ID" property="permissionId" jdbcType="VARCHAR" />
+    <result column="PERMISSION_NAME" property="permissionName" jdbcType="VARCHAR" />
+    <result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PERMISSION_ID, PERMISSION_NAME, ROLE_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from S_USER_PERMISSIONS
+    where PERMISSION_ID = #{permissionId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from S_USER_PERMISSIONS
+    where PERMISSION_ID = #{permissionId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xh.xiaoyiduo.shop.pojo.S_USER_PERMISSIONS" >
+    insert into S_USER_PERMISSIONS (PERMISSION_ID, PERMISSION_NAME, ROLE_ID
+      )
+    values (#{permissionId,jdbcType=VARCHAR}, #{permissionName,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xh.xiaoyiduo.shop.pojo.S_USER_PERMISSIONS" >
+    insert into S_USER_PERMISSIONS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="permissionId != null" >
+        PERMISSION_ID,
+      </if>
+      <if test="permissionName != null" >
+        PERMISSION_NAME,
+      </if>
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="permissionId != null" >
+        #{permissionId,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionName != null" >
+        #{permissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xh.xiaoyiduo.shop.pojo.S_USER_PERMISSIONS" >
+    update S_USER_PERMISSIONS
+    <set >
+      <if test="permissionName != null" >
+        PERMISSION_NAME = #{permissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null" >
+        ROLE_ID = #{roleId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PERMISSION_ID = #{permissionId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xh.xiaoyiduo.shop.pojo.S_USER_PERMISSIONS" >
+    update S_USER_PERMISSIONS
+    set PERMISSION_NAME = #{permissionName,jdbcType=VARCHAR},
+      ROLE_ID = #{roleId,jdbcType=VARCHAR}
+    where PERMISSION_ID = #{permissionId,jdbcType=VARCHAR}
+  </update>
+</mapper>

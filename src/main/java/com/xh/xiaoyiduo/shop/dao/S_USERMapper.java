@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository("userMapper")
 public interface S_USERMapper {
-    int deleteByPrimaryKey(String studentNo);
+    int deleteByPrimaryKey(String userId);
 
     int insert(S_USER record);
 

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <div class="site-nav-bg">
     <div class="site-nav w1200">
         <p class="sn-back-home">
@@ -6,6 +7,10 @@
             <a href="#">首页</a>
         </p>
         <div class="sn-quick-menu">
+            <shiro:hasRole name="admin">
+                <div class="login"><a href="/admin/admin">后台管理</a></div>
+            </shiro:hasRole>
+
             <div class="login"><a href="/shop/login">登录</a></div>
             <div class="sp-cart"><a href="/shop/shopcart">购物车</a><span>2</span></div>
         </div>

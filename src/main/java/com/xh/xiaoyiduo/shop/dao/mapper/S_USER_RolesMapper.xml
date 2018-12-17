@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xh.xiaoyiduo.shop.dao.S_USER_RolesMapper" >
+  <resultMap id="BaseResultMap" type="com.xh.xiaoyiduo.shop.pojo.S_USER_ROLES" >
+    <id column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+    <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ROLE_ID, ROLE_NAME, USER_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from S_USER_ROLES
+    where ROLE_ID = #{roleId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from S_USER_ROLES
+    where ROLE_ID = #{roleId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xh.xiaoyiduo.shop.pojo.S_USER_ROLES" >
+    insert into S_USER_ROLES (ROLE_ID, ROLE_NAME, USER_ID
+      )
+    values (#{roleId,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xh.xiaoyiduo.shop.pojo.S_USER_ROLES" >
+    insert into S_USER_ROLES
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="roleName != null" >
+        ROLE_NAME,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xh.xiaoyiduo.shop.pojo.S_USER_ROLES" >
+    update S_USER_ROLES
+    <set >
+      <if test="roleName != null" >
+        ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ROLE_ID = #{roleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xh.xiaoyiduo.shop.pojo.S_USER_ROLES" >
+    update S_USER_ROLES
+    set ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=VARCHAR}
+    where ROLE_ID = #{roleId,jdbcType=VARCHAR}
+  </update>
+</mapper>

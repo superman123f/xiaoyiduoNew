@@ -27,7 +27,7 @@ $(function(){
 
     //登录
     function login(){
-        var phone_val = $('#phone').val(); //手机号
+        var phone_val = $('#phone').val(); //账号
         var password_val = $('#password').val(); //密码
         var authCode_val = $('#authCode').val(); //验证码
 
@@ -38,7 +38,8 @@ $(function(){
             return false;
         }
         if(password_val == '') {
-            alert("请输入密码");
+            layer.msg("请输入密码");
+            // alert("请输入密码");
             $('#password').focus();
             return false;
         }
@@ -46,17 +47,19 @@ $(function(){
         var val = $("#authCode").val().toLowerCase();
         var num = show_num.join("");
         if(val==''){
-            alert('请输入验证码！');
+            layer.msg("请输入验证码");
+            // alert('请输入验证码');
             $("#authCode").focus();
             return false;
         }else if(val == num){
-            alert('提交成功！');
+            // alert('提交成功！');
             $("#authCode").val('');
             draw(show_num);
             return true;
 
         }else{
-            alert('验证码错误！请重新输入！');
+            layer.msg('验证码错误！请重新输入');
+            // alert('验证码错误！请重新输入');
             $("#authCode").val('');
             $("#authCode").focus();
             draw(show_num);

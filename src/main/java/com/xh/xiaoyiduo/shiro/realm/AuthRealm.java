@@ -1,7 +1,10 @@
 package com.xh.xiaoyiduo.shiro.realm;
 
 import com.xh.xiaoyiduo.shop.dao.S_USERMapper;
+import com.xh.xiaoyiduo.shop.dao.S_USER_PermissionsMapper;
 import com.xh.xiaoyiduo.shop.pojo.S_USER;
+import com.xh.xiaoyiduo.shop.pojo.S_USER_PERMISSIONS;
+import com.xh.xiaoyiduo.shop.pojo.S_USER_ROLES;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -15,10 +18,10 @@ import java.util.List;
 import java.util.Set;
 
 public class AuthRealm extends AuthorizingRealm {
-    @Override
-    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        return null;
-    }
+//    @Override
+//    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+//        return null;
+//    }
 
 //    @Override
 //    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
@@ -61,54 +64,44 @@ public class AuthRealm extends AuthorizingRealm {
             return new SimpleAuthenticationInfo(user, user.getPassword(), ByteSource.Util.bytes(user.getNickname()), this.getClass().getName());
         }
 
-//        if(user != null){
-            //        检验手机哈
-//            if(user.getPhone().equals(userAccount)){
-//                System.out.println("匹配手机号成功");
-//                //放入shiro.调用CredentialsMatcher检验密码
-//                return new SimpleAuthenticationInfo(user, user.getPassword(), ByteSource.Util.bytes(user.getNickname()), this.getClass().getName());
-//            } else {
-//                user = userMapper.selectByStudentNo(userAccount);
-//            }
-
-//        }
-
-
-
         //放入shiro.调用CredentialsMatcher检验密码
 //        return new SimpleAuthenticationInfo(user, user.getPassword(), this.getClass().getName());
 //        return new SimpleAuthenticationInfo(user, user.getPassword(), ByteSource.Util.bytes(user.getUsername()), this.getClass().getName());
 //        System.out.println("该用户不存在");
 //        return null;
     }
-//
+
 //    //授权
-//    @Override
-//    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principal) {
-//        //获取session中的用户
-//        User user = (User) principal.fromRealm(this.getClass().getName()).iterator().next();
-//        List<String> permissions = new ArrayList<>();
-//        List<String> rolesCollection = new ArrayList<>();
-//
-//        Set<Role> roles = user.getRoles();
-//        if (roles.size() > 0) {
-//            for (Role role : roles) {
-//                //获取角色名称
-//                rolesCollection.add(role.getRname());
-//                //获取该角色的权限集合
-//                Set<Module> modules = role.getModules();
-//                if (modules.size() > 0) {
-//                    for (Module module : modules) {
-//                        permissions.add(module.getMname());
-//                    }
-//                }
-//            }
-//        }
-//        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-//        //将权限放入shiro中.
-//        info.addStringPermissions(permissions);
-//        //将角色放入shiro中
-//        info.addRoles(rolesCollection);
-//        return info;
-//    }
+    @Override
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principal) {
+        //获取session中的用户
+
+        S_USER user = (S_USER) principal.fromRealm(this.getClass().getName()).iterator().next();
+        List<String> rolesCollection = new ArrayList<>();
+        List<String> permissionsCollection = new ArrayList<>();
+
+
+        Set<S_USER_ROLES> roles = user.getRoles();
+        if (roles.size() > 0) {
+            for (S_USER_ROLES role : roles) {
+                //获取角色名称
+                rolesCollection.add(role.getRoleName());
+                //获取该角色的权限集合
+                Set<S_USER_PERMISSIONS> permissions = role.getPermissions();
+                if (permissions.size() > 0) {
+                    for (S_USER_PERMISSIONS permission : permissions) {
+                        permissionsCollection.add(permission.getPermissionName());
+                    }
+                }
+            }
+        }
+
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        //将角色放入shiro中
+        info.addRoles(rolesCollection);
+        //将权限放入shiro中.
+        info.addStringPermissions(permissionsCollection);
+
+        return info;
+    }
 }

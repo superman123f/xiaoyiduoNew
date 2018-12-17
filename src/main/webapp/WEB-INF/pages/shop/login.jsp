@@ -63,7 +63,7 @@
                         <div class="layui-inline iphone">
                             <div class="layui-input-inline">
                                 <i class="layui-icon layui-icon-password iphone-icon"></i>
-                                <input type="tel" name="password" id="password" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                                <input type="password" name="password" id="password" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline veri-code">
