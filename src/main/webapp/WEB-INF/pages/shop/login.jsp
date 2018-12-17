@@ -8,6 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/WEB-INF/pages/header.jsp" %>
 
+<%--<script type="text/javascript" src="${ctx}/scripts/jquery.min.js"></script>--%>
+<%--<script type="text/javascript" src="${ctx}/styles/layui/layui.js"></script>--%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,9 +18,6 @@
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="../../../styles/shop/main.css">
     <link rel="stylesheet" type="text/css" href="../../../styles/layui/css/layui.css">
-    <script type="text/javascript" src="../../../scripts/jquery.min.js"></script>
-    <script type="text/javascript" src="../../../styles/layui/layui.js"></script>
-    <script type="text/javascript" src="${ctx}/scripts/shop/login.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 </head>
@@ -98,9 +98,12 @@
 </div>
 
 <%@ include file="/WEB-INF/pages/shop_rooter.jsp" %> <!--引入尾部样式-->
-
 </body>
+<script type="text/javascript" src="../../../scripts/jquery.min.js"></script> <script type="text/javascript" src="../../../styles/layui/layui.js"></script>
+<script type="text/javascript" src="${ctx}/scripts/shop/login.js"></script>
 </html>
+
+
 <script>
     layui.use('layer', 'form', function(){
        var layer = layui.layer;

@@ -14,6 +14,7 @@
 <center><h1>404 Not Found</h1></center>
 <hr><center>openresty</center>
 </body>
+<script type="text/javascript" src="../../../scripts/jquery.min.js"></script> <script type="text/javascript" src="../../../styles/layui/layui.js"></script>
 </html>
 <!-- a padding to disable MSIE and Chrome friendly error page -->
 <!-- a padding to disable MSIE and Chrome friendly error page -->

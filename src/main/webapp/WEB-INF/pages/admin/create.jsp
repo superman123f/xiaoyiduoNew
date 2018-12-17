@@ -88,8 +88,7 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="${ctx}/scripts/admin/jquery.min.js"></script>
-<script type="text/javascript" src="${ctx}/styles/layui/layui.js"></script>
+<script type="text/javascript" src="../../../scripts/jquery.min.js"></script> <script type="text/javascript" src="../../../styles/layui/layui.js"></script>
 <script type="text/javascript" src="${ctx}/scripts/admin/dw_form_submit.js"></script>
 </body>
 </html>

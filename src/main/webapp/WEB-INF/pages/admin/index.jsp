@@ -151,8 +151,7 @@
         © layui.com - 底部固定区域
     </div>
 </div>
-<script type="text/javascript" src="${ctx}/scripts/admin/jquery.min.js"></script>
-<script type="text/javascript" src="${ctx}/styles/layui/layui.js"></script>
-<script type="text/javascript" src="${ctx}/scripts/admin/index.js"></script>
 </body>
+<script type="text/javascript" src="../../../scripts/jquery.min.js"></script> <script type="text/javascript" src="../../../styles/layui/layui.js"></script>
+<script type="text/javascript" src="${ctx}/scripts/admin/index.js"></script>
 </html>
