@@ -58,6 +58,20 @@ public class S_USERController {
         return "/shop/commodity";
     }
 
+    @RequestMapping("/logout")
+    public String logout(){
+        Subject currentUser = SecurityUtils.getSubject();
+
+        try {
+            currentUser.logout();
+            System.out.println("退出系统成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "/shop/commodity";
+    }
+
     @RequestMapping("/toRegisterPage")
     public String toRegisterPage(){
         System.out.println("跳转到注册页面");

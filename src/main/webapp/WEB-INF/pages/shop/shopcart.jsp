@@ -21,7 +21,7 @@
 </head>
 <body>
 
-<%@ include file="../main_header.jsp"%> <!--引入头部jsp样式-->
+<%@ include file="../shop_header.jsp"%> <!--引入头部jsp样式-->
 
 <div class="content content-nav-base shopcart-content">
     <div class="main-nav">
@@ -246,7 +246,7 @@
         </div>
     </div>
 </div>
-<%@ include file="/WEB-INF/pages/rooter.jsp" %> <!--引入尾部样式-->
+<%@ include file="/WEB-INF/pages/shop_rooter.jsp" %> <!--引入尾部样式-->
 
 
 <script type="text/javascript">

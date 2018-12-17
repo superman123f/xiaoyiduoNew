@@ -16,27 +16,7 @@
     <link id="layuicss-layer" rel="stylesheet" href="http://www.17sucai.com/preview/4989/2018-05-25/admin/layui/css/modules/layer/default/layer.css?v=3.1.1" media="all"></head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
-    <div class="layui-header">
-        <div class="layui-logo">效益多后台管理系统</div>
-        <!-- 头部区域（可配合layui已有的水平导航） -->
-        <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="admin">用户列表</a></li>
-            <li class="layui-nav-item"><a href="member">会员列表</a></li>
-            <span class="layui-nav-bar"></span></ul>
-        <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item">
-                <a href="javascript:;">
-                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                    贤心
-                    <span class="layui-nav-more"></span></a>
-                <dl class="layui-nav-child">
-                    <dd><a href="">基本资料</a></dd>
-                    <dd><a href="">安全设置</a></dd>
-                </dl>
-            </li>
-            <li class="layui-nav-item"><a href="">退了</a></li>
-            <span class="layui-nav-bar"></span></ul>
-    </div>
+    <%@ include file="../admin_header.jsp"%> <!--引入admin头部jsp样式-->
 
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">

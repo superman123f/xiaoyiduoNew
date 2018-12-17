@@ -34,7 +34,7 @@
 </style>
 <body>
 
-<%@ include file="../main_header.jsp"%> <!--引入头部jsp样式-->
+<%@ include file="../shop_header.jsp"%> <!--引入头部jsp样式-->
 
 <div class="content content-nav-base  login-content">
     <div class="main-nav">
@@ -137,7 +137,7 @@
         <p class="coty">校益多商城版权所有 &copy; 2018-2050</p>
     </div>
 </div>
-<%@ include file="/WEB-INF/pages/rooter.jsp" %> <!--引入尾部样式-->
+<%@ include file="/WEB-INF/pages/shop_rooter.jsp" %> <!--引入尾部样式-->
 
 </body>
 </html>
