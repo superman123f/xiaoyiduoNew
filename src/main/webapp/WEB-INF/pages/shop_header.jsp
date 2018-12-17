@@ -7,11 +7,13 @@
             <a href="#">首页</a>
         </p>
         <div class="sn-quick-menu">
+            <div class="sp-cart" style="margin-right: 22px;"><a href="/documents/shiro-jstl.html">帮助文档</a></div>
             <shiro:hasRole name="admin">
-                <div class="login"><a href="/admin/admin">后台管理</a></div>
+                <div class="sp-cart" style="margin-right: 22px;"><a href="/admin/admin">后台管理</a></div>
             </shiro:hasRole>
-
-            <div class="login"><a href="/shop/login">登录</a></div>
+            <shiro:notAuthenticated>
+                <div class="login"><a href="/shop/login">登录</a></div>
+            </shiro:notAuthenticated>
             <div class="sp-cart"><a href="/shop/shopcart">购物车</a><span>2</span></div>
         </div>
     </div>

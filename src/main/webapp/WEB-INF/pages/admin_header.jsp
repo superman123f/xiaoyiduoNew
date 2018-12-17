@@ -8,6 +8,7 @@
         <li class="layui-nav-item"><a href="member">会员列表</a></li>
     </ul>
     <ul class="layui-nav layui-layout-right">
+        <li class="layui-nav-item"><a href="/shop/commodity">首页</a></li>
         <li class="layui-nav-item">
             <a href="javascript:;">
                 <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
