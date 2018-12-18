@@ -1,6 +1,7 @@
 package com.xh.xiaoyiduo.shop.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.xh.xiaoyiduo.shop.pojo.S_USER;
 import com.xh.xiaoyiduo.shop.service.IS_USERService;
@@ -13,6 +14,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.security.auth.login.AccountNotFoundException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +22,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -182,4 +186,18 @@ public class S_USERController {
         return "/shop/findPwd";
     }
 
+    @RequestMapping("/getAllUsers")
+    @ResponseBody
+    public String getAllUsers(String page, String limit, HttpServletResponse response){
+        System.out.println("page: " + page);
+        System.out.println("limite: " + limit);
+
+        int count = userService.getUserCount();
+
+        List<S_USER> userList =userService.getAllUsers(limit, page);
+        String userListJson  = JSON.toJSONString(userList); //将对象转换成json
+
+        String json = "{\"code\":0,\"msg\":\"\",\"count\":" + count + ",\"data\":" + userListJson + "}";
+        return json;
+    }
 }

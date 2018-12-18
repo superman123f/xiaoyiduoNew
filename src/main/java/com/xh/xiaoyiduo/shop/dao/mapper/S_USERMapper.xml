@@ -66,6 +66,24 @@
     where u.NICKNAME = #{nickname,jdbcType=VARCHAR}
   </select>
 
+  <!--获取用户总数-->
+  <select id="getUserCount" resultType="int">
+    select sum(1) from S_USER
+  </select>
+
+  <!--获取所有用户-->
+  <select id="getAllUsers" resultMap="userMap" parameterType="java.lang.String">
+    SELECT *
+      FROM (SELECT r.*,ROWNUM rn
+        FROM(
+          select
+            <include refid="Base_Column_List" />
+          from S_USER order by student_no asc
+        ) r
+       where ROWNUM &lt;= #{pageSize} * #{currentPage}
+    ) WHERE rn > #{pageSize} * ( #{currentPage} - 1)
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from S_USER
     where USER_ID = #{userId,jdbcType=VARCHAR}

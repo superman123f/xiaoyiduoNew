@@ -14,6 +14,9 @@
             <shiro:notAuthenticated>
                 <div class="login"><a href="/shop/login">登录</a></div>
             </shiro:notAuthenticated>
+            <shiro:authenticated>
+                <div class="login" style="margin-right: 22px;"><a href="/user/logout">退出</a></div>
+            </shiro:authenticated>
             <div class="sp-cart"><a href="/shop/shopcart">购物车</a><span>2</span></div>
         </div>
     </div>
