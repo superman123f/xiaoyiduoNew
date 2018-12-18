@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    private final static String ADMIN_VIEW = "/admin/portal/main";
+    private final static String ADMIN_VIEW = "/admin/admin";
     private final static String ADMINROLE_VIEW = "/admin/adminRole";
     private final static String CONTROLE_VIEW = "/admin/control";
     private final static String CREATE_VIEW = "/admin/create";
@@ -27,10 +27,10 @@ public class AdminController {
         return ADMIN_VIEW;
     }
 
-    @RequestMapping("/admin1")
+    @RequestMapping("/portal")
     public String admin1(){
-        System.out.println("测试后端框架");
-        return "/admin/admin";
+        System.out.println("后台框架首页");
+        return "/admin/portal/main";
     }
 
     @RequestMapping("/adminRole")

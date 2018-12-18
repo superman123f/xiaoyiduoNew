@@ -25,8 +25,8 @@
         <div class="layui-logo">效益多后台管理系统</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="admin">用户列表</a></li>
-            <li class="layui-nav-item"><a href="member">会员列表</a></li>
+            <li class="layui-nav-item"><a href="javascript:;" onclick="choose('/admin/admin');">用户列表</a></li>
+            <li class="layui-nav-item"><a href="javascript:;" onclick="choose('/admin/member');">会员列表</a></li>
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item"><a href="/shop/commodity">首页</a></li>
@@ -48,44 +48,44 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item"><a href="index">控制台</a></li>
+                <li class="layui-nav-item"><a href="javascript:;" onclick="choose('/admin/index');">控制台</a></li>
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">系统设置</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="sysConfig">系统变量</a></dd>
+                        <dd><a href="javascript:;" onclick="choose('/admin/sysConfig');">系统变量</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;">用户管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a class="layui-this" href="admin">用户列表</a></dd>
+                        <dd><a class="layui-this" href="javascript:;" onclick="choose('/admin/admin');">用户列表</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;">权限管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="rule">规则列表</a></dd>
-                        <dd><a href="role">角色列表</a></dd>
-                        <dd><a href="adminRole">用户角色</a></dd>
+                        <dd><a href="javascript:;" onclick="choose('/admin/rule');">规则列表</a></dd>
+                        <dd><a href="javascript:;" onclick="choose('/admin/role');">角色列表</a></dd>
+                        <dd><a href="javascript:;" onclick="choose('/admin/adminRole');">用户角色</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;">会员管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="member">会员列表</a></dd>
+                        <dd><a href="javascript:;" onclick="choose('/admin/member');">会员列表</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;">开发者工具</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="control">一键生成</a></dd>
+                        <dd><a href="javascript:;" onclick="choose('/admin/control');">一键生成</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;">集成Demo</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="upload">文件上传</a></dd>
-                        <dd><a href="upload">Execel导出</a></dd>
+                        <dd><a href="javascript:;" onclick="choose('/admin/upload');">文件上传</a></dd>
+                        <dd><a href="javascript:;" onclick="choose('/admin/upload');">Execel导出</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -95,7 +95,7 @@
     <div class="layui-body">
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
-            <iframe frameborder="0" width="100%" height="500px" src="/admin/member"></iframe>
+            <iframe id="iframeBody" frameborder="0" width="100%" height="800px" src="/admin/member"></iframe>
         </div>
     </div>
 
@@ -108,5 +108,6 @@
 <script type="text/javascript" src="${ctx}/styles/layui/layui.js"></script>
 <script type="text/javascript" src="${ctx}/scripts/admin/icheck.js"></script>
 <script type="text/javascript" src="${ctx}/scripts/admin/dw.js"></script>
+<script type="text/javascript" src="${ctx}/scripts/admin/portal/main.js"></script>
 </body>
 </html>
