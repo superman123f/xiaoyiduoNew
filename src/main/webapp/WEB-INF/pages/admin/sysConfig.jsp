@@ -16,59 +16,58 @@
     <link id="layuicss-layer" rel="stylesheet" href="http://www.17sucai.com/preview/4989/2018-05-25/admin/layui/css/modules/layer/default/layer.css?v=3.1.1" media="all"></head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
-    <%@ include file="../admin_header.jsp"%> <!--引入admin头部jsp样式-->
 
-    <div class="layui-side layui-bg-black">
-        <div class="layui-side-scroll">
-            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                <li class="layui-nav-item"><a href="index">控制台</a></li>
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">系统设置<span class="layui-nav-more"></span></a>
-                    <dl class="layui-nav-child">
-                        <dd><a class="layui-this" href="sysConfig">系统变量</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">用户管理<span class="layui-nav-more"></span></a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="admin">用户列表</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">权限管理<span class="layui-nav-more"></span></a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="rule">规则列表</a></dd>
-                        <dd><a href="role">角色列表</a></dd>
-                        <dd><a href="adminRole">用户角色</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">会员管理<span class="layui-nav-more"></span></a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="member">会员列表</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">开发者工具<span class="layui-nav-more"></span></a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="control">一键生成</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">集成Demo<span class="layui-nav-more"></span></a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="upload">文件上传</a></dd>
-                        <dd><a href="upload">Execel导出</a></dd>
-                    </dl>
-                </li>
-                <span class="layui-nav-bar"></span></ul>
-        </div>
-    </div>
+    <%--<div class="layui-side layui-bg-black">--%>
+        <%--<div class="layui-side-scroll">--%>
+            <%--<!-- 左侧导航区域（可配合layui已有的垂直导航） -->--%>
+            <%--<ul class="layui-nav layui-nav-tree" lay-filter="test">--%>
+                <%--<li class="layui-nav-item"><a href="index">控制台</a></li>--%>
+                <%--<li class="layui-nav-item layui-nav-itemed">--%>
+                    <%--<a class="" href="javascript:;">系统设置<span class="layui-nav-more"></span></a>--%>
+                    <%--<dl class="layui-nav-child">--%>
+                        <%--<dd><a class="layui-this" href="sysConfig">系统变量</a></dd>--%>
+                    <%--</dl>--%>
+                <%--</li>--%>
+                <%--<li class="layui-nav-item">--%>
+                    <%--<a href="javascript:;">用户管理<span class="layui-nav-more"></span></a>--%>
+                    <%--<dl class="layui-nav-child">--%>
+                        <%--<dd><a href="admin">用户列表</a></dd>--%>
+                    <%--</dl>--%>
+                <%--</li>--%>
+                <%--<li class="layui-nav-item">--%>
+                    <%--<a href="javascript:;">权限管理<span class="layui-nav-more"></span></a>--%>
+                    <%--<dl class="layui-nav-child">--%>
+                        <%--<dd><a href="rule">规则列表</a></dd>--%>
+                        <%--<dd><a href="role">角色列表</a></dd>--%>
+                        <%--<dd><a href="adminRole">用户角色</a></dd>--%>
+                    <%--</dl>--%>
+                <%--</li>--%>
+                <%--<li class="layui-nav-item">--%>
+                    <%--<a href="javascript:;">会员管理<span class="layui-nav-more"></span></a>--%>
+                    <%--<dl class="layui-nav-child">--%>
+                        <%--<dd><a href="member">会员列表</a></dd>--%>
+                    <%--</dl>--%>
+                <%--</li>--%>
+                <%--<li class="layui-nav-item">--%>
+                    <%--<a href="javascript:;">开发者工具<span class="layui-nav-more"></span></a>--%>
+                    <%--<dl class="layui-nav-child">--%>
+                        <%--<dd><a href="control">一键生成</a></dd>--%>
+                    <%--</dl>--%>
+                <%--</li>--%>
+                <%--<li class="layui-nav-item">--%>
+                    <%--<a href="javascript:;">集成Demo<span class="layui-nav-more"></span></a>--%>
+                    <%--<dl class="layui-nav-child">--%>
+                        <%--<dd><a href="upload">文件上传</a></dd>--%>
+                        <%--<dd><a href="upload">Execel导出</a></dd>--%>
+                    <%--</dl>--%>
+                <%--</li>--%>
+                <%--<span class="layui-nav-bar"></span></ul>--%>
+        <%--</div>--%>
+    <%--</div>--%>
 
-    <div class="layui-body">
-        <!-- 内容主体区域 -->
-        <div style="padding: 15px;">
+    <%--<div class="layui-body">--%>
+        <%--<!-- 内容主体区域 -->--%>
+        <%--<div style="padding: 15px;">--%>
             <fieldset class="layui-elem-field">
                 <legend>系统设置 - 系统变量</legend>
                 <div class="layui-field-box">
@@ -144,15 +143,16 @@
                     </form>
                 </div>
             </fieldset>
-        </div>
-    </div>
+        <%--</div>--%>
+    <%--</div>--%>
 
-    <div class="layui-footer">
-        <!-- 底部固定区域 -->
-        © layui.com - 底部固定区域
-    </div>
+    <%--<div class="layui-footer">--%>
+        <%--<!-- 底部固定区域 -->--%>
+        <%--© layui.com - 底部固定区域--%>
+    <%--</div>--%>
 </div>
 </body>
-<script type="text/javascript" src="../../../scripts/jquery.min.js"></script> <script type="text/javascript" src="../../../styles/layui/layui.js"></script>
+<script type="text/javascript" src="../../../scripts/jquery.min.js"></script>
+<script type="text/javascript" src="../../../styles/layui/layui.js"></script>
 <script type="text/javascript" src="${ctx}/scripts/admin/sys_config.js"></script>
 </html>
