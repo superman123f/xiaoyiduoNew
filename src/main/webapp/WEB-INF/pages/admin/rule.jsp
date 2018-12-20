@@ -14,33 +14,99 @@
     <link rel="stylesheet" type="text/css" href="../../../styles/layui/css/layui.css">
 </head>
 <body bgcolor="white">
+<form class="layui-form" action="">
+    <div class="layui-form-item" style="text-align:center;">
+        <div class="layui-inline">
+            <div class="layui-input-inline">
+                <input autocomplete="off" class="layui-input" placeholder="请输入名称" type="text" name="name" value="">
+            </div>
+        </div>
+        <div class="layui-inline" style="text-align:left;">
+            <div class="layui-input-inline">
+                <button class="layui-btn"><i class="layui-icon"></i>查询</button>
+            </div>
+        </div>
+    </div>
+</form>
+
 <table id="demo" lay-filter="test"></table>
+
+<%--@*工具栏  在Table中使用 toolbar声明一个 Id  放置在任意位置皆可*@--%>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
 </body>
 <script type="text/javascript" src="../../../scripts/jquery.min.js"></script>
 <script type="text/javascript" src="../../../styles/layui/layui.js"></script>
 </html>
 <script>
-    layui.use('table', function(){
+    layui.use(['table', 'layer', 'form'], function(){
         var table = layui.table;
+        var layer = layui.layer;
+        var form = layui.form;
 
         //第一个实例
         table.render({
             elem: '#demo'
-            ,height: 312
             ,url: '/user/getAllUsers' //数据接口
             ,page: true //开启分页
             ,cols: [[ //表头
-                {field: 'userId', title: '用户编号', width:80, sort: true, fixed: 'left'}
-                ,{field: 'studentNo', title: '用户名', width:80, sort: true}
-                ,{field: 'nickname', title: '昵称', width:80, sort: true}
-                ,{field: 'password', title: '密码', width:80, sort: true}
-                ,{field: 'realName', title: '真实姓名', width: 177, sort: true}
-                ,{field: 'sex', title: '性别', width: 80, sort: true}
-                ,{field: 'email', title: '电子邮箱', width: 80, sort: true}
-                ,{field: 'phone', title: '手机号', width: 80, sort: true}
-                ,{field: 'dormitoryAddress', title: '宿舍地址', width: 135, sort: true}
+                {field: 'userId', title: '用户编号',  sort: true, fixed: 'left'}
+                ,{field: 'studentNo', title: '用户名',  sort: true}
+                ,{field: 'nickname', title: '昵称',  sort: true}
+                ,{field: 'password', title: '密码',  sort: true}
+                ,{field: 'realName', title: '真实姓名', sort: true}
+                ,{field: 'sex', title: '性别',  sort: true}
+                ,{field: 'email', title: '电子邮箱', sort: true}
+                ,{field: 'phone', title: '手机号',  sort: true}
+                ,{field: 'dormitoryAddress', title: '宿舍地址', sort: true}
+                ,{fixed: 'right', title: '操作', toolbar: '#barDemo', width:175, align:'center'}
             ]]
         });
+
+        //监听工具条 ----------------------------------------------- Begin-----------------------------------------------------------
+        table.on('tool(test)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+            if(layEvent === 'detail'){ //查看
+                //do somehing
+                layer.msg("click to check pages");
+            } else if(layEvent === 'del'){ //删除
+                layer.confirm('真的删除行么', function(index){
+                    // obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                    // layer.close(index);
+                    //向服务端发送删除指令
+                    $.post(
+                        "/user/deleteUser",
+                        {userId: data.userId},
+                        function(data){
+                            if(data.success){
+                                layer.msg(data.msg);
+                                obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                                layer.close(index);
+                            } else {
+                                layer.msg(data.msg);
+                            }
+                        }
+                    );
+                });
+            } else if(layEvent === 'edit'){ //编辑
+                //do something
+                layer.msg('edit pages');
+                //同步更新缓存对应的值
+                // obj.update({
+                //     username: '123'
+                //     ,title: 'xxx'
+                // });
+            }
+        });
+
+        //监听工具条 ----------------------------------------------- ENd-----------------------------------------------------------
 
     });
 </script>

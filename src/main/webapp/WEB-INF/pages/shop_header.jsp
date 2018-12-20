@@ -4,20 +4,25 @@
     <div class="site-nav w1200">
         <p class="sn-back-home">
             <i class="layui-icon layui-icon-home"></i>
-            <a href="#">首页</a>
+            <a href="/shop/commodity">首页</a>
         </p>
         <div class="sn-quick-menu">
             <div class="sp-cart" style="margin-right: 22px;"><a href="/documents/shiro-jstl.html">帮助文档</a></div>
             <shiro:hasRole name="admin">
-                <div class="sp-cart" style="margin-right: 22px;"><a href="/admin/admin">后台管理</a></div>
+                <div class="sp-cart" style="margin-right: 22px;"><a href="/admin/portal">后台管理</a></div>
             </shiro:hasRole>
+            <div class="sp-cart" style="margin-right: 22px;"><a href="/shop/shopcart">购物车</a><span>2</span></div>
+
+            <div class="sp-cart" style="margin-right: 22px;"><a href="javascript:;">
+                <shiro:principal property="nickname"></shiro:principal></a>
+            </div>
+
             <shiro:notAuthenticated>
                 <div class="login"><a href="/shop/login">登录</a></div>
             </shiro:notAuthenticated>
             <shiro:authenticated>
                 <div class="login" style="margin-right: 22px;"><a href="/user/logout">退出</a></div>
             </shiro:authenticated>
-            <div class="sp-cart"><a href="/shop/shopcart">购物车</a><span>2</span></div>
         </div>
     </div>
 </div>

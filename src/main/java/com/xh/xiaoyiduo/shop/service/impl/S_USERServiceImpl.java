@@ -15,6 +15,11 @@ public class S_USERServiceImpl implements IS_USERService {
     S_USERMapper userMapper;
 
     @Override
+    public int deleteByPrimaryKey(String userId) {
+        return userMapper.deleteByPrimaryKey(userId);
+    }
+
+    @Override
     public int insert(S_USER user) {
         return userMapper.insert(user);
     }

@@ -6,13 +6,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%@ include file="/WEB-INF/pages/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>layout 后台大布局 - Layui</title>
+    <title>校益多后台管理系统</title>
     <link rel="stylesheet" href="${ctx}/styles/layui/css/layui.css">
     <link rel="stylesheet" href="${ctx}/styles/admin/global.css">
     <link rel="stylesheet" href="${ctx}/styles/admin/icheck/minimal/red.css">
@@ -22,7 +23,7 @@
 
     <%--导航栏--%>
     <div class="layui-header">
-        <div class="layui-logo">效益多后台管理系统</div>
+        <div class="layui-logo">校益多后台管理系统</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a href="javascript:;" onclick="choose('/admin/admin');">用户列表</a></li>
@@ -33,7 +34,7 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                    贤心
+                    <shiro:principal property="nickname"></shiro:principal>
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="">基本资料</a></dd>
@@ -55,16 +56,16 @@
                         <dd><a href="javascript:;" onclick="choose('/admin/sysConfig');">系统变量</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item layui-nav-itemed">
+                <li class="layui-nav-item">
                     <a href="javascript:;">用户管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a class="layui-this" href="javascript:;" onclick="choose('/admin/admin');">用户列表</a></dd>
+                        <dd><a href="javascript:;" onclick="choose('/admin/admin');">用户列表</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item">
+                <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;">权限管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" onclick="choose('/admin/rule');">规则列表</a></dd>
+                        <dd><a class="layui-this" href="javascript:;" onclick="choose('/admin/rule');">规则列表</a></dd>
                         <dd><a href="javascript:;" onclick="choose('/admin/role');">角色列表</a></dd>
                         <dd><a href="javascript:;" onclick="choose('/admin/adminRole');">用户角色</a></dd>
                     </dl>
@@ -95,7 +96,7 @@
     <div class="layui-body">
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
-            <iframe id="iframeBody" frameborder="0" width="100%" height="800px" src="/admin/member"></iframe>
+            <iframe id="iframeBody" frameborder="0" width="100%" height="800px" src="/admin/rule"></iframe>
         </div>
     </div>
 

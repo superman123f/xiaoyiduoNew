@@ -200,4 +200,26 @@ public class S_USERController {
         String json = "{\"code\":0,\"msg\":\"\",\"count\":" + count + ",\"data\":" + userListJson + "}";
         return json;
     }
+
+    @RequestMapping("/deleteUser")
+    @ResponseBody
+    public Object deleteUser(String userId, HttpServletResponse response){
+        System.out.println("userId: " + userId);
+
+        int count = userService.deleteByPrimaryKey(userId);
+        Map<String, Object> data = new HashMap<>();
+
+        if(count > 0){
+            data.put("success", true);
+            data.put("msg", "删除用户成功");
+            System.out.println("删除用户成功");
+        } else {
+            data.put("success", false);
+            data.put("msg", "删除用户失败");
+            System.out.println("删除用户失败");
+        }
+
+        return data;
+//        return json;
+    }
 }

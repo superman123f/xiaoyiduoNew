@@ -7,6 +7,9 @@ import java.util.List;
 /**
  */
 public interface IS_USERService {
+
+    int deleteByPrimaryKey(String userId); //删除用户
+
     int insert(S_USER user); //添加用户
 
     S_USER selectByPhone(String phone); //根据手机号查询

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository("userMapper")
 public interface S_USERMapper {
-    int deleteByPrimaryKey(String userId);
+    int deleteByPrimaryKey(String userId); //删除用户
 
     int insert(S_USER record);
 
