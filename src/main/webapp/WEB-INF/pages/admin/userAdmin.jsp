@@ -38,9 +38,21 @@
 
 <%--@*工具栏  在Table中使用 toolbar声明一个 Id  放置在任意位置皆可*@--%>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <%--<a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="detail">查看</a>--%>
+    <%--<button class="layui-btn layui-btn-xs layui-btn-normal dw-dailog" dw-url="create1" dw-title="新增用户" dw-width="100%" dw-height="100%">--%>
+        <%--<i class="layui-icon">&#xe654;</i>新增--%>
+    <%--</button>--%>
+
+    <%--<button class="layui-btn layui-btn-xs layui-btn-normal">--%>
+        <%--<i class="layui-icon">&#xe642;</i>编辑--%>
+    <%--</button>--%>
+
+    <button class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">
+        <i class="layui-icon">&#xe642;</i>编辑
+    </button>
+    <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">
+        <i class="layui-icon">&#xe640;</i>删除
+    </button>
 </script>
 
 </body>

@@ -44,10 +44,10 @@
         <label class="layui-form-label">宿舍地址</label>
         <input class="layui-form-input" value="${user.dormitoryAddress}">
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">创建时间</label>
-        <input class="layui-form-input" value="${user.createTime}">
-    </div>
+    <%--<div class="layui-form-item">--%>
+        <%--<label class="layui-form-label">创建时间</label>--%>
+        <%--<input class="layui-form-input" value="${user.createTime}">--%>
+    <%--</div>--%>
 </form>
 
 </body>
