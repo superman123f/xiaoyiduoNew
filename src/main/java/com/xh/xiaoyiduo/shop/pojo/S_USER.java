@@ -1,5 +1,9 @@
 package com.xh.xiaoyiduo.shop.pojo;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,6 +25,10 @@ public class S_USER {
     private String phone;
 
     private String dormitoryAddress;
+
+    @DateTimeFormat(pattern="yyyy-MM-dd")//页面写入数据库时格式化
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")//数据库导出页面时json格式化
+    private Date createTime;
 
     private Set<S_USER_ROLES> roles = new HashSet<>();
 
@@ -94,6 +102,14 @@ public class S_USER {
 
     public void setDormitoryAddress(String dormitoryAddress) {
         this.dormitoryAddress = dormitoryAddress == null ? null : dormitoryAddress.trim();
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public Set<S_USER_ROLES> getRoles() {

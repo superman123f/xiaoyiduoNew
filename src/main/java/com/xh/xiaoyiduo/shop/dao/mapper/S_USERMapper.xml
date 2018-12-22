@@ -11,6 +11,7 @@
     <result column="EMAIL" property="email" jdbcType="VARCHAR" />
     <result column="PHONE" property="phone" jdbcType="VARCHAR" />
     <result column="DORMITORY_ADDRESS" property="dormitoryAddress" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
   </resultMap>
   <!--自定义resultMap-->
   <resultMap id="userMap" type="com.xh.xiaoyiduo.shop.pojo.S_USER">
@@ -23,6 +24,7 @@
     <result column="EMAIL" property="email" />
     <result column="PHONE" property="phone" />
     <result column="DORMITORY_ADDRESS" property="dormitoryAddress" />
+    <result column="CREATE_TIME" property="createTime" />
     <collection property="roles" ofType="com.xh.xiaoyiduo.shop.pojo.S_USER_ROLES">
       <id column="ROLE_ID" property="roleId"/>
       <result column="ROLE_NAME" property="roleName"/>
@@ -36,7 +38,7 @@
 
   </resultMap>
   <sql id="Base_Column_List" >
-    USER_ID, STUDENT_NO, NICKNAME, PASSWORD, REAL_NAME, SEX, EMAIL, PHONE, DORMITORY_ADDRESS
+    USER_ID, STUDENT_NO, NICKNAME, PASSWORD, REAL_NAME, SEX, EMAIL, PHONE, DORMITORY_ADDRESS, CREATE_TIME
   </sql>
 
   <!--根据手机号查询-->
@@ -78,7 +80,7 @@
         FROM(
           select
             <include refid="Base_Column_List" />
-          from S_USER order by student_no asc
+          from S_USER order by create_time desc
         ) r
        where ROWNUM &lt;= #{pageSize} * #{currentPage}
     ) WHERE rn > #{pageSize} * ( #{currentPage} - 1)
@@ -91,11 +93,12 @@
   <insert id="insert" parameterType="com.xh.xiaoyiduo.shop.pojo.S_USER" >
     insert into S_USER (USER_ID, STUDENT_NO, NICKNAME, 
       PASSWORD, REAL_NAME, SEX, 
-      EMAIL, PHONE, DORMITORY_ADDRESS
+      EMAIL, PHONE, DORMITORY_ADDRESS, CREATE_TIME
       )
     values (#{userId,jdbcType=VARCHAR}, #{studentNo,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{dormitoryAddress,jdbcType=VARCHAR}
+      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{dormitoryAddress,jdbcType=VARCHAR},
+      #{createTime,jdbcType=DATE}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.xh.xiaoyiduo.shop.pojo.S_USER" >
@@ -128,6 +131,9 @@
       <if test="dormitoryAddress != null" >
         DORMITORY_ADDRESS,
       </if>
+      <if test="createTime != null" >
+        CREATE_TIME
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
@@ -156,6 +162,9 @@
       </if>
       <if test="dormitoryAddress != null" >
         #{dormitoryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null " >
+        #{createTime,jdbcType=DATE}
       </if>
     </trim>
   </insert>
@@ -186,6 +195,9 @@
       <if test="dormitoryAddress != null" >
         DORMITORY_ADDRESS = #{dormitoryAddress,jdbcType=VARCHAR},
       </if>
+      <if test="createTime != null " >
+        #{createTime,jdbcType=DATE}
+      </if>
     </set>
     where USER_ID = #{userId,jdbcType=VARCHAR}
   </update>
@@ -198,7 +210,8 @@
       SEX = #{sex,jdbcType=VARCHAR},
       EMAIL = #{email,jdbcType=VARCHAR},
       PHONE = #{phone,jdbcType=VARCHAR},
-      DORMITORY_ADDRESS = #{dormitoryAddress,jdbcType=VARCHAR}
+      DORMITORY_ADDRESS = #{dormitoryAddress,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=VARCHAR}
     where USER_ID = #{userId,jdbcType=VARCHAR}
   </update>
 </mapper>

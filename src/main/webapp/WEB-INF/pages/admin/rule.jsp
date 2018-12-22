@@ -50,20 +50,25 @@
 
         //第一个实例
         table.render({
+            id: 'userId, password', //隐藏的列
             elem: '#demo'
             ,url: '/user/getAllUsers' //数据接口
             ,page: true //开启分页
             ,cols: [[ //表头
-                {field: 'userId', title: '用户编号',  sort: true, fixed: 'left'}
-                ,{field: 'studentNo', title: '用户名',  sort: true}
-                ,{field: 'nickname', title: '昵称',  sort: true}
-                ,{field: 'password', title: '密码',  sort: true}
-                ,{field: 'realName', title: '真实姓名', sort: true}
-                ,{field: 'sex', title: '性别',  sort: true}
-                ,{field: 'email', title: '电子邮箱', sort: true}
-                ,{field: 'phone', title: '手机号',  sort: true}
-                ,{field: 'dormitoryAddress', title: '宿舍地址', sort: true}
-                ,{fixed: 'right', title: '操作', toolbar: '#barDemo', width:175, align:'center'}
+                // {field: 'userId', title: '用户编号',  sort: true, fixed: 'left'} ,
+                {field: 'studentNo', title: '学号',  sort: true},
+                {field: 'nickname', title: '昵称',  sort: true},
+                // {field: 'password', title: '密码',  sort: true},
+                {field: 'realName', title: '真实姓名', sort: true},
+                {field: 'sex', title: '性别',  sort: true},
+                {field: 'email', title: '电子邮箱', sort: true},
+                {field: 'phone', title: '手机号',  sort: true},
+                {field: 'dormitoryAddress', title: '宿舍地址', sort: true},
+                // {fixed: 'createTime', title: '创建时间', width: 200},
+                {field: 'createTime', title: '创建时间', width: 200, sort: true, template: "<div>{{layui.util.toDateString(createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {fixed: 'right', title: '操作', toolbar: '#barDemo', width:175, align:'center'},
+                // ,{field: 'createTime', title: '订单创建时间', width: 200,templet: "<div>{{layui.util.toDateString(d.ordertime, 'yyyy-MM-dd HH:mm:ss')}}</div>"}
+
             ]]
         });
 
@@ -76,6 +81,23 @@
             if(layEvent === 'detail'){ //查看
                 //do somehing
                 layer.msg("click to check pages");
+
+                layer.open(
+                    {
+                        type: 2, //iframe层
+                        title: '查看页面',
+                        skin: 'layui-layer-molv',
+                        shadeClose: false,
+                        shade: 0.8,
+                        content: '/user/userInfo?userId=' + data.userId, //跳转的页面
+                        area: ['880px','660px'],
+                        cancel: function (index)
+                        {
+                            $(".layui-layer-molv").click(); ///这里用于关闭Open时触发回调函数  刷新父页面数据  一定要引入Jquery
+                        }
+                    });
+
+
             } else if(layEvent === 'del'){ //删除
                 layer.confirm('真的删除行么', function(index){
                     // obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
@@ -96,8 +118,23 @@
                     );
                 });
             } else if(layEvent === 'edit'){ //编辑
+                layer.open(
+                    {
+                        type: 2,
+                        title: '编辑页面',
+                        skin: 'layui-layer-molv',
+                        shadeClose: false,
+                        shade: 0.8,
+                        area: ['880px', '550px'],
+                        content: '/user/userInfo',//跳转的页面
+                        cancel: function (index)
+                        {
+                            $(".layui-laypage-btn").click();//这里用于关闭Open时触发回调函数  刷新父页面数据  一定要引入Jquery
+                        }
+
+                    });
                 //do something
-                layer.msg('edit pages');
+                // layer.msg('edit pages');
                 //同步更新缓存对应的值
                 // obj.update({
                 //     username: '123'

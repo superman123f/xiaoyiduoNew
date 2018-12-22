@@ -220,6 +220,12 @@ public class S_USERController {
         }
 
         return data;
-//        return json;
+    }
+
+    @RequestMapping("/userInfo")
+    public String userInfo(String userId){
+        System.out.println(userId);
+        System.out.println("查看或编辑用户信息");
+        return "/admin/yygl/userInfo";
     }
 }
