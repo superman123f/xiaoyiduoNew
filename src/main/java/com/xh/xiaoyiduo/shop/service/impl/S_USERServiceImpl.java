@@ -25,6 +25,11 @@ public class S_USERServiceImpl implements IS_USERService {
     }
 
     @Override
+    public S_USER selectByUserId(String userId) {
+        return userMapper.selectByUserId(userId);
+    }
+
+    @Override
     public S_USER selectByPhone(String phone) {
         return userMapper.selectByPhone(phone);
     }
@@ -40,12 +45,17 @@ public class S_USERServiceImpl implements IS_USERService {
     }
 
     @Override
-    public int getUserCount() {
-        return userMapper.getUserCount();
+    public Integer getUserCount(String studentNo) {
+        return userMapper.getUserCount(studentNo);
     }
 
     @Override
-    public List<S_USER> getAllUsers(String pageSize, String currentPage) {
-        return userMapper.getAllUsers(pageSize, currentPage);
+    public List<S_USER> getAllUsers(String pageSize, String currentPage, String studnetNo) {
+        return userMapper.getAllUsers(pageSize, currentPage, studnetNo);
+    }
+
+    @Override
+    public List<S_USER> fuzzyQueryUsers(String pageSize, String currentPage, String studentNo) {
+        return userMapper.fuzzyQueryUsers(pageSize, currentPage, studentNo);
     }
 }

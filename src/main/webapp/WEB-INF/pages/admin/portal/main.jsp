@@ -95,7 +95,7 @@
 
     <div class="layui-body">
         <!-- 内容主体区域 -->
-        <div style="padding: 15px;">
+        <div style="">
             <iframe id="iframeBody" frameborder="0" width="100%" height="800px" src="/admin/rule"></iframe>
         </div>
     </div>

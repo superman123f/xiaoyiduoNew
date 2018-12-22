@@ -13,6 +13,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -37,6 +38,12 @@ public class S_USERController {
     @Autowired
     IS_USERService userService;
 
+    /**
+     * 登录校验
+     * @param userAccount
+     * @param password
+     * @return
+     */
     @RequestMapping("/login")
     public String login(String userAccount, String password){
         System.out.println("登录用户校验身份");
@@ -62,6 +69,10 @@ public class S_USERController {
         return "/shop/commodity";
     }
 
+    /**
+     * 退出当前用户
+     * @return
+     */
     @RequestMapping("/logout")
     public String logout(){
         Subject currentUser = SecurityUtils.getSubject();
@@ -83,6 +94,12 @@ public class S_USERController {
         return "/shop/register";
     }
 
+    /**
+     * 注册
+     * @param user
+     * @param request
+     * @return
+     */
     @RequestMapping("/register")
     public String register(S_USER user, HttpServletRequest request){
         System.out.println("studentNo==>" + user.getStudentNo());
@@ -129,7 +146,13 @@ public class S_USERController {
         return "/shop/login";
     }
 
-//    获取手机验证码
+
+    /**
+     * 获取手机验证码
+     * @param phoneNumber
+     * @param request
+     * @param response
+     */
     @RequestMapping("/getPhoneCode")
     public void getPhoneCode(String phoneNumber, HttpServletRequest request, HttpServletResponse response){
         System.out.println("phoneNumber " + phoneNumber);
@@ -186,21 +209,70 @@ public class S_USERController {
         return "/shop/findPwd";
     }
 
+    /**
+     * 获取用户列表
+     * @param limit
+     * @param page
+     * @param response
+     * @return
+     */
     @RequestMapping("/getAllUsers")
     @ResponseBody
-    public String getAllUsers(String page, String limit, HttpServletResponse response){
+    public String getAllUsers(String limit, String page, String studentNo, HttpServletResponse response){
         System.out.println("page: " + page);
         System.out.println("limite: " + limit);
+        System.out.println("studentNo: " + studentNo);
 
-        int count = userService.getUserCount();
+        Integer i = userService.getUserCount(studentNo);
+        int count = 0;
+        if(i == null){
+            System.out.println("not account");
+        } else {
+            count = i.intValue();
+            System.out.println("account exist");
+        }
+//        if(i != null){
+//            count = i.intValue();
+//        } else {
+//            System.out.println("该用户不存在");
+//        }
 
-        List<S_USER> userList =userService.getAllUsers(limit, page);
+        List<S_USER> userList = userService.getAllUsers(limit, page, studentNo);
         String userListJson  = JSON.toJSONString(userList); //将对象转换成json
 
         String json = "{\"code\":0,\"msg\":\"\",\"count\":" + count + ",\"data\":" + userListJson + "}";
         return json;
     }
 
+
+    /**
+     * 搜索用户
+     * @param studentNo
+     * @return
+     */
+    @RequestMapping("/searchUser")
+    @ResponseBody
+    public String searchUser(String limit, String page, String studentNo, HttpServletResponse response){
+        System.out.println("=======================");
+        System.out.println("搜索学号为： " + studentNo);
+
+        Integer count = userService.getUserCount(studentNo);
+
+        List<S_USER> userList = userService.fuzzyQueryUsers(limit, page, studentNo);
+        String userListJson = JSON.toJSONString(userList);
+
+        String json = "{\"code\":0,\"msg\":\"\",\"count\":" + count + ",\"data\":" + userListJson + "}";
+
+        return  json;
+    }
+
+
+    /**
+     * 删除用户
+     * @param userId
+     * @param response
+     * @return
+     */
     @RequestMapping("/deleteUser")
     @ResponseBody
     public Object deleteUser(String userId, HttpServletResponse response){
@@ -222,10 +294,17 @@ public class S_USERController {
         return data;
     }
 
+    /**
+     * 查看或编辑用户信息
+     * @param userId
+     * @return
+     */
     @RequestMapping("/userInfo")
-    public String userInfo(String userId){
-        System.out.println(userId);
+    public String userInfo(String userId, Model model){
+        System.out.println("用户编号为： " + userId);
         System.out.println("查看或编辑用户信息");
+        S_USER user = userService.selectByUserId(userId);
+        model.addAttribute("user", user);
         return "/admin/yygl/userInfo";
     }
 }

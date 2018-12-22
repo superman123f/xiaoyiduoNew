@@ -41,6 +41,16 @@
     USER_ID, STUDENT_NO, NICKNAME, PASSWORD, REAL_NAME, SEX, EMAIL, PHONE, DORMITORY_ADDRESS, CREATE_TIME
   </sql>
 
+  <!--根据用户编号查询-->
+  <select id="selectByUserId" resultMap="userMap" parameterType="java.lang.String" >
+    select u.*, r.*, p.* from S_USER u
+       left join S_USER_USERROLES ur on u.user_id = ur.user_id
+       left join S_USER_ROLES r on r.role_id = ur.role_id
+       left join S_USER_ROLEPERMISSIONS rp on rp.role_id = r.role_id
+       left join S_USER_PERMISSIONS p on rp.permission_id = p.permission_id
+    where u.USER_ID = #{userId,jdbcType=VARCHAR}
+  </select>
+
   <!--根据手机号查询-->
   <select id="selectByPhone" resultMap="userMap" parameterType="java.lang.String" >
     select u.*, r.*, p.* from S_USER u inner join S_USER_USERROLES ur on u.user_id = ur.user_id
@@ -69,8 +79,12 @@
   </select>
 
   <!--获取用户总数-->
-  <select id="getUserCount" resultType="int">
+  <select id="getUserCount" resultType="Integer">
     select sum(1) from S_USER
+    <if test="studentNo != null" >
+      where
+        student_no like concat('%',concat(#{studentNo}, '%'))
+    </if>
   </select>
 
   <!--获取所有用户-->
@@ -80,11 +94,32 @@
         FROM(
           select
             <include refid="Base_Column_List" />
-          from S_USER order by create_time desc
+          from S_USER
+            <if test="studentNo != null" >
+              where
+              student_no like concat('%',concat(#{studentNo}, '%'))
+            </if>
+          order by create_time desc
         ) r
        where ROWNUM &lt;= #{pageSize} * #{currentPage}
     ) WHERE rn > #{pageSize} * ( #{currentPage} - 1)
   </select>
+
+  <!--模糊查询用户-->
+  <select id="fuzzyQueryUsers" resultMap="userMap" parameterType="java.lang.String">
+    SELECT *
+      FROM (SELECT r.*,ROWNUM rn
+        FROM(
+          select
+            <include refid="Base_Column_List" />
+          from S_USER
+            where student_no like concat('%',concat(#{studentNo}, '%'))
+            order by create_time desc
+        ) r
+      where ROWNUM &lt;= #{pageSize} * #{currentPage}
+    ) WHERE rn > #{pageSize} * ( #{currentPage} - 1)
+  </select>
+
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from S_USER

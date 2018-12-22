@@ -14,15 +14,19 @@ public interface S_USERMapper {
 
     int insertSelective(S_USER record);
 
+    S_USER selectByUserId(String userId); //根据用户编号查询
+
     S_USER selectByPhone(String phone); //根据手机号查询
 
     S_USER selectByStudentNo(String studentNo); //根据学号查询
 
     S_USER selectByNickname(String nickname); //根据昵称查询
 
-    int getUserCount(); //获取用户总数
+    Integer getUserCount(@Param("studentNo")String studentNo); //获取用户总数
 
-    List<S_USER> getAllUsers(@Param("pageSize")String pageSize, @Param("currentPage")String currentPage);  //获取所有用户
+    List<S_USER> getAllUsers(@Param("pageSize")String pageSize, @Param("currentPage")String currentPage, @Param("studentNo")String studentNo);  //获取所有用户
+
+    List<S_USER> fuzzyQueryUsers(@Param("pageSize")String pageSize, @Param("currentPage")String currentPage, @Param("studentNo")String studentNo); //模糊查询用户
 
     int updateByPrimaryKeySelective(S_USER record);
 
