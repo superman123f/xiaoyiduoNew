@@ -56,16 +56,16 @@
                         <dd><a href="javascript:;" onclick="choose('/admin/sysConfig');">系统变量</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item">
+                <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;">用户管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" onclick="choose('/admin/admin');">用户列表</a></dd>
+                        <dd><a class="layui-this"  href="javascript:;" onclick="choose('/admin/userAdmin');">用户列表</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item layui-nav-itemed">
+                <li class="layui-nav-item">
                     <a href="javascript:;">权限管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a class="layui-this" href="javascript:;" onclick="choose('/admin/rule');">规则列表</a></dd>
+                        <dd><a href="javascript:;" onclick="choose('/admin/admin');">规则列表</a></dd>
                         <dd><a href="javascript:;" onclick="choose('/admin/role');">角色列表</a></dd>
                         <dd><a href="javascript:;" onclick="choose('/admin/adminRole');">用户角色</a></dd>
                     </dl>
@@ -96,7 +96,7 @@
     <div class="layui-body">
         <!-- 内容主体区域 -->
         <div style="">
-            <iframe id="iframeBody" frameborder="0" width="100%" height="800px" src="/admin/rule"></iframe>
+            <iframe id="iframeBody" frameborder="0" width="100%" height="800px" src="/admin/userAdmin"></iframe>
         </div>
     </div>
 

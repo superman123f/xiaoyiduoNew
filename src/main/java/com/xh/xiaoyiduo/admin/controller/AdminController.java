@@ -15,7 +15,7 @@ public class AdminController {
     private final static String INDEX_VIEW = "/admin/index";
     private final static String MEMBER_VIEW = "/admin/member";
     private final static String ROLE_VIEW = "/admin/role";
-    private final static String RULE_VIEW = "/admin/rule";
+    private final static String USERADMIN_VIEW = "/admin/userAdmin";
     private final static String SYSCONFIG_VIEW = "/admin/sysConfig";
     private final static String UPLOAD_VIEW = "/admin/upload";
 
@@ -63,10 +63,10 @@ public class AdminController {
         System.out.println("测试后端框架");
         return ROLE_VIEW;
     }
-    @RequestMapping("/rule")
+    @RequestMapping("/userAdmin")
     public String rule(){
         System.out.println("测试后端框架");
-        return RULE_VIEW;
+        return USERADMIN_VIEW;
     }
 
     @RequestMapping("/sysConfig")
