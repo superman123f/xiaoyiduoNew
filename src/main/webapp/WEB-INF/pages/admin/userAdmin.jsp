@@ -61,7 +61,7 @@
             // ,where: {studentNo: "3"}
             ,page: true //开启分页
             ,cols: [[ //表头
-                {field: 'userId', title: '用户编号',  sort: true, fixed: 'left'} ,
+                // {field: 'userId', title: '用户编号',  sort: true, fixed: 'left'} ,
                 {field: 'studentNo', title: '学号',  sort: true},
                 {field: 'nickname', title: '昵称',  sort: true},
                 // {field: 'password', title: '密码',  sort: true},
