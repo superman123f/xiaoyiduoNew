@@ -53,28 +53,31 @@
 
   <!--根据手机号查询-->
   <select id="selectByPhone" resultMap="userMap" parameterType="java.lang.String" >
-    select u.*, r.*, p.* from S_USER u inner join S_USER_USERROLES ur on u.user_id = ur.user_id
-       inner join S_USER_ROLES r on r.role_id = ur.role_id
-       inner join S_USER_ROLEPERMISSIONS rp on rp.role_id = r.role_id
-       inner join S_USER_PERMISSIONS p on rp.permission_id = p.permission_id
+    select u.*, r.*, p.* from S_USER u
+       left join S_USER_USERROLES ur on u.user_id = ur.user_id
+       left join S_USER_ROLES r on r.role_id = ur.role_id
+       left join S_USER_ROLEPERMISSIONS rp on rp.role_id = r.role_id
+       left join S_USER_PERMISSIONS p on rp.permission_id = p.permission_id
     where u.PHONE = #{phone,jdbcType=VARCHAR}
   </select>
 
   <!--根据学号查询-->
   <select id="selectByStudentNo" resultMap="userMap" parameterType="java.lang.String" >
-    select u.*, r.*, p.* from S_USER u inner join S_USER_USERROLES ur on u.user_id = ur.user_id
-       inner join S_USER_ROLES r on r.role_id = ur.role_id
-       inner join S_USER_ROLEPERMISSIONS rp on rp.role_id = r.role_id
-       inner join S_USER_PERMISSIONS p on rp.permission_id = p.permission_id
+    select u.*, r.*, p.* from S_USER u
+       left join S_USER_USERROLES ur on u.user_id = ur.user_id
+       left join S_USER_ROLES r on r.role_id = ur.role_id
+       left join S_USER_ROLEPERMISSIONS rp on rp.role_id = r.role_id
+       left join S_USER_PERMISSIONS p on rp.permission_id = p.permission_id
     where u.STUDENT_NO = #{studentNo,jdbcType=VARCHAR}
   </select>
 
   <!--根据昵称查询-->
   <select id="selectByNickname" resultMap="userMap" parameterType="java.lang.String" >
-    select u.*, r.*, p.* from S_USER u inner join S_USER_USERROLES ur on u.user_id = ur.user_id
-       inner join S_USER_ROLES r on r.role_id = ur.role_id
-       inner join S_USER_ROLEPERMISSIONS rp on rp.role_id = r.role_id
-       inner join S_USER_PERMISSIONS p on rp.permission_id = p.permission_id
+    select u.*, r.*, p.* from S_USER u
+       left join S_USER_USERROLES ur on u.user_id = ur.user_id
+       left join S_USER_ROLES r on r.role_id = ur.role_id
+       left join S_USER_ROLEPERMISSIONS rp on rp.role_id = r.role_id
+       left join S_USER_PERMISSIONS p on rp.permission_id = p.permission_id
     where u.NICKNAME = #{nickname,jdbcType=VARCHAR}
   </select>
 
