@@ -256,4 +256,11 @@
       CREATE_TIME = #{createTime,jdbcType=VARCHAR}
     where USER_ID = #{userId,jdbcType=VARCHAR}
   </update>
+
+  <!--关联角色-->
+  <insert id="associateRoleByRoleId" parameterType="java.lang.String">
+    insert into S_USER_USERROLES
+     (USER_ROLE_ID, USER_ID, ROLE_ID)
+     values (#{userRoleId, jdbcType=VARCHAR}, #{userId, jdbcType=VARCHAR}, #{roleId, jdbcType=VARCHAR})
+  </insert>
 </mapper>

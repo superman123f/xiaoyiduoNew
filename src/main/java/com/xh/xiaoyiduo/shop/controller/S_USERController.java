@@ -344,16 +344,28 @@ public class S_USERController {
 
         Map<String, Object> data = new HashMap<>();
 
-        if(user.getUserId().equals("") || user.getUserId() == null){ //新增用户，判断id是否存在
+        //新增用户，判断id是否存在
+        if(user.getUserId().equals("") || user.getUserId() == null){
 
             String uuid = UUID.randomUUID().toString().replaceAll("\\-", "");
             String passowrd = ShiroSHAUtil.sha1ToPassword(user.getNickname(), "123456"); //初始密码为123456，后期改为用户的手机号
 
             user.setUserId(uuid);  //插入主键
-//            user.setCreateTime(date);  //时间用sql生成，sysdate
+            //user.setCreateTime(date);  //时间用sql生成，sysdate
             user.setPassword(passowrd);
 
-            int i = userService.insert(user);
+            int i = userService.insert(user); //添加用户
+
+            String userRoleId = UUID.randomUUID().toString().replaceAll("\\-", "");
+            //赋予买家权限
+            int j = userService.associateRoleByRoleId(userRoleId, uuid, "3"); //3为买家
+
+            if(j > 0){
+                System.out.println("赋予买家权限成功");
+            } else {
+                System.out.println("赋予买家权限失败");
+            }
+
             if(i > 0) {
                 System.out.println("新增用户成功");
                 data.put("success", true);

@@ -74,4 +74,9 @@ public class S_USERServiceImpl implements IS_USERService {
     public int updateUserInfoByUserId(S_USER user) {
         return userMapper.updateUserInfoByUserId(user);
     }
+
+    @Override
+    public int associateRoleByRoleId(String userRoleId, String userId, String roleId) {
+        return userMapper.associateRoleByRoleId(userRoleId, userId, roleId);
+    }
 }

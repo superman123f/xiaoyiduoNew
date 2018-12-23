@@ -31,4 +31,6 @@ public interface IS_USERService {
 
     int updateUserInfoByUserId(S_USER user); //更新用户信息
 
+    int associateRoleByRoleId(String userRoleId, String userId, String roleId); //关联角色
+
 }

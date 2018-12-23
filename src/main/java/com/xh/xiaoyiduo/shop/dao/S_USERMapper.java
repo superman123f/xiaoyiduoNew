@@ -22,13 +22,15 @@ public interface S_USERMapper {
 
     S_USER selectByNickname(String nickname); //根据昵称查询
 
-    Integer getUserCount(@Param("studentNo")String studentNo); //获取用户总数
+    Integer getUserCount(@Param("studentNo") String studentNo); //获取用户总数
 
-    List<S_USER> getAllUsers(@Param("pageSize")String pageSize, @Param("currentPage")String currentPage, @Param("studentNo")String studentNo);  //获取所有用户
+    List<S_USER> getAllUsers(@Param("pageSize") String pageSize, @Param("currentPage") String currentPage, @Param("studentNo") String studentNo);  //获取所有用户
 
-    List<S_USER> fuzzyQueryUsers(@Param("pageSize")String pageSize, @Param("currentPage")String currentPage, @Param("studentNo")String studentNo); //模糊查询用户
+    List<S_USER> fuzzyQueryUsers(@Param("pageSize") String pageSize, @Param("currentPage") String currentPage, @Param("studentNo") String studentNo); //模糊查询用户
 
     int updateUserInfoByUserId(S_USER user); //更新用户信息
 
     int updateByPrimaryKey(S_USER record);
+
+    int associateRoleByRoleId(@Param("userRoleId")String userRoleId, @Param("userId")String userId, @Param("roleId")String roleId); //关联角色
 }
