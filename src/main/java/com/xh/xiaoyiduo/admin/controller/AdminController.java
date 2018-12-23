@@ -18,6 +18,7 @@ public class AdminController {
     private final static String USERADMIN_VIEW = "/admin/userAdmin";
     private final static String SYSCONFIG_VIEW = "/admin/sysConfig";
     private final static String UPLOAD_VIEW = "/admin/upload";
+    private final static String GOODADMIN_VIEW = "/admin/spgl/goodAdmin";
 
 
 
@@ -78,5 +79,11 @@ public class AdminController {
     public String upload(){
         System.out.println("测试后端框架");
         return UPLOAD_VIEW;
+    }
+
+    @RequestMapping("/goodAdmin")
+    public String goodAdmin(){
+        System.out.println("测试后端框架");
+        return GOODADMIN_VIEW;
     }
 }

@@ -51,17 +51,21 @@
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
                 <li class="layui-nav-item"><a href="javascript:;" onclick="choose('/admin/index');">控制台</a></li>
                 <li class="layui-nav-item">
-                    <a class="" href="javascript:;">系统设置</a>
+                    <a class="" href="javascript:;">商品管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" onclick="choose('/admin/sysConfig');">系统变量</a></dd>
+                        <dd><a href="javascript:;" onclick="choose('/admin/goodAdmin');">商品列表</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a href="javascript:;">用户管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a class="layui-this"  href="javascript:;" onclick="choose('/admin/userAdmin');">用户列表</a></dd>
-                    </dl>
-                </li>
+
+                <shiro:hasRole name="admin">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;">用户管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a class="layui-this"  href="javascript:;" onclick="choose('/admin/userAdmin');">用户列表</a></dd>
+                        </dl>
+                    </li>
+                </shiro:hasRole>
+
                 <li class="layui-nav-item">
                     <a href="javascript:;">权限管理</a>
                     <dl class="layui-nav-child">
@@ -80,6 +84,12 @@
                     <a href="javascript:;">开发者工具</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" onclick="choose('/admin/control');">一键生成</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;">系统设置</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" onclick="choose('/admin/sysConfig');">系统变量</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">

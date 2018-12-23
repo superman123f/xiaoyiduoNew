@@ -68,7 +68,7 @@ public class ShiroConfiguration {
         bean.setSecurityManager(manager);
         //配置登录的url和登录成功的url
         // bean.setLoginUrl("/s/login");
-        bean.setLoginUrl("/s/login");
+        bean.setLoginUrl("/user/login");
         // 登录成功跳转的页面
         bean.setSuccessUrl("/s/home");
         //设置未授权跳转的页面
@@ -103,7 +103,7 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/scripts/**", "anon");
 
         filterChainDefinitionMap.put("/shop/**", "anon"); //访问商城资源
-        filterChainDefinitionMap.put("/admin/**", "anon"); //访问后端模板资源
+        filterChainDefinitionMap.put("/admin/**", "authc"); //访问后端模板资源
         filterChainDefinitionMap.put("/register", "anon");
 
         // 具有某个角色的用户可以访问

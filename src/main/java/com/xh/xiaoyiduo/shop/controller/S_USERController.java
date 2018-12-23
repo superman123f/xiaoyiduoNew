@@ -58,8 +58,11 @@ public class S_USERController {
             currentUser.login(token);
         } catch (UnknownAccountException e) {
             System.out.println("用户名不存在");
+            return "/shop/login";
+
         } catch (IncorrectCredentialsException e) {
             System.out.println("密码错误");
+            return "/shop/login";
         }
 
 //        S_USER user = userService.selectByPhone(userAccount);

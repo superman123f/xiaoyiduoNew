@@ -8,16 +8,13 @@
         </p>
         <div class="sn-quick-menu">
             <div class="sp-cart" style="margin-right: 22px;"><a href="/documents/shiro-jstl.html">帮助文档</a></div>
-            <shiro:hasRole name="admin">
+            <shiro:hasAnyRoles name="admin,seller">
                 <div class="sp-cart" style="margin-right: 22px;"><a href="/admin/portal">后台管理</a></div>
-            </shiro:hasRole>
-            <shiro:hasRole name="buyer">
-                <div class="sp-cart" style="margin-right: 22px;"><a href="/admin/portal">测试买家权限</a></div>
-            </shiro:hasRole>
+            </shiro:hasAnyRoles>
 
-            <shiro:hasRole name="buyer">
+            <shiro:hasAnyRoles name="seller,buyer">
                 <div class="sp-cart" style="margin-right: 22px;"><a href="/shop/shopcart">购物车</a><span>2</span></div>
-            </shiro:hasRole>
+            </shiro:hasAnyRoles>
 
             <div class="sp-cart" style="margin-right: 22px;"><a href="javascript:;">
                 <shiro:principal property="nickname"></shiro:principal></a>
