@@ -127,7 +127,7 @@
                     <%--按钮区--%>
                     <div class="layui-form-item">
                         <div class="layui-input-block">
-                            <input type="submit" class="layui-btn" value="注册">
+                            <input id="registerBtn" type="button" class="layui-btn" value="注册">
                             <input type="reset" class="layui-btn" value="重置">
                         </div>
                     </div>

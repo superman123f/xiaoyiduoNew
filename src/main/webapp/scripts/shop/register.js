@@ -1,6 +1,34 @@
 // layui.use('form', function(){
 //     var form = layui.form();
 // });
+$(function(){
+    $("#registerBtn").click(function(){
+        var studentNo = $("#studentNo").val();
+        var nickname = $("#nickname").val();
+        var password = $("#password").val();
+        var phone = $("#phone").val();
+        $.post("/user/register",
+            {
+                studentNo: studentNo,
+                nickname: nickname,
+                password: password,
+                phone: phone
+            },
+            function(data){
+                if(data.codeTimeOut){
+                    layer.msg(data.codeMsg);
+                } else {
+                    if(data.success){
+                        // layer.msg(data.userMsg);
+                        window.location.href = "/shop/login";
+                    } else {
+                        layer.msg(data.userMsg);
+                    }
+                }
+
+        });
+    });
+});
 
 layui.config({
     base: '../../../scripts/shop' //你存放新模块的目录，注意，不是layui的模块目录

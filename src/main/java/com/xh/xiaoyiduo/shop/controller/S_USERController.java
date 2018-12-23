@@ -101,9 +101,12 @@ public class S_USERController {
      * @return
      */
     @RequestMapping("/register")
-    public String register(S_USER user, HttpServletRequest request){
+    @ResponseBody
+    public Object register(S_USER user, HttpServletRequest request){
         System.out.println("studentNo==>" + user.getStudentNo());
         System.out.println("nickname==>" + user.getNickname());
+
+        Map<String, Object> data = new HashMap<>();
 
         //校验验证码的有效时间
         HttpSession session = request.getSession();
@@ -116,34 +119,45 @@ public class S_USERController {
             if(leadTime > delayTime){
                 session.removeAttribute("random");  //清除验证码
                 System.out.println("验证码超过有效时间");
+                data.put("codeTimeOut", true);
+                data.put("codeMsg", "验证码超过有效时间,请重新获取");
             }else{
-                System.out.println("正在注册");
+                System.out.println("正在注册。。。");
+
+                String uuid = UUID.randomUUID().toString().replaceAll("\\-", "");
+                String passowrd = ShiroSHAUtil.sha1ToPassword(user.getNickname(), user.getPassword());
+
+                user.setUserId(uuid);  //插入主键
+                //user.setCreateTime(date);  //时间用sql生成，sysdate
+                user.setPassword(passowrd);
+
+                int i = userService.insert(user);
+                if(i > 0){
+                    System.out.println("添加用户成功！");
+                    data.put("success", true);
+                    data.put("userMsg", "添加用户成功");
+                }else {
+                    System.out.println("添加失败！");
+                    data.put("success", false);
+                    data.put("userMsg", "添加用户失败");
+                }
+
+                //赋予买家权限
+                int j = userService.associateRoleByRoleId(uuid, uuid, "3"); //3为买家
+
+                if(j > 0){
+                    System.out.println("赋予买家权限成功");
+                } else {
+                    System.out.println("赋予买家权限失败");
+                }
             }
         }else {
-            System.out.println("验证码失效，请重新获取验证码");
+            System.out.println("验证码失效，请重新获取");
+            data.put("codeTimeOut", true);
+            data.put("codeMsg", "验证码失效，请重新获取");
         }
 
-
-
-//        System.out.println("password==>" + password);
-
-//        S_USER user = new S_USER();
-//        user.setDormitoryAddress("f");
-//        user.setEmail("f");
-//        user.setNickname("f");
-//        user.setPassword("f");
-//        user.setPhone("f");
-//        user.setRealName("f");
-//        user.setSex("d");
-//        user.setStudentNo("d");
-//        user.setUserId("d");
-//        int i = userService.insert(user);
-//        if(i > 0){
-//            System.out.println("添加用户成功！");
-//        }else {
-//            System.out.println("添加失败！");
-//        }
-        return "/shop/login";
+        return data;
     }
 
 

@@ -263,4 +263,10 @@
      (USER_ROLE_ID, USER_ID, ROLE_ID)
      values (#{userRoleId, jdbcType=VARCHAR}, #{userId, jdbcType=VARCHAR}, #{roleId, jdbcType=VARCHAR})
   </insert>
+
+  <!--取消关联角色-->
+  <delete id="cancelAssociateRoleByUserId" parameterType="java.lang.String" >
+    delete from S_USER_USERROLES
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </delete>
 </mapper>

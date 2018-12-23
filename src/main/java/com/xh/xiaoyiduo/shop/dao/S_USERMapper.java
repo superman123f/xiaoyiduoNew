@@ -33,4 +33,5 @@ public interface S_USERMapper {
     int updateByPrimaryKey(S_USER record);
 
     int associateRoleByRoleId(@Param("userRoleId")String userRoleId, @Param("userId")String userId, @Param("roleId")String roleId); //关联角色
+    int cancelAssociateRoleByUserId(@Param("userId")String userId);
 }

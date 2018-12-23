@@ -125,18 +125,12 @@ layui.use(['table', 'layer', 'form'], function(){
                            },
                            function(data){
                                if(data.success){
-                                   layer.msg(data.msg);
+                                   // layer.msg(data.msg);
+                                   window.location.reload();
                                } else {
                                    layer.msg(data.msg);
                                }
                        });
-                        table.reload('userId', //与table中的id要一致
-                            {
-                                page:
-                                    {
-                                        curr: 1 //重新从第 1 页开始
-                                    }
-                            });
                        layer.close(index);
                     });
                 } else {

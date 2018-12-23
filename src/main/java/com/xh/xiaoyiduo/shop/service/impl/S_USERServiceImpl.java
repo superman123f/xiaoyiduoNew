@@ -16,6 +16,9 @@ public class S_USERServiceImpl implements IS_USERService {
 
     @Override
     public int deleteByPrimaryKey(String userId) {
+        int i = userMapper.cancelAssociateRoleByUserId(userId);
+        String msg = i > 0 ? "取消关联角色成功" : "取消关联角色失败";
+        System.out.println(msg);
         return userMapper.deleteByPrimaryKey(userId);
     }
 
@@ -23,6 +26,7 @@ public class S_USERServiceImpl implements IS_USERService {
     public int deleteByUserIds(String[] userId) {
         int count = 0;
         for(int i = 0 ; i < userId.length; i++){
+            userMapper.cancelAssociateRoleByUserId(userId[i]); //先删除外表
             if(userMapper.deleteByPrimaryKey(userId[i]) > 0){
                 count++;
             }
