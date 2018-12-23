@@ -27,5 +27,6 @@ public interface IS_USERService {
 
     List<S_USER> fuzzyQueryUsers(String pageSize, String currentPage, String studentNo); //模糊查询用户
 
+    int updateUserInfoByUserId(S_USER user); //更新用户信息
 
 }

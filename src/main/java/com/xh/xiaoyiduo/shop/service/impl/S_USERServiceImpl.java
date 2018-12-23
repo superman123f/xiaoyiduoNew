@@ -58,4 +58,9 @@ public class S_USERServiceImpl implements IS_USERService {
     public List<S_USER> fuzzyQueryUsers(String pageSize, String currentPage, String studentNo) {
         return userMapper.fuzzyQueryUsers(pageSize, currentPage, studentNo);
     }
+
+    @Override
+    public int updateUserInfoByUserId(S_USER user) {
+        return userMapper.updateUserInfoByUserId(user);
+    }
 }

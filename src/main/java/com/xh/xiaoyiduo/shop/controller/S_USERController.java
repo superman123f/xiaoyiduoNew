@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.xh.xiaoyiduo.shop.pojo.S_USER;
 import com.xh.xiaoyiduo.shop.service.IS_USERService;
+import com.xh.xiaoyiduo.utils.ShiroSHAUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -24,10 +25,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  */
@@ -306,5 +306,42 @@ public class S_USERController {
         S_USER user = userService.selectByUserId(userId);
         model.addAttribute("user", user);
         return "/admin/yygl/userInfo";
+    }
+
+    /**
+     * 新增、更新
+     * @return
+     */
+    @RequestMapping("/updateUserInfo")
+    public String updateUserInfo(S_USER user){
+        if(user.getUserId().equals("") || user.getUserId() == null){ //新增用户，判断id是否存在
+            String uuid = UUID.randomUUID().toString().replaceAll("\\-", "");
+//            ShiroSHAUtil
+            String passowrd = ShiroSHAUtil.sha1ToPassword(user.getNickname(), "123456"); //初始密码为123456，后期改为用户的手机号
+
+            user.setUserId(uuid);  //插入主键
+//            user.setCreateTime(date);  //时间用sql生成，sysdate
+            user.setPassword(passowrd);
+
+            int i = userService.insert(user);
+            if(i > 0) {
+                System.out.println("新增用户成功");
+            } else {
+                System.out.println("新增用户失败");
+            }
+            return "/admin/portal/main";
+
+        } else { //更新用户
+            System.out.println("更新用户信息");
+            System.out.println(user);
+            int i = userService.updateUserInfoByUserId(user);
+            if(i > 0) {
+                System.out.println("更新用户成功");
+            } else {
+                System.out.println("更新用户失败");
+            }
+            return "/admin/portal/main";
+        }
+
     }
 }

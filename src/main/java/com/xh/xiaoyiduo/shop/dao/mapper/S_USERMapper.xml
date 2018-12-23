@@ -136,7 +136,8 @@
     values (#{userId,jdbcType=VARCHAR}, #{studentNo,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{dormitoryAddress,jdbcType=VARCHAR},
-      #{createTime,jdbcType=DATE}
+      <!--#{createTime,jdbcType=DATE}-->
+      sysdate
       )
   </insert>
   <insert id="insertSelective" parameterType="com.xh.xiaoyiduo.shop.pojo.S_USER" >
@@ -206,7 +207,9 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.xh.xiaoyiduo.shop.pojo.S_USER" >
+
+  <!--更新用户信息-->
+  <update id="updateUserInfoByUserId" parameterType="com.xh.xiaoyiduo.shop.pojo.S_USER" >
     update S_USER
     <set >
       <if test="studentNo != null" >
@@ -239,6 +242,7 @@
     </set>
     where USER_ID = #{userId,jdbcType=VARCHAR}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="com.xh.xiaoyiduo.shop.pojo.S_USER" >
     update S_USER
     set STUDENT_NO = #{studentNo,jdbcType=VARCHAR},
