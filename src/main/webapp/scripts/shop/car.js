@@ -1,8 +1,3 @@
-/*
-*@Name: 校益多商城
-*@Author: xuzhiwen
-*@Copyright:layui.com
-*/
 
 layui.define(['layer'],function(exports){
 	var layer = layui.layer;

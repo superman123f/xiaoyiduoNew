@@ -12,9 +12,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="../../../styles/shop/main.css">
-    <link rel="stylesheet" type="text/css" href="../../../styles/layui/css/layui.css">
+    <title>校益多</title>
+    <link rel="stylesheet" type="text/css" href="${ctx}/styles/shop/main.css">
+    <link rel="stylesheet" type="text/css" href="${ctx}/styles/layui/css/layui.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 </head>
@@ -292,11 +292,15 @@
 </div>
 
 <%@ include file="/WEB-INF/pages/shop_rooter.jsp" %> <!--引入尾部样式-->
+</body>
+<script type="text/javascript" src="${ctx}/scripts/jquery.min.js"></script>
+<script type="text/javascript" src="${ctx}/styles/layui/layui.js"></script>
+</html>
 
 <script>
 
     layui.config({
-        base: '../../../scripts/shop/' //你存放新模块的目录，注意，不是layui的模块目录
+        base: '${ctx}/scripts/shop/' //你存放新模块的目录，注意，不是layui的模块目录
     }).use(['mm','laypage','jquery'],function(){
         var laypage = layui.laypage,$ = layui.$,
             mm = layui.mm;
@@ -336,6 +340,3 @@
 
     });
 </script>
-</body>
-<script type="text/javascript" src="../../../scripts/jquery.min.js"></script> <script type="text/javascript" src="../../../styles/layui/layui.js"></script>
-</html>
