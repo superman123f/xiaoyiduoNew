@@ -295,6 +295,32 @@ public class S_USERController {
     }
 
     /**
+     * 批量删除用户
+     * @param userIds
+     * @param response
+     * @return
+     */
+    @RequestMapping("/deleteUserInfos")
+    @ResponseBody
+    public Object deleteUserInfos(String userIds, HttpServletResponse response){
+        System.out.println("=============批量删除用户============");
+        System.out.println(userIds);
+        String[] userId = userIds.split("，");
+        int count = userService.deleteByUserIds(userId);
+        System.out.println("成功删除" + count + "条记录");
+        Map<String,Object> data = new HashMap<>();
+        if(count > 0) {
+            data.put("success", true);
+            data.put("msg", "删除成功");
+        } else {
+            data.put("success", false);
+            data.put("msg", "删除失败");
+        }
+        return data;
+    }
+
+
+    /**
      * 查看或编辑用户信息
      * @param userId
      * @return
@@ -309,14 +335,18 @@ public class S_USERController {
     }
 
     /**
-     * 新增、更新
+     * 新增、编辑
      * @return
      */
     @RequestMapping("/updateUserInfo")
-    public String updateUserInfo(S_USER user){
+    @ResponseBody
+    public Object updateUserInfo(S_USER user){
+
+        Map<String, Object> data = new HashMap<>();
+
         if(user.getUserId().equals("") || user.getUserId() == null){ //新增用户，判断id是否存在
+
             String uuid = UUID.randomUUID().toString().replaceAll("\\-", "");
-//            ShiroSHAUtil
             String passowrd = ShiroSHAUtil.sha1ToPassword(user.getNickname(), "123456"); //初始密码为123456，后期改为用户的手机号
 
             user.setUserId(uuid);  //插入主键
@@ -326,22 +356,29 @@ public class S_USERController {
             int i = userService.insert(user);
             if(i > 0) {
                 System.out.println("新增用户成功");
+                data.put("success", true);
+                data.put("msg", "新增成功");
             } else {
                 System.out.println("新增用户失败");
+                data.put("success", false);
+                data.put("msg", "新增失败");
             }
-            return "/admin/portal/main";
 
-        } else { //更新用户
-            System.out.println("更新用户信息");
+        } else { //编辑用户
+            System.out.println("编辑用户信息");
             System.out.println(user);
             int i = userService.updateUserInfoByUserId(user);
-            if(i > 0) {
-                System.out.println("更新用户成功");
-            } else {
-                System.out.println("更新用户失败");
-            }
-            return "/admin/portal/main";
-        }
 
+            if(i > 0) {
+                data.put("success", true);
+                data.put("msg", "保存成功");
+                System.out.println("编辑用户成功");
+            } else {
+                data.put("success", false);
+                data.put("msg", "保存失败");
+                System.out.println("编辑用户失败");
+            }
+        }
+        return data;
     }
 }

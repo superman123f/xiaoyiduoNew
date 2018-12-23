@@ -92,20 +92,20 @@
 
   <!--获取所有用户-->
   <select id="getAllUsers" resultMap="userMap" parameterType="java.lang.String">
-    SELECT *
-      FROM (SELECT r.*,ROWNUM rn
-        FROM(
-          select
-            <include refid="Base_Column_List" />
-          from S_USER
-            <if test="studentNo != null" >
-              where
-              student_no like concat('%',concat(#{studentNo}, '%'))
-            </if>
-          order by create_time desc
+      SELECT *
+        FROM (SELECT r.*,ROWNUM rn
+          FROM(
+            select
+              <include refid="Base_Column_List" />
+            from S_USER
+              <if test="studentNo != null" >
+                where
+                student_no like concat('%',concat(#{studentNo}, '%'))
+              </if>
+            order by create_time desc
         ) r
-       where ROWNUM &lt;= #{pageSize} * #{currentPage}
-    ) WHERE rn > #{pageSize} * ( #{currentPage} - 1)
+         where ROWNUM &lt;= #{pageSize} * #{currentPage}
+      ) WHERE rn > #{pageSize} * ( #{currentPage} - 1)
   </select>
 
   <!--模糊查询用户-->

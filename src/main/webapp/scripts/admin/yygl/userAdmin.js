@@ -42,9 +42,11 @@ layui.use(['table', 'layer', 'form'], function(){
         ,url: '/user/getAllUsers' //数据接口
         // ,where: {studentNo: "3"}
         ,page: true //开启分页
+        // ,initSort: {field: 'studentNo', type: 'desc'} //设置初始排序
         ,cols: [[ //表头
+            {type: 'checkbox'},
             {field: 'userId', title: '用户编号',  sort: true, hide: true} , <!--隐藏-->
-            {field: 'studentNo', title: '学号',  sort: true, fixed: 'left'},
+            {field: 'studentNo', title: '学号',  sort: true},
             {field: 'nickname', title: '昵称',  sort: true},
             {field: 'password', title: '密码',  sort: true, hide: true},
             {field: 'realName', title: '真实姓名', sort: true},
@@ -59,6 +61,17 @@ layui.use(['table', 'layer', 'form'], function(){
         ,height: '472'
         ,method: 'post'
     });
+
+
+
+    // //导出数据
+    // table.exportFile(['名字','性别','年龄'], [
+    //     ['张三','男','20'],
+    //     ['李四','女','18'],
+    //     ['王五','女','19']
+    // ], 'csv'); //默认导出 csv，也可以为：xls
+
+    // table.exportFile(table.config.id, table.data); //data 为该实例中的任意数量的数据
 
 
     //搜索 ----------------------------------------------- Begin-----------------------------------------------------------
@@ -79,14 +92,93 @@ layui.use(['table', 'layer', 'form'], function(){
                         // , url: '/user/searchUser'//后台做模糊搜索接口路径
                         , method: 'post'
                     });
+            },
+
+            //导出数据
+            // exportExl: function(){
+            // alert(111);
+            // alert(222);
+            //将上述表格示例导出为 csv 文件
+            // table.exportFile(ins1.config.id, data, 'xls'); //data 为该实例中的任意数量的数据
+            // table.exportFile(['名字','性别','年龄'], [
+            //     ['张三','男','20'],
+            //     ['李四','女','18'],
+            //     ['王五','女','19']
+            // ], 'xls'); //默认导出 csv，也可以为：xls
+
+            //批量删除
+            deleteData: function() {
+                var checkStatus = table.checkStatus('userId') //此时的id为ender的id
+                ,data = checkStatus.data;
+                // layer.alert(JSON.stringify(data));
+                var str = "";
+                if(data.length > 0){
+                    layer.alert('delete?');
+                    for(var i = 0; i < data.length; i++){
+                        str += data[i].userId + "，";
+                    }
+                    layer.confirm("是否删除这" + data.length + "条数据？", {icon: 3, title: '提示'}, function(index){
+                       // window.location.href = "/user/deleteUserInfos?userIds=" + str;
+                       $.post("/user/deleteUserInfos",
+                           {
+                               userIds: str
+                           },
+                           function(data){
+                               if(data.success){
+                                   layer.msg(data.msg);
+                               } else {
+                                   layer.msg(data.msg);
+                               }
+                       });
+                        table.reload('userId', //与table中的id要一致
+                            {
+                                page:
+                                    {
+                                        curr: 1 //重新从第 1 页开始
+                                    }
+                            });
+                       layer.close(index);
+                    });
+                } else {
+                    layer.alert("请选择要删除的数据");
+                }
+
+                // table.on('checkbox(test)', function(obj){
+                //     alert(obj.data);
+                //     // var data = obj.data;
+                //     // layer.alert(JSON.stringify(data));
+                // });
             }
-        };
+
+        }
+
+    //复选框监听
+    // table.on('checkbox(test)', function(obj){
+    //     alert(obj.checked);
+    //     alert(obj.data);
+    //     console.log(obj.checked); //当前是否选中状态
+    //     console.log(obj.data); //选中行的相关数据
+    //     console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
+    // });
+
     //这个是用于创建点击事件的实例
-    $('#reload').on('click', function ()
-    {
+    $('#reload').on('click', function () {
         var type = $(this).data('type');
         active[type] ? active[type].call(this) : '';
     });
+
+    //导出数据
+    $('#exportExl').on('click', function () {
+        var type = $(this).data('type');
+        active[type] ? active[type].call(this) : '';
+    });
+
+    //批量删除
+    $('#deleteData').on('click', function() {
+        var type = $(this).data('type');
+        active[type] ? active[type].call(this) : '';
+    });
+
     //搜索 ----------------------------------------------- End-----------------------------------------------------------
 
     //监听工具条 ----------------------------------------------- Begin-----------------------------------------------------------
@@ -102,7 +194,7 @@ layui.use(['table', 'layer', 'form'], function(){
             layer.open(
                 {
                     type: 2, //iframe层
-                    title: '查看页面',
+                    title: '查看用户信息',
                     skin: 'layui-layer-molv',
                     shadeClose: false,
                     shade: 0.8,
@@ -138,7 +230,7 @@ layui.use(['table', 'layer', 'form'], function(){
             layer.open(
                 {
                     type: 2,
-                    title: '编辑页面',
+                    title: '编辑用户信息',
                     // skin: 'layui-layer-molv', //样式
                     shadeClose: false,
                     shade: 0.8,

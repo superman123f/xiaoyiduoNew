@@ -38,8 +38,9 @@
     </div>
 
     <div class="login-bg">
-        studentNo学号，nickName昵称，password密码，realName真实姓名，sex性别，email电子邮箱，dormitoryAddress宿舍地址，phone手机号，</br>
+        <%--<br>--%>
 
+        <%--studentNo学号，nickName昵称，password密码，realName真实姓名，sex性别，email电子邮箱，dormitoryAddress宿舍地址，phone手机号，</br>--%>
         <%--<div class="login-cont w1200">--%>
             <%--<div class="form-box1">--%>
         <div class="form-box1">
@@ -47,28 +48,28 @@
                 <form class="layui-form" action="/user/register" method="post">
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">学号</label>
+                        <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>学号</label>
                         <div class="layui-input-block">
                             <input type="text" id="studentNo" name="studentNo" class="layui-input" placeholder="请输入学号" autocomplete="off">
                         </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">昵称</label>
+                        <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>昵称</label>
                         <div class="layui-input-block">
                             <input type="text" id="nickname" name="nickname" class="layui-input" placeholder="请输入昵称" autocomplete="off">
                         </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">密码</label>
+                        <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>密码</label>
                         <div class="layui-input-block">
                             <input type="password" id="password" name="password" class="layui-input" placeholder="请输入密码" autocomplete="off">
                         </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">确认密码</label>
+                        <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>确认密码</label>
                         <div class="layui-input-block">
                             <input type="password" id="confrimPwd" name="confrimPwd" class="layui-input" placeholder="请确认密码" autocomplete="off">
                         </div>
@@ -104,7 +105,7 @@
                     <%--</div>--%>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">手机号码</label>
+                        <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>手机号码</label>
                         <div class="layui-input-block">
                             <input type="text" id="phone" name="phone" class="layui-input" placeholder="请输入手机号码" autocomplete="off">
                         </div>
@@ -112,7 +113,7 @@
 
                     <%--手机验证码--%>
                     <div class="layui-inline veri-code">
-                        <label class="layui-form-label">验证码</label>
+                        <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>验证码</label>
                         <div class="layui-input-inline" style="display: inline-flex;">
                             <input id="pnum" type="text" name="pnum" lay-verify="required" placeholder="请输入验证码" autocomplete="off" class="layui-input" autocomplete="off">
                             <input type="button" class="layui-btn layui-btn-normal" id="find"  value="获取验证码" />

@@ -20,6 +20,17 @@ public class S_USERServiceImpl implements IS_USERService {
     }
 
     @Override
+    public int deleteByUserIds(String[] userId) {
+        int count = 0;
+        for(int i = 0 ; i < userId.length; i++){
+            if(userMapper.deleteByPrimaryKey(userId[i]) > 0){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    @Override
     public int insert(S_USER user) {
         return userMapper.insert(user);
     }

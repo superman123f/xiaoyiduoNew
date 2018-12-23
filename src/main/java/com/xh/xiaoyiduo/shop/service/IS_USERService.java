@@ -11,6 +11,8 @@ public interface IS_USERService {
 
     int deleteByPrimaryKey(String userId); //删除用户
 
+    int deleteByUserIds(String[] userId); //批量删除用户
+
     int insert(S_USER user); //添加用户
 
     S_USER selectByUserId(String userId); //根据用户编号查询

@@ -12,64 +12,64 @@
     <title>编辑用户信息</title>
     <link rel="stylesheet" type="text/css" href="${ctx}/styles/layui/css/layui.css">
 </head>
-<body>
 
-<form class="layui-form" action="/user/updateUserInfo" method="post">
-    <%--隐藏用户id--%>
-    <input type="hidden" name="userId" value="${user.userId}">
+<div style="margin:16px 19px 0px 0px;">
+    <form class="layui-form" action="/user/updateUserInfo" method="post">
+        <%--隐藏用户id--%>
+        <input id="userId" type="hidden" name="userId" value="${user.userId}">
 
-    <div class="layui-form-item">
-        <label class="layui-form-label">学号</label>
-        <div class="layui-input-block">
-            <input type="text" id="studentNo" name="studentNo" autocomplete="off" class="layui-input" value="${user.studentNo}">
+        <div class="layui-form-item">
+            <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>学号</label>
+            <div class="layui-input-block">
+                <input type="text" id="studentNo" name="studentNo" autocomplete="off" class="layui-input" value="${user.studentNo}" placeholder="请输入学号">
+            </div>
         </div>
-    </div>
 
-    <div class="layui-form-item">
-        <label class="layui-form-label">昵称</label>
-        <div class="layui-input-block">
-            <input type="text" id="nickname" name="nickname" autocomplete="off" name="studentNo" class="layui-input" value="${user.nickname}">
+        <div class="layui-form-item">
+            <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>昵称</label>
+            <div class="layui-input-block">
+                <input type="text" id="nickname" name="nickname" autocomplete="off" name="studentNo" class="layui-input" value="${user.nickname}" placeholder="请输入昵称">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">真实姓名</label>
-        <div class="layui-input-block">
-            <input type="text" id="realName" name="realName" autocomplete="off" class="layui-input" value="${user.realName}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">真实姓名</label>
+            <div class="layui-input-block">
+                <input type="text" id="realName" name="realName" autocomplete="off" class="layui-input" value="${user.realName}" placeholder="请输入真实姓名">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">性别</label>
-        <div class="layui-input-block">
-            <input type="text" id="sex" name="sex" autocomplete="off" class="layui-input" value="${user.sex}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block">
+                <input type="text" id="sex" name="sex" autocomplete="off" class="layui-input" value="${user.sex}" placeholder="请输入性别">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">电子邮箱</label>
-        <div class="layui-input-block">
-            <input type="text" id="email" name="email" autocomplete="off" class="layui-input" value="${user.email}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">电子邮箱</label>
+            <div class="layui-input-block">
+                <input type="text" id="email" name="email" autocomplete="off" class="layui-input" value="${user.email}" placeholder="请输入邮箱">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">手机号</label>
-        <div class="layui-input-block">
-            <input type="text" id="phone" name="phone" autocomplete="off" class="layui-input" value="${user.phone}">
+        <div class="layui-form-item">
+            <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>手机号</label>
+            <div class="layui-input-block">
+                <input type="text" id="phone" name="phone" autocomplete="off" class="layui-input" value="${user.phone}" placeholder="请输入手机号">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">宿舍地址</label>
-        <div class="layui-input-block">
-             <input type="text" id="dormitoryAddress" name="dormitoryAddress" autocomplete="off" class="layui-input" value="${user.dormitoryAddress}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">宿舍地址</label>
+            <div class="layui-input-block">
+                 <input type="text" id="dormitoryAddress" name="dormitoryAddress" autocomplete="off" class="layui-input" value="${user.dormitoryAddress}" placeholder="请输入宿舍地址">
+            </div>
         </div>
-    </div>
 
-    <div class="layui-form-item">
-        <div class="layui-input-block">
-            <input type="submit" class="layui-btn" value="提交">
-            <input type="reset" class="layui-btn" value="重置">
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <input id="saveBtn" type="button" class="layui-btn" value="保存">
+                <input type="reset" class="layui-btn" value="重置">
+            </div>
         </div>
-    </div>
-</form>
-
+    </form>
+</div>
 </body>
 <script type="text/javascript" src="../../../../scripts/jquery.min.js"></script>
 <script type="text/javascript" src="../../../../styles/layui/layui.js"></script>
@@ -80,4 +80,48 @@
        var form = layui.form();
        var layer = layui.layer();
     });
+
+    $("#saveBtn").click(function(){
+        var userId = $("#userId").val();
+        var studentNo = $("#studentNo").val();
+        var nickname = $("#nickname").val();
+        var realName = $("#realName").val();
+        var sex = $("#sex").val();
+        var email = $("#email").val();
+        var phone = $("#phone").val();
+        var dormitoryAddress = $("#dormitoryAddress").val();
+
+        $.post("/user/updateUserInfo",
+            {
+                userId: userId,
+                studentNo: studentNo,
+                nickname: nickname,
+                realName: realName,
+                sex: sex,
+                email: email,
+                phone: phone,
+                dormitoryAddress: dormitoryAddress
+            },
+            function(data){
+                if(data.success){
+                    // alert(data.msg);
+                    layer.msg(data.msg);
+                } else {
+                    // alert(data.msg);
+                    layer.msg(data.msg);
+                }
+            });
+    });
+
+    //异步实例
+    // $("button").click(function(){
+    //     $.post("/try/ajax/demo_test_post.php",
+    //         {
+    //             name:"菜鸟教程",
+    //             url:"http://www.runoob.com"
+    //         },
+    //         function(data,status){
+    //             alert("数据: \n" + data + "\n状态: " + status);
+    //         });
+    // });
 </script>

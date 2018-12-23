@@ -15,6 +15,11 @@
 </head>
 <body bgcolor="white" style="margin:15px;">
 
+<%--测试在div中嵌入html代码<br>--%>
+<%--<div id="div1">--%>
+    <%--<span>hhhh</span>--%>
+<%--</div>--%>
+
 <fieldset class="layui-elem-field">
     <legend>用户管理 - 用户列表</legend>
     <div class="layui-field-box">
@@ -34,19 +39,21 @@
         </form>
         <hr>
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-xs layui-btn-normal dw-dailog" dw-url="/user/userInfo" dw-title="新增用户" dw-width="100%" dw-height="100%">
+            <button class="layui-btn layui-btn-xs layui-btn-normal dw-dailog" dw-url="/user/userInfo" dw-title="新增用户信息" dw-width="100%" dw-height="100%">
                 <i class="layui-icon">&#xe654;</i>新增
             </button>
-            <button class="layui-btn layui-btn-xs layui-btn-danger dw-batch-delete" dw-url="./delete.json">
+            <button id="deleteData" class="layui-btn layui-btn-xs layui-btn-danger" data-type="deleteData">
                 <i class="layui-icon">&#xe640;</i>删除
             </button>
-            <button class="layui-btn layui-btn-xs dw-refresh">
-                <i class="layui-icon">&#x1002;</i>刷新
-            </button>
+            <%--<button class="layui-btn layui-btn-xs dw-refresh">--%>
+                <%--<i class="layui-icon">&#x1002;</i>刷新--%>
+            <%--</button>--%>
+            <button id="exportExl" class="layui-btn layui-btn-xs" data-type="exportExl">导出Excel</button>
         </div>
         <hr>
 
         <table id="demo" lay-filter="test"></table>
+
     </div>
 </fieldset>
 
@@ -75,5 +82,13 @@
 <script type="text/javascript" src="../../../scripts/jquery.min.js"></script>
 <script type="text/javascript" src="../../../styles/layui/layui.js"></script>
 <script type="text/javascript" src="${ctx}/scripts/admin/yygl/userAdmin.js"></script>
+<script>
+    $(function(){
+        $("#exportExl").click(function(){
+            // alert(1);
+
+        });
+    });
+</script>
 </html>
 
