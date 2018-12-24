@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xh.xiaoyiduo.admin.spgl.dao.B_GOODMapper" >
+  <resultMap id="BaseResultMap" type="com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD" >
+    <id column="GOOD_ID" property="goodId" jdbcType="VARCHAR" />
+    <result column="SON_ID" property="sonId" jdbcType="VARCHAR" />
+    <result column="GOOD_NAME" property="goodName" jdbcType="VARCHAR" />
+    <result column="INFORMATION" property="information" jdbcType="VARCHAR" />
+    <result column="ORIGIN_PRICE" property="originPrice" jdbcType="FLOAT" />
+    <result column="SECOND_PRICE" property="secondPrice" jdbcType="FLOAT" />
+    <result column="DEGREE" property="degree" jdbcType="VARCHAR" />
+    <result column="COLLECT_NUMBER" property="collectNumber" jdbcType="DECIMAL" />
+    <result column="GOOD_NUMBER" property="goodNumber" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="SELLER_NAME" property="sellerName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    GOOD_ID, SON_ID, GOOD_NAME, INFORMATION, ORIGIN_PRICE, SECOND_PRICE, DEGREE, COLLECT_NUMBER, 
+    GOOD_NUMBER, STATUS, SELLER_NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from B_GOOD
+    where GOOD_ID = #{goodId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from B_GOOD
+    where GOOD_ID = #{goodId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD" >
+    insert into B_GOOD (GOOD_ID, SON_ID, GOOD_NAME, 
+      INFORMATION, ORIGIN_PRICE, SECOND_PRICE, 
+      DEGREE, COLLECT_NUMBER, GOOD_NUMBER, 
+      STATUS, SELLER_NAME)
+    values (#{goodId,jdbcType=VARCHAR}, #{sonId,jdbcType=VARCHAR}, #{goodName,jdbcType=VARCHAR}, 
+      #{information,jdbcType=VARCHAR}, #{originPrice,jdbcType=FLOAT}, #{secondPrice,jdbcType=FLOAT}, 
+      #{degree,jdbcType=VARCHAR}, #{collectNumber,jdbcType=DECIMAL}, #{goodNumber,jdbcType=DECIMAL}, 
+      #{status,jdbcType=VARCHAR}, #{sellerName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD" >
+    insert into B_GOOD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodId != null" >
+        GOOD_ID,
+      </if>
+      <if test="sonId != null" >
+        SON_ID,
+      </if>
+      <if test="goodName != null" >
+        GOOD_NAME,
+      </if>
+      <if test="information != null" >
+        INFORMATION,
+      </if>
+      <if test="originPrice != null" >
+        ORIGIN_PRICE,
+      </if>
+      <if test="secondPrice != null" >
+        SECOND_PRICE,
+      </if>
+      <if test="degree != null" >
+        DEGREE,
+      </if>
+      <if test="collectNumber != null" >
+        COLLECT_NUMBER,
+      </if>
+      <if test="goodNumber != null" >
+        GOOD_NUMBER,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="sellerName != null" >
+        SELLER_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodId != null" >
+        #{goodId,jdbcType=VARCHAR},
+      </if>
+      <if test="sonId != null" >
+        #{sonId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodName != null" >
+        #{goodName,jdbcType=VARCHAR},
+      </if>
+      <if test="information != null" >
+        #{information,jdbcType=VARCHAR},
+      </if>
+      <if test="originPrice != null" >
+        #{originPrice,jdbcType=FLOAT},
+      </if>
+      <if test="secondPrice != null" >
+        #{secondPrice,jdbcType=FLOAT},
+      </if>
+      <if test="degree != null" >
+        #{degree,jdbcType=VARCHAR},
+      </if>
+      <if test="collectNumber != null" >
+        #{collectNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="goodNumber != null" >
+        #{goodNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerName != null" >
+        #{sellerName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD" >
+    update B_GOOD
+    <set >
+      <if test="sonId != null" >
+        SON_ID = #{sonId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodName != null" >
+        GOOD_NAME = #{goodName,jdbcType=VARCHAR},
+      </if>
+      <if test="information != null" >
+        INFORMATION = #{information,jdbcType=VARCHAR},
+      </if>
+      <if test="originPrice != null" >
+        ORIGIN_PRICE = #{originPrice,jdbcType=FLOAT},
+      </if>
+      <if test="secondPrice != null" >
+        SECOND_PRICE = #{secondPrice,jdbcType=FLOAT},
+      </if>
+      <if test="degree != null" >
+        DEGREE = #{degree,jdbcType=VARCHAR},
+      </if>
+      <if test="collectNumber != null" >
+        COLLECT_NUMBER = #{collectNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="goodNumber != null" >
+        GOOD_NUMBER = #{goodNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerName != null" >
+        SELLER_NAME = #{sellerName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where GOOD_ID = #{goodId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD" >
+    update B_GOOD
+    set SON_ID = #{sonId,jdbcType=VARCHAR},
+      GOOD_NAME = #{goodName,jdbcType=VARCHAR},
+      INFORMATION = #{information,jdbcType=VARCHAR},
+      ORIGIN_PRICE = #{originPrice,jdbcType=FLOAT},
+      SECOND_PRICE = #{secondPrice,jdbcType=FLOAT},
+      DEGREE = #{degree,jdbcType=VARCHAR},
+      COLLECT_NUMBER = #{collectNumber,jdbcType=DECIMAL},
+      GOOD_NUMBER = #{goodNumber,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=VARCHAR},
+      SELLER_NAME = #{sellerName,jdbcType=VARCHAR}
+    where GOOD_ID = #{goodId,jdbcType=VARCHAR}
+  </update>
+</mapper>

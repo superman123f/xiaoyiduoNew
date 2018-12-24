@@ -87,7 +87,7 @@ public class S_USERController {
             e.printStackTrace();
         }
 
-        return "/shop/commodity";
+        return "forward:/good/get";
     }
 
     @RequestMapping("/toRegisterPage")

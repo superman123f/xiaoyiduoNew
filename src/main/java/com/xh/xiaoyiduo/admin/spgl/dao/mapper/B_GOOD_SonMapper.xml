@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xh.xiaoyiduo.admin.spgl.dao.B_GOOD_SonMapper" >
+  <resultMap id="BaseResultMap" type="com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_SON" >
+    <id column="SON_ID" property="sonId" jdbcType="VARCHAR" />
+    <result column="SON_NAME" property="sonName" jdbcType="VARCHAR" />
+    <result column="FATHER_ID" property="fatherId" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <!--自定义resultMap-->
+  <resultMap id="GoodSonMap" type="com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_SON">
+    <id column="SON_ID" property="sonId" jdbcType="VARCHAR" />
+    <result column="SON_NAME" property="sonName" jdbcType="VARCHAR" />
+    <result column="FATHER_ID" property="fatherId" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    SON_ID, SON_NAME, FATHER_ID
+  </sql>
+
+  <select id="selectGoodSonsByFatherId" resultMap="GoodSonMap">
+    select
+      <include refid="Base_Column_List"/>
+    from B_GOOD_SON
+    where FATHER_ID = #{fatherId, jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from B_GOOD_SON
+    where SON_ID = #{sonId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from B_GOOD_SON
+    where SON_ID = #{sonId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_SON" >
+    insert into B_GOOD_SON (SON_ID, SON_NAME, FATHER_ID
+      )
+    values (#{sonId,jdbcType=VARCHAR}, #{sonName,jdbcType=VARCHAR}, #{fatherId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_SON" >
+    insert into B_GOOD_SON
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sonId != null" >
+        SON_ID,
+      </if>
+      <if test="sonName != null" >
+        SON_NAME,
+      </if>
+      <if test="fatherId != null" >
+        FATHER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sonId != null" >
+        #{sonId,jdbcType=VARCHAR},
+      </if>
+      <if test="sonName != null" >
+        #{sonName,jdbcType=VARCHAR},
+      </if>
+      <if test="fatherId != null" >
+        #{fatherId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_SON" >
+    update B_GOOD_SON
+    <set >
+      <if test="sonName != null" >
+        SON_NAME = #{sonName,jdbcType=VARCHAR},
+      </if>
+      <if test="fatherId != null" >
+        FATHER_ID = #{fatherId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SON_ID = #{sonId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_SON" >
+    update B_GOOD_SON
+    set SON_NAME = #{sonName,jdbcType=VARCHAR},
+      FATHER_ID = #{fatherId,jdbcType=VARCHAR}
+    where SON_ID = #{sonId,jdbcType=VARCHAR}
+  </update>
+</mapper>

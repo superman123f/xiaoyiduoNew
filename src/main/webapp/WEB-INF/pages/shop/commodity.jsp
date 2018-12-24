@@ -40,38 +40,15 @@
             <div class="left-nav">
                 <div class="title">所有分类</div>
                 <div class="list-box">
-                    <dl>
-                        <dt>奶粉辅食</dt>
-                        <dd><a href="javascript:;">进口奶粉</a></dd>
-                        <dd><a href="javascript:;">宝宝辅食</a></dd>
-                        <dd><a href="javascript:;">营养品</a></dd>
-                    </dl>
-                    <dl>
-                        <dt>儿童用品</dt>
-                        <dd><a href="javascript:;">纸尿裤</a></dd>
-                        <dd><a href="javascript:;">婴儿湿巾</a></dd>
-                        <dd><a href="javascript:;">婴儿车</a></dd>
-                        <dd><a href="javascript:;">婴儿床</a></dd>
-                        <dd><a href="javascript:;">儿童安全座椅</a></dd>
-                    </dl>
-                    <dl>
-                        <dt>儿童早教</dt>
-                        <dd><a href="javascript:;">儿童玩具</a></dd>
-                        <dd><a href="javascript:;">早教书籍</a></dd>
-                        <dd><a href="javascript:;">孕产育儿书</a></dd>
-                    </dl>
-                    <dl>
-                        <dt>儿童服饰</dt>
-                        <dd><a href="javascript:;">童装</a></dd>
-                        <dd><a href="javascript:;">童鞋</a></dd>
-                        <dd><a href="javascript:;">宝宝配饰</a></dd>
-                    </dl>
-                    <dl>
-                        <dt>孕妈专区</dt>
-                        <dd><a href="javascript:;">孕妇装</a></dd>
-                        <dd><a href="javascript:;">孕妇护肤</a></dd>
-                        <dd><a href="javascript:;">孕妇用品</a></dd>
-                    </dl>
+                    <c:forEach items="${goodFatherList}" var="goodFather">
+                        <dl>
+                            <dt>${goodFather.fatherName}</dt>
+                            <c:set value="${goodFather.goodSons}" var="goodSons"></c:set>
+                            <c:forEach items="${goodSons}" var="goodSon">
+                                <dd><a href="javascript:;">${goodSon.sonName}</a></dd>
+                            </c:forEach>
+                        </dl>
+                    </c:forEach>
                 </div>
             </div>
             <div class="right-cont-wrap">
@@ -86,6 +63,18 @@
                         <span>200个</span>
                     </div>
                     <div class="cont-list layui-clear" id="list-cont">
+                        <div class="item">
+                            <div class="img">
+                                <a href="javascript:;"><img id="mutationImage" style="height:280px;width:280px;" src="${pageContext.request.contextPath}/good/displayImage"/></a>
+                            </div>
+                            <div class="text">
+                                <p class="title">测试从服务器中读取图片</p>
+                                <p class="price">
+                                    <span class="pri">读取图片</span>
+                                    <span class="nub">png</span>
+                                </p>
+                            </div>
+                        </div>
                         <div class="item">
                             <div class="img">
                                 <a href="javascript:;"><img src="../../../images/shop/paging_img1.jpg"></a>
