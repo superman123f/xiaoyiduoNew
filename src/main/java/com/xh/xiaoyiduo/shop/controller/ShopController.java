@@ -33,7 +33,7 @@ public class ShopController {
     @RequestMapping("/commodity")
     public String commodity(){
         System.out.println("view to commodity pages success");
-        return "forward:/good/getGoodTypeList";
+        return "forward:/good/getSonGoodList";
     }
 
     @RequestMapping("/details")

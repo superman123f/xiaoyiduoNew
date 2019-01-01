@@ -19,6 +19,14 @@
     GOOD_ID, SON_ID, GOOD_NAME, INFORMATION, ORIGIN_PRICE, SECOND_PRICE, DEGREE, COLLECT_NUMBER, 
     GOOD_NUMBER, STATUS, SELLER_NAME
   </sql>
+  <!--获取对应子类商品列表-->
+  <select id="getSonGoodList" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from B_GOOD
+    where SON_ID = #{SON_ID,jdbcType=VARCHAR}
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

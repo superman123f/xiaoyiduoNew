@@ -1,6 +1,8 @@
 package com.xh.xiaoyiduo.admin.spgl.service.impl;
 
+import com.xh.xiaoyiduo.admin.spgl.dao.B_GOODMapper;
 import com.xh.xiaoyiduo.admin.spgl.dao.B_GOOD_FatherMapper;
+import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_FATHER;
 import com.xh.xiaoyiduo.admin.spgl.service.IGoodManageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +19,16 @@ public class GoodManageServiceImpl implements IGoodManageService {
 
     @Autowired
     B_GOOD_FatherMapper fatherMapper;
+    @Autowired
+    B_GOODMapper goodMapper;
 
     @Override
     public List<B_GOOD_FATHER> getGoodTypeList() {
         return fatherMapper.getGoodTypeList();
+    }
+
+    @Override
+    public List<B_GOOD> getSonGoodList(String sonId) {
+        return goodMapper.getSonGoodList(sonId);
     }
 }
