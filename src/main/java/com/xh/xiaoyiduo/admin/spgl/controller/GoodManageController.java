@@ -16,10 +16,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * 商品管理Controller
@@ -109,17 +106,6 @@ public class GoodManageController {
 //        return data;
     }
 
-    //将图片重命名
-    public static String changeName(String oldName){
-//        Random r = new Random();
-//        Date d = new Date();
-        //使用uuid命名
-        String uuid = UUID.randomUUID().toString().replaceAll("\\-","");
-        String newName = oldName.substring(oldName.indexOf('.'));
-//        newName = r.nextInt(99999999) + d.getTime() + newName;
-        newName = uuid + newName;
-        return newName;
-    }
 
     /**
      * 测试多图片上传
@@ -129,10 +115,15 @@ public class GoodManageController {
     @ResponseBody
     public Object testMultipleUpload(MultipartFile file, HttpServletRequest request){
         String oldName = file.getOriginalFilename(); //获取原名
-//        String path = request.getServletContext().getRealPath("/upload/"); //获得项目所在路径
+//        String path = request.getServletContext().getRealPath("/upload/"); //获得项目所在绝对路径
         String fileName = changeName(oldName); //将图片重命名
-        String rappendix = "upload/" + fileName; //返回给前端的路径
+
+//        String rappendix = "upload/" + fileName; //返回给前端的路径
 //        fileName = imgPath + fileName; //合并具体的路径
+
+
+        Map<String,Object> result = new HashMap<>(); //返回给前端的结果
+        String imgUrl = null; //保存好后的图片路径
 
         File file1 = new File(".."); //创建文件夹
         try {
@@ -143,15 +134,29 @@ public class GoodManageController {
                 baseFile.mkdirs();
                 System.out.println("to make file success");
             }
-            //获取项目根目录的上级目录,并把图片保存在上级目录下
-            File file2 = new File(baseFile+"/"+fileName);
-            file.transferTo(file2);
+
+            //获取项目根目录的上级目录,并把图片保存在该目录下
+            imgUrl = baseFile+"/"+fileName;
+
+            File file2 = new File(imgUrl);
+            file.transferTo(file2); //保存图片
+
+            result.put("status", "0"); //0保存成功，1保存失败
+            result.put("src", imgUrl); //图片路径
+            result.put("oldName", oldName); //原图片名称
             System.out.println("save image success");
-        } catch (IOException e) {
-            e.printStackTrace();
+            return result;
+        } catch (IllegalStateException e) {
+            result.put("status", "1");
+            System.out.println(imgUrl + "图片保存失败");
+            return result;
+        } catch (IOException e){
+            result.put("status", "1");
+            System.out.println(imgUrl + "图片保存失败");
+            return result;
         }
-        String str = "{\"code\": 0,\"msg\": \"\",\"data\": {\"src\":\"" + rappendix + "\"}}";
-        return str;
+//        String str = "{\"code\": 0,\"msg\": \"\",\"data\": {\"src\":\"" + imgUrl + "\"}}";
+//        return result;
     }
 
     //返回path路径对应于网络硬盘根目录的本地路径
@@ -198,4 +203,32 @@ public class GoodManageController {
         }
     }
 
+    /**
+     * 保存商品信息
+     * @return
+     */
+    @RequestMapping("/saveGoodInfo")
+    @ResponseBody
+    public Object saveGoodInfo(B_GOOD good, String imgUrls){
+        System.out.println(good);
+        String[] imgUrlList = imgUrls.split(",");
+        Map<String, Object> result = new HashMap<>();
+        for(int i = 0; i < imgUrlList.length; i++){
+            System.out.println("imgs path is" + imgUrlList[i]);
+        }
+        result.put("success", true);
+        return result;
+    }
+
+    //将图片重命名
+    public static String changeName(String oldName){
+//        Random r = new Random();
+//        Date d = new Date();
+        //使用uuid命名
+        String uuid = UUID.randomUUID().toString().replaceAll("\\-","");
+        String newName = oldName.substring(oldName.indexOf('.'));
+//        newName = r.nextInt(99999999) + d.getTime() + newName;
+        newName = uuid + newName;
+        return newName;
+    }
 }
