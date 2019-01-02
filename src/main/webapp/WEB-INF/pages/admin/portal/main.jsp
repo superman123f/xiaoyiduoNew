@@ -49,17 +49,6 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item"><a href="javascript:;" onclick="choose('/admin/index');">控制台</a></li>
-                <li class="layui-nav-item">
-                    <a class="" href="javascript:;">商品管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" onclick="choose('/admin/goodAdmin');">商品列表</a></dd>
-                    </dl>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" onclick="choose('/admin/goodInfo');">商品信息</a></dd>
-                    </dl>
-                </li>
-
                 <shiro:hasRole name="admin">
                     <li class="layui-nav-item layui-nav-itemed">
                         <a href="javascript:;">用户管理</a>
@@ -77,29 +66,41 @@
                         <dd><a href="javascript:;" onclick="choose('/admin/adminRole');">用户角色</a></dd>
                     </dl>
                 </li>
+
                 <li class="layui-nav-item">
-                    <a href="javascript:;">会员管理</a>
+                    <a href="javascript:;">公告管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" onclick="choose('/admin/member');">会员列表</a></dd>
+                        <dd><a href="javascript:;" onclick="return false;">公告列表</a></dd>
                     </dl>
                 </li>
+
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;">商品管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" onclick="choose('/admin/goodAdmin');">商品列表</a></dd>
+                    </dl>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" onclick="choose('/admin/goodInfo');">商品信息</a></dd>
+                    </dl>
+                </li>
+
+                <li class="layui-nav-item">
+                    <a href="javascript:;">订单管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" onclick="return false;">订单列表</a></dd>
+                    </dl>
+                </li>
+
                 <li class="layui-nav-item">
                     <a href="javascript:;">开发者工具</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" onclick="choose('/admin/control');">一键生成</a></dd>
+                        <dd><a href="javascript:;" onclick="choose('/admin/index');">控制台</a></dd>
                     </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a class="" href="javascript:;">系统设置</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" onclick="choose('/admin/member');">会员列表</a></dd>
+                    </dl>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" onclick="choose('/admin/sysConfig');">系统变量</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">集成Demo</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" onclick="choose('/admin/upload');">文件上传</a></dd>
-                        <dd><a href="javascript:;" onclick="choose('/admin/upload');">Execel导出</a></dd>
                     </dl>
                 </li>
             </ul>

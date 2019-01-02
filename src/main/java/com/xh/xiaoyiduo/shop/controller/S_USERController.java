@@ -69,7 +69,7 @@ public class S_USERController {
 //        userService.selectByStudentNo(userAccount);
 //        userService.selectByNickname(userAccount);
 
-        return "/shop/commodity";
+        return "forward:/good/getSonGoodList";
     }
 
     /**
@@ -87,7 +87,7 @@ public class S_USERController {
             e.printStackTrace();
         }
 
-        return "forward:/good/get";
+        return "forward:/good/getSonGoodList";
     }
 
     @RequestMapping("/toRegisterPage")
