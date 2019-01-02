@@ -23,6 +23,11 @@ public class GoodManageServiceImpl implements IGoodManageService {
     B_GOODMapper goodMapper;
 
     @Override
+    public int insert(B_GOOD good) {
+        return goodMapper.insert(good);
+    }
+
+    @Override
     public List<B_GOOD_FATHER> getGoodTypeList() {
         return fatherMapper.getGoodTypeList();
     }
@@ -30,5 +35,10 @@ public class GoodManageServiceImpl implements IGoodManageService {
     @Override
     public List<B_GOOD> getSonGoodList(String sonId) {
         return goodMapper.getSonGoodList(sonId);
+    }
+
+    @Override
+    public int saveGoodImageUrls(String resourceId, String type, String imgUrl, String sonId) {
+        return goodMapper.saveGoodImageUrls(resourceId, type, imgUrl, sonId);
     }
 }

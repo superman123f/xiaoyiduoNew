@@ -25,7 +25,7 @@
 <%--COLLECT_NUMBER	收藏数--%>
 <%--GOOD_NUMBER	商品数量--%>
 <%--STATUS	商品状态（1售卖中，2已售出，3已下架）--%>
-<%--SELLER_NAME	卖家姓名--%>
+<%--USER_ID	用户编号--%>
 <div style="margin: 25px 26px 0px 8px;">
     <form class="layui-form" action="/user/register" method="post">
         <div class="layui-form-item">
@@ -273,5 +273,5 @@
     <%--COLLECT_NUMBER	收藏数--%>
     <%--GOOD_NUMBER	商品数量--%>
     <%--STATUS	商品状态（1售卖中，2已售出，3已下架）--%>
-    <%--SELLER_NAME	卖家姓名--%>
+    <%--USER_ID	用户编号--%>
 </script>

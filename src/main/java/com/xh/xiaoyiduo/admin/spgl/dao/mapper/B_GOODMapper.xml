@@ -12,12 +12,12 @@
     <result column="COLLECT_NUMBER" property="collectNumber" jdbcType="DECIMAL" />
     <result column="GOOD_NUMBER" property="goodNumber" jdbcType="DECIMAL" />
     <result column="STATUS" property="status" jdbcType="VARCHAR" />
-    <result column="SELLER_NAME" property="sellerName" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
   </resultMap>
 
   <sql id="Base_Column_List" >
     GOOD_ID, SON_ID, GOOD_NAME, INFORMATION, ORIGIN_PRICE, SECOND_PRICE, DEGREE, COLLECT_NUMBER, 
-    GOOD_NUMBER, STATUS, SELLER_NAME
+    GOOD_NUMBER, STATUS, USER_ID
   </sql>
   <!--获取对应子类商品列表-->
   <select id="getSonGoodList" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -41,11 +41,11 @@
     insert into B_GOOD (GOOD_ID, SON_ID, GOOD_NAME, 
       INFORMATION, ORIGIN_PRICE, SECOND_PRICE, 
       DEGREE, COLLECT_NUMBER, GOOD_NUMBER, 
-      STATUS, SELLER_NAME)
+      STATUS, USER_ID)
     values (#{goodId,jdbcType=VARCHAR}, #{sonId,jdbcType=VARCHAR}, #{goodName,jdbcType=VARCHAR}, 
       #{information,jdbcType=VARCHAR}, #{originPrice,jdbcType=FLOAT}, #{secondPrice,jdbcType=FLOAT}, 
       #{degree,jdbcType=VARCHAR}, #{collectNumber,jdbcType=DECIMAL}, #{goodNumber,jdbcType=DECIMAL}, 
-      #{status,jdbcType=VARCHAR}, #{sellerName,jdbcType=VARCHAR})
+      #{status,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD" >
     insert into B_GOOD
@@ -80,8 +80,8 @@
       <if test="status != null" >
         STATUS,
       </if>
-      <if test="sellerName != null" >
-        SELLER_NAME,
+      <if test="userId != null" >
+        USER_ID,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -115,8 +115,8 @@
       <if test="status != null" >
         #{status,jdbcType=VARCHAR},
       </if>
-      <if test="sellerName != null" >
-        #{sellerName,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -150,8 +150,8 @@
       <if test="status != null" >
         STATUS = #{status,jdbcType=VARCHAR},
       </if>
-      <if test="sellerName != null" >
-        SELLER_NAME = #{sellerName,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
       </if>
     </set>
     where GOOD_ID = #{goodId,jdbcType=VARCHAR}
@@ -167,7 +167,13 @@
       COLLECT_NUMBER = #{collectNumber,jdbcType=DECIMAL},
       GOOD_NUMBER = #{goodNumber,jdbcType=DECIMAL},
       STATUS = #{status,jdbcType=VARCHAR},
-      SELLER_NAME = #{sellerName,jdbcType=VARCHAR}
+      USER_ID = #{userId,jdbcType=VARCHAR}
     where GOOD_ID = #{goodId,jdbcType=VARCHAR}
   </update>
+  <!--保存商品图片路径到资源表-->
+  <insert id="saveGoodImageUrls" parameterType="java.lang.String" >
+    insert into RESOURCES (RESOURCE_ID, TYPE, URL, SOURCE_ID)
+    values(#{resourceId, jdbcType=VARCHAR}, #{type, jdbcType=VARCHAR},
+     #{imgUrl, jdbcType=VARCHAR}, #{sonId, jdbcType=VARCHAR})
+  </insert>
 </mapper>

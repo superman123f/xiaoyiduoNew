@@ -1,6 +1,7 @@
 package com.xh.xiaoyiduo.admin.spgl.dao;
 
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 public interface B_GOODMapper {
     int deleteByPrimaryKey(String goodId);
 
-    int insert(B_GOOD record);
+    int insert(B_GOOD good); //保存商品信息
 
     int insertSelective(B_GOOD record);
 
@@ -24,4 +25,7 @@ public interface B_GOODMapper {
     int updateByPrimaryKeySelective(B_GOOD record);
 
     int updateByPrimaryKey(B_GOOD record);
+
+    int saveGoodImageUrls(@Param("resourceId")String resourceId, @Param("type")String type, @Param("imgUrl") String imgUrl, @Param("sonId")String sonId); //保存商品图片路径
+
 }

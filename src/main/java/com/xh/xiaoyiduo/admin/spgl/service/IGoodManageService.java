@@ -11,7 +11,11 @@ import java.util.Set;
  */
 public interface IGoodManageService {
 
-    public List<B_GOOD_FATHER> getGoodTypeList(); //获取商品菜单列表 父类跟子类
+    int insert(B_GOOD good); //保存商品信息
+
+    List<B_GOOD_FATHER> getGoodTypeList(); //获取商品菜单列表 父类跟子类
 
     List<B_GOOD> getSonGoodList(String sonId); //获取对应子类商品列表
+
+    int saveGoodImageUrls(String resourceId, String type, String imgUrl, String sonId); //保存商品图片路径
 }

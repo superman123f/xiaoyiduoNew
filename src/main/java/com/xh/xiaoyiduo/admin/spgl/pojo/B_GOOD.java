@@ -23,7 +23,7 @@ public class B_GOOD {
 
     private String status;
 
-    private String sellerName;
+    private String userId;
 
     public String getGoodId() {
         return goodId;
@@ -105,11 +105,11 @@ public class B_GOOD {
         this.status = status == null ? null : status.trim();
     }
 
-    public String getSellerName() {
-        return sellerName;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setSellerName(String sellerName) {
-        this.sellerName = sellerName == null ? null : sellerName.trim();
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

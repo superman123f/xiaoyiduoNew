@@ -3,6 +3,10 @@ package com.xh.xiaoyiduo.admin.spgl.controller;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_FATHER;
 import com.xh.xiaoyiduo.admin.spgl.service.IGoodManageService;
+import com.xh.xiaoyiduo.shop.pojo.S_USER;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -210,13 +214,34 @@ public class GoodManageController {
     @RequestMapping("/saveGoodInfo")
     @ResponseBody
     public Object saveGoodInfo(B_GOOD good, String imgUrls){
-        System.out.println(good);
+        //获取当前登录用户的身份信息
+        S_USER user = (S_USER) SecurityUtils.getSubject().getPrincipal();
+        String currentUserId = user.getUserId();
+//        currentUser.getPrincipals().
+//        Long currentUserId = (Long) SecurityUtils.getSubject().getSession().getAttribute("currentUserId");
         String[] imgUrlList = imgUrls.split(",");
         Map<String, Object> result = new HashMap<>();
-        for(int i = 0; i < imgUrlList.length; i++){
-            System.out.println("imgs path is" + imgUrlList[i]);
+        //保存商品信息
+        String goodId = UUID.randomUUID().toString().replaceAll("\\-", "");
+        good.setGoodId(goodId);
+        good.setUserId(currentUserId);
+        int g = goodManageService.insert(good);
+        if(g > 0) {
+            result.put("success", true);
+            System.out.println("保存商品成功");
+
+            if(imgUrlList.length > 0){
+                for(int i = 0; i < imgUrlList.length; i++){
+                    System.out.println("imgs path is" + imgUrlList[i]);
+                    String resourceId = UUID.randomUUID().toString().replaceAll("\\-", "");
+                    //保存商品图片路径到resources表
+                    goodManageService.saveGoodImageUrls(resourceId, "1", imgUrlList[i], goodId);
+                }
+            }
+        } else {
+            System.out.println("保存商品失败");
+            result.put("success", false);
         }
-        result.put("success", true);
         return result;
     }
 
