@@ -15,15 +15,39 @@
     <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
   </resultMap>
 
+  <resultMap id="GoodMap" type="com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD" >
+    <id column="GOOD_ID" property="goodId" jdbcType="VARCHAR" />
+    <result column="SON_ID" property="sonId" jdbcType="VARCHAR" />
+    <result column="GOOD_NAME" property="goodName" jdbcType="VARCHAR" />
+    <result column="INFORMATION" property="information" jdbcType="VARCHAR" />
+    <result column="ORIGIN_PRICE" property="originPrice" jdbcType="FLOAT" />
+    <result column="SECOND_PRICE" property="secondPrice" jdbcType="FLOAT" />
+    <result column="DEGREE" property="degree" jdbcType="VARCHAR" />
+    <result column="COLLECT_NUMBER" property="collectNumber" jdbcType="DECIMAL" />
+    <result column="GOOD_NUMBER" property="goodNumber" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <collection property="imgUrlResource" ofType="com.xh.xiaoyiduo.admin.spgl.pojo.RESOURCES">
+      <id column="RESOURCE_ID" property="resourceId"></id>
+      <result column="TYPE" property="type"/>
+      <result column="URL" property="url"/>
+      <result column="SOURCE_ID" property="sourceId"/>
+    </collection>
+  </resultMap>
+
   <sql id="Base_Column_List" >
     GOOD_ID, SON_ID, GOOD_NAME, INFORMATION, ORIGIN_PRICE, SECOND_PRICE, DEGREE, COLLECT_NUMBER, 
     GOOD_NUMBER, STATUS, USER_ID
   </sql>
   <!--获取对应子类商品列表-->
-  <select id="getSonGoodList" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select
-    <include refid="Base_Column_List" />
-    from B_GOOD
+  <select id="getSonGoodList" resultMap="GoodMap" parameterType="java.lang.String" >
+    <!--select-->
+    <!--<include refid="Base_Column_List" />-->
+    <!--from B_GOOD-->
+    <!--where SON_ID = #{SON_ID,jdbcType=VARCHAR}-->
+    select b.*, r.*
+    from B_GOOD b
+    left join RESOURCES r on b.good_id = r.source_id
     where SON_ID = #{SON_ID,jdbcType=VARCHAR}
   </select>
 

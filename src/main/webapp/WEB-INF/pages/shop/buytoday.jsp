@@ -29,8 +29,8 @@
                 <div class="inner-cont1 w1200">
                     <div class="inner-cont2">
                         <a href="/shop/commodity">所有商品</a>
-                        <a href="/shop/buytoday" class="active">今日团购</a>
-                        <a href="/shop/information">商品资讯</a>
+                        <%--<a href="/shop/buytoday" class="active">今日团购</a>--%>
+                        <%--<a href="/shop/information">商品资讯</a>--%>
                         <a href="/shop/about">关于我们</a>
                     </div>
                 </div>

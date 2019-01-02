@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xh.xiaoyiduo.admin.spgl.dao.ResourcesMapper" >
+  <resultMap id="BaseResultMap" type="com.xh.xiaoyiduo.admin.spgl.pojo.RESOURCES" >
+    <id column="RESOURCE_ID" property="resourceId" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="SOURCE_ID" property="sourceId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    RESOURCE_ID, TYPE, URL, SOURCE_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from RESOURCES
+    where RESOURCE_ID = #{resourceId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from RESOURCES
+    where RESOURCE_ID = #{resourceId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xh.xiaoyiduo.admin.spgl.pojo.RESOURCES" >
+    insert into RESOURCES (RESOURCE_ID, TYPE, URL, 
+      SOURCE_ID)
+    values (#{resourceId,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{sourceId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xh.xiaoyiduo.admin.spgl.pojo.RESOURCES" >
+    insert into RESOURCES
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resourceId != null" >
+        RESOURCE_ID,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="url != null" >
+        URL,
+      </if>
+      <if test="sourceId != null" >
+        SOURCE_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resourceId != null" >
+        #{resourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceId != null" >
+        #{sourceId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xh.xiaoyiduo.admin.spgl.pojo.RESOURCES" >
+    update RESOURCES
+    <set >
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceId != null" >
+        SOURCE_ID = #{sourceId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where RESOURCE_ID = #{resourceId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xh.xiaoyiduo.admin.spgl.pojo.RESOURCES" >
+    update RESOURCES
+    set TYPE = #{type,jdbcType=VARCHAR},
+      URL = #{url,jdbcType=VARCHAR},
+      SOURCE_ID = #{sourceId,jdbcType=VARCHAR}
+    where RESOURCE_ID = #{resourceId,jdbcType=VARCHAR}
+  </update>
+</mapper>

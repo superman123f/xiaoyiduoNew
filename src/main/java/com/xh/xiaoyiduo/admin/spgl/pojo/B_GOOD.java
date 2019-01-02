@@ -1,6 +1,7 @@
 package com.xh.xiaoyiduo.admin.spgl.pojo;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class B_GOOD {
     private String goodId;
@@ -24,6 +25,8 @@ public class B_GOOD {
     private String status;
 
     private String userId;
+
+    private List<RESOURCES> imgUrlResource = null;
 
     public String getGoodId() {
         return goodId;
@@ -111,5 +114,13 @@ public class B_GOOD {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public List<RESOURCES> getImgUrlResource() {
+        return imgUrlResource;
+    }
+
+    public void setImgUrlResource(List<RESOURCES> imgUrlResource) {
+        this.imgUrlResource = imgUrlResource;
     }
 }

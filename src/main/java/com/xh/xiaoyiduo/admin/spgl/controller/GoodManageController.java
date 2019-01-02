@@ -60,7 +60,7 @@ public class GoodManageController {
     public String getSonGoodList(String sonId, Model model){
 
         List<B_GOOD_FATHER> goodFatherList = goodManageService.getGoodTypeList(); //获取商品菜单栏列表
-        List<B_GOOD> sonGoodList = goodManageService.getSonGoodList("1"); //获取对应商品子类物品
+        List<B_GOOD> sonGoodList = goodManageService.getSonGoodList("4"); //获取对应商品子类物品
 
         model.addAttribute("goodFatherList", goodFatherList);
         model.addAttribute("sonGoodList", sonGoodList);
@@ -68,7 +68,7 @@ public class GoodManageController {
     }
 
     /**
-     * 测试图片上传
+     * 测试单个图片上传
      */
     @RequestMapping("/testUploadImage")
     @ResponseBody
@@ -141,12 +141,12 @@ public class GoodManageController {
 
             //获取项目根目录的上级目录,并把图片保存在该目录下
             imgUrl = baseFile+"/"+fileName;
-
+            String newImgUrl = imgUrl.replaceAll("\\\\", "/");
             File file2 = new File(imgUrl);
             file.transferTo(file2); //保存图片
-
+//            imgUrl.replaceAll("\\\\", "/");
             result.put("status", "0"); //0保存成功，1保存失败
-            result.put("src", imgUrl); //图片路径
+            result.put("src", newImgUrl); //图片路径
             result.put("oldName", oldName); //原图片名称
             System.out.println("save image success");
             return result;
@@ -186,8 +186,9 @@ public class GoodManageController {
      * 测试读取图片
      */
     @RequestMapping("/displayImage")
-    public void displayImage(HttpServletResponse response){
-        File filePic = new File("D:\\1.jpg");
+    public void displayImage(String imageUrl, HttpServletResponse response){
+//        File filePic = new File("D:\\1.jpg");
+        File filePic = new File(imageUrl);
         System.out.println("displayImage");
         try {
             if(filePic.exists()){
