@@ -105,6 +105,7 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/shop/**", "anon"); //访问商城资源
         filterChainDefinitionMap.put("/admin/**", "authc"); //访问后端模板资源
         filterChainDefinitionMap.put("/good/**", "anon");
+        filterChainDefinitionMap.put("/cart/addGoodToCart", "anon");
         filterChainDefinitionMap.put("/cart/**", "authc"); //访问购物车资源
         filterChainDefinitionMap.put("/register", "anon");
 

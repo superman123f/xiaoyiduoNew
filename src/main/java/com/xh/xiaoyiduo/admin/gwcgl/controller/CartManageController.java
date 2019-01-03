@@ -41,32 +41,38 @@ public class CartManageController {
                              @RequestParam(value = "single_price", required = false)Double singlePrice,
                              @RequestParam(value = "good_number", required = false)Integer goodNumber,
                              @RequestParam(value = "good_id", required = false) String goodId, HttpServletRequest request){
-        S_USER user = (S_USER)SecurityUtils.getSubject().getPrincipal();
-        String currentUserId = user.getUserId(); //当前登录用户id
-        String cartId = UUID.randomUUID().toString().replaceAll("\\-", ""); //购物车id
-        B_GOOD_CART cart = new B_GOOD_CART();
-        cart.setCartId(cartId);
-        cart.setUserId(currentUserId);
-        cart.setGoodName(goodName);
-        cart.setSinglePrice(singlePrice);
-        cart.setGoodNumber(goodNumber);
-        cart.setGoodId(goodId);
-
         Map<String, Object> result = new HashMap<>();
-        HttpSession session = request.getSession();
-        int i = cartManageService.insert(cart);
-        if(i > 0){
-            int count = cartManageService.queryCartGoodCountsByUserId(currentUserId);
-            session.setAttribute("cartGoodCount", count);
-            System.out.println("添加购物车成功");
-            result.put("success", true);
-            result.put("msg", "添加购物车成功");
-            result.put("cartGoodCount", count);
+        S_USER user = (S_USER)SecurityUtils.getSubject().getPrincipal();
+        if(user != null){
+            result.put("isLogin", true);
+            String currentUserId = user.getUserId(); //当前登录用户id
+            String cartId = UUID.randomUUID().toString().replaceAll("\\-", ""); //购物车id
+            B_GOOD_CART cart = new B_GOOD_CART();
+            cart.setCartId(cartId);
+            cart.setUserId(currentUserId);
+            cart.setGoodName(goodName);
+            cart.setSinglePrice(singlePrice);
+            cart.setGoodNumber(goodNumber);
+            cart.setGoodId(goodId);
+
+            HttpSession session = request.getSession();
+            int i = cartManageService.insert(cart);
+            if(i > 0){
+                int count = cartManageService.queryCartGoodCountsByUserId(currentUserId);
+                session.setAttribute("cartGoodCount", count);
+                System.out.println("添加购物车成功");
+                result.put("success", true);
+                result.put("msg", "添加购物车成功");
+                result.put("cartGoodCount", count);
+            } else {
+                System.out.println("添加购物车失败");
+                result.put("success", false);
+                result.put("msg", "添加购物车失败");
+            }
         } else {
-            System.out.println("添加购物车失败");
-            result.put("success", false);
-            result.put("msg", "添加购物车失败");
+            result.put("isLogin", false);
         }
+
         return result;
     }
 

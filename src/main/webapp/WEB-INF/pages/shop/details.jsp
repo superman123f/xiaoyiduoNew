@@ -155,11 +155,23 @@
                     good_id: goodId
                 },
                 function(data){
-                    if(data.success){
-                        layer.alert(data.msg);
-                        $("#cartSpan").html(data.cartGoodCount);
+                    if(data.isLogin){
+                        if(data.success){
+                            layer.alert(data.msg);
+                            $("#cartSpan").html(data.cartGoodCount);
+                        } else {
+                            layer.alert(data.msg)
+                        }
                     } else {
-                        layer.alert(data.msg);
+                        layer.confirm("您还未登录，是否现在登录", {
+                             btn: ['现在就去', '我在想想'],
+                            btnAlign: 'c'
+                        }, function(index){
+                            layer.close(index);
+                            location.href = "/shop/login";
+                        });
+
+                        // layer.alert("您还未登录，请先登录");
                     }
             });
         });
