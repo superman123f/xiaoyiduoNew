@@ -157,6 +157,7 @@
                 function(data){
                     if(data.success){
                         layer.alert(data.msg);
+                        $("#cartSpan").html(data.cartGoodCount);
                     } else {
                         layer.alert(data.msg);
                     }

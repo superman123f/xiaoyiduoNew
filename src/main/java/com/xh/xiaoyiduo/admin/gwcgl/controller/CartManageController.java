@@ -40,7 +40,7 @@ public class CartManageController {
     public Object addGoodToCart(@RequestParam(value = "good_name", required = false)String goodName,
                              @RequestParam(value = "single_price", required = false)Double singlePrice,
                              @RequestParam(value = "good_number", required = false)Integer goodNumber,
-                             @RequestParam(value = "good_id", required = false) String goodId){
+                             @RequestParam(value = "good_id", required = false) String goodId, HttpServletRequest request){
         S_USER user = (S_USER)SecurityUtils.getSubject().getPrincipal();
         String currentUserId = user.getUserId(); //当前登录用户id
         String cartId = UUID.randomUUID().toString().replaceAll("\\-", ""); //购物车id
@@ -53,11 +53,15 @@ public class CartManageController {
         cart.setGoodId(goodId);
 
         Map<String, Object> result = new HashMap<>();
+        HttpSession session = request.getSession();
         int i = cartManageService.insert(cart);
         if(i > 0){
+            int count = cartManageService.queryCartGoodCountsByUserId(currentUserId);
+            session.setAttribute("cartGoodCount", count);
             System.out.println("添加购物车成功");
             result.put("success", true);
             result.put("msg", "添加购物车成功");
+            result.put("cartGoodCount", count);
         } else {
             System.out.println("添加购物车失败");
             result.put("success", false);
@@ -95,6 +99,7 @@ public class CartManageController {
             session.setAttribute("cartGoodCount", count - i);
             result.put("success", true);
             result.put("msg", "购物项删除成功");
+            result.put("cartGoodCount", count - i);
         } else {
             result.put("success", false);
             result.put("msg", "购物项删除失败");
@@ -126,6 +131,7 @@ public class CartManageController {
         if(count > 0){
             result.put("success", true);
             result.put("msg", "成功删除" + count + "个");
+            result.put("cartGoodCount", cartIdList.length - count);
         } else {
             result.put("success", false);
             result.put("msg", "删除失败");

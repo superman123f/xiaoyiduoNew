@@ -74,7 +74,7 @@ var car = {
               getSubTotal(this)
               break;
             case 'dele-btn':
-              layer.confirm('你确定要删除吗21',{
+              layer.confirm('你确定要删除吗',{
                 yes:function(index,layero){
                   // alert(cartId);
                   $.post("/cart/deleteCartItemByCartId",
@@ -84,6 +84,7 @@ var car = {
                   function(data){
                       if(data.success){
                           console.log(data.msg);
+                          $("#cartSpan").html(data.cartGoodCount);
                       } else {
                           console.log(data.msg);
                     }
@@ -126,6 +127,7 @@ var car = {
                   function(data){
                         if(data.success){
                             console.log(data.msg);
+                            $("#cartSpan").html(data.cartGoodCount);
                         } else {
                             console.log(data.msg);
                         }

@@ -20,7 +20,7 @@
     where USER_ID = #{userId,jdbcType=VARCHAR}
   </select>
   <!--查询登录用户的购物车商品个数-->
-  <select id="queryCartGoodCountsByUserId" resultType="int" >
+  <select id="queryCartGoodCountsByUserId" resultType="Integer" >
     select
     sum(1)
     from B_GOOD_CART

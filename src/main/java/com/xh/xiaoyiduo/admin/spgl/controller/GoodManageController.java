@@ -65,11 +65,15 @@ public class GoodManageController {
     public String getSonGoodList(String sonId, Model model, HttpServletRequest request){
         S_USER user = (S_USER) SecurityUtils.getSubject().getPrincipal();
         HttpSession session = request.getSession();
-        int cartGoodCount = 0;
+        Integer cartGoodCount = null;
         if(user != null) {
             String currentUserId = user.getUserId();
             cartGoodCount = cartManageService.queryCartGoodCountsByUserId(currentUserId);
-            session.setAttribute("cartGoodCount", cartGoodCount); //保存当前登录用户的购物车商品个数
+            if(cartGoodCount != null){
+                session.setAttribute("cartGoodCount", cartGoodCount); //保存当前登录用户的购物车商品个数
+            } else {
+                session.setAttribute("cartGoodCount", 0); //保存当前登录用户的购物车商品个数
+            }
         }
 
         List<B_GOOD_FATHER> goodFatherList = goodManageService.getGoodTypeList(); //获取商品菜单栏列表

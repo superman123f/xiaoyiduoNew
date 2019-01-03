@@ -13,7 +13,7 @@
             </shiro:hasAnyRoles>
 
             <shiro:hasAnyRoles name="seller,buyer">
-                <div class="sp-cart" style="margin-right: 22px;"><a href="/cart/seeCartList">购物车</a><span>${sessionScope.cartGoodCount}</span></div>
+                <div class="sp-cart" style="margin-right: 22px;"><a href="/cart/seeCartList">购物车</a><span id="cartSpan">${sessionScope.cartGoodCount}</span></div>
             </shiro:hasAnyRoles>
 
             <div class="sp-cart" style="margin-right: 22px;"><a href="javascript:;">
