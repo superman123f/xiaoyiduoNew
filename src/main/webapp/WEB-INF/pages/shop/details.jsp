@@ -23,9 +23,9 @@
 <%@ include file="../shop_header.jsp"%> <!--引入头部jsp样式-->
 
 <!--隐藏域-->
-<input type="text" id="goodId" value="${goodDetail.goodId}">
-<input type="text" id="goodName" value="${goodDetail.goodName}">
-<input type="text" id="secondPrice" value="${goodDetail.secondPrice}">
+<input type="hidden" id="goodId" value="${goodDetail.goodId}">
+<input type="hidden" id="goodName" value="${goodDetail.goodName}">
+<input type="hidden" id="secondPrice" value="${goodDetail.secondPrice}">
 
 
 <div class="content content-nav-base datails-content">

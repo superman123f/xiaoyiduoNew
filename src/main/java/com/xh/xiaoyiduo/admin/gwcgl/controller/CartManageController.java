@@ -4,6 +4,7 @@ import com.xh.xiaoyiduo.admin.gwcgl.pojo.B_GOOD_CART;
 import com.xh.xiaoyiduo.admin.gwcgl.service.ICartManageService;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD;
 import com.xh.xiaoyiduo.shop.pojo.S_USER;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,10 +84,15 @@ public class CartManageController {
      */
     @RequestMapping("/deleteCartItemByCartId")
     @ResponseBody
-    public Map<String, Object> deleteCartItemByCartId(String cartId, Model model){
+    public Map<String, Object> deleteCartItemByCartId(String cartId, Model model, HttpServletRequest request){
         int i = cartManageService.deleteCartItemByCartId(cartId);
         Map<String, Object> result = new HashMap<>();
+
+        HttpSession session = request.getSession();
+        int count = (int)session.getAttribute("cartGoodCount");
+
         if(i > 0){
+            session.setAttribute("cartGoodCount", count - i);
             result.put("success", true);
             result.put("msg", "购物项删除成功");
         } else {
@@ -103,13 +110,17 @@ public class CartManageController {
      */
     @RequestMapping("/deleteCartItemByCartIds")
     @ResponseBody
-    public Map<String, Object> deleteCartItemByCartIds(String cartIds, Model model){
+    public Map<String, Object> deleteCartItemByCartIds(String cartIds, Model model, HttpServletRequest request){
         String[] cartIdList = cartIds.trim().split(",");
         int count = 0; //统计成功删除个数
         for(int i = 0; i < cartIdList.length; i++){
             cartManageService.deleteCartItemByCartId(cartIdList[i]);
             count ++;
         }
+
+        //更新购物车中商品数目
+        HttpSession session = request.getSession();
+        session.setAttribute("cartGoodCount", cartIdList.length - count);
 
         Map<String, Object> result = new HashMap<>();
         if(count > 0){

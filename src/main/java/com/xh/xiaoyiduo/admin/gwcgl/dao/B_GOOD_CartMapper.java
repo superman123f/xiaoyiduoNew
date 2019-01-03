@@ -12,6 +12,8 @@ public interface B_GOOD_CartMapper {
 
     int insert(B_GOOD_CART cart); //添加商品到购物车
 
+    int queryCartGoodCountsByUserId(String userId); //查询登录用户的购物车商品个数
+
     int insertSelective(B_GOOD_CART record);
 
     List<B_GOOD_CART> selectByPrimaryKey(@Param("userId") String currentUserId); //获取登录用户的购物车信息列表

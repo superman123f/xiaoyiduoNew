@@ -27,6 +27,11 @@ public class CartManageServiceImpl implements ICartManageService {
     }
 
     @Override
+    public int queryCartGoodCountsByUserId(String userId) {
+        return cartMapper.queryCartGoodCountsByUserId(userId);
+    }
+
+    @Override
     public List<B_GOOD_CART> getCurrentUserCartInfos(String currentUserId) {
         return cartMapper.selectByPrimaryKey(currentUserId);
     }

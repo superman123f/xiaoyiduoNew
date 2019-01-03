@@ -19,6 +19,13 @@
     from B_GOOD_CART
     where USER_ID = #{userId,jdbcType=VARCHAR}
   </select>
+  <!--查询登录用户的购物车商品个数-->
+  <select id="queryCartGoodCountsByUserId" resultType="int" >
+    select
+    sum(1)
+    from B_GOOD_CART
+    where user_id =  #{userId,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from B_GOOD_CART
     where CART_ID = #{cartId,jdbcType=VARCHAR}
