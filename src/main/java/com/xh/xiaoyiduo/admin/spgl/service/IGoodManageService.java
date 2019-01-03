@@ -17,5 +17,7 @@ public interface IGoodManageService {
 
     List<B_GOOD> getSonGoodList(String sonId); //获取对应子类商品列表
 
+    B_GOOD getGoodDetailByGoodId(String goodId); //获取商品详情信息
+
     int saveGoodImageUrls(String resourceId, String type, String imgUrl, String sonId); //保存商品图片路径
 }

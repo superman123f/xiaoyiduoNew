@@ -51,6 +51,14 @@
     where SON_ID = #{SON_ID,jdbcType=VARCHAR}
   </select>
 
+  <!--获取商品详情信息-->
+  <select id="getGoodDetailByGoodId" resultMap="GoodMap" parameterType="java.lang.String" >
+    select b.*, r.*
+    from B_GOOD b
+    left join RESOURCES r on b.good_id = r.source_id
+    where good_id = #{goodId,jdbcType=VARCHAR}
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

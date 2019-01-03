@@ -246,6 +246,19 @@ public class GoodManageController {
         return result;
     }
 
+    /**
+     * 获取商品详情信息
+     * @param goodId
+     * @return
+     */
+    @RequestMapping("/toGoodDetailPage")
+    public String toGoodDetailPage(String goodId, Model model){
+        System.out.println("sonId"+goodId);
+        B_GOOD goodDetail = goodManageService.getGoodDetailByGoodId(goodId);
+        model.addAttribute("goodDetail", goodDetail);
+        return "/shop/details";
+    }
+
     //将图片重命名
     public static String changeName(String oldName){
 //        Random r = new Random();

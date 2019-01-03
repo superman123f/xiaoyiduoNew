@@ -22,6 +22,8 @@ public interface B_GOODMapper {
 
     List<B_GOOD> getSonGoodList(String sonId); //获取对应子类的商品列表
 
+    B_GOOD getGoodDetailByGoodId(String goodId); //获取商品详情信息
+
     int updateByPrimaryKeySelective(B_GOOD record);
 
     int updateByPrimaryKey(B_GOOD record);

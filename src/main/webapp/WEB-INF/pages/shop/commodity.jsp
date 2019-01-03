@@ -69,7 +69,7 @@
                                 <c:forEach items="${resources}" var="resource" end="0">
                                     <div class="img">
                                         <%--<input type="text" value="${resource.url}">--%>
-                                        <a href="javascript:;"><img id="mutationImage" style="height:280px;width:280px;" src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}"/></a>
+                                        <a href="/good/toGoodDetailPage?goodId=${sonGood.goodId}"><img id="mutationImage" style="height:280px;width:280px;" src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}"/></a>
                                     </div>
                                 </c:forEach>
                                 <div class="text">
