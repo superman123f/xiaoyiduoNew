@@ -107,7 +107,7 @@
                             </div>
                         </li>
                         <li class="th th-sum">
-                            <span class="sum">189.00</span>
+                            <span class="sum">${cart.singlePrice * cart.goodNumber}</span>
                         </li>
                         <li class="th th-op">
                             <%--<span class="dele-btn" onclick="delCartItem('${cart.cartId}');">删除</span>--%>
