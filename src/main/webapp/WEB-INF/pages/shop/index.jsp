@@ -437,11 +437,15 @@
     </div>
 </div>
 <%@ include file="/WEB-INF/pages/shop_rooter.jsp" %> <!--引入尾部样式-->
+</body>
+<script type="text/javascript" src="../../../scripts/jquery.min.js"></script>
+<script type="text/javascript" src="../../../styles/layui/layui.js"></script>
+</html>
 
 <script type="text/javascript">
 
     layui.config({
-        base: '../../../scripts/shop/' //你存放新模块的目录，注意，不是layui的模块目录
+        base: '${ctx}/scripts/shop/' //你存放新模块的目录，注意，不是layui的模块目录
     }).use(['mm','carousel'],function(){
         var carousel = layui.carousel,
             mm = layui.mm;
@@ -473,6 +477,3 @@
 
     });
 </script>
-</body>
-<script type="text/javascript" src="../../../scripts/jquery.min.js"></script> <script type="text/javascript" src="../../../styles/layui/layui.js"></script>
-</html>

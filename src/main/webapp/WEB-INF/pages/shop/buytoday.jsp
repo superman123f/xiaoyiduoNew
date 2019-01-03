@@ -607,10 +607,15 @@
      </div>
    </div>
  </script> -->
+
+</body>
+<script type="text/javascript" src="../../../scripts/jquery.min.js"></script>
+<script type="text/javascript" src="../../../styles/layui/layui.js"></script>
+</html>
 <script>
 
     layui.config({
-        base: '../../../scripts/shop/' //你存放新模块的目录，注意，不是layui的模块目录
+        base: '${ctx}/scripts/shop/' //你存放新模块的目录，注意，不是layui的模块目录
     }).use(['mm','laypage','jquery'],function(){
         var laypage = layui.laypage,$ = layui.$;
         mm = layui.mm;
@@ -650,6 +655,3 @@
 
     });
 </script>
-</body>
-<script type="text/javascript" src="../../../scripts/jquery.min.js"></script> <script type="text/javascript" src="../../../styles/layui/layui.js"></script>
-</html>

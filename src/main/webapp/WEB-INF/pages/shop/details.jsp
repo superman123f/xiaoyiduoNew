@@ -84,7 +84,9 @@
             </div>
             <div class="detail">
                 <h4>详情</h4>
-                <p>${goodDetail.information}</p>
+                <div style="margin: 18px 0px 18px 31px;">
+                    <font style="font-size: 20px;font-family: Microsoft Yahei;">${goodDetail.information}</font>
+                </div>
                 <c:set value="${goodDetail.imgUrlResource}" var="imgUrlResource"></c:set>
                 <c:forEach items="${imgUrlResource}" var="resource" begin="1">
                     <%--<a href="javascript:;"><img height="400" width="400" src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}"></a>--%>
@@ -97,10 +99,13 @@
     </div>
 </div>
 <%@ include file="/WEB-INF/pages/shop_rooter.jsp" %> <!--引入尾部样式-->
-
+</body>
+<script type="text/javascript" src="../../../scripts/jquery.min.js"></script>
+<script type="text/javascript" src="../../../styles/layui/layui.js"></script>
+</html>
 <script type="text/javascript">
     layui.config({
-        base: '../../../scripts/shop/' //你存放新模块的目录，注意，不是layui的模块目录
+        base: '${ctx}/scripts/shop/' //你存放新模块的目录，注意，不是layui的模块目录
     }).use(['mm','jquery'],function(){
         var mm = layui.mm,$ = layui.$;
         var cur = $('.number-cont input').val();
@@ -118,6 +123,3 @@
 
     });
 </script>
-</body>
-<script type="text/javascript" src="../../../scripts/jquery.min.js"></script> <script type="text/javascript" src="../../../styles/layui/layui.js"></script>
-</html>

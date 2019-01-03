@@ -31,7 +31,7 @@ $(function(){
 });
 
 layui.config({
-    base: '../../../scripts/shop' //你存放新模块的目录，注意，不是layui的模块目录
+    base: '${ctx}/scripts/shop/' //你存放新模块的目录，注意，不是layui的模块目录
 }).use(['jquery','form'],function(){
     var $ = layui.$,form = layui.form;
 

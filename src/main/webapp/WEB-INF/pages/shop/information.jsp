@@ -205,24 +205,28 @@
 </div>
 <%@ include file="/WEB-INF/pages/shop_rooter.jsp" %> <!--引入尾部样式-->
 
+</body>
+<script type="text/javascript" src="../../../scripts/jquery.min.js"></script>
+<script type="text/javascript" src="../../../styles/layui/layui.js"></script>
+</html>
 <!-- 模版引擎导入 -->
 <!-- <script type="text/html" id="demo">
-  {{# layui.each(d.listCont,function(index,item){}}
-  <div class="item">
-    <div class="img">
-      <img src="../res/img/new1.jpg" alt="">
-    </div>
-    <div class="text">
-      <h4>周岁内的宝宝消化不良拉肚子怎么办?</h4>
-      <p class="data">2016-12-24 16:33:26</p>
-      <p class="info-cont">宝宝在周岁之前体质相对较弱，特别是薄弱肠道，一不注意就会拉肚子;那么宝宝消化不良拉肚子</p>
-    </div>
-  </div>
-  {{# })}}
+{{# layui.each(d.listCont,function(index,item){}}
+<div class="item">
+<div class="img">
+<img src="../res/img/new1.jpg" alt="">
+</div>
+<div class="text">
+<h4>周岁内的宝宝消化不良拉肚子怎么办?</h4>
+<p class="data">2016-12-24 16:33:26</p>
+<p class="info-cont">宝宝在周岁之前体质相对较弱，特别是薄弱肠道，一不注意就会拉肚子;那么宝宝消化不良拉肚子</p>
+</div>
+</div>
+{{# })}}
 </script> -->
 <script>
     layui.config({
-        base: '../../../scripts/shop/' //你存放新模块的目录，注意，不是layui的模块目录
+        base: '${ctx}/scripts/shop/' //你存放新模块的目录，注意，不是layui的模块目录
     }).use(['mm','laypage'],function(){
         var
             mm = layui.mm,laypage = layui.laypage;
@@ -246,6 +250,3 @@
     });
 
 </script>
-</body>
-<script type="text/javascript" src="../../../scripts/jquery.min.js"></script> <script type="text/javascript" src="../../../styles/layui/layui.js"></script>
-</html>

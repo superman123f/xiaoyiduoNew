@@ -83,6 +83,7 @@
 <script type="text/javascript" src="../../../scripts/jquery.min.js"></script>
 <script type="text/javascript" src="../../../styles/layui/layui.js"></script>
 <script type="text/javascript" src="${ctx}/scripts/admin/yygl/userAdmin.js"></script>
+</html>
 <script>
     $(function(){
         $("#exportExl").click(function(){
@@ -91,5 +92,3 @@
         });
     });
 </script>
-</html>
-
