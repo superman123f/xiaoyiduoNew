@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xh.xiaoyiduo.admin.gwcgl.dao.B_GOOD_CartMapper" >
+  <resultMap id="BaseResultMap" type="com.xh.xiaoyiduo.admin.gwcgl.pojo.B_GOOD_CART" >
+    <id column="CART_ID" property="cartId" jdbcType="VARCHAR" />
+    <result column="GOOD_ID" property="goodId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="GOOD_NAME" property="goodName" jdbcType="VARCHAR" />
+    <result column="SINGLE_PRICE" property="singlePrice" jdbcType="FLOAT" />
+    <result column="GOOD_NUMBER" property="goodNumber" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CART_ID, GOOD_ID, USER_ID, GOOD_NAME, SINGLE_PRICE, GOOD_NUMBER
+  </sql>
+  <!--获取登录用户的购物车信息列表-->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from B_GOOD_CART
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from B_GOOD_CART
+    where CART_ID = #{cartId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xh.xiaoyiduo.admin.gwcgl.pojo.B_GOOD_CART" >
+    insert into B_GOOD_CART (CART_ID, GOOD_ID, USER_ID, 
+      GOOD_NAME, SINGLE_PRICE, GOOD_NUMBER
+      )
+    values (#{cartId,jdbcType=VARCHAR}, #{goodId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{goodName,jdbcType=VARCHAR}, #{singlePrice,jdbcType=FLOAT}, #{goodNumber,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xh.xiaoyiduo.admin.gwcgl.pojo.B_GOOD_CART" >
+    insert into B_GOOD_CART
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cartId != null" >
+        CART_ID,
+      </if>
+      <if test="goodId != null" >
+        GOOD_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="goodName != null" >
+        GOOD_NAME,
+      </if>
+      <if test="singlePrice != null" >
+        SINGLE_PRICE,
+      </if>
+      <if test="goodNumber != null" >
+        GOOD_NUMBER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cartId != null" >
+        #{cartId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodId != null" >
+        #{goodId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodName != null" >
+        #{goodName,jdbcType=VARCHAR},
+      </if>
+      <if test="singlePrice != null" >
+        #{singlePrice,jdbcType=FLOAT},
+      </if>
+      <if test="goodNumber != null" >
+        #{goodNumber,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xh.xiaoyiduo.admin.gwcgl.pojo.B_GOOD_CART" >
+    update B_GOOD_CART
+    <set >
+      <if test="goodId != null" >
+        GOOD_ID = #{goodId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodName != null" >
+        GOOD_NAME = #{goodName,jdbcType=VARCHAR},
+      </if>
+      <if test="singlePrice != null" >
+        SINGLE_PRICE = #{singlePrice,jdbcType=FLOAT},
+      </if>
+      <if test="goodNumber != null" >
+        GOOD_NUMBER = #{goodNumber,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where CART_ID = #{cartId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xh.xiaoyiduo.admin.gwcgl.pojo.B_GOOD_CART" >
+    update B_GOOD_CART
+    set GOOD_ID = #{goodId,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=VARCHAR},
+      GOOD_NAME = #{goodName,jdbcType=VARCHAR},
+      SINGLE_PRICE = #{singlePrice,jdbcType=FLOAT},
+      GOOD_NUMBER = #{goodNumber,jdbcType=DECIMAL}
+    where CART_ID = #{cartId,jdbcType=VARCHAR}
+  </update>
+</mapper>

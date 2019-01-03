@@ -77,108 +77,45 @@
         </div>
         <div class="OrderList">
             <div class="order-content" id="list-cont">
-                <ul class="item-content layui-clear">
-                    <li class="th th-chk">
-                        <div class="select-all">
-                            <div class="cart-checkbox">
-                                <input class="CheckBoxShop check" id="" type="checkbox" num="all" name="select-all" value="true">
+                <c:forEach items="${cartList}" var="cart">
+                    <ul class="item-content layui-clear">
+                        <li class="th th-chk">
+                            <div class="select-all">
+                                <div class="cart-checkbox">
+                                    <input class="CheckBoxShop check" id="" type="checkbox" num="all" name="select-all" value="true">
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                    <li class="th th-item">
-                        <div class="item-cont">
-                            <a href="javascript:;"><img src="../../../images/shop/paging_img1.jpg" alt=""></a>
-                            <div class="text">
-                                <div class="title">宝宝T恤棉质小衫</div>
-                                <p><span>粉色</span>  <span>130</span>cm</p>
+                        </li>
+
+                        <li class="th th-item">
+                            <div class="item-cont">
+                                <a href="javascript:;"><img src="../../../images/shop/paging_img1.jpg" alt=""></a>
+                                <div class="text">
+                                    <div class="title">${cart.goodName}</div>
+                                    <%--<p><span>粉色</span>  <span>130</span>cm</p>--%>
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                    <li class="th th-price">
-                        <span class="th-su">189.00</span>
-                    </li>
-                    <li class="th th-amount">
-                        <div class="box-btn layui-clear">
-                            <div class="less layui-btn">-</div>
-                            <input class="Quantity-input" type="" name="" value="1" disabled="disabled">
-                            <div class="add layui-btn">+</div>
-                        </div>
-                    </li>
-                    <li class="th th-sum">
-                        <span class="sum">189.00</span>
-                    </li>
-                    <li class="th th-op">
-                        <span class="dele-btn">删除</span>
-                    </li>
-                </ul>
-                <ul class="item-content layui-clear">
-                    <li class="th th-chk">
-                        <div class="select-all">
-                            <div class="cart-checkbox">
-                                <input class="CheckBoxShop check" id="" type="checkbox" num="all" name="select-all" value="true">
+                        </li>
+                        <li class="th th-price">
+                            <span class="th-su">${cart.singlePrice}</span>
+                        </li>
+                        <li class="th th-amount">
+                            <div class="box-btn layui-clear">
+                                <div class="less layui-btn">-</div>
+                                <input class="Quantity-input" type="" name="" value="1" disabled="disabled">
+                                <div class="add layui-btn">+</div>
                             </div>
-                        </div>
-                    </li>
-                    <li class="th th-item">
-                        <div class="item-cont">
-                            <a href="javascript:;"><img src="../../../images/shop/paging_img2.jpg" alt=""></a>
-                            <div class="text">
-                                <div class="title">宝宝T恤棉质小衫</div>
-                                <p><span>粉色</span>  <span>130</span>cm</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="th th-price">
-                        <span class="th-su">189.00</span>
-                    </li>
-                    <li class="th th-amount">
-                        <div class="box-btn layui-clear">
-                            <div class="less layui-btn">-</div>
-                            <input class="Quantity-input" type="" name="" value="1" disabled="disabled">
-                            <div class="add layui-btn">+</div>
-                        </div>
-                    </li>
-                    <li class="th th-sum">
-                        <span class="sum">189.00</span>
-                    </li>
-                    <li class="th th-op">
-                        <span class="dele-btn">删除</span>
-                    </li>
-                </ul>
-                <ul class="item-content layui-clear">
-                    <li class="th th-chk">
-                        <div class="select-all">
-                            <div class="cart-checkbox">
-                                <input class="CheckBoxShop check" id="" type="checkbox" num="all" name="select-all" value="true">
-                            </div>
-                        </div>
-                    </li>
-                    <li class="th th-item">
-                        <div class="item-cont">
-                            <a href="javascript:;"><img src="../../../images/shop/paging_img3.jpg" alt=""></a>
-                            <div class="text">
-                                <div class="title">宝宝T恤棉质小衫</div>
-                                <p><span>粉色</span>  <span>130</span>cm</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="th th-price">
-                        <span class="th-su">189.00</span>
-                    </li>
-                    <li class="th th-amount">
-                        <div class="box-btn layui-clear">
-                            <div class="less layui-btn">-</div>
-                            <input class="Quantity-input" type="" name="" value="1" disabled="disabled">
-                            <div class="add layui-btn">+</div>
-                        </div>
-                    </li>
-                    <li class="th th-sum">
-                        <span class="sum">189.00</span>
-                    </li>
-                    <li class="th th-op">
-                        <span class="dele-btn">删除</span>
-                    </li>
-                </ul>
+                        </li>
+                        <li class="th th-sum">
+                            <span class="sum">189.00</span>
+                        </li>
+                        <li class="th th-op">
+                            <%--<span class="dele-btn" onclick="delCartItem('${cart.cartId}');">删除</span>--%>
+                            <span class="dele-btn">删除</span>
+                            <input type="hidden" id="cartId" class="cartId" value="${cart.cartId}">
+                        </li>
+                    </ul>
+                </c:forEach>
             </div>
         </div>
 
@@ -251,28 +188,51 @@
 <script type="text/javascript" src="../../../styles/layui/layui.js"></script>
 </html>
 <script type="text/javascript">
-    layui.config({
-        base: '${ctx}/scripts/shop/' //你存放新模块的目录，注意，不是layui的模块目录
-    }).use(['mm','jquery','element','car'],function(){
-        var mm = layui.mm,$ = layui.$,element = layui.element,car = layui.car;
+    $(function(){
+        layui.config({
+            base: '${ctx}/scripts/shop/' //你存放新模块的目录，注意，不是layui的模块目录
+        }).use(['mm','jquery','element','car'],function(){
+            var mm = layui.mm,$ = layui.$,element = layui.element,car = layui.car;
 
-        // 模版导入数据
-        // var html = demo.innerHTML,
-        // listCont = document.getElementById('list-cont');
-        // mm.request({
-        //   url: '../json/shopcart.json',
-        //   success : function(res){
-        //     listCont.innerHTML = mm.renderHtml(html,res)
-        //     element.render();
-        //     car.init()
-        //   },
-        //   error: function(res){
-        //     console.log(res);
-        //   }
-        // })
-        //
-        car.init()
+            // 模版导入数据
+            // var html = demo.innerHTML,
+            // listCont = document.getElementById('list-cont');
+            // mm.request({
+            //   url: '../json/shopcart.json',
+            //   success : function(res){
+            //     listCont.innerHTML = mm.renderHtml(html,res)
+            //     element.render();
+            //     car.init()
+            //   },
+            //   error: function(res){
+            //     console.log(res);
+            //   }
+            // })
+            //
+            car.init()
 
 
+        });
+
+        // $(".dele-btn").click(function(){
+        //     alert(111);
+        //     var cartId = $("#cartId").val();
+        //     alert(cartId);
+        // });
     });
+
+    // function delCartItem(cartId){
+    //     $.post("/cart/deleteCartItemByCartId",
+    //         {
+    //             cartId: cartId
+    //         },
+    //         function(data){
+    //             if(data.success){
+    //                 console.log(data.msg);
+    //             } else {
+    //                 console.log(data.msg);
+    //             }
+    //         });
+    // };
+
 </script>

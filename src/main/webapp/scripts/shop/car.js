@@ -1,6 +1,6 @@
 
-layui.define(['layer'],function(exports){
-	var layer = layui.layer;
+layui.define(['layer','jquery'],function(exports){ //需要正确引入所需要的模块
+	var layer = layui.layer, $ = layui.jquery;
 	
 var car = {
   init : function(){
@@ -51,6 +51,7 @@ var car = {
       }
 
       for(var i = 0; i < uls.length;i++){
+          // layer.alert(uls[i]);
         uls[i].onclick = function(e){
           e = e || window.event;
           var el = e.srcElement;
@@ -58,6 +59,8 @@ var car = {
           var input = this.getElementsByClassName('Quantity-input')[0];
           var less = this.getElementsByClassName('less')[0];
           var val = parseInt(input.value);
+          // var cartId = this.getElementsByClassName('cartId')[0].value; //获取cartId值，与jquery获取方式不同，原因没有正确引入jquery模块
+          var cartId = $("#cartId").val();
           var that = this;
           switch(cls){
             case 'add layui-btn':
@@ -71,17 +74,35 @@ var car = {
               getSubTotal(this)
               break;
             case 'dele-btn':
-              layer.confirm('你确定要删除吗',{
+              layer.confirm('你确定要删除吗21',{
                 yes:function(index,layero){
+                  // alert(cartId);
+                  $.post("/cart/deleteCartItemByCartId",
+                  {
+                      cartId: cartId
+                  },
+                  function(data){
+                      if(data.success){
+                          console.log(data.msg);
+                      } else {
+                          console.log(data.msg);
+                    }
+                  });
                   layer.close(index)
                   that.parentNode.removeChild(that);
-                }
+                },
+                  no:function (index, layero){
+                    alert("no");
+                    layer.close(index);
+                  }
               })
               break;
           }
           getTotal()
         }
       }
+
+      var cartIds = ""; //批量删除购物项，保存cartIds
       batchdeletion.onclick = function(){
         if(SelectedPieces.innerHTML != 0){
           layer.confirm('你确定要删除吗',{
@@ -89,11 +110,28 @@ var car = {
               layer.close(index)
               for(var i = 0;i < uls.length;i++){
                 var input = uls[i].getElementsByTagName('input')[0];
+                var cartId = $("#cartId").val();
+                // alert(cartId);
                 if(input.checked){
-                  uls[i].parentNode.removeChild(uls[i]); 
+                  cartIds += cartId + ",";
+                  uls[i].parentNode.removeChild(uls[i]);
                   i--;
                 }
               }
+
+              $.post("/cart/deleteCartItemByCartIds",
+                  {
+                      cartIds: cartIds
+                  },
+                  function(data){
+                        if(data.success){
+                            console.log(data.msg);
+                        } else {
+                            console.log(data.msg);
+                        }
+                  }
+              );
+              // alert(cartIds);
               getTotal() 
             }
 

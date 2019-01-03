@@ -22,6 +22,12 @@
 
 <%@ include file="../shop_header.jsp"%> <!--引入头部jsp样式-->
 
+<!--隐藏域-->
+<input type="text" id="goodId" value="${goodDetail.goodId}">
+<input type="text" id="goodName" value="${goodDetail.goodName}">
+<input type="text" id="secondPrice" value="${goodDetail.secondPrice}">
+
+
 <div class="content content-nav-base datails-content">
     <div class="main-nav">
         <div class="inner-cont0">
@@ -64,10 +70,11 @@
                     <div class="choose-attrs">
                         <%--<div class="color layui-clear"><span class="title">颜&nbsp;&nbsp;&nbsp;&nbsp;色</span> <div class="color-cont"><span class="btn">白色</span> <span class="btn active">粉丝</span></div></div>--%>
                         <div class="number layui-clear"><span class="title">数&nbsp;&nbsp;&nbsp;&nbsp;量</span>&nbsp;&nbsp;件 (库存${goodDetail.goodNumber}件)<div class="number-cont"><span class="cut btn">-</span><input onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="4" type="" name="" value="1"><span class="add btn">+</span></div></div>
+                        <input id="goodNumber" type="hidden" value="${goodDetail.goodNumber}">
                     </div>
                     <div class="choose-btns">
                         <button class="layui-btn layui-btn-primary purchase-btn">立刻购买</button>
-                        <button class="layui-btn  layui-btn-danger car-btn"><i class="layui-icon layui-icon-cart-simple"></i>加入购物车</button>
+                        <button id="addCartBtn" class="layui-btn  layui-btn-danger car-btn"><i class="layui-icon layui-icon-cart-simple"></i>加入购物车</button>
                     </div>
                 </div>
             </div>
@@ -104,22 +111,56 @@
 <script type="text/javascript" src="../../../styles/layui/layui.js"></script>
 </html>
 <script type="text/javascript">
-    layui.config({
-        base: '${ctx}/scripts/shop/' //你存放新模块的目录，注意，不是layui的模块目录
-    }).use(['mm','jquery'],function(){
-        var mm = layui.mm,$ = layui.$;
-        var cur = $('.number-cont input').val();
-        $('.number-cont .btn').on('click',function(){
-            if($(this).hasClass('add')){
-                cur++;
-
-            }else{
-                if(cur > 1){
-                    cur--;
+    var cur = 1;
+    $(function(){
+        layui.config({
+            base: '${ctx}/scripts/shop/' //你存放新模块的目录，注意，不是layui的模块目录
+        }).use(['mm','jquery','layer'],function(){
+            var mm = layui.mm,$ = layui.$;
+            var cur = $('.number-cont input').val();
+            var goodNumber =$("#goodNumber").val();
+            // alert(goodNumber);
+            $('.number-cont .btn').on('click',function(){
+                if($(this).hasClass('add')){
+                    if(cur < goodNumber){
+                        cur++;
+                    }
+                }else{
+                    if(cur > 1){
+                        cur--;
+                    }
                 }
-            }
-            $('.number-cont input').val(cur)
-        })
+                $('.number-cont input').val(cur)
+            })
 
-    });
+        });
+
+        $("#addCartBtn").click(function(){
+            // alert(1);
+            var goodName = $("#goodName").val();
+            // alert(goodName);
+            var secondPrice = $("#secondPrice").val();
+            // alert(secondPrice);
+            var cur_ = cur;
+            // alert(cur);
+            var goodId = $("#goodId").val();
+            // alert(goodId);
+            $.post("/cart/addGoodToCart",
+                {
+                    // cart_id: 通过uuid生成
+                    // buyer_id:, 后台获取当前用户id
+                    good_name: goodName,
+                    single_price: secondPrice,
+                    good_number: cur_,
+                    good_id: goodId
+                },
+                function(data){
+                    if(data.success){
+                        layer.alert(data.msg);
+                    } else {
+                        layer.alert(data.msg);
+                    }
+            });
+        });
+    })
 </script>
