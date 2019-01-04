@@ -117,7 +117,7 @@
             base: '${ctx}/scripts/shop/' //你存放新模块的目录，注意，不是layui的模块目录
         }).use(['mm','jquery','layer'],function(){
             var mm = layui.mm,$ = layui.$;
-            var cur = $('.number-cont input').val();
+            cur = $('.number-cont input').val();
             var goodNumber =$("#goodNumber").val();
             // alert(goodNumber);
             $('.number-cont .btn').on('click',function(){

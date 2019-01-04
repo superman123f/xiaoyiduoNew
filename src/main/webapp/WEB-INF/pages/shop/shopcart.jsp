@@ -102,7 +102,7 @@
                         <li class="th th-amount">
                             <div class="box-btn layui-clear">
                                 <div class="less layui-btn">-</div>
-                                <input class="Quantity-input" type="" name="" value="1" disabled="disabled">
+                                <input class="Quantity-input" type="" name="" value="${cart.goodNumber}" disabled="disabled">
                                 <div class="add layui-btn">+</div>
                             </div>
                         </li>
@@ -211,14 +211,15 @@
             //
             car.init()
 
-
+            $(".dele-btn").click(function(){
+                // alert(111);
+                // car.init();
+                // var cartId = $("#cartId").val();
+                // alert(cartId);
+            });
         });
 
-        // $(".dele-btn").click(function(){
-        //     alert(111);
-        //     var cartId = $("#cartId").val();
-        //     alert(cartId);
-        // });
+
     });
 
     // function delCartItem(cartId){

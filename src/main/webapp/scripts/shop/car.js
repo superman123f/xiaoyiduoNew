@@ -1,7 +1,7 @@
 
 layui.define(['layer','jquery'],function(exports){ //需要正确引入所需要的模块
 	var layer = layui.layer, $ = layui.jquery;
-	
+
 var car = {
   init : function(){
   		var uls = document.getElementById('list-cont').getElementsByTagName('ul');//每一行
@@ -56,11 +56,13 @@ var car = {
           e = e || window.event;
           var el = e.srcElement;
           var cls = el.className;
-          var input = this.getElementsByClassName('Quantity-input')[0];
+          var singlePrice = this.getElementsByClassName('th-su')[0].innerText; //商品单价
+          var input = this.getElementsByClassName('Quantity-input')[0]; //商品数量
           var less = this.getElementsByClassName('less')[0];
           var val = parseInt(input.value);
           // var cartId = this.getElementsByClassName('cartId')[0].value; //获取cartId值，与jquery获取方式不同，原因没有正确引入jquery模块
-          var cartId = $("#cartId").val();
+          var cartId = $("#cartId").val(); //获取cartId
+          var cartItemTotalPrice = singlePrice * input.value; //单个购物项总价
           var that = this;
           switch(cls){
             case 'add layui-btn':
@@ -84,18 +86,18 @@ var car = {
                   function(data){
                       if(data.success){
                           console.log(data.msg);
-                          $("#cartSpan").html(data.cartGoodCount);
+                          // $("#cartSpan").html(data.cartGoodCount);
+                          window.location.href = "/cart/seeCartList";
+                          // var totalPrice = $(".pieces-total").text().replace("￥", ""); //获取前端总价
+                          // var totalPri = totalPrice - cartItemTotalPrice; //删除后的总价价格
+                          // $(".pieces-total").html('￥' + totalPri.toFixed(2)); //改变前端的总价
                       } else {
                           console.log(data.msg);
                     }
                   });
                   layer.close(index)
                   that.parentNode.removeChild(that);
-                },
-                  no:function (index, layero){
-                    alert("no");
-                    layer.close(index);
-                  }
+                }
               })
               break;
           }
@@ -127,7 +129,8 @@ var car = {
                   function(data){
                         if(data.success){
                             console.log(data.msg);
-                            $("#cartSpan").html(data.cartGoodCount);
+                            // $("#cartSpan").html(data.cartGoodCount);
+                            window.location.href = "/cart/seeCartList";
                         } else {
                             console.log(data.msg);
                         }
