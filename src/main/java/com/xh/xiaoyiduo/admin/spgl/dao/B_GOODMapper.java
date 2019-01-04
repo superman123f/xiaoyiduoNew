@@ -20,7 +20,9 @@ public interface B_GOODMapper {
 
     B_GOOD selectByPrimaryKey(String goodId);
 
-    List<B_GOOD> getSonGoodList(String sonId); //获取对应子类的商品列表
+    List<B_GOOD> getSonGoodList(@Param("sonId")String sonId, @Param("currentPage")String currentPage, @Param("pageSize")String pageSize); //获取对应子类的商品列表
+
+    Integer getSonGoodCount(String sonId); //获取子类商品个数
 
     B_GOOD getGoodDetailByGoodId(String goodId); //获取商品详情信息
 

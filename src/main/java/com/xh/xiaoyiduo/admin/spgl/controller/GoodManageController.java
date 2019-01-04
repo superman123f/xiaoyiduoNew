@@ -4,13 +4,16 @@ import com.xh.xiaoyiduo.admin.gwcgl.service.ICartManageService;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_FATHER;
 import com.xh.xiaoyiduo.admin.spgl.service.IGoodManageService;
+import com.xh.xiaoyiduo.admin.utils.Pager;
 import com.xh.xiaoyiduo.shop.pojo.S_USER;
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -62,7 +65,7 @@ public class GoodManageController {
      * @return
      */
     @RequestMapping("/getSonGoodList")
-    public String getSonGoodList(String sonId, Model model, HttpServletRequest request){
+    public String getSonGoodList(String sonId, String currentPage, String pageSize, Model model, HttpServletRequest request){
         S_USER user = (S_USER) SecurityUtils.getSubject().getPrincipal();
         HttpSession session = request.getSession();
         Integer cartGoodCount = null;
@@ -77,14 +80,57 @@ public class GoodManageController {
         }
 
         List<B_GOOD_FATHER> goodFatherList = goodManageService.getGoodTypeList(); //获取商品菜单栏列表
-        List<B_GOOD> sonGoodList = goodManageService.getSonGoodList("4"); //获取对应商品子类物品
-
+        List<B_GOOD> sonGoodList = goodManageService.getSonGoodList("4", "1", "2"); //获取对应商品子类物品
+//        Integer sonGoodCount = goodManageService.getSonGoodCount(sonId); //某个子类商品总数
 
         model.addAttribute("goodFatherList", goodFatherList);
         model.addAttribute("sonGoodList", sonGoodList);
         model.addAttribute("cartGoodCount", cartGoodCount);
+//        model.addAttribute("sonGoodCount", sonGoodCount);
 
         return "/shop/commodity";
+    }
+
+    /**
+     * 商品列表（分页）
+     * @return
+     */
+    @RequestMapping("/getSonGoodList1")
+    @ResponseBody
+    public Object getSonGoodList1(String sonId, String currentPage, String pageSize, Model model, HttpServletRequest request){
+
+
+//        List<B_GOOD_FATHER> goodFatherList = goodManageService.getGoodTypeList(); //获取商品菜单栏列表
+        //1.查询总记录数
+        Integer total = goodManageService.getSonGoodCount(sonId);
+        //1.1 查询分页数据
+        List<B_GOOD> sonGoodList = goodManageService.getSonGoodList(sonId, currentPage, pageSize); //获取对应商品子类物品
+        //2. 封装分页类对象
+        Pager<B_GOOD> pager = new Pager<>();
+        pager.setCurrentPage(Integer.parseInt(currentPage));
+        pager.setPageSize(Integer.parseInt(pageSize));
+        pager.setTotal(total);
+        pager.setData(sonGoodList);
+        return pager;
+    }
+
+    /**
+     * 获取对应的子类商品个数
+     * @return
+     */
+    @RequestMapping("/getSonGoodCount")
+    @ResponseBody
+    public Map<String, Object> getSonGoodCount(String sonId, Model model){
+        Map<String, Object> result = new HashMap<>();
+        Integer sonGoodCount = goodManageService.getSonGoodCount(sonId); //某个子类商品总数
+        if(sonGoodCount != null) {
+            result.put("success", true);
+            result.put("sonGoodCount", sonGoodCount);
+        } else {
+            result.put("success", false);
+        }
+        model.addAttribute("sonGoodCount", sonGoodCount);
+        return result;
     }
 
     /**

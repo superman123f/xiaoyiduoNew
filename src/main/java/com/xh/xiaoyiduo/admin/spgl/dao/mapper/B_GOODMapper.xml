@@ -44,11 +44,21 @@
     <!--select-->
     <!--<include refid="Base_Column_List" />-->
     <!--from B_GOOD-->
-    <!--where SON_ID = #{SON_ID,jdbcType=VARCHAR}-->
-    select b.*, r.*
+    <!--where SON_ID = #{sonId,jdbcType=VARCHAR}-->
+    select t.*, r.* from (SELECT *
+    FROM (SELECT r.*,ROWNUM rn
+    FROM(
+    select b.* from B_GOOD b where son_id = #{sonId,jdbcType=VARCHAR}
+    ) r
+    where ROWNUM &lt;= #{pageSize} * #{currentPage}
+    ) WHERE rn > #{pageSize} * ( #{currentPage} - 1)) t left join RESOURCES r on t.good_id = r.source_id
+  </select>
+
+  <!--获取子类商品个数-->
+  <select id="getSonGoodCount" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select sum(1)
     from B_GOOD b
-    left join RESOURCES r on b.good_id = r.source_id
-    where SON_ID = #{SON_ID,jdbcType=VARCHAR}
+    where b.son_id = #{SON_ID,jdbcType=VARCHAR}
   </select>
 
   <!--获取商品详情信息-->

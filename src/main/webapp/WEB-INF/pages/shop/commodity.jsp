@@ -22,6 +22,9 @@
 
 <%@ include file="../shop_header.jsp"%> <!--引入头部jsp样式-->
 
+<!--隐藏域-->
+<input id="sonGoodCount" type="text" value="11">
+
 <div class="content content-nav-base commodity-content">
     <div class="main-nav">
         <div class="inner-cont0">
@@ -45,7 +48,7 @@
                             <dt>${goodFather.fatherName}</dt>
                             <c:set value="${goodFather.goodSons}" var="goodSons"></c:set>
                             <c:forEach items="${goodSons}" var="goodSon">
-                                <dd><a href="javascript:;">${goodSon.sonName}</a></dd>
+                                <dd><a href="javascript:;" onclick="getSonGoodList('${goodSon.sonId}');">${goodSon.sonName}</a></dd>
                             </c:forEach>
                         </dl>
                     </c:forEach>
@@ -63,24 +66,26 @@
                         <span>200个</span>
                     </div>
                     <div class="cont-list layui-clear" id="list-cont">
-                        <c:forEach items="${sonGoodList}" var="sonGood" >
-                            <div class="item">
-                                <c:set value="${sonGood.imgUrlResource}" var="resources"></c:set>
-                                <c:forEach items="${resources}" var="resource" end="0">
-                                    <div class="img">
-                                        <%--<input type="text" value="${resource.url}">--%>
-                                        <a href="/good/toGoodDetailPage?goodId=${sonGood.goodId}"><img id="mutationImage" style="height:280px;width:280px;" src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}"/></a>
+                        <div id="goodBody">
+                            <c:forEach items="${sonGoodList}" var="sonGood" >
+                                <div class="item">
+                                    <c:set value="${sonGood.imgUrlResource}" var="resources"></c:set>
+                                    <c:forEach items="${resources}" var="resource" end="0">
+                                        <div class="img">
+                                            <%--<input type="text" value="${resource.url}">--%>
+                                            <a href="/good/toGoodDetailPage?goodId=${sonGood.goodId}"><img id="mutationImage" style="height:280px;width:280px;" src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}"/></a>
+                                        </div>
+                                    </c:forEach>
+                                    <div class="text">
+                                        <p class="title">${sonGood.goodName}</p>
+                                        <p class="price">
+                                            <span class="nub">${sonGood.originPrice}</span>
+                                            <span class="pri">${sonGood.secondPrice}</span>
+                                        </p>
                                     </div>
-                                </c:forEach>
-                                <div class="text">
-                                    <p class="title">${sonGood.goodName}</p>
-                                    <p class="price">
-                                        <span class="nub">${sonGood.originPrice}</span>
-                                        <span class="pri">${sonGood.secondPrice}</span>
-                                    </p>
                                 </div>
-                            </div>
-                        </c:forEach>
+                            </c:forEach>
+                        </div>
                     </div>
                     <!-- 模版引擎导入 -->
                     <!-- <script type="text/html" id="demo">
@@ -113,45 +118,189 @@
 </html>
 
 <script>
+    var currentPage = 1; //当前页，初始值设为1
+    var pageSize = 1; //每页条数， 初始值设为10
+    var total; //总记录数
+    var sonId = 4;
 
-    layui.config({
-        base: '${ctx}/scripts/shop/' //你存放新模块的目录，注意，不是layui的模块目录
-    }).use(['mm','laypage','jquery'],function(){
-        var laypage = layui.laypage,$ = layui.$,
-            mm = layui.mm;
-        laypage.render({
-            elem: 'demo0'
-            ,count: 100 //数据总数
+    $(function(){
+        getInfo(); //获取数据
+        toPage(); //进行分页
+    });
+
+    //获取数据
+    function getInfo(sonId) {
+        //原异步，有问题，没有取消异步的方法
+        // $.post("/good/getSonGoodList1",
+        //     {
+        //         sonId: sonId,
+        //         currentPage: currentPage,
+        //         pageSize: pageSize
+        //     },
+        //     function(pager){
+        //
+        //         successFul(pager);
+        //         // if(pager.success){
+        //         //     $("#sonGoodCount").val(pager.sonGoodCount);
+        //         //     // alert(data.sonGoodCount);
+        //         //     successFul(pager);
+        //         // } else {
+        //         //     alert("商品列表获取失败");
+        //         // }
+        //
+        //         // toPage(); //进行分页
+        //     });
+
+        $.ajax({
+            type:"post",
+            url:"/good/getSonGoodList1",//对应controller的URL
+            async:false, //这一步很关键，同步，否则无法获得total的值
+            dataType: 'json',
+            data:{
+                "sonId":sonId,
+                "currentPage":currentPage,
+                "pageSize":pageSize
+            },
+            success:function(pager){
+                total = pager.total;  //设置总条数
+                console.log(pager);
+
+                //判断是否为空
+                if(typeof(pager.total) == 'undefined' || pager.total == null) {
+                    $("#goodBody").html("此类暂无商品信息");
+                    return;
+                }
+
+                var data = pager.data;
+                var html = "";
+                for(var i = 0; i < data.length; i++){
+                    html += '<div class="item">'
+                    html +=    '<div class="img">'
+                    html +=    '<a href="/good/toGoodDetailPage?goodId='+data[i].goodId+'"><img id="mutationImage" style="height:280px;width:280px;" src="${pageContext.request.contextPath}/good/displayImage?imageUrl=E:/guyuanhui/NewGraduateProject/xiaoyiduo/resources/shop/386d85821eef4c87aa5a154fbb8ac341.jpg"/></a>'
+                    html +=    '</div>'
+                    html +=    '<div class="text">'
+                    html +=    '<p class="title">'+data[i].goodName+'</p>'
+                    html +=    '<p class="price">'
+                    html +=    '<span class="nub">'+data[i].originPrice+'</span>'
+                    html +=    '<span class="pri">'+data[i].secondPrice+'</span>'
+                    html +=    '</p>'
+                    html +=    '</div>'
+                    html +=    '</div>';
+                }
+
+                $("#goodBody").empty().append(html); //清空后再嵌入商品信息
+            }
+        });
+    }
+
+    //数据请求成功（不用该方法）
+    function successFul(pager){
+        // alert(pager.data.sonId.value);
+        //1.清空原数据
+        $("#goodBody").html("");
+
+        //2.重置页码
+        currentPage = pager.currentPage;
+        pageSize = pager.pageSize;
+        total = pager.total;
+
+        //3.渲染数据
+        if(pager.total == 0) {
+            $("#goodBody").html("此类暂无商品信息");
+            return;
+        }
+
+        var text = "";
+        $.each(pager.data, function(i, item){
+            // $.each(item,function(key,val2){
+            //     alert(val2.resourceId);
+            // })
+            text += '<div class="item">\n' +
+            '<div class="img">\n' +
+            '<a href="/good/toGoodDetailPage?goodId='+item.goodId+'"><img id="mutationImage" style="height:280px;width:280px;" src="${pageContext.request.contextPath}/good/displayImage?imageUrl=E:/guyuanhui/NewGraduateProject/xiaoyiduo/resources/shop/386d85821eef4c87aa5a154fbb8ac341.jpg"/></a>\n'+
+            '</div>\n'+
+            '<div class="text">\n'+
+            '<p class="title">'+item.goodName+'</p>\n'+
+            '<p class="price">\n'+
+            '<span class="nub">'+item.originPrice+'</span>\n'+
+            '<span class="pri">'+item.secondPrice+'</span>\n'+
+            '</p>\n'+
+            '</div>\n'+
+            '</div>\n';
         });
 
+         $("#goodBody").html(text);
+    }
 
-        // 模版引擎导入
-        //  var html = demo.innerHTML;
-        //  var listCont = document.getElementById('list-cont');
-        //  // console.log(layui.router("#/about.html"))
-        // mm.request({
-        //     url: '../json/commodity.json',
-        //     success : function(res){
-        //       console.log(res)
-        //       listCont.innerHTML = mm.renderHtml(html,res)
-        //     },
-        //     error: function(res){
-        //       console.log(res);
-        //     }
-        //   })
+    function toPage(){
+        layui.config({
+            base: '${ctx}/scripts/shop/' //你存放新模块的目录，注意，不是layui的模块目录
+        }).use(['mm','laypage','jquery'],function(){
+            var laypage = layui.laypage,$ = layui.$,
+                mm = layui.mm;
 
-        $('.sort a').on('click',function(){
-            $(this).addClass('active').siblings().removeClass('active');
-        })
-        $('.list-box dt').on('click',function(){
-            if($(this).attr('off')){
-                $(this).removeClass('active').siblings('dd').show()
-                $(this).attr('off','')
-            }else{
-                $(this).addClass('active').siblings('dd').hide()
-                $(this).attr('off',true)
-            }
-        })
+            var sonGoodCount = $("#sonGoodCount").val();
+            // alert(sonGoodCount);
+            laypage.render({
+                elem: 'demo0'
+                ,limit: 1
+                ,count: total //数据总数
+                //自定义每页条数的选择项
+                ,limits: [1, 2, 3, 4, 10]
+                ,first: '首页'
+                ,last: '尾页'
+                ,prev: '<em><<</em>' //自定义上一页
+                ,next: '<em>>></em>' //自定义下一页
+                ,theme: "#FF5722" //自定义主题
+                ,layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
+                ,jump: function(data, first){
+                    //data包含了当前分页的所有参数
+                    //重置分页
+                    currentPage = data.curr;
+                    pageSize = data.limit;
 
-    });
+                    //首次不执行
+                    if(!first) {
+                        getInfo(sonId);
+                    }
+                }
+            });
+
+
+            // 模版引擎导入
+            //  var html = demo.innerHTML;
+            //  var listCont = document.getElementById('list-cont');
+            //  // console.log(layui.router("#/about.html"))
+            // mm.request({
+            //     url: '../json/commodity.json',
+            //     success : function(res){
+            //       console.log(res)
+            //       listCont.innerHTML = mm.renderHtml(html,res)
+            //     },
+            //     error: function(res){
+            //       console.log(res);
+            //     }
+            //   })
+
+            $('.sort a').on('click',function(){
+                $(this).addClass('active').siblings().removeClass('active');
+            })
+            $('.list-box dt').on('click',function(){
+                if($(this).attr('off')){
+                    $(this).removeClass('active').siblings('dd').show()
+                    $(this).attr('off','')
+                }else{
+                    $(this).addClass('active').siblings('dd').hide()
+                    $(this).attr('off',true)
+                }
+            })
+
+        });
+    }
+
+    function getSonGoodList(goodSonId){
+        sonId = goodSonId;
+        getInfo(sonId); //获取数据
+        toPage(); //进行分页
+    }
 </script>
