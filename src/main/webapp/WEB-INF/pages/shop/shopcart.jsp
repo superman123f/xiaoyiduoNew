@@ -82,14 +82,17 @@
                         <li class="th th-chk">
                             <div class="select-all">
                                 <div class="cart-checkbox">
-                                    <input class="CheckBoxShop check" id="" type="checkbox" num="all" name="select-all" value="true">
+                                    <input class="CheckBoxShop check"  type="checkbox" num="all" name="select-all" value="true">
                                 </div>
                             </div>
                         </li>
 
+                        <c:set value="${cart.resources}" var="resources"></c:set>
                         <li class="th th-item">
                             <div class="item-cont">
-                                <a href="javascript:;"><img src="../../../images/shop/paging_img1.jpg" alt=""></a>
+                                <c:forEach items="${resources}" var="resource" end="0">
+                                    <a href="javascript:;"><img src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}" alt=""></a>
+                                </c:forEach>
                                 <div class="text">
                                     <div class="title">${cart.goodName}</div>
                                     <%--<p><span>粉色</span>  <span>130</span>cm</p>--%>
@@ -165,7 +168,7 @@
             <div class="th th-chk">
                 <div class="select-all">
                     <div class="cart-checkbox">
-                        <input class="check-all check" id="" name="select-all" type="checkbox"  value="true">
+                        <input class="check-all check"  name="select-all" type="checkbox"  value="true">
                     </div>
                     <label>&nbsp;&nbsp;已选<span class="Selected-pieces">0</span>件</label>
                 </div>

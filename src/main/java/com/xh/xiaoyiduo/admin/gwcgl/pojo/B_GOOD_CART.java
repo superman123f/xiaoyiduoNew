@@ -1,6 +1,9 @@
 package com.xh.xiaoyiduo.admin.gwcgl.pojo;
 
+import com.xh.xiaoyiduo.admin.spgl.pojo.RESOURCES;
+
 import java.math.BigDecimal;
+import java.util.List;
 
 public class B_GOOD_CART {
     private String cartId;
@@ -18,6 +21,8 @@ public class B_GOOD_CART {
     public String getCartId() {
         return cartId;
     }
+
+    public List<RESOURCES> resources = null;
 
     public void setCartId(String cartId) {
         this.cartId = cartId == null ? null : cartId.trim();
@@ -61,5 +66,13 @@ public class B_GOOD_CART {
 
     public void setGoodNumber(Integer goodNumber) {
         this.goodNumber = goodNumber;
+    }
+
+    public List<RESOURCES> getResources() {
+        return resources;
+    }
+
+    public void setResources(List<RESOURCES> resources) {
+        this.resources = resources;
     }
 }

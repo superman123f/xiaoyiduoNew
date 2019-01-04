@@ -9,15 +9,34 @@
     <result column="SINGLE_PRICE" property="singlePrice" jdbcType="FLOAT" />
     <result column="GOOD_NUMBER" property="goodNumber" jdbcType="INTEGER" />
   </resultMap>
+  <resultMap id="CartMap" type="com.xh.xiaoyiduo.admin.gwcgl.pojo.B_GOOD_CART" >
+    <id column="CART_ID" property="cartId" jdbcType="VARCHAR" />
+    <result column="GOOD_ID" property="goodId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="GOOD_NAME" property="goodName" jdbcType="VARCHAR" />
+    <result column="SINGLE_PRICE" property="singlePrice" jdbcType="FLOAT" />
+    <result column="GOOD_NUMBER" property="goodNumber" jdbcType="INTEGER" />
+    <collection property="resources" ofType="com.xh.xiaoyiduo.admin.spgl.pojo.RESOURCES">
+      <id column="RESOURCE_ID" property="resourceId"></id>
+      <result column="TYPE" property="type"/>
+      <result column="URL" property="url"/>
+      <result column="SOURCE_ID" property="sourceId"/>
+    </collection>
+  </resultMap>
   <sql id="Base_Column_List" >
     CART_ID, GOOD_ID, USER_ID, GOOD_NAME, SINGLE_PRICE, GOOD_NUMBER
   </sql>
   <!--获取登录用户的购物车信息列表-->
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from B_GOOD_CART
-    where USER_ID = #{userId,jdbcType=VARCHAR}
+  <select id="selectByPrimaryKey" resultMap="CartMap" parameterType="java.lang.String" >
+    <!--select -->
+    <!--<include refid="Base_Column_List" />-->
+    <!--from B_GOOD_CART-->
+    <!--where USER_ID = #{userId,jdbcType=VARCHAR}-->
+    select b.*, r.*
+    from b_good_cart b
+    left join resources r
+    on b.good_id = r.source_id
+    where b.user_id = #{userId,jdbcType=VARCHAR}
   </select>
   <!--查询登录用户的购物车商品个数-->
   <select id="queryCartGoodCountsByUserId" resultType="Integer" >
