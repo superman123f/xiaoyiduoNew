@@ -23,7 +23,7 @@
 <%@ include file="../shop_header.jsp"%> <!--引入头部jsp样式-->
 
 <!--隐藏域-->
-<input id="sonGoodCount" type="text" value="11">
+<%--<input id="sonGoodCount" type="text" value="11">--%>
 
 <div class="content content-nav-base commodity-content">
     <div class="main-nav">
@@ -124,12 +124,26 @@
     var sonId = 4;
 
     $(function(){
-        getInfo(); //获取数据
+        getInfo(sonId); //获取数据
         toPage(); //进行分页
+
+        $('.sort a').on('click',function(){
+            $(this).addClass('active').siblings().removeClass('active');
+        })
+        $('.list-box dt').on('click',function(){
+            if($(this).attr('off')){
+                $(this).removeClass('active').siblings('dd').show()
+                $(this).attr('off','')
+            }else{
+                $(this).addClass('active').siblings('dd').hide()
+                $(this).attr('off',true)
+            }
+        })
     });
 
     //获取数据
     function getInfo(sonId) {
+
         //原异步，有问题，没有取消异步的方法
         // $.post("/good/getSonGoodList1",
         //     {
@@ -174,9 +188,17 @@
                 var data = pager.data;
                 var html = "";
                 for(var i = 0; i < data.length; i++){
+                    var resources = data[i].imgUrlResource;
+
                     html += '<div class="item">'
                     html +=    '<div class="img">'
-                    html +=    '<a href="/good/toGoodDetailPage?goodId='+data[i].goodId+'"><img id="mutationImage" style="height:280px;width:280px;" src="${pageContext.request.contextPath}/good/displayImage?imageUrl=E:/guyuanhui/NewGraduateProject/xiaoyiduo/resources/shop/386d85821eef4c87aa5a154fbb8ac341.jpg"/></a>'
+                    for(var j in resources) {
+                        if(j == 0) {
+                            // alert(resources[j].url);
+                            html +=    '<a href="/good/toGoodDetailPage?goodId='+data[i].goodId+'"><img id="mutationImage" style="height:280px;width:280px;" src="${pageContext.request.contextPath}/good/displayImage?imageUrl='+resources[j].url+'"/></a>'
+
+                        }
+                    }
                     html +=    '</div>'
                     html +=    '<div class="text">'
                     html +=    '<p class="title">'+data[i].goodName+'</p>'
@@ -282,23 +304,13 @@
             //     }
             //   })
 
-            $('.sort a').on('click',function(){
-                $(this).addClass('active').siblings().removeClass('active');
-            })
-            $('.list-box dt').on('click',function(){
-                if($(this).attr('off')){
-                    $(this).removeClass('active').siblings('dd').show()
-                    $(this).attr('off','')
-                }else{
-                    $(this).addClass('active').siblings('dd').hide()
-                    $(this).attr('off',true)
-                }
-            })
+
 
         });
     }
 
     function getSonGoodList(goodSonId){
+        // alert(goodSonId);
         sonId = goodSonId;
         getInfo(sonId); //获取数据
         toPage(); //进行分页
