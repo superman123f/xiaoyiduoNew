@@ -80,7 +80,7 @@ public class GoodManageController {
         }
 
         List<B_GOOD_FATHER> goodFatherList = goodManageService.getGoodTypeList(); //获取商品菜单栏列表
-        List<B_GOOD> sonGoodList = goodManageService.getSonGoodList("4", "1", "2"); //获取对应商品子类物品
+        List<B_GOOD> sonGoodList = goodManageService.getSonGoodList("", "1", "2"); //获取对应商品子类物品
 //        Integer sonGoodCount = goodManageService.getSonGoodCount(sonId); //某个子类商品总数
 
         model.addAttribute("goodFatherList", goodFatherList);
@@ -101,6 +101,9 @@ public class GoodManageController {
 
 
 //        List<B_GOOD_FATHER> goodFatherList = goodManageService.getGoodTypeList(); //获取商品菜单栏列表
+        if(sonId.equals("")) {
+            sonId = null;
+        }
         //1.查询总记录数
         Integer total = goodManageService.getSonGoodCount(sonId);
         //1.1 查询分页数据

@@ -10,6 +10,7 @@
         </p>
         <div class="sn-quick-menu">
             <div class="sp-cart" style="margin-right: 22px;"><a href="/documents/shiro-jstl.html">帮助文档</a></div>
+            <div class="login" style="margin-right: 22px;"><a href="javascript;">公告</a></div>
             <shiro:hasAnyRoles name="admin,seller">
                 <div class="sp-cart" style="margin-right: 22px;"><a href="/admin/portal">后台管理</a></div>
             </shiro:hasAnyRoles>

@@ -121,7 +121,7 @@
     var currentPage = 1; //当前页，初始值设为1
     var pageSize = 1; //每页条数， 初始值设为10
     var total; //总记录数
-    var sonId = 4;
+    var sonId = ""; //初始为4的子类商品，实际该变量的初始值没用到
 
     $(function(){
         getInfo(sonId); //获取数据
