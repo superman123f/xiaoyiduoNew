@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<link rel="stylesheet" href="${ctx}/styles/shop/shop_header.css">
+
 <div class="site-nav-bg">
     <div class="site-nav w1200">
         <p class="sn-back-home">
@@ -14,6 +16,7 @@
 
             <shiro:hasAnyRoles name="seller,buyer">
                 <div class="sp-cart" style="margin-right: 22px;"><a href="/cart/seeCartList">购物车</a><span id="cartSpan">${sessionScope.cartGoodCount}</span></div>
+                <div  style="margin-right: 22px;"><a href="javascript;"><span class="favoriteFolder"><i class="layui-icon layui-icon-rate-solid" style="font-size: 14px; color: #9c9c9c; margin-right: 1px;"></i>收藏夹</span></a></div>
             </shiro:hasAnyRoles>
 
             <div class="sp-cart" style="margin-right: 22px;"><a href="javascript:;">
@@ -37,7 +40,7 @@
         <div class="headerCon">
             <h1 class="mallLogo">
                 <a href="#" title="校益多商城">
-                    <img src="../../../images/shop/logo.png">
+                    <img width="97" height="32" src="../../../images/shop/logo.png">
                 </a>
             </h1>
             <div class="mallSearch">

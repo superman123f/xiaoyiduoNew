@@ -57,8 +57,8 @@
             <div class="right-cont-wrap">
                 <div class="right-cont">
                     <div class="sort layui-clear">
-                        <a class="active" href="javascript:;" event = 'volume'>销量</a>
-                        <a href="javascript:;" event = 'price'>价格</a>
+                        <%--<a class="active" href="javascript:;" event = 'volume'>销量</a>--%>
+                        <a class="active" href="javascript:;" event = 'price'>价格</a>
                         <a href="javascript:;" event = 'newprod'>新品</a>
                         <a href="javascript:;" event = 'collection'>收藏</a>
                     </div>
@@ -67,24 +67,24 @@
                     </div>
                     <div class="cont-list layui-clear" id="list-cont">
                         <div id="goodBody">
-                            <c:forEach items="${sonGoodList}" var="sonGood" >
-                                <div class="item">
-                                    <c:set value="${sonGood.imgUrlResource}" var="resources"></c:set>
-                                    <c:forEach items="${resources}" var="resource" end="0">
-                                        <div class="img">
-                                            <%--<input type="text" value="${resource.url}">--%>
-                                            <a href="/good/toGoodDetailPage?goodId=${sonGood.goodId}"><img id="mutationImage" style="height:280px;width:280px;" src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}"/></a>
-                                        </div>
-                                    </c:forEach>
-                                    <div class="text">
-                                        <p class="title">${sonGood.goodName}</p>
-                                        <p class="price">
-                                            <span class="nub">${sonGood.originPrice}</span>
-                                            <span class="pri">${sonGood.secondPrice}</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </c:forEach>
+                            <%--<c:forEach items="${sonGoodList}" var="sonGood" >--%>
+                                <%--<div class="item">--%>
+                                    <%--<c:set value="${sonGood.imgUrlResource}" var="resources"></c:set>--%>
+                                    <%--<c:forEach items="${resources}" var="resource" end="0">--%>
+                                        <%--<div class="img">--%>
+                                            <%--&lt;%&ndash;<input type="text" value="${resource.url}">&ndash;%&gt;--%>
+                                            <%--<a href="/good/toGoodDetailPage?goodId=${sonGood.goodId}"><img id="mutationImage" style="height:280px;width:280px;" src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}"/></a>--%>
+                                        <%--</div>--%>
+                                    <%--</c:forEach>--%>
+                                    <%--<div class="text">--%>
+                                        <%--<p class="title">${sonGood.goodName}</p>--%>
+                                        <%--<p class="price">--%>
+                                            <%--<span class="nub">${sonGood.originPrice}</span>--%>
+                                            <%--<span class="pri">${sonGood.secondPrice}</span>--%>
+                                        <%--</p>--%>
+                                    <%--</div>--%>
+                                <%--</div>--%>
+                            <%--</c:forEach>--%>
                         </div>
                     </div>
                     <!-- 模版引擎导入 -->
