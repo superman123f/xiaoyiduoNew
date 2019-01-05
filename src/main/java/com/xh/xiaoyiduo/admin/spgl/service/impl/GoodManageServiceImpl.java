@@ -33,13 +33,13 @@ public class GoodManageServiceImpl implements IGoodManageService {
     }
 
     @Override
-    public List<B_GOOD> getSonGoodList(String sonId, String currentPage, String pageSize) {
-        return goodMapper.getSonGoodList(sonId, currentPage, pageSize);
+    public List<B_GOOD> getSonGoodList(String sonId, String goodName, String currentPage, String pageSize) {
+        return goodMapper.getSonGoodList(sonId, goodName, currentPage, pageSize);
     }
 
     @Override
-    public Integer getSonGoodCount(String sonId) {
-        return goodMapper.getSonGoodCount(sonId);
+    public Integer getSonGoodCount(String sonId, String goodName) {
+        return goodMapper.getSonGoodCount(sonId, goodName);
     }
 
     @Override

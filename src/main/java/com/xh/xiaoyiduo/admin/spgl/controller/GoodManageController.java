@@ -80,7 +80,7 @@ public class GoodManageController {
         }
 
         List<B_GOOD_FATHER> goodFatherList = goodManageService.getGoodTypeList(); //获取商品菜单栏列表
-        List<B_GOOD> sonGoodList = goodManageService.getSonGoodList("", "1", "2"); //获取对应商品子类物品
+        List<B_GOOD> sonGoodList = goodManageService.getSonGoodList(null, null,"1", "2"); //获取对应商品子类物品
 //        Integer sonGoodCount = goodManageService.getSonGoodCount(sonId); //某个子类商品总数
 
         model.addAttribute("goodFatherList", goodFatherList);
@@ -97,17 +97,20 @@ public class GoodManageController {
      */
     @RequestMapping("/getSonGoodList1")
     @ResponseBody
-    public Object getSonGoodList1(String sonId, String currentPage, String pageSize, Model model, HttpServletRequest request){
+    public Object getSonGoodList1(String sonId, String goodName, String currentPage, String pageSize, Model model, HttpServletRequest request){
 
 
 //        List<B_GOOD_FATHER> goodFatherList = goodManageService.getGoodTypeList(); //获取商品菜单栏列表
-        if(sonId.equals("")) {
+        if(sonId.equals("") || sonId == null) {
             sonId = null;
         }
+        if(goodName.equals("") || goodName == null) {
+            goodName = null;
+        }
         //1.查询总记录数
-        Integer total = goodManageService.getSonGoodCount(sonId);
+        Integer total = goodManageService.getSonGoodCount(sonId, goodName);
         //1.1 查询分页数据
-        List<B_GOOD> sonGoodList = goodManageService.getSonGoodList(sonId, currentPage, pageSize); //获取对应商品子类物品
+        List<B_GOOD> sonGoodList = goodManageService.getSonGoodList(sonId, goodName, currentPage, pageSize); //获取对应商品子类物品
         //2. 封装分页类对象
         Pager<B_GOOD> pager = new Pager<>();
         pager.setCurrentPage(Integer.parseInt(currentPage));
@@ -123,9 +126,9 @@ public class GoodManageController {
      */
     @RequestMapping("/getSonGoodCount")
     @ResponseBody
-    public Map<String, Object> getSonGoodCount(String sonId, Model model){
+    public Map<String, Object> getSonGoodCount(String sonId, String goodName, Model model){
         Map<String, Object> result = new HashMap<>();
-        Integer sonGoodCount = goodManageService.getSonGoodCount(sonId); //某个子类商品总数
+        Integer sonGoodCount = goodManageService.getSonGoodCount(sonId, goodName); //某个子类商品总数
         if(sonGoodCount != null) {
             result.put("success", true);
             result.put("sonGoodCount", sonGoodCount);

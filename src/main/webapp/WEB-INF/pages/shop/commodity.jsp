@@ -122,11 +122,23 @@
     var pageSize = 1; //每页条数， 初始值设为10
     var total; //总记录数
     var sonId = ""; //初始为4的子类商品，实际该变量的初始值没用到
+    var goodName = ""; //初始商品搜索内容
 
     $(function(){
-        getInfo(sonId); //获取数据
+        getInfo(sonId, goodName); //获取数据
         toPage(); //进行分页
 
+        //商品搜索功能
+        $("#searchBtn").click(function(){
+            sonId = ""; //置空，此时按照商品名称查询
+            goodName = $.trim($("#goodName").val());
+            alert(goodName);
+            getInfo(sonId, goodName); //获取数据
+            toPage(); //进行分页
+        });
+
+
+        //商品菜单栏收缩功能
         $('.sort a').on('click',function(){
             $(this).addClass('active').siblings().removeClass('active');
         })
@@ -142,7 +154,7 @@
     });
 
     //获取数据
-    function getInfo(sonId) {
+    function getInfo(sonId, goodName) {
 
         //原异步，有问题，没有取消异步的方法
         // $.post("/good/getSonGoodList1",
@@ -172,6 +184,7 @@
             dataType: 'json',
             data:{
                 "sonId":sonId,
+                "goodName":goodName,
                 "currentPage":currentPage,
                 "pageSize":pageSize
             },
@@ -283,7 +296,7 @@
 
                     //首次不执行
                     if(!first) {
-                        getInfo(sonId);
+                        getInfo(sonId, goodName);
                     }
                 }
             });
@@ -310,9 +323,10 @@
     }
 
     function getSonGoodList(goodSonId){
+        goodName = ""; //置空，此时按照分类查找商品
         // alert(goodSonId);
         sonId = goodSonId;
-        getInfo(sonId); //获取数据
+        getInfo(sonId, goodName); //获取数据
         toPage(); //进行分页
     }
 </script>

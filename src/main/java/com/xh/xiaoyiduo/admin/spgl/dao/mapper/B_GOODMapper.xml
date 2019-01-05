@@ -52,6 +52,11 @@
     <if test="sonId != null">
       where son_id = #{sonId,jdbcType=VARCHAR}
     </if>
+    <if test="goodName != null">
+      where good_Name
+      like concat('%',concat(#{goodName,jdbcType=VARCHAR},'%'))
+    </if>
+
     ) r
     where ROWNUM &lt;= #{pageSize} * #{currentPage}
     ) WHERE rn > #{pageSize} * ( #{currentPage} - 1)) t left join RESOURCES r on t.good_id = r.source_id
@@ -63,6 +68,10 @@
     from B_GOOD b
     <if test="sonId != null">
       where b.son_id = #{sonId,jdbcType=VARCHAR}
+    </if>
+    <if test="goodName != null">
+      where good_Name
+      like concat('%',concat(#{goodName,jdbcType=VARCHAR},'%'))
     </if>
   </select>
 
