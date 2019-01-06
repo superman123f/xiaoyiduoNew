@@ -98,7 +98,7 @@
                 <c:forEach items="${imgUrlResource}" var="resource" begin="1">
                     <%--<a href="javascript:;"><img height="400" width="400" src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}"></a>--%>
                     <div class="item">
-                        <img src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}">
+                        <img style="width: 500px;height: 500px;" src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}">
                     </div>
                 </c:forEach>
             </div>

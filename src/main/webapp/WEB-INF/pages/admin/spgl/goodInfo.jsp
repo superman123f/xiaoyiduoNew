@@ -33,16 +33,29 @@
             <div class="layui-input-inline">
                 <select name="fatherId" lay-verify="">
                     <option value="">请选择商品父类</option>
-                    <option value="2">书籍</option>
-                    <option value="3">电子产品</option>
-                    <option value="1">护肤品</option>
+                    <option value="1">书籍专栏</option>
+                    <option value="2">体育运动</option>
+                    <option value="3">电子数码</option>
+                    <option value="4">美容护理</option>
+                    <option value="5">男士服装</option>
+                    <option value="6">女士服装</option>
                 </select>
             </div>
             <div class="layui-input-inline">
                 <select id="sonId" name="sonId" lay-verify="">
                     <option value="">请选择商品子类</option>
-                    <option value="3">大学课本</option>
-                    <option value="4">小说</option>
+                    <option value="1">大学课本</option>
+                    <option value="2">小说</option>
+                    <option value="3">篮球</option>
+                    <option value="4">网球拍</option>
+                    <option value="5">手机</option>
+                    <option value="6">电脑</option>
+                    <option value="7">发胶</option>
+                    <option value="8">洗面奶</option>
+                    <option value="9">羽绒服</option>
+                    <option value="10">牛仔裤</option>
+                    <option value="11">外套</option>
+                    <option value="12">棉裤</option>
                 </select>
             </div>
             <%--<div class="layui-input-block">--%>
@@ -57,7 +70,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>商品标题</label>
             <div class="layui-input-block">
-                <input type="text" id="goodName" name="goodName" class="layui-input" placeholder="请输入商品标题,30字以内" autocomplete="off">
+                <input type="text" id="goodName" name="goodName" class="layui-input" placeholder="请输入商品标题（30字以内）" maxlength="30" autocomplete="off">
             <%--<textarea name="" required lay-verify="required" placeholder="请输入标题，30字以内" class="layui-textarea"></textarea>--%>
             </div>
         </div>
@@ -65,7 +78,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>商品简介</label>
             <div class="layui-input-block">
-                <textarea id="information" name="information" required lay-verify="required" placeholder="描述一下宝贝的转手原因、入手渠道和使用感受" class="layui-textarea"></textarea>
+                <textarea id="information" name="information" required lay-verify="required" placeholder="描述一下宝贝的转手原因、入手渠道和使用感受（250字以内）" class="layui-textarea" maxlength="250"></textarea>
             </div>
         </div>
 
@@ -97,25 +110,25 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>原价</label>
-            <div class="layui-input-block">
+            <div class="layui-input-inline">
                 <input type="text" id="originPrice" name="originPrice" class="layui-input" placeholder="请输入原价" autocomplete="off">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>二手价</label>
-            <div class="layui-input-block">
+            <div class="layui-input-inline">
                 <input type="text" id="secondPrice" name="secondPrice" class="layui-input" placeholder="请输入二手价" autocomplete="off">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>新旧程度</label>
-            <div class="layui-input-block">
+            <div class="layui-input-inline">
                 <input type="text" id="degree" name="degree" class="layui-input" placeholder="请输入新旧程度" autocomplete="off">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>商品数量</label>
-            <div class="layui-input-block">
+            <div class="layui-input-inline">
                 <input type="text" id="goodNumber" name="goodNumber" class="layui-input" placeholder="请输入商品数量" autocomplete="off">
             </div>
         </div>
@@ -132,6 +145,8 @@
 </body>
 <script type="text/javascript" src="${ctx}/scripts/jquery.min.js"></script>
 <script type="text/javascript" src="${ctx}/styles/layui/layui.js"></script>
+<script type="text/javascript" src="${ctx}/scripts/admin/spgl/image.js"></script>
+
 </html>
 <script>
     var success = 0; //图片保存成功的个数
@@ -256,9 +271,9 @@
                     imgUrls: imgUrls
                 },function(data){
                     if (data.success){
-                        layer.alert("保存成功");
+                        layer.alert("发布成功");
                     } else {
-                        layer.alert("保存失败");
+                        layer.alert("发布失败");
                     }
             });
         });

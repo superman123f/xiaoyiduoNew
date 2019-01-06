@@ -57,8 +57,8 @@
             <div class="right-cont-wrap">
                 <div class="right-cont">
                     <div class="sort layui-clear">
-                        <%--<a class="active" href="javascript:;" event = 'volume'>销量</a>--%>
-                        <a class="active" href="javascript:;" event = 'price'>价格</a>
+                        <a class="active" href="javascript:;" event = 'volume'>时间</a>
+                        <a href="javascript:;" event = 'price'>价格</a>
                         <a href="javascript:;" event = 'newprod'>新品</a>
                         <a href="javascript:;" event = 'collection'>收藏</a>
                     </div>
@@ -119,7 +119,7 @@
 
 <script>
     var currentPage = 1; //当前页，初始值设为1
-    var pageSize = 1; //每页条数， 初始值设为10
+    var pageSize = 3; //每页条数， 初始值设为10
     var total; //总记录数
     var sonId = ""; //初始为4的子类商品，实际该变量的初始值没用到
     var goodName = ""; //初始商品搜索内容
@@ -132,7 +132,7 @@
         $("#searchBtn").click(function(){
             sonId = ""; //置空，此时按照商品名称查询
             goodName = $.trim($("#goodName").val());
-            alert(goodName);
+            // alert(goodName);
             getInfo(sonId, goodName); //获取数据
             toPage(); //进行分页
         });
@@ -203,7 +203,7 @@
                 for(var i = 0; i < data.length; i++){
                     var resources = data[i].imgUrlResource;
 
-                    html += '<div class="item">'
+                    html += '<div class="item" style="padding-bottom: 10px;">'
                     html +=    '<div class="img">'
                     for(var j in resources) {
                         if(j == 0) {
@@ -216,8 +216,8 @@
                     html +=    '<div class="text">'
                     html +=    '<p class="title">'+data[i].goodName+'</p>'
                     html +=    '<p class="price">'
-                    html +=    '<span class="nub">'+data[i].originPrice+'</span>'
-                    html +=    '<span class="pri">'+data[i].secondPrice+'</span>'
+                    html +=    '<span class="nub">原价&nbsp;<del>'+data[i].originPrice+'</del></span>'
+                    html +=    '转卖价&nbsp;<span class="pri"><i>￥</i>'+data[i].secondPrice+'</span>'
                     html +=    '</p>'
                     html +=    '</div>'
                     html +=    '</div>';
@@ -278,10 +278,10 @@
             // alert(sonGoodCount);
             laypage.render({
                 elem: 'demo0'
-                ,limit: 1
+                ,limit: pageSize
                 ,count: total //数据总数
                 //自定义每页条数的选择项
-                ,limits: [1, 2, 3, 4, 10]
+                ,limits: [3, 6, 9, 12, 15]
                 ,first: '首页'
                 ,last: '尾页'
                 ,prev: '<em><<</em>' //自定义上一页

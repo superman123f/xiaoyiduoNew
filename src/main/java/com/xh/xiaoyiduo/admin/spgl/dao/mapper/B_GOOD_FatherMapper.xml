@@ -28,7 +28,7 @@
     select f.*, s.*
     from B_GOOD_FATHER f
     left join B_GOOD_SON s
-    on f.father_id = s.father_id
+    on f.father_id = s.father_id order by f.father_id
   </select>
 
 
