@@ -6,6 +6,7 @@ import com.xh.xiaoyiduo.shop.pojo.S_USER;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -26,12 +27,13 @@ public class FavoriteManageController {
     @Autowired
     IFavoriteManageService favoriteManageService;
     @RequestMapping("/toFavoritePage")
-    public String toFavoritePage(){
+    public String toFavoritePage(Model model){
         S_USER user = (S_USER)SecurityUtils.getSubject().getPrincipal();
         //获取当前用户ID
         if(user != null) {
             String userId = user.getUserId();
             List<B_GOOD_FAVORITE_FOLDER> folderList = favoriteManageService.getFavoriteFolderByUserId(userId);
+            model.addAttribute("folderList", folderList);
         }
 
         return "/shop/favoriteFolder";

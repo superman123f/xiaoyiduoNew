@@ -35,10 +35,10 @@
             </div>
         </div>
     </div>
-    <div class="banner-bg w1200">
-        <h3>夏季清仓</h3>
-        <p>宝宝被子、宝宝衣服3折起</p>
-    </div>
+    <%--<div class="banner-bg w1200">--%>
+        <%--<h3>夏季清仓</h3>--%>
+        <%--<p>宝宝被子、宝宝衣服3折起</p>--%>
+    <%--</div>--%>
     <div class="cart w1200">
         <div class="cart-table-th">
             <div class="th th-chk">
@@ -56,17 +56,12 @@
             </div>
             <div class="th th-price">
                 <div class="th-inner">
-                    单价
-                </div>
-            </div>
-            <div class="th th-amount">
-                <div class="th-inner">
-                    数量
+                    原价
                 </div>
             </div>
             <div class="th th-sum">
                 <div class="th-inner">
-                    小计
+                    转卖价
                 </div>
             </div>
             <div class="th th-op">
@@ -77,48 +72,45 @@
         </div>
         <div class="OrderList">
             <div class="order-content" id="list-cont">
-                <c:forEach items="${cartList}" var="cart">
-                    <ul class="item-content layui-clear">
-                        <li class="th th-chk">
-                            <div class="select-all">
-                                <div class="cart-checkbox">
-                                    <input class="CheckBoxShop check"  type="checkbox" num="all" name="select-all" value="true">
+                <c:if test="${not empty folderList}">
+                    <c:forEach items="${folderList}" var="folder">
+                        <ul class="item-content layui-clear">
+                            <li class="th th-chk">
+                                <div class="select-all">
+                                    <div class="cart-checkbox">
+                                        <input class="CheckBoxShop check"  type="checkbox" num="all" name="select-all" value="true">
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
 
-                        <c:set value="${cart.resources}" var="resources"></c:set>
-                        <li class="th th-item">
-                            <div class="item-cont">
-                                <c:forEach items="${resources}" var="resource" end="0">
-                                    <a href="javascript:;"><img src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}" alt=""></a>
-                                </c:forEach>
-                                <div class="text">
-                                    <div class="title">${cart.goodName}</div>
-                                        <%--<p><span>粉色</span>  <span>130</span>cm</p>--%>
+                            <c:set value="${folder.good.imgUrlResource}" var="resources"/>
+                            <li class="th th-item">
+                                <div class="item-cont">
+                                    <c:forEach items="${resources}" var="resource" end="0">
+                                        <a href="javascript:;"><img src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}" alt=""></a>
+                                    </c:forEach>
+                                    <div class="text">
+                                        <div class="title"> ${folder.good.goodName}</div>
+                                            <%--<p><span>粉色</span>  <span>130</span>cm</p>--%>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li class="th th-price">
-                            <span class="th-su">${cart.singlePrice}</span>
-                        </li>
-                        <li class="th th-amount">
-                            <div class="box-btn layui-clear">
-                                <div class="less layui-btn">-</div>
-                                <input class="Quantity-input" type="" name="" value="${cart.goodNumber}" disabled="disabled">
-                                <div class="add layui-btn">+</div>
-                            </div>
-                        </li>
-                        <li class="th th-sum">
-                            <span class="sum">${cart.singlePrice * cart.goodNumber}</span>
-                        </li>
-                        <li class="th th-op">
-                                <%--<span class="dele-btn" onclick="delCartItem('${cart.cartId}');">删除</span>--%>
-                            <span class="dele-btn">删除</span>
-                            <input type="hidden" id="cartId" class="cartId" value="${cart.cartId}">
-                        </li>
-                    </ul>
-                </c:forEach>
+                            </li>
+                            <li class="th th-price">
+                                <span class="th-su">${folder.good.secondPrice}</span>
+
+                            </li>
+
+                            <li class="th th-sum">
+                                <span class="th-su">${folder.good.originPrice}</span>
+                            </li>
+                            <li class="th th-op">
+                                    <%--<span class="dele-btn" onclick="delCartItem('${cart.cartId}');">删除</span>--%>
+                                <span class="dele-btn">删除</span>
+                                <input type="hidden" id="cartId" class="cartId" value="${cart.cartId}">
+                            </li>
+                        </ul>
+                    </c:forEach>
+                </c:if>
             </div>
         </div>
 
@@ -175,12 +167,6 @@
             </div>
             <div class="th batch-deletion">
                 <span class="batch-dele-btn">批量删除</span>
-            </div>
-            <div class="th Settlement">
-                <button class="layui-btn">结算</button>
-            </div>
-            <div class="th total">
-                <p>应付：<span class="pieces-total">0</span></p>
             </div>
         </div>
     </div>
