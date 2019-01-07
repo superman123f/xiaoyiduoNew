@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xh.xiaoyiduo.admin.scjgl.dao.B_GOOD_FAVORITE_FolderMapper" >
+  <resultMap id="BaseResultMap" type="com.xh.xiaoyiduo.admin.scjgl.pojo.B_GOOD_FAVORITE_FOLDER" >
+    <id column="FOLDER_ID" property="folderId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="GOOD_ID" property="goodId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    FOLDER_ID, USER_ID, GOOD_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from B_GOOD_FAVORITE_FOLDER
+    where FOLDER_ID = #{folderId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from B_GOOD_FAVORITE_FOLDER
+    where FOLDER_ID = #{folderId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xh.xiaoyiduo.admin.scjgl.pojo.B_GOOD_FAVORITE_FOLDER" >
+    insert into B_GOOD_FAVORITE_FOLDER (FOLDER_ID, USER_ID, GOOD_ID
+      )
+    values (#{folderId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{goodId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xh.xiaoyiduo.admin.scjgl.pojo.B_GOOD_FAVORITE_FOLDER" >
+    insert into B_GOOD_FAVORITE_FOLDER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="folderId != null" >
+        FOLDER_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="goodId != null" >
+        GOOD_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="folderId != null" >
+        #{folderId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodId != null" >
+        #{goodId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xh.xiaoyiduo.admin.scjgl.pojo.B_GOOD_FAVORITE_FOLDER" >
+    update B_GOOD_FAVORITE_FOLDER
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodId != null" >
+        GOOD_ID = #{goodId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where FOLDER_ID = #{folderId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xh.xiaoyiduo.admin.scjgl.pojo.B_GOOD_FAVORITE_FOLDER" >
+    update B_GOOD_FAVORITE_FOLDER
+    set USER_ID = #{userId,jdbcType=VARCHAR},
+      GOOD_ID = #{goodId,jdbcType=VARCHAR}
+    where FOLDER_ID = #{folderId,jdbcType=VARCHAR}
+  </update>
+</mapper>
