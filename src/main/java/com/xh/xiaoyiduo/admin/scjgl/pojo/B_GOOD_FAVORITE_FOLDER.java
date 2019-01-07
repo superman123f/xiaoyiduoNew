@@ -1,11 +1,15 @@
 package com.xh.xiaoyiduo.admin.scjgl.pojo;
 
+import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD;
+
 public class B_GOOD_FAVORITE_FOLDER {
     private String folderId;
 
     private String userId;
 
     private String goodId;
+
+    private B_GOOD good; //商品信息
 
     public String getFolderId() {
         return folderId;
@@ -29,5 +33,13 @@ public class B_GOOD_FAVORITE_FOLDER {
 
     public void setGoodId(String goodId) {
         this.goodId = goodId == null ? null : goodId.trim();
+    }
+
+    public B_GOOD getGood() {
+        return good;
+    }
+
+    public void setGood(B_GOOD good) {
+        this.good = good;
     }
 }

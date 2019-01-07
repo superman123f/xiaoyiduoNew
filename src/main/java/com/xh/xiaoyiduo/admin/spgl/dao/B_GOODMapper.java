@@ -18,7 +18,7 @@ public interface B_GOODMapper {
 
     int insertSelective(B_GOOD record);
 
-    B_GOOD selectByPrimaryKey(String goodId);
+    B_GOOD selectByPrimaryKey(String goodId); //获取商品详情信息，测试一对多级联
 
     List<B_GOOD> getSonGoodList(@Param("sonId")String sonId, @Param("goodName")String goodName, @Param("currentPage")String currentPage, @Param("pageSize")String pageSize); //获取对应子类的商品列表
 

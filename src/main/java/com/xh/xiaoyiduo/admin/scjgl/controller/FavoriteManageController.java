@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -19,14 +20,29 @@ import java.util.UUID;
 @RequestMapping("/favorite")
 public class FavoriteManageController {
 
+    /**
+     * 转到收藏夹页面
+     */
     @Autowired
     IFavoriteManageService favoriteManageService;
-
     @RequestMapping("/toFavoritePage")
     public String toFavoritePage(){
+        S_USER user = (S_USER)SecurityUtils.getSubject().getPrincipal();
+        //获取当前用户ID
+        if(user != null) {
+            String userId = user.getUserId();
+            List<B_GOOD_FAVORITE_FOLDER> folderList = favoriteManageService.getFavoriteFolderByUserId(userId);
+        }
+
         return "/shop/favoriteFolder";
     }
 
+    /**
+     * 添加商品到收藏夹
+     * @param goodId
+     * @param star
+     * @return
+     */
     @RequestMapping("/addToFavorite")
     @ResponseBody
     public Map<String, Object> addToFavorite(String goodId, Boolean star){
@@ -63,4 +79,5 @@ public class FavoriteManageController {
 
         return result;
     }
+
 }

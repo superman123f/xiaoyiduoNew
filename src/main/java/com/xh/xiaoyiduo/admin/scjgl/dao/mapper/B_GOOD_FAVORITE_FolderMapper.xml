@@ -6,12 +6,26 @@
     <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
     <result column="GOOD_ID" property="goodId" jdbcType="VARCHAR" />
   </resultMap>
+  <!--自定义Map-->
+  <resultMap id="FavoriteFolderMap" type="com.xh.xiaoyiduo.admin.scjgl.pojo.B_GOOD_FAVORITE_FOLDER" >
+    <id column="FOLDER_ID" property="folderId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="GOOD_ID" property="goodId" jdbcType="VARCHAR" />
+    <association property="good" column="GOOD_ID" select="com.xh.xiaoyiduo.admin.spgl.dao.B_GOODMapper.getGoodDetailByGoodId"/>
+  </resultMap>
   <sql id="Base_Column_List" >
     FOLDER_ID, USER_ID, GOOD_ID
   </sql>
   <!--查询该商品是否在收藏夹中,交给mapper判断，要确保数据的唯一性，否则count>1时，为false-->
   <select id="queryGoodInFolder" resultType="boolean" parameterType="java.lang.String" >
     <![CDATA[ select count(GOOD_ID) from B_GOOD_FAVORITE_FOLDER where GOOD_ID = #{goodId,jdbcType=VARCHAR} and USER_ID = #{userId,jdbcType=VARCHAR}]]>
+  </select>
+  <!--获取收藏夹内容-->
+  <select id="getFavoriteFolderByUserId" resultMap="FavoriteFolderMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from B_GOOD_FAVORITE_FOLDER
+    where USER_ID = #{userId,jdbcType=VARCHAR}
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 

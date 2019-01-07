@@ -6,6 +6,8 @@ import com.xh.xiaoyiduo.admin.scjgl.service.IFavoriteManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  */
 @Service("favoriteManageService")
@@ -27,5 +29,10 @@ public class FavoriteManageServiceImpl implements IFavoriteManageService {
     @Override
     public boolean queryGoodInFolder(String currentUserId, String goodId) {
         return folderMapper.queryGoodInFolder(currentUserId, goodId);
+    }
+
+    @Override
+    public List<B_GOOD_FAVORITE_FOLDER> getFavoriteFolderByUserId(String userId) {
+        return folderMapper.getFavoriteFolderByUserId(userId);
     }
 }

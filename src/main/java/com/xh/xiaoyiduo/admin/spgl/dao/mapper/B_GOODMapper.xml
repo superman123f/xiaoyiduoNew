@@ -35,6 +35,23 @@
     </collection>
   </resultMap>
 
+  <!--测试一对多级联-->
+  <resultMap id="TestGoodMap" type="com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD" >
+    <id column="GOOD_ID" property="goodId" jdbcType="VARCHAR" />
+    <result column="SON_ID" property="sonId" jdbcType="VARCHAR" />
+    <result column="GOOD_NAME" property="goodName" jdbcType="VARCHAR" />
+    <result column="INFORMATION" property="information" jdbcType="VARCHAR" />
+    <result column="ORIGIN_PRICE" property="originPrice" jdbcType="FLOAT" />
+    <result column="SECOND_PRICE" property="secondPrice" jdbcType="FLOAT" />
+    <result column="DEGREE" property="degree" jdbcType="VARCHAR" />
+    <result column="COLLECT_NUMBER" property="collectNumber" jdbcType="DECIMAL" />
+    <result column="GOOD_NUMBER" property="goodNumber" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <!--一对多级联-->
+    <collection property="imgUrlResource" column="SOURCE_ID" select="com.xh.xiaoyiduo.admin.spgl.dao.ResourcesMapper.selectByPrimaryKey"/>
+  </resultMap>
+
   <sql id="Base_Column_List" >
     GOOD_ID, SON_ID, GOOD_NAME, INFORMATION, ORIGIN_PRICE, SECOND_PRICE, DEGREE, COLLECT_NUMBER, 
     GOOD_NUMBER, STATUS, USER_ID
@@ -83,7 +100,8 @@
     where good_id = #{goodId,jdbcType=VARCHAR}
   </select>
 
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <!--获取商品详情信息，测试一对多级联,测试结果，传入的id不同-->
+  <select id="selectByPrimaryKey" resultMap="TestGoodMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from B_GOOD
