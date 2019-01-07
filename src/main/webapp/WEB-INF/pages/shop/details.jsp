@@ -26,6 +26,8 @@
 <input type="hidden" id="goodId" value="${goodDetail.goodId}">
 <input type="hidden" id="goodName" value="${goodDetail.goodName}">
 <input type="hidden" id="secondPrice" value="${goodDetail.secondPrice}">
+<input type="hidden" id="noFavorite" value="${noFavorite}">
+
 
 
 <div class="content content-nav-base datails-content">
@@ -60,7 +62,7 @@
                 <div class="itemInfo">
                     <div class="title">
                         <h4>${goodDetail.goodName}</h4>
-                        <span><i class="layui-icon layui-icon-rate-solid"></i>收藏</span>
+                        <span onclick="addFavorite();"><i id="star" class="layui-icon layui-icon-rate-solid" style="color:grey;"></i>收藏</span>
                     </div>
                     <div class="summary">
                         <p class="reference"><span>入手价</span> <del>${goodDetail.originPrice}</del></p>
@@ -112,7 +114,18 @@
 </html>
 <script type="text/javascript">
     var cur = 1;
+    var star;
     $(function(){
+        star = $("#noFavorite").val(); //当前用户是否收藏此商品
+        // alert(star);
+        if(star == 'true') {
+            // alert(1);
+            $("#star").css("color", "grey");
+        } else {
+            // alert(4);
+            $("#star").css("color", "red");
+        }
+
         layui.config({
             base: '${ctx}/scripts/shop/' //你存放新模块的目录，注意，不是layui的模块目录
         }).use(['mm','jquery','layer'],function(){
@@ -134,6 +147,7 @@
             })
 
         });
+
 
         $("#addCartBtn").click(function(){
             // alert(1);
@@ -175,5 +189,40 @@
                     }
             });
         });
-    })
+    });
+
+
+    function addFavorite(){
+        // star = true;
+        var goodId = $("#goodId").val();
+        // alert(goodId);
+        $.post("/favorite/addToFavorite",
+            {
+                goodId: goodId,
+                star: star
+            },
+            function(data){
+                if(data.isLogin == false){
+                    // alert(1);
+                    layer.confirm("您还未登录，是否现在登录", {
+                        btn: ['现在就去', '我在想想'],
+                        btnAlign: 'c'
+                    }, function(index){
+                        layer.close(index);
+                        location.href = "/shop/login";
+                    });
+                } else {
+                    if(data.success) {
+                        $("#star").css("color", "red");
+                        star = false;
+                        layer.msg("收藏成功");
+                    } else {
+                        $("#star").css("color", "grey");
+                        star = true;
+                        layer.msg("取消收藏");
+                    }
+                }
+
+        });
+    };
 </script>

@@ -9,6 +9,10 @@
   <sql id="Base_Column_List" >
     FOLDER_ID, USER_ID, GOOD_ID
   </sql>
+  <!--查询该商品是否在收藏夹中,交给mapper判断，要确保数据的唯一性，否则count>1时，为false-->
+  <select id="queryGoodInFolder" resultType="boolean" parameterType="java.lang.String" >
+    <![CDATA[ select count(GOOD_ID) from B_GOOD_FAVORITE_FOLDER where GOOD_ID = #{goodId,jdbcType=VARCHAR} and USER_ID = #{userId,jdbcType=VARCHAR}]]>
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
@@ -17,7 +21,7 @@
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from B_GOOD_FAVORITE_FOLDER
-    where FOLDER_ID = #{folderId,jdbcType=VARCHAR}
+    where GOOD_ID = #{goodId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.xh.xiaoyiduo.admin.scjgl.pojo.B_GOOD_FAVORITE_FOLDER" >
     insert into B_GOOD_FAVORITE_FOLDER (FOLDER_ID, USER_ID, GOOD_ID

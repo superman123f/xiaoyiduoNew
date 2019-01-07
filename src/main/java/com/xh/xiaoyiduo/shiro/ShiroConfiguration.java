@@ -107,6 +107,8 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/good/**", "anon");
         filterChainDefinitionMap.put("/cart/addGoodToCart", "anon");
         filterChainDefinitionMap.put("/cart/**", "authc"); //访问购物车资源
+        filterChainDefinitionMap.put("/favorite/addToFavorite", "anon"); //访问收藏夹资源
+        filterChainDefinitionMap.put("/favorite/**", "authc"); //访问收藏夹资源
         filterChainDefinitionMap.put("/register", "anon");
 
         // 具有某个角色的用户可以访问

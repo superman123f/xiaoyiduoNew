@@ -1,6 +1,7 @@
 package com.xh.xiaoyiduo.admin.spgl.controller;
 
 import com.xh.xiaoyiduo.admin.gwcgl.service.ICartManageService;
+import com.xh.xiaoyiduo.admin.scjgl.service.IFavoriteManageService;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_FATHER;
 import com.xh.xiaoyiduo.admin.spgl.service.IGoodManageService;
@@ -40,6 +41,9 @@ public class GoodManageController {
 
     @Autowired
     private ICartManageService cartManageService;
+
+    @Autowired
+    private IFavoriteManageService favoriteManageService;
 
     @RequestMapping("/testGood")
     public String testGoodParent(){
@@ -325,8 +329,21 @@ public class GoodManageController {
      */
     @RequestMapping("/toGoodDetailPage")
     public String toGoodDetailPage(String goodId, Model model){
-        System.out.println("sonId"+goodId);
-        B_GOOD goodDetail = goodManageService.getGoodDetailByGoodId(goodId);
+        S_USER user = (S_USER) SecurityUtils.getSubject().getPrincipal();
+        if(user == null){
+            model.addAttribute("noFavorite", "true");
+        } else {
+            String currentUserId = user.getUserId();
+            Boolean flag = favoriteManageService.queryGoodInFolder(currentUserId, goodId); // 查询该商品是否在收藏夹中
+            if(flag) {
+                model.addAttribute("noFavorite", "false");
+            } else {
+                model.addAttribute("noFavorite", "true");
+            }
+        }
+
+        B_GOOD goodDetail = goodManageService.getGoodDetailByGoodId(goodId); // 获取商品详情信息
+
         model.addAttribute("goodDetail", goodDetail);
         return "/shop/details";
     }
