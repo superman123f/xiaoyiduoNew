@@ -17,7 +17,7 @@
 
             <%--<shiro:hasAnyRoles name="seller,buyer">--%>
                 <div class="sp-cart" style="margin-right: 22px;"><a href="/cart/seeCartList">购物车</a><span id="cartSpan">${sessionScope.cartGoodCount}</span></div>
-                <div  style="margin-right: 22px;"><a href="/favorite/toFavoritePage"><span class="favoriteFolder"><i class="layui-icon layui-icon-rate-solid" style="font-size: 14px; color: #9c9c9c; margin-right: 1px;"></i>收藏夹</span></a></div>
+                <div  style="margin-right: 22px;"><a href="/favorite/toFavoritePage"><span class="favoriteFolder"><i id="favoriteIcon" class="layui-icon layui-icon-rate-solid" style="font-size: 14px; color: #9c9c9c; margin-right: 1px;"></i>收藏夹</span></a></div>
             <%--</shiro:hasAnyRoles>--%>
 
             <div class="sp-cart" style="margin-right: 22px;"><a href="javascript:;">
@@ -56,3 +56,12 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="../../../scripts/jquery.min.js"></script>
+
+<script>
+    $(".favoriteFolder").hover(function () {
+        $("#favoriteIcon").css("color", "red");
+    },function(){
+        $("#favoriteIcon").css("color", "grey");
+    });
+</script>

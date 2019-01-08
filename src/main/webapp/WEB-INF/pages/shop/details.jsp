@@ -109,7 +109,7 @@
 </div>
 <%@ include file="/WEB-INF/pages/shop_rooter.jsp" %> <!--引入尾部样式-->
 </body>
-<script type="text/javascript" src="../../../scripts/jquery.min.js"></script>
+<%--<script type="text/javascript" src="../../../scripts/jquery.min.js"></script>--%>
 <script type="text/javascript" src="../../../styles/layui/layui.js"></script>
 </html>
 <script type="text/javascript">
