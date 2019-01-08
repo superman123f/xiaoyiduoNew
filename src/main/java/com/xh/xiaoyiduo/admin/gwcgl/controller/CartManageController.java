@@ -80,9 +80,11 @@ public class CartManageController {
     @RequestMapping("/seeCartList")
     public String seeCartList(Model model){
         S_USER user = (S_USER) SecurityUtils.getSubject().getPrincipal();
-        String currentUserId = user.getUserId();
-        List<B_GOOD_CART> cartList = cartManageService.getCurrentUserCartInfos(currentUserId);
-        model.addAttribute("cartList", cartList);
+        if(user != null) {
+            String currentUserId = user.getUserId();
+            List<B_GOOD_CART> cartList = cartManageService.getCurrentUserCartInfos(currentUserId);
+            model.addAttribute("cartList", cartList);
+        }
         return "/shop/shopcart";
     }
 

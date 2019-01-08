@@ -110,18 +110,46 @@
                     </c:forEach>
                 </div>
             </div>
-            <div class="detail">
-                <h4>详情</h4>
-                <div style="margin: 18px 0px 18px 31px;">
-                    <font style="font-size: 20px;font-family: Microsoft Yahei;">${goodDetail.information}</font>
-                </div>
-                <c:set value="${goodDetail.imgUrlResource}" var="imgUrlResource"></c:set>
-                <c:forEach items="${imgUrlResource}" var="resource" begin="1">
-                    <%--<a href="javascript:;"><img height="400" width="400" src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}"></a>--%>
-                    <div class="item">
-                        <img style="width: 628px;height: 500px;" src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}">
+            <!--layuiTab标签 示例-->
+            <%--<div class="layui-tab">--%>
+                <%--<ul class="layui-tab-title">--%>
+                    <%--<li class="layui-this">网站设置</li>--%>
+                    <%--<li>用户管理</li>--%>
+                    <%--<li>权限分配</li>--%>
+                    <%--<li>商品管理</li>--%>
+                    <%--<li>订单管理</li>--%>
+                <%--</ul>--%>
+                <%--<div class="layui-tab-content">--%>
+                    <%--<div class="layui-tab-item layui-show">内容1</div>--%>
+                    <%--<div class="layui-tab-item">内容2</div>--%>
+                    <%--<div class="layui-tab-item">内容3</div>--%>
+                    <%--<div class="layui-tab-item">内容4</div>--%>
+                    <%--<div class="layui-tab-item">内容5</div>--%>
+                <%--</div>--%>
+            <%--</div>--%>
+
+            <!--layui Tab页签-->
+            <div class="layui-tab layui-tab-brief detail" lay-filter="docDemoTabBrief">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">详情</li>
+                    <li>留言</li>
+                </ul>
+
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <div style="margin: 18px 0px 18px 0px;">
+                            <font style="font-size: 20px;font-family: Microsoft Yahei;">${goodDetail.information}</font>
+                        </div>
+                        <c:set value="${goodDetail.imgUrlResource}" var="imgUrlResource"></c:set>
+                        <c:forEach items="${imgUrlResource}" var="resource" begin="1">
+                            <%--<a href="javascript:;"><img height="400" width="400" src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}"></a>--%>
+                            <div class="item">
+                                <img style="width: 628px;height: 500px;" src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}">
+                            </div>
+                        </c:forEach>
                     </div>
-                </c:forEach>
+                    <div class="layui-tab-item">内容2</div>
+                </div>
             </div>
         </div>
     </div>
