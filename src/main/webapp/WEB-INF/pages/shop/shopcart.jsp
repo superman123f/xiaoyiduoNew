@@ -15,13 +15,14 @@
     <title>校益多</title>
     <link rel="stylesheet" type="text/css" href="../../../styles/shop/main.css">
     <link rel="stylesheet" type="text/css" href="../../../styles/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="${ctx}/styles/admin/scjgl/favoriteFolder.css">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 </head>
 <body>
 
 <%@ include file="../shop_header.jsp"%> <!--引入头部jsp样式-->
-
 <div class="content content-nav-base shopcart-content">
     <div class="main-nav">
         <div class="inner-cont0">
@@ -91,10 +92,10 @@
                         <li class="th th-item">
                             <div class="item-cont">
                                 <c:forEach items="${resources}" var="resource" end="0">
-                                    <a href="javascript:;"><img src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}" alt=""></a>
+                                    <a href="/good/toGoodDetailPage?goodId=${cart.goodId}"><img src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}" alt=""></a>
                                 </c:forEach>
                                 <div class="text">
-                                    <div class="title">${cart.goodName}</div>
+                                    <div class="title1"><a href="/good/toGoodDetailPage?goodId=${cart.goodId}">${cart.goodName}</a></div>
                                     <%--<p><span>粉色</span>  <span>130</span>cm</p>--%>
                                 </div>
                             </div>

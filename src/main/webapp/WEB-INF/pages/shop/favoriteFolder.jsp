@@ -15,6 +15,7 @@
     <title>校益多</title>
     <link rel="stylesheet" type="text/css" href="../../../styles/shop/main.css">
     <link rel="stylesheet" type="text/css" href="../../../styles/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="${ctx}/styles/admin/scjgl/favoriteFolder.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 </head>
@@ -56,12 +57,12 @@
             </div>
             <div class="th th-price">
                 <div class="th-inner">
-                    原价
+                    转卖价
                 </div>
             </div>
             <div class="th th-sum">
                 <div class="th-inner">
-                    转卖价
+                    原价
                 </div>
             </div>
             <div class="th th-op">
@@ -87,21 +88,20 @@
                             <li class="th th-item">
                                 <div class="item-cont">
                                     <c:forEach items="${resources}" var="resource" end="0">
-                                        <a href="javascript:;"><img src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}" alt=""></a>
+                                        <a href="/good/toGoodDetailPage?goodId=${folder.good.goodId}"><img src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}" alt=""></a>
                                     </c:forEach>
                                     <div class="text">
-                                        <div class="title"> ${folder.good.goodName}</div>
+                                        <div class="title1"><a href="/good/toGoodDetailPage?goodId=${folder.good.goodId}">${folder.good.goodName}</a> </div>
                                             <%--<p><span>粉色</span>  <span>130</span>cm</p>--%>
                                     </div>
                                 </div>
                             </li>
                             <li class="th th-price">
-                                <span class="th-su">${folder.good.secondPrice}</span>
-
+                                <span class="th-su">${folder.good.originPrice}</span>
                             </li>
 
                             <li class="th th-sum">
-                                <span class="th-su">${folder.good.originPrice}</span>
+                                <span class="th-su">${folder.good.secondPrice}</span>
                             </li>
                             <li class="th th-op">
                                     <%--<span class="dele-btn" onclick="delCartItem('${cart.cartId}');">删除</span>--%>

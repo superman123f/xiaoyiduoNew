@@ -24,7 +24,7 @@
 
 <!--隐藏域-->
 <input type="hidden" id="goodId" value="${goodDetail.goodId}">
-<input type="hidden" id="goodName" value="${goodDetail.goodName}">
+<input type="hidden" id="goodName1" value="${goodDetail.goodName}">
 <input type="hidden" id="secondPrice" value="${goodDetail.secondPrice}">
 <input type="hidden" id="noFavorite" value="${noFavorite}">
 
@@ -151,7 +151,7 @@
 
         $("#addCartBtn").click(function(){
             // alert(1);
-            var goodName = $("#goodName").val();
+            var goodName = $("#goodName1").val(); //不知道为啥要换个id名称才可以获取值，使用goodName不行
             // alert(goodName);
             var secondPrice = $("#secondPrice").val();
             // alert(secondPrice);
