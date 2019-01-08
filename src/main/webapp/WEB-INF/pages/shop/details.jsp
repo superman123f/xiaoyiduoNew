@@ -84,7 +84,7 @@
         </div>
         <div class="layui-clear">
             <div class="aside">
-                <h4>卖家商品</h4>
+                <h4>${userName}商品橱窗</h4>
                 <div class="item-list">
                     <%--原模板样式--%>
                     <%--<div class="item">--%>
@@ -119,7 +119,7 @@
                 <c:forEach items="${imgUrlResource}" var="resource" begin="1">
                     <%--<a href="javascript:;"><img height="400" width="400" src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}"></a>--%>
                     <div class="item">
-                        <img style="width: 500px;height: 500px;" src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}">
+                        <img style="width: 628px;height: 500px;" src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}">
                     </div>
                 </c:forEach>
             </div>

@@ -6,7 +6,9 @@ import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_FATHER;
 import com.xh.xiaoyiduo.admin.spgl.service.IGoodManageService;
 import com.xh.xiaoyiduo.admin.utils.Pager;
+import com.xh.xiaoyiduo.admin.yygl.service.IUserManageService;
 import com.xh.xiaoyiduo.shop.pojo.S_USER;
+import com.xh.xiaoyiduo.shop.service.IS_USERService;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
@@ -40,10 +42,16 @@ public class GoodManageController {
     private IGoodManageService goodManageService;
 
     @Autowired
-    private ICartManageService cartManageService;
+    private IUserManageService userManageService;
 
     @Autowired
     private IFavoriteManageService favoriteManageService;
+
+    @Autowired
+    private ICartManageService cartManageService;
+
+    @Autowired
+    private IS_USERService userService; //在shop模块下
 
     @RequestMapping("/testGood")
     public String testGoodParent(){
@@ -346,9 +354,12 @@ public class GoodManageController {
 
         //获取该商品所属者的所有商品
         List<B_GOOD> userGoodList = goodManageService.getUserReleaseAllGood(goodDetail.getUserId());
+        //获取卖家昵称
+        String userName = (String)userService.selectByUserId(goodDetail.getUserId()).getUserId();
 
         model.addAttribute("goodDetail", goodDetail);
         model.addAttribute("userGoodList", userGoodList);
+        model.addAttribute("userName", userName);
         return "/shop/details";
     }
 
