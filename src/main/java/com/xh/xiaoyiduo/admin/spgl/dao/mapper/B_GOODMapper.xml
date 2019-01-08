@@ -100,6 +100,14 @@
     where good_id = #{goodId,jdbcType=VARCHAR}
   </select>
 
+  <!--获取用户发布的所有商品-->
+  <select id="getUserReleaseAllGood" resultMap="GoodMap" parameterType="java.lang.String" >
+    select b.*, r.*
+    from B_GOOD b
+    left join RESOURCES r on b.good_id = r.source_id
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </select>
+
   <!--获取商品详情信息，测试一对多级联,测试结果，传入的id不同-->
   <select id="selectByPrimaryKey" resultMap="TestGoodMap" parameterType="java.lang.String" >
     select 

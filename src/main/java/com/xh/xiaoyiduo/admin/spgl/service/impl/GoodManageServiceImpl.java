@@ -48,6 +48,11 @@ public class GoodManageServiceImpl implements IGoodManageService {
     }
 
     @Override
+    public List<B_GOOD> getUserReleaseAllGood(String userId) {
+        return goodMapper.getUserReleaseAllGood(userId);
+    }
+
+    @Override
     public int saveGoodImageUrls(String resourceId, String type, String imgUrl, String sonId) {
         return goodMapper.saveGoodImageUrls(resourceId, type, imgUrl, sonId);
     }

@@ -22,6 +22,8 @@ public interface B_GOODMapper {
 
     List<B_GOOD> getSonGoodList(@Param("sonId")String sonId, @Param("goodName")String goodName, @Param("currentPage")String currentPage, @Param("pageSize")String pageSize); //获取对应子类的商品列表
 
+    List<B_GOOD> getUserReleaseAllGood(String userId); //获取用户发布的所有商品
+
     Integer getSonGoodCount(@Param("sonId")String sonId, @Param("goodName") String goodName); //获取子类商品个数
 
     B_GOOD getGoodDetailByGoodId(String goodId); //获取商品详情信息

@@ -344,7 +344,11 @@ public class GoodManageController {
 
         B_GOOD goodDetail = goodManageService.getGoodDetailByGoodId(goodId); // 获取商品详情信息
 
+        //获取该商品所属者的所有商品
+        List<B_GOOD> userGoodList = goodManageService.getUserReleaseAllGood(goodDetail.getUserId());
+
         model.addAttribute("goodDetail", goodDetail);
+        model.addAttribute("userGoodList", userGoodList);
         return "/shop/details";
     }
 

@@ -21,5 +21,7 @@ public interface IGoodManageService {
 
     B_GOOD getGoodDetailByGoodId(String goodId); //获取商品详情信息
 
+    List<B_GOOD> getUserReleaseAllGood(String userId); //获取用户发布的所有商品
+
     int saveGoodImageUrls(String resourceId, String type, String imgUrl, String sonId); //保存商品图片路径
 }

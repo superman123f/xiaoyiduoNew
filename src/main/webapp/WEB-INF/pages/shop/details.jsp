@@ -13,8 +13,9 @@
 <head>
     <meta charset="UTF-8">
     <title>校益多</title>
-    <link rel="stylesheet" type="text/css" href="../../../styles/shop/main.css">
-    <link rel="stylesheet" type="text/css" href="../../../styles/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="${ctx}/styles/shop/main.css">
+    <link rel="stylesheet" type="text/css" href="${ctx}/styles/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="${ctx}/styles/shop/details.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 </head>
@@ -85,10 +86,28 @@
             <div class="aside">
                 <h4>卖家商品</h4>
                 <div class="item-list">
-                    <div class="item">
-                        <img src="../../../images/shop/details_img2.jpg">
-                        <p><span>可爱宝宝粉色连体秋裤</span><span class="pric">￥99.00</span></p>
-                    </div>
+                    <%--原模板样式--%>
+                    <%--<div class="item">--%>
+                    <%--<img src="../../../images/shop/details_img2.jpg">--%>
+                    <%--<p><span>可爱宝宝粉色连体秋裤</span><span class="pric">￥99.00</span></p>--%>
+                    <%--</div>--%>
+                    <c:forEach items="${userGoodList}" var="userGood">
+                        <div class="item" style="width: 280px;">
+                            <c:set value="${userGood.imgUrlResource}" var="resources"/>
+                            <c:forEach items="${resources}" var="resource" end="0">
+                                <a href="/good/toGoodDetailPage?goodId=${userGood.goodId}"><img width="280" height="280" src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}"></a>
+                            </c:forEach>
+                            <p style="color: #333333;"><a href="/good/toGoodDetailPage?goodId=${userGood.goodId}">${userGood.goodName}</a></p>
+                            <%--<p><span>${userGood.goodName}</span></p>--%>
+                            <p style="position: relative;">
+                                <span style="color: #ee0000;">￥${userGood.secondPrice}</span>
+                                <!--后期改为收藏数-->
+                                <span style="position: absolute; right: 13px; color:#999999;"><del>${userGood.originPrice}</del></span>
+                            </p>
+
+                            <%--<span class="pric">${userGood.secondPrice}</span>--%>
+                        </div>
+                    </c:forEach>
                 </div>
             </div>
             <div class="detail">
