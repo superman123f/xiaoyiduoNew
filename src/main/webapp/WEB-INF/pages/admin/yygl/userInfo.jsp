@@ -9,6 +9,7 @@
 <%@ include file="/WEB-INF/pages/header.jsp" %>
 <html>
 <head>
+    <link rel="icon" type="image/x-icon" href="${ctx}/images/shop/icon.ico"/>
     <title>编辑用户信息</title>
     <link rel="stylesheet" type="text/css" href="${ctx}/styles/layui/css/layui.css">
 </head>

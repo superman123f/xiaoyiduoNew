@@ -10,6 +10,7 @@
 
 <html>
 <head>
+    <link rel="icon" type="image/x-icon" href="${ctx}/images/shop/icon.ico"/>
     <title>商品信息</title>
     <link rel="stylesheet" href="${ctx}/styles/layui/css/layui.css">
     <link rel="stylesheet" href="${ctx}/styles/admin/spgl/goodInfo.css">

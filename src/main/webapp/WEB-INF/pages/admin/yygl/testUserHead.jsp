@@ -8,7 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <link rel="icon" type="image/x-icon" href="${ctx}/images/shop/icon.ico"/>
+    <title>校益多</title>
     <link rel="stylesheet" href="${ctx}/scripts/plugs/Jcrop/jquery.Jcrop.min.css">
     <script type="text/javascript" src="${ctx}/scripts/jquery.min.js"></script>
     <script type="text/javascript" src="${ctx}/scripts/plugs/Jcrop/jquery.Jcrop.min.js"></script>

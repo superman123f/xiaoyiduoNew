@@ -12,7 +12,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>layout 后台大布局 - Layui</title>
+    <link rel="icon" type="image/x-icon" href="${ctx}/images/shop/icon.ico"/>
+    <title>校益多</title>
     <link rel="stylesheet" href="${ctx}/styles/layui/css/layui.css">
     <link rel="stylesheet" href="${ctx}/styles/admin/global.css">
     <link rel="stylesheet" href="${ctx}/styles/admin/icheck/minimal/red.css">

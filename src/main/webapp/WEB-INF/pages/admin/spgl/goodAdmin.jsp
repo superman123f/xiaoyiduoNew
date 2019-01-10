@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link rel="icon" type="image/x-icon" href="${ctx}/images/shop/icon.ico"/>
     <title>商品管理</title>
 </head>
 <body>

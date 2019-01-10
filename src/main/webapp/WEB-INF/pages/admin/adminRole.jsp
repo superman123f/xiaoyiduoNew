@@ -9,7 +9,9 @@
 <%@ include file="/WEB-INF/pages/header.jsp" %>
 
 <html>
-<head><title>404 Not Found</title></head>
+<head>
+    <link rel="icon" type="image/x-icon" href="${ctx}/images/shop/icon.ico"/>
+    <title>404 Not Found</title></head>
 <body bgcolor="white">
 <center><h1>404 Not Found</h1></center>
 <hr><center>openresty</center>

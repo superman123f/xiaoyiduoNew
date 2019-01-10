@@ -12,6 +12,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="${ctx}/images/shop/icon.ico"/>
     <title>校益多</title>
     <link rel="stylesheet" type="text/css" href="../../../styles/shop/main.css">
     <link rel="stylesheet" type="text/css" href="../../../styles/shop/findPwd.css">
