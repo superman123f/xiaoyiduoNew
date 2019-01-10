@@ -1,10 +1,45 @@
-/*.favoriteFolder {*/
-    /*color: green;*/
-/*}*/
-/*.favoriteFolder:hover{*/
-    /*color: #FF0000;*/
-/*}*/
+.layui-nav-item1{
+    display: none;
+}
 
-/*.favoriteFolder .layui-icon .layui-icon-rate-solid:hover{*/
-    /*color: #FF0000;*/
-/*}*/
+.layui-nav1 li:hover ul{
+    display: block;
+}
+.userImg{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+ /*用户下拉框样式*/
+ .dropdown{
+     position: relative;
+     display: inline-block;
+ }
+.dropdown-content{
+    display: none;
+    position: absolute;
+    background: #1ab2ff;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 19999;
+}
+.dropdown-content a{
+    ccolor: black;
+    padding: 0px 14px;
+    background: #e2e2e2;
+    width: 90px;
+    display: block;
+}
+.dropdown-content a:hover{
+    background: white;
+}
+.dropdown-a {
+    border: none;
+    cursor: pointer;
+    background: rgb(245, 245, 245);
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+    /*min-width: 200px;*/
+    background: #0C0C0C;
+}

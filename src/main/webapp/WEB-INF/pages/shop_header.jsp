@@ -8,7 +8,10 @@
             <i class="layui-icon layui-icon-home"></i>
             <a href="/shop/commodity">首页</a>
         </p>
+
+
         <div class="sn-quick-menu">
+
             <div class="sp-cart" style="margin-right: 22px;"><a href="/documents/shiro-jstl.html">帮助文档</a></div>
             <div class="login" style="margin-right: 22px;"><a href="javascript;">公告</a></div>
             <shiro:hasAnyRoles name="admin,seller">
@@ -20,15 +23,28 @@
                 <div  style="margin-right: 22px;"><a href="/favorite/toFavoritePage"><span class="favoriteFolder"><i id="favoriteIcon" class="layui-icon layui-icon-rate-solid" style="font-size: 14px; color: #9c9c9c; margin-right: 1px;"></i>收藏夹</span></a></div>
             <%--</shiro:hasAnyRoles>--%>
 
-            <div class="sp-cart" style="margin-right: 22px;"><a href="javascript:;">
-                <shiro:principal property="nickname"></shiro:principal></a>
-            </div>
 
-            <shiro:notAuthenticated>
+            <shiro:guest>
                 <div class="login"><a href="/shop/login">登录</a></div>
-            </shiro:notAuthenticated>
+            </shiro:guest>
             <shiro:authenticated>
-                <div class="login" style="margin-right: 22px;"><a href="/user/logout">退出</a></div>
+                <div class="sp-cart dropdown" style="margin-right: 22px;">
+                    <%--<div class="dropdown">--%>
+                        <button class="dropdown-a" href="javascript;">
+                            <c:set value="${user.resources}" var="userResources"/>
+                                <c:forEach items="${userResources}" var="resource" end="0">
+                                    <img id="userHeadImg" class="userImg"  src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}" class="layui-nav-img1">
+                                </c:forEach>
+                            <%--<img class="userImg" src="http://t.cn/RCzsdCq" class="layui-nav-img1">--%>
+                            <shiro:principal property="nickname"></shiro:principal>
+                        </button>
+                        <div class="dropdown-content">
+                            <a href="/user/seeUserInfo">个人资料</a>
+                            <a href="/user/logout">退出</a>
+                        </div>
+                    <%--</div>--%>
+                </div>
+                <%--<div class="login" style="margin-right: 22px;"><a href="/user/logout">退出</a></div>--%>
             </shiro:authenticated>
         </div>
     </div>
@@ -61,7 +77,9 @@
 <script>
     $(".favoriteFolder").hover(function () {
         $("#favoriteIcon").css("color", "red");
+        $(".favoriteFolder").css("color", "red");
     },function(){
         $("#favoriteIcon").css("color", "grey");
+        $(".favoriteFolder").css("color", "grey");
     });
 </script>

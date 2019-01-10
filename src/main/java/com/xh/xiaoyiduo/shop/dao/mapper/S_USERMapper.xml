@@ -35,7 +35,12 @@
         <result column="ROLE_ID" property="roleId"/>
       </collection>
     </collection>
-
+    <collection property="resources" ofType="com.xh.xiaoyiduo.admin.spgl.pojo.RESOURCES">
+      <id column="RESOURCE_ID" property="resourceId"/>
+      <result column="TYPE" property="type"/>
+      <result column="URL" property="url"/>
+      <result column="SOURCE_ID" property="sourceId"/>
+    </collection>
   </resultMap>
   <sql id="Base_Column_List" >
     USER_ID, STUDENT_NO, NICKNAME, PASSWORD, REAL_NAME, SEX, EMAIL, PHONE, DORMITORY_ADDRESS, CREATE_TIME
@@ -43,11 +48,12 @@
 
   <!--根据用户编号查询-->
   <select id="selectByUserId" resultMap="userMap" parameterType="java.lang.String" >
-    select u.*, r.*, p.* from S_USER u
+    select u.*, r.*, p.*, rs.* from S_USER u
        left join S_USER_USERROLES ur on u.user_id = ur.user_id
        left join S_USER_ROLES r on r.role_id = ur.role_id
        left join S_USER_ROLEPERMISSIONS rp on rp.role_id = r.role_id
        left join S_USER_PERMISSIONS p on rp.permission_id = p.permission_id
+       left join Resources rs on rs.source_id = u.user_id
     where u.USER_ID = #{userId,jdbcType=VARCHAR}
   </select>
 

@@ -1,6 +1,12 @@
 package com.xh.xiaoyiduo.admin.controller;
 
+import com.xh.xiaoyiduo.admin.yygl.service.IUserManageService;
+import com.xh.xiaoyiduo.shop.pojo.S_USER;
+import com.xh.xiaoyiduo.shop.service.IS_USERService;
+import org.apache.shiro.SecurityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -21,6 +27,8 @@ public class AdminController {
     private final static String GOODADMIN_VIEW = "/admin/spgl/goodAdmin";
     private final static String GOODINFO_VIEW = "/admin/spgl/goodInfo";
 
+    @Autowired
+    IS_USERService userService;
 
 
     @RequestMapping("/admin")
@@ -30,7 +38,15 @@ public class AdminController {
     }
 
     @RequestMapping("/portal")
-    public String admin1(){
+    public String admin1(Model model){
+        // 获取当前用户id
+        S_USER currentUser = (S_USER) SecurityUtils.getSubject().getPrincipal();
+        if(currentUser != null) {
+            String userId = currentUser.getUserId();
+            S_USER user = userService.selectByUserId(userId);
+            model.addAttribute("user", user);
+        }
+
         System.out.println("后台框架首页");
         return "/admin/portal/main";
     }

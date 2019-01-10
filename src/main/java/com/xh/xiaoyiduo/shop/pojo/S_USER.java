@@ -1,6 +1,7 @@
 package com.xh.xiaoyiduo.shop.pojo;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.xh.xiaoyiduo.admin.spgl.pojo.RESOURCES;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -31,6 +32,8 @@ public class S_USER {
     private Date createTime;
 
     private Set<S_USER_ROLES> roles = new HashSet<>();
+
+    private Set<RESOURCES> resources; // 用户头像资源
 
     public String getUserId() {
         return userId;
@@ -118,5 +121,13 @@ public class S_USER {
 
     public void setRoles(Set<S_USER_ROLES> roles) {
         this.roles = roles;
+    }
+
+    public Set<RESOURCES> getResources() {
+        return resources;
+    }
+
+    public void setResources(Set<RESOURCES> resources) {
+        this.resources = resources;
     }
 }

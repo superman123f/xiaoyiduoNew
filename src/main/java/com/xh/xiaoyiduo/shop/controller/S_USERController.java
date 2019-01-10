@@ -3,6 +3,9 @@ package com.xh.xiaoyiduo.shop.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.xh.xiaoyiduo.admin.spgl.pojo.RESOURCES;
+import com.xh.xiaoyiduo.admin.spgl.service.IResourcesManageService;
+import com.xh.xiaoyiduo.admin.utils.newImageCut;
 import com.xh.xiaoyiduo.shop.pojo.S_USER;
 import com.xh.xiaoyiduo.shop.service.IS_USERService;
 import com.xh.xiaoyiduo.utils.ShiroSHAUtil;
@@ -15,16 +18,17 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.security.auth.login.AccountNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Writer;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -37,6 +41,122 @@ public class S_USERController {
 
     @Autowired
     IS_USERService userService;
+
+    @Autowired
+    IResourcesManageService resourcesManageService;
+
+    @RequestMapping("/testUserHead")
+    public String UserHeadTest(){
+        return "/admin/yygl/testUserHead";
+    }
+
+    /**
+     * 测试裁剪用户头像
+     * @return
+     */
+    @RequestMapping("/testCutUserHead")
+    @ResponseBody
+    public Object testCutUserHead(MultipartFile pictureFile, String x, String y, String w, String h, HttpServletResponse response){
+
+//        String oldName = file.getOriginalFilename(); //获取原名
+////        String path = request.getServletContext().getRealPath("/upload/"); //获得项目所在绝对路径
+//        String fileName = changeName(oldName); //将图片重命名
+//
+////        String rappendix = "upload/" + fileName; //返回给前端的路径
+////        fileName = imgPath + fileName; //合并具体的路径
+//
+//
+//        Map<String,Object> result = new HashMap<>(); //返回给前端的结果
+//        String imgUrl = null; //保存好后的图片路径
+//
+//        File file1 = new File(".."); //创建文件夹
+//        try {
+//            String basePath = file1.getCanonicalPath()+"/resources/shop";
+//            File baseFile = new File(basePath);
+//            System.out.println("ready to make baseFile " + basePath);
+//            if(!baseFile.exists()){
+//                baseFile.mkdirs();
+//                System.out.println("to make file success");
+//            }
+//
+//            //获取项目根目录的上级目录,并把图片保存在该目录下
+//            imgUrl = baseFile+"/"+fileName;
+//            String newImgUrl = imgUrl.replaceAll("\\\\", "/");
+//            File file2 = new File(imgUrl);
+//            file.transferTo(file2); //保存图片
+////            imgUrl.replaceAll("\\\\",  "/");
+//            result.put("status", "0"); //0保存成功，1保存失败
+//            result.put("src", newImgUrl); //图片路径
+//            result.put("oldName", oldName); //原图片名称
+//            System.out.println("save image success");
+//            return result;
+//        } catch (IllegalStateException e) {
+//            result.put("status", "1");
+//            System.out.println(imgUrl + "图片保存失败");
+//            return result;
+//        } catch (IOException e){
+//            result.put("status", "1");
+//            System.out.println(imgUrl + "图片保存失败");
+//            return result;
+//        }
+        Map<String, Object> data = new HashMap<>();
+        try{
+            InputStream is = pictureFile.getInputStream();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            newImageCut.imgCut(baos, is, "", (int)Math.ceil(Double.parseDouble(x)), (int)Math.ceil(Double.parseDouble(y)), (int)Math.ceil(Double.parseDouble(w)), (int)Math.ceil(Double.parseDouble(h)));
+
+            String oldName = pictureFile.getOriginalFilename(); //获取原文件名
+            String newName = changeName(oldName); // 重命名
+//            byte[] byteArray = baos.toByteArray(); //缓冲区
+
+            String targetFile = "E:/guyuanhui/NewGraduateProject/xiaoyiduo/resources/user/"; // 保存用户头像的文件夹
+            String targetPicture = targetFile + newName; // 保存的图片路径
+            FileOutputStream fos = new FileOutputStream(new File(targetPicture));
+            baos.writeTo(fos);
+            baos.flush();
+            baos.close();
+            fos.flush();
+            fos.close();
+
+            // 获取当前用户id
+            S_USER currentUser = (S_USER)SecurityUtils.getSubject().getPrincipal();
+            if(currentUser != null) {
+                String userId = currentUser.getUserId();
+                // 删除已有的头像图片路径，但实际上图片是没有删除
+                resourcesManageService.deleteByPrimaryKey(userId);
+                // 保存用户头像地址
+                String resourceId = UUID.randomUUID().toString().replaceAll("\\-", "");
+                RESOURCES resource = new RESOURCES();
+                resource.setResourceId(resourceId);
+                resource.setUrl(targetPicture);
+                resource.setType("0");
+                resource.setSourceId(userId);
+                resourcesManageService.insert(resource);
+            }
+
+            data.put("status", true);
+            data.put("userImgUrl", targetPicture);
+//            data.put("msg", "success");
+        }catch(Exception e){
+//            data.put("status",  true);
+            e.printStackTrace();
+            data.put("msg", "上传失败");
+        }
+
+        return data;
+    }
+
+    //将图片重命名
+    public static String changeName(String oldName){
+//        Random r = new Random();
+//        Date d = new Date();
+        //使用uuid命名
+        String uuid = UUID.randomUUID().toString().replaceAll("\\-","");
+        String newName = oldName.substring(oldName.indexOf('.'));
+//        newName = r.nextInt(99999999) + d.getTime() + newName;
+        newName = uuid + newName;
+        return newName;
+    }
 
     /**
      * 登录校验
@@ -409,5 +529,20 @@ public class S_USERController {
             }
         }
         return data;
+    }
+
+    /**
+     * 前端,用户查看个人信息
+     * @return
+     */
+    @RequestMapping("/seeUserInfo")
+    public String seeUserInfo(Model model){
+        S_USER currentUser = (S_USER) SecurityUtils.getSubject().getPrincipal();
+        if(currentUser != null) {
+            String userId =currentUser.getUserId();
+            S_USER user = userService.selectByUserId(userId);
+            model.addAttribute("user", user);
+        }
+        return "/shop/user/seeUserInfo";
     }
 }

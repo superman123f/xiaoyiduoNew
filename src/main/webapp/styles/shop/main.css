@@ -362,3 +362,13 @@ i{font-style: normal;}
     margin-top: 20px;
 }
 /*end-register*/
+
+/*前端用户修改个人信息页*/
+.cutImg1 {
+    color: #3399ea;
+    cursor: pointer;
+}
+
+.userHead:hover a{
+    color: #157DCF;
+}

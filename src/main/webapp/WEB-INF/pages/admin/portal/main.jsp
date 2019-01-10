@@ -32,8 +32,13 @@
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item"><a href="/shop/commodity">首页</a></li>
             <li class="layui-nav-item">
+                <%--<input type="text" value="${user.userId}">--%>
                 <a href="javascript:;">
-                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    <c:set value="${user.resources}" var="userResources"/>
+                        <c:forEach items="${userResources}" var="resource" end="0">
+                            <img src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}" class="layui-nav-img">
+                        </c:forEach>
+                    <%--<img src="http://t.cn/RCzsdCq" class="layui-nav-img">--%>
                     <shiro:principal property="nickname"></shiro:principal>
                 </a>
                 <dl class="layui-nav-child">

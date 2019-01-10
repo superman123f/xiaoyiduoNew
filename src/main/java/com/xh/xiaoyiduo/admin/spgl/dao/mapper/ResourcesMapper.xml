@@ -18,7 +18,7 @@
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from RESOURCES
-    where RESOURCE_ID = #{resourceId,jdbcType=VARCHAR}
+    where SOURCE_ID = #{userId,jdbcType=VARCHAR} and TYPE = '0'
   </delete>
   <insert id="insert" parameterType="com.xh.xiaoyiduo.admin.spgl.pojo.RESOURCES" >
     insert into RESOURCES (RESOURCE_ID, TYPE, URL, 
