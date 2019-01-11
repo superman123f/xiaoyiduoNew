@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xh.xiaoyiduo.admin.jpgl.dao.B_GOOD_BanMapper" >
+  <resultMap id="BaseResultMap" type="com.xh.xiaoyiduo.admin.jpgl.pojo.B_GOOD_BAN" >
+    <id column="BAN_ID" property="banId" jdbcType="VARCHAR" />
+    <result column="BAN_NAME" property="banName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    BAN_ID, BAN_NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from B_GOOD_BAN
+    where BAN_ID = #{banId,jdbcType=VARCHAR}
+  </select>
+  <!--获取禁品总数-->
+  <select id="getBanGoodCount" resultType="Integer">
+    select sum(1) from b_good_ban
+    <if test="banName != null" >
+      where
+      ban_name like concat('%',concat(#{banName,jdbcType=VARCHAR}, '%'))
+    </if>
+  </select>
+  <!--分页获取所有禁品信息-->
+  <select id="getAllBanGoods" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT *
+      FROM (SELECT r.*,ROWNUM rn
+        FROM(
+          select
+            <include refid="Base_Column_List" />
+            from b_good_ban
+              <if test="banName != null" >
+                where
+                  ban_Name
+                like concat('%',concat(#{banName,jdbcType=VARCHAR}, '%'))
+              </if>
+            order by ban_name desc
+          ) r
+          where ROWNUM &lt;= #{pageSize} * #{currentPage}
+      ) WHERE rn > #{pageSize} * ( #{currentPage} - 1)
+  </select>
+  <!--删除禁品-->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from B_GOOD_BAN
+    where BAN_ID = #{banId,jdbcType=VARCHAR}
+  </delete>
+  <!--新增禁品-->
+  <insert id="insert" parameterType="com.xh.xiaoyiduo.admin.jpgl.pojo.B_GOOD_BAN" >
+    insert into B_GOOD_BAN (BAN_ID, BAN_NAME)
+    values (#{banId,jdbcType=VARCHAR}, #{banName,jdbcType=VARCHAR})
+  </insert>
+
+  <!--更新禁品信息-->
+  <update id="updateBanGoodInfoByBanId" parameterType="java.lang.String" >
+    update b_good_ban
+      <set>
+        <!--<if test="banId != null" >-->
+          <!--BAN_ID = #{banId,jdbcType=VARCHAR},-->
+        <!--</if>-->
+        <if test="banName != null" >
+          BAN_NAME = #{banName,jdbcType=VARCHAR}
+        </if>
+      </set>
+      where BAN_ID = #{banId,jdbcType=VARCHAR}
+  </update>
+
+  <insert id="insertSelective" parameterType="com.xh.xiaoyiduo.admin.jpgl.pojo.B_GOOD_BAN" >
+    insert into B_GOOD_BAN
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="banId != null" >
+        BAN_ID,
+      </if>
+      <if test="banName != null" >
+        BAN_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="banId != null" >
+        #{banId,jdbcType=VARCHAR},
+      </if>
+      <if test="banName != null" >
+        #{banName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xh.xiaoyiduo.admin.jpgl.pojo.B_GOOD_BAN" >
+    update B_GOOD_BAN
+    <set >
+      <if test="banName != null" >
+        BAN_NAME = #{banName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BAN_ID = #{banId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xh.xiaoyiduo.admin.jpgl.pojo.B_GOOD_BAN" >
+    update B_GOOD_BAN
+    set BAN_NAME = #{banName,jdbcType=VARCHAR}
+    where BAN_ID = #{banId,jdbcType=VARCHAR}
+  </update>
+</mapper>

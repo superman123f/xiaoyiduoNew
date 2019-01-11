@@ -18,9 +18,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -37,6 +35,7 @@ import java.util.*;
  */
 @Controller
 @RequestMapping("/user")
+@SessionAttributes("currentUser")
 public class S_USERController {
 
     @Autowired
@@ -56,7 +55,7 @@ public class S_USERController {
      */
     @RequestMapping("/testCutUserHead")
     @ResponseBody
-    public Object testCutUserHead(MultipartFile pictureFile, String x, String y, String w, String h, HttpServletResponse response){
+    public Object testCutUserHead(MultipartFile pictureFile, String x, String y, String w, String h, HttpServletResponse response, Model model){
 
 //        String oldName = file.getOriginalFilename(); //获取原名
 ////        String path = request.getServletContext().getRealPath("/upload/"); //获得项目所在绝对路径
@@ -132,6 +131,9 @@ public class S_USERController {
                 resource.setType("0");
                 resource.setSourceId(userId);
                 resourcesManageService.insert(resource);
+                // 重新获取用户信息
+                currentUser = userService.selectByUserId(userId);
+                model.addAttribute("currentUser", currentUser);
             }
 
             data.put("status", true);
@@ -165,7 +167,8 @@ public class S_USERController {
      * @return
      */
     @RequestMapping("/login")
-    public String login(String userAccount, String password){
+
+    public String login(String userAccount, String password, Model model){
         System.out.println("登录用户校验身份");
         System.out.println("用户名： " + userAccount);
         System.out.println("密码： " + password);
@@ -176,6 +179,10 @@ public class S_USERController {
 
         try {
             currentUser.login(token);
+            S_USER user = (S_USER) SecurityUtils.getSubject().getPrincipal();
+            String userId = user.getUserId();
+            user = userService.selectByUserId(userId);
+            model.addAttribute("currentUser", user);
         } catch (UnknownAccountException e) {
             System.out.println("用户名不存在");
             return "/shop/login";

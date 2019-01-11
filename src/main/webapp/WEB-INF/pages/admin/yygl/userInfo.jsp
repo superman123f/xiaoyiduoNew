@@ -13,7 +13,7 @@
     <title>编辑用户信息</title>
     <link rel="stylesheet" type="text/css" href="${ctx}/styles/layui/css/layui.css">
 </head>
-
+<body>
 <div style="margin:16px 19px 0px 0px;">
     <form class="layui-form" action="/user/updateUserInfo" method="post">
         <%--隐藏用户id--%>

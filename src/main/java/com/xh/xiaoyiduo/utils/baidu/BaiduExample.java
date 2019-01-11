@@ -64,7 +64,7 @@ public class BaiduExample {
         String url = "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/classification/seeGood";
         String accessToken = getAuth();
 
-        byte[] file = FileUtil.readFileByBytes("C:\\Users\\guyuanhui\\Desktop\\guyuanhui\\CSDN\\Oracle\\1.交换空间配置\\1.png");
+        byte[] file = FileUtil.readFileByBytes("D:\\Documents\\Tencent Files\\1529623111\\FileRecv\\MobileFile\\违禁品\\1.jpg");
         String image = Base64Util.encode(file);
         String params = "{\"top_num\":5,\"image\":\""+image+"\"}";
 //        String result = HttpUtil.post(url, access_token, params);
@@ -93,14 +93,15 @@ public class BaiduExample {
 //        System.out.println(bean);
 
 //        //检测商品种类范围的json结果数据
-//        String results =  easydl();
-        String results = "{\"log_id\":5132558772297159724,\"results\":[{\"name\":\"[default]\",\"score\":0.9850209951400757},{\"name\":\"vacuum\",\"score\":0.014979000203311443}]}";
+        String results =  easydl();
+//        String results = "{\"log_id\":5132558772297159724,\"results\":[{\"name\":\"[default]\",\"score\":0.9850209951400757},{\"name\":\"vacuum\",\"score\":0.014979000203311443}]}";
 //        //json转Object
 //        Map classMap = new HashMap();
 //        classMap.put(results, Results.class);
         JSONObject jsonObject = JSONObject.fromObject(results);
         Map<String, Class> classMap = new HashMap<>();
         classMap.put("results", Results.class);
+//        将json格式的字符创转换为对象
         CustomBean customBean = (CustomBean) JSONObject.toBean(jsonObject, CustomBean.class, classMap);
 
         List<Results> rsList = customBean.getResults();

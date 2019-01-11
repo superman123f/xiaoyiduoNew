@@ -74,6 +74,13 @@
                 </li>
 
                 <li class="layui-nav-item">
+                    <a href="javascript:;">禁品管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" onclick="choose('/ban/toBanManagePage');">禁品列表</a></dd>
+                    </dl>
+                </li>
+
+                <li class="layui-nav-item">
                     <a href="javascript:;">公告管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" onclick="return false;">公告列表</a></dd>

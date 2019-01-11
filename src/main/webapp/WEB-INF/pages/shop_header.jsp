@@ -1,3 +1,4 @@
+<%@ page import="com.xh.xiaoyiduo.shop.pojo.S_USER" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <link rel="stylesheet" href="${ctx}/styles/shop/shop_header.css">
@@ -22,7 +23,11 @@
                 <div class="sp-cart" style="margin-right: 22px;"><a href="/cart/seeCartList">购物车</a><span id="cartSpan">${sessionScope.cartGoodCount}</span></div>
                 <div  style="margin-right: 22px;"><a href="/favorite/toFavoritePage"><span class="favoriteFolder"><i id="favoriteIcon" class="layui-icon layui-icon-rate-solid" style="font-size: 14px; color: #9c9c9c; margin-right: 1px;"></i>收藏夹</span></a></div>
             <%--</shiro:hasAnyRoles>--%>
-
+            <%--${sessionScope.currentUser.getResources().getType()}--%>
+            <%--<%--%>
+                <%--S_USER currentUser = (S_USER) session.getAttribute("currentUser");--%>
+                <%--out.println(currentUser.getUserId());--%>
+            <%--%>--%>
 
             <shiro:guest>
                 <div class="login"><a href="/shop/login">登录</a></div>
@@ -31,7 +36,7 @@
                 <div class="sp-cart dropdown" style="margin-right: 22px;">
                     <%--<div class="dropdown">--%>
                         <button class="dropdown-a" href="javascript;">
-                            <c:set value="${user.resources}" var="userResources"/>
+                            <c:set value="${currentUser.resources}" var="userResources"/>
                                 <c:forEach items="${userResources}" var="resource" end="0">
                                     <img id="userHeadImg" class="userImg"  src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}" class="layui-nav-img1">
                                 </c:forEach>
