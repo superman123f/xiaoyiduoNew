@@ -153,6 +153,7 @@
     var success = 0; //图片保存成功的个数
     var fail = 0;  //图片保存失败的个数
     var imgUrls = ""; //保存上传成功的图片路径
+    var banGoodNames = ""; // 保存禁品名称
     $(function(){
         layui.use(['upload','form','layer'], function() {
             var $ = layui.jquery
@@ -217,14 +218,24 @@
                         imgUrls += res.src + ",";
                         $("#imgUrls").val(imgUrls);
                     } else {
+                        if(res.isBanGood == "0") {
+                            if(banGoodNames.search(res.msg) == -1){
+                                banGoodNames += res.msg + " ";
+                            };
+                        }
                         fail++;
                     }
                 }
                 ,allDone:function(obj){
-                    layer.msg("总共要上传图片总数为：" + (fail + success) + "\n"
-                                    + "其中上传成功图片数为：" + success + "\n"
-                                    + "上传失败图片数为：" + fail
-                    );
+                    if(banGoodNames == "") {
+                        layer.msg("总共要上传图片总数为：" + (fail + success) + "\n"
+                            + "其中上传成功图片数为：" + success + "\n"
+                            + "上传失败图片数为：" + fail
+                        );
+                    } else {
+                        layer.alert("您上传的图片中还有违规类商品：" + banGoodNames);
+                    }
+
                 }
             });
         });

@@ -77,6 +77,7 @@
                     <a href="javascript:;">禁品管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" onclick="choose('/ban/toBanManagePage');">禁品列表</a></dd>
+                        <dd><a href="javascript:;" onclick="choose('/ban/toBaiduAIWebsite');">模型训练</a></dd>
                     </dl>
                 </li>
 

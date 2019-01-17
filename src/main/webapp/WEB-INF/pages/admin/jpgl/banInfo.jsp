@@ -17,11 +17,16 @@
     <form class="layui-form" action="/ban/updateBanGoodInfo" method="post">
         <%--隐藏用户id--%>
         <input id="banId" type="hidden" name="banId" value="${banGood.banId}">
-
+        <div class="layui-form-item">
+            <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>禁品标签</label>
+            <div class="layui-input-block">
+                <input type="text" id="banLabel" name="banLabel" autocomplete="off" class="layui-input" value="${banGood.banLabel}" placeholder="支持字母，数字，下划线组合，不支持中文名称">
+            </div>
+        </div>
         <div class="layui-form-item">
             <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>禁品名称</label>
             <div class="layui-input-block">
-                <input type="text" id="banName" name="banName" autocomplete="off" class="layui-input" value="${banGood.banName}" placeholder="请输入违规类商品名称">
+                <input type="text" id="banName" name="banName" autocomplete="off" class="layui-input" value="${banGood.banName}" placeholder="请输入禁品名称">
             </div>
         </div>
 
@@ -46,11 +51,14 @@
 
     $("#saveBtn").click(function(){
         var banId = $("#banId").val();
+
+        var banLabel = $("#banLabel").val();
         var banName = $("#banName").val();
 
         $.post("/ban/updateBanGoodInfo",
             {
                 banId: banId,
+                banLabel: banLabel,
                 banName: banName,
             },
             function(data){

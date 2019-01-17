@@ -3,16 +3,24 @@
 <mapper namespace="com.xh.xiaoyiduo.admin.jpgl.dao.B_GOOD_BanMapper" >
   <resultMap id="BaseResultMap" type="com.xh.xiaoyiduo.admin.jpgl.pojo.B_GOOD_BAN" >
     <id column="BAN_ID" property="banId" jdbcType="VARCHAR" />
+    <result column="BAN_LABEL" property="banLabel" jdbcType="VARCHAR" />
     <result column="BAN_NAME" property="banName" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    BAN_ID, BAN_NAME
+    BAN_ID, BAN_LABEL, BAN_NAME
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from B_GOOD_BAN
     where BAN_ID = #{banId,jdbcType=VARCHAR}
+  </select>
+  <!--根据名称查询禁品信息-->
+  <select id="selectByBanLabel" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from B_GOOD_BAN
+    where BAN_LABEL = #{banLabel,jdbcType=VARCHAR}
   </select>
   <!--获取禁品总数-->
   <select id="getBanGoodCount" resultType="Integer">
@@ -47,8 +55,8 @@
   </delete>
   <!--新增禁品-->
   <insert id="insert" parameterType="com.xh.xiaoyiduo.admin.jpgl.pojo.B_GOOD_BAN" >
-    insert into B_GOOD_BAN (BAN_ID, BAN_NAME)
-    values (#{banId,jdbcType=VARCHAR}, #{banName,jdbcType=VARCHAR})
+    insert into B_GOOD_BAN (BAN_ID, BAN_LABEL, BAN_NAME)
+    values (#{banId,jdbcType=VARCHAR}, #{banLabel,jdbcType=VARCHAR}, #{banName,jdbcType=VARCHAR})
   </insert>
 
   <!--更新禁品信息-->
@@ -58,6 +66,9 @@
         <!--<if test="banId != null" >-->
           <!--BAN_ID = #{banId,jdbcType=VARCHAR},-->
         <!--</if>-->
+        <if test="banLabel != null" >
+          BAN_LABEL = #{banLabel,jdbcType=VARCHAR},
+        </if>
         <if test="banName != null" >
           BAN_NAME = #{banName,jdbcType=VARCHAR}
         </if>

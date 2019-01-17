@@ -11,6 +11,7 @@ import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 //import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +21,7 @@ import java.awt.image.Kernel;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +40,7 @@ public class BaiduExample {
      * https://ai.baidu.com/file/470B3ACCA3FE43788B5A963BF0B625F3
      * 下载
      */
-    public static String easydl() {
+    public static String easydl(byte[] file1) {
 //        String path = "C:/Users/guyuanhui/Desktop/毕设组/数据集/vacuum/1.jpg";
 //        FileInputStream fin = null;
         try {
@@ -64,7 +66,9 @@ public class BaiduExample {
         String url = "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/classification/seeGood";
         String accessToken = getAuth();
 
-        byte[] file = FileUtil.readFileByBytes("D:\\Documents\\Tencent Files\\1529623111\\FileRecv\\MobileFile\\违禁品\\1.jpg");
+//        byte[] file = FileUtil.readFileByBytes("D:\\Documents\\Tencent Files\\1529623111\\FileRecv\\MobileFile\\违禁品\\3.jpg");
+        byte[] file = file1;
+
         String image = Base64Util.encode(file);
         String params = "{\"top_num\":5,\"image\":\""+image+"\"}";
 //        String result = HttpUtil.post(url, access_token, params);
@@ -93,24 +97,25 @@ public class BaiduExample {
 //        System.out.println(bean);
 
 //        //检测商品种类范围的json结果数据
-        String results =  easydl();
+//        String results =  easydl("1");
 //        String results = "{\"log_id\":5132558772297159724,\"results\":[{\"name\":\"[default]\",\"score\":0.9850209951400757},{\"name\":\"vacuum\",\"score\":0.014979000203311443}]}";
 //        //json转Object
 //        Map classMap = new HashMap();
 //        classMap.put(results, Results.class);
-        JSONObject jsonObject = JSONObject.fromObject(results);
-        Map<String, Class> classMap = new HashMap<>();
-        classMap.put("results", Results.class);
+//        JSONObject jsonObject = JSONObject.fromObject(results);
+//        Map<String, Class> classMap = new HashMap<>();
+//        classMap.put("results", Results.class);
 //        将json格式的字符创转换为对象
-        CustomBean customBean = (CustomBean) JSONObject.toBean(jsonObject, CustomBean.class, classMap);
+//        CustomBean customBean = (CustomBean) JSONObject.toBean(jsonObject, CustomBean.class, classMap);
 
-        List<Results> rsList = customBean.getResults();
-        System.out.println(rsList);
-        for(Results rs : rsList){
-            if(rs.getName().equals("vacuum")){
-                System.out.println(rs.getScore() + " " + rs.getName());
-            }
-        }
+//        List<Results> rsList = customBean.getResults();
+//        System.out.println(rsList);
+//        for(Results rs : rsList){
+//            System.out.println(rs.getScore() + " " + rs.getName());
+////            if(rs.getName().equals("vacuum")){
+////                System.out.println(rs.getScore() + " " + rs.getName());
+////            }
+//        }
 //        System.out.println(customBean.getResults().get);
 
 //        CustomBean customBean = (CustomBean) JSONObject.toBean(object,CustomBean.class);
@@ -139,6 +144,20 @@ public class BaiduExample {
 //        JSONObject jsonObject2= JSONObject.fromObject(o);
 //        CustomBean stu2=(CustomBean)JSONObject.toBean(jsonObject2, CustomBean.class);
 //        System.out.println("stu2:"+stu2);
+
+        // 测试比较BigDecimal
+        BigDecimal a = new BigDecimal(0.80000000023123);
+        BigDecimal b = new BigDecimal(0.80);
+        System.out.println(a);
+        System.out.println(b);
+        System.out.println(a.compareTo(b));
+        if(a.compareTo(b) == -1) {
+            System.out.println(" a < b");
+        } else if(a.compareTo(b) == 0) {
+            System.out.println(" a = b");
+        } else {
+            System.out.println(" a > b");
+        }
     }
 
     public static void imageResize(File originalFile, File resizedFile,

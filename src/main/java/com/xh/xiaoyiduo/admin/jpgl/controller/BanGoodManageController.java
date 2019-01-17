@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +41,21 @@ public class BanGoodManageController {
         return "/admin/jpgl/banInfo";
     }
 
+    /**
+     * 跳转到百度AI官网
+     * @return
+     */
+    @RequestMapping("/toBaiduAIWebsite")
+    public void toBaiduAIWebsite(HttpServletResponse response){
+        System.out.println("跳转到百度AI逛网");
+        try {
+            response.sendRedirect("http://ai.baidu.com/easydl/home");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        return "redirect: ";
+    }
+
     @RequestMapping("/deleteBanGood")
     @ResponseBody
     public Map<String, Object> deleteBanGood(String banId){
@@ -63,7 +80,7 @@ public class BanGoodManageController {
      */
     @RequestMapping("/updateBanGoodInfo")
     @ResponseBody
-    public Object updateBanGoodInfo(String banId, String banName, B_GOOD_BAN banGood){
+    public Object updateBanGoodInfo(String banId, String banLabel, String banName, B_GOOD_BAN banGood){
         Map<String, Object> data = new HashMap<>();
 
         //新增用户，判断id是否存在
@@ -85,7 +102,7 @@ public class BanGoodManageController {
             }
 
         } else { //编辑禁品
-            int i = banGoodManageService.updateBanGoodInfoByBanId(banId, banName);
+            int i = banGoodManageService.updateBanGoodInfoByBanId(banId, banLabel, banName);
 
             if(i > 0) {
                 data.put("success", true);

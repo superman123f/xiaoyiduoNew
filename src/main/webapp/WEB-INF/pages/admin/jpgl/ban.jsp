@@ -123,6 +123,7 @@
             ,cols: [[ //表头
                 {type: 'checkbox'},
                 {field: 'banId', title: '禁品编号',  sort: true, hide: true} , <!--隐藏-->
+                {field: 'banLabel', title: '禁品标签',  sort: true},
                 {field: 'banName', title: '禁品名称',  sort: true},
                 // {field: 'createTime', title: '创建时间', width: 200, sort: true, template: "<div>{{layui.util.toDateString(createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {fixed: 'right', title: '操作', toolbar: '#barDemo', width:134, align:'center', unresize: true}

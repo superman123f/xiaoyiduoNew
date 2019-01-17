@@ -30,6 +30,11 @@ public class BanGoodManageServiceImpl implements IBanGoodManageService {
     }
 
     @Override
+    public B_GOOD_BAN selectByBanLabel(String banLabel) {
+        return banMapper.selectByBanLabel(banLabel);
+    }
+
+    @Override
     public Integer getBanGoodCount(String banName) {
         return banMapper.getBanGoodCount(banName);
     }
@@ -40,7 +45,7 @@ public class BanGoodManageServiceImpl implements IBanGoodManageService {
     }
 
     @Override
-    public int updateBanGoodInfoByBanId(String banId, String banName) {
-        return banMapper.updateBanGoodInfoByBanId(banId, banName);
+    public int updateBanGoodInfoByBanId(String banId, String banLabel, String banName) {
+        return banMapper.updateBanGoodInfoByBanId(banId, banLabel, banName);
     }
 }

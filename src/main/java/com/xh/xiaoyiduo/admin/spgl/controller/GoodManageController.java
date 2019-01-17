@@ -1,6 +1,8 @@
 package com.xh.xiaoyiduo.admin.spgl.controller;
 
 import com.xh.xiaoyiduo.admin.gwcgl.service.ICartManageService;
+import com.xh.xiaoyiduo.admin.jpgl.pojo.B_GOOD_BAN;
+import com.xh.xiaoyiduo.admin.jpgl.service.IBanGoodManageService;
 import com.xh.xiaoyiduo.admin.scjgl.service.IFavoriteManageService;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_FATHER;
@@ -9,6 +11,9 @@ import com.xh.xiaoyiduo.admin.utils.Pager;
 import com.xh.xiaoyiduo.admin.yygl.service.IUserManageService;
 import com.xh.xiaoyiduo.shop.pojo.S_USER;
 import com.xh.xiaoyiduo.shop.service.IS_USERService;
+import com.xh.xiaoyiduo.utils.baidu.entity.CustomBean;
+import com.xh.xiaoyiduo.utils.baidu.entity.Results;
+import net.sf.json.JSONObject;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
@@ -28,7 +33,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.util.*;
+
+import static com.xh.xiaoyiduo.utils.baidu.BaiduExample.easydl;
 
 /**
  * 商品管理Controller
@@ -53,6 +61,9 @@ public class GoodManageController {
     @Autowired
     private IS_USERService userService; //在shop模块下
 
+    @Autowired
+    private IBanGoodManageService banGoodManageService;
+
     @RequestMapping("/testGood")
     public String testGoodParent(){
         List<B_GOOD_FATHER> goodFatherList = goodManageService.getGoodTypeList();
@@ -71,6 +82,7 @@ public class GoodManageController {
         model.addAttribute("goodFatherList", goodFatherList);
         return "/shop/commodity";
     }
+
 
     /**
      * 获取对应商品子类物品
@@ -202,6 +214,9 @@ public class GoodManageController {
     @RequestMapping("/testMultipleUpload")
     @ResponseBody
     public Object testMultipleUpload(MultipartFile file, HttpServletRequest request){
+
+        Map<String,Object> result = new HashMap<>(); //返回给前端的结果
+
         String oldName = file.getOriginalFilename(); //获取原名
 //        String path = request.getServletContext().getRealPath("/upload/"); //获得项目所在绝对路径
         String fileName = changeName(oldName); //将图片重命名
@@ -209,42 +224,77 @@ public class GoodManageController {
 //        String rappendix = "upload/" + fileName; //返回给前端的路径
 //        fileName = imgPath + fileName; //合并具体的路径
 
-
-        Map<String,Object> result = new HashMap<>(); //返回给前端的结果
-        String imgUrl = null; //保存好后的图片路径
-
-        File file1 = new File(".."); //创建文件夹
+        // 检测上传的商品是否是违规类商品
         try {
-            String basePath = file1.getCanonicalPath()+"/resources/shop";
-            File baseFile = new File(basePath);
-            System.out.println("ready to make baseFile " + basePath);
-            if(!baseFile.exists()){
-                baseFile.mkdirs();
-                System.out.println("to make file success");
+            String results = easydl(file.getBytes());
+
+            //json转Object
+            JSONObject jsonObject = JSONObject.fromObject(results);
+            Map<String, Class> classMap = new HashMap<>();
+            classMap.put("results", Results.class);
+    //        将json格式的字符创转换为对象
+            CustomBean customBean = (CustomBean) JSONObject.toBean(jsonObject, CustomBean.class, classMap);
+            List<Results> rsList = customBean.getResults();
+
+            BigDecimal precision = new BigDecimal(0.80);
+            for(Results rs : rsList){
+                // 检测是哪类商品
+                if(rs.getScore().compareTo(precision) == 1) {
+                    System.out.println("大于80% " +rs.getScore() + rs.getName());
+                    B_GOOD_BAN banGood = banGoodManageService.selectByBanLabel(rs.getName());
+                    if(banGood != null) {
+                        System.out.println("此类禁品是 " + banGood.getBanName());
+                        result.put("status", "1"); //0保存成功，1保存失败
+                        result.put("isBanGood", "0"); // 是禁品为0
+                        result.put("msg", banGood.getBanName());
+                        return result;
+                    } else {
+                        // 保存商品图片
+                        String imgUrl = null; //保存好后的图片路径
+
+                        File file1 = new File(".."); //创建文件夹
+                        try {
+                            String basePath = file1.getCanonicalPath()+"/resources/shop";
+                            File baseFile = new File(basePath);
+                            System.out.println("ready to make baseFile " + basePath);
+                            if(!baseFile.exists()){
+                                baseFile.mkdirs();
+                                System.out.println("to make file success");
+                            }
+
+                            //获取项目根目录的上级目录,并把图片保存在该目录下
+                            imgUrl = baseFile+"/"+fileName;
+                            String newImgUrl = imgUrl.replaceAll("\\\\", "/");
+                            File file2 = new File(imgUrl);
+                            file.transferTo(file2); //保存图片
+                            // imgUrl.replaceAll("\\\\", "/");
+                            result.put("status", "0"); //0保存成功，1保存失败
+                            result.put("src", newImgUrl); //图片路径
+                            result.put("oldName", oldName); //原图片名称
+                            System.out.println("save image success");
+                            return result;
+                        } catch (IllegalStateException e) {
+                            result.put("status", "1");
+                            System.out.println(imgUrl + "图片保存失败");
+                            return result;
+                        } catch (IOException e){
+                            result.put("status", "1");
+                            System.out.println(imgUrl + "图片保存失败");
+                            return result;
+                        }
+                    }
+                }
+//
             }
 
-            //获取项目根目录的上级目录,并把图片保存在该目录下
-            imgUrl = baseFile+"/"+fileName;
-            String newImgUrl = imgUrl.replaceAll("\\\\", "/");
-            File file2 = new File(imgUrl);
-            file.transferTo(file2); //保存图片
-//            imgUrl.replaceAll("\\\\", "/");
-            result.put("status", "0"); //0保存成功，1保存失败
-            result.put("src", newImgUrl); //图片路径
-            result.put("oldName", oldName); //原图片名称
-            System.out.println("save image success");
-            return result;
-        } catch (IllegalStateException e) {
-            result.put("status", "1");
-            System.out.println(imgUrl + "图片保存失败");
-            return result;
-        } catch (IOException e){
-            result.put("status", "1");
-            System.out.println(imgUrl + "图片保存失败");
-            return result;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-//        String str = "{\"code\": 0,\"msg\": \"\",\"data\": {\"src\":\"" + imgUrl + "\"}}";
-//        return result;
+
+        // Stringstr = "{\"code\": 0,\"msg\": \"\",\"data\": {\"src\":\"" + imgUrl + "\"}}"; // layui特定json格式
+        result.put("status", "1");
+        result.put("msg", "识别失败，网络异常");
+        return result;
     }
 
     //返回path路径对应于网络硬盘根目录的本地路径
