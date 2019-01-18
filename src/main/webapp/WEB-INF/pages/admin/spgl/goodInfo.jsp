@@ -97,9 +97,9 @@
 
         <!--多张图片上传-->
         <div class="layui-form-item">
-            <div class="layui-upload">
+            <div class="layui-upload custom_upload">
                 <button type="button" class="layui-btn" id="test2">多图片上传</button>
-                <button type="button" class="layui-btn" id="cleanImgs"> <i class="fa fa-trash-o fa-lg"></i>清空图片预览</button>
+                <button type="button" class="layui-btn" id="cleanImgs"> <i class="fa fa-trash-o fa-lg"></i>清空图片</button>
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" id="demo2"></div>
@@ -154,12 +154,15 @@
     var fail = 0;  //图片保存失败的个数
     var imgUrls = ""; //保存上传成功的图片路径
     var banGoodNames = ""; // 保存禁品名称
+    var baiDuExceptionMsg = ""; // 识别异常
+
     $(function(){
         layui.use(['upload','form','layer'], function() {
             var $ = layui.jquery
                 , upload = layui.upload
                 , form = layui.form
-                ,layer = layui.layer;
+                , layer = layui.layer;
+            var index;
 
             //普通图片上传
             var uploadInst = upload.render({
@@ -201,39 +204,54 @@
                 ,size: 10240
                 //最多上传的数量
                 ,number:10
+                // ,loading: true
                 ,before: function(obj){
                     //预读本地文件示例，不支持ie8
                     obj.preview(function(index, file, result){
-                        // alert(file);
-                        // alert(result);
+                        // imgUrls = ""; // 重新上传，清除保存的url
+                        // $("#imgUrls").val(imgUrls); // 清除input中的url
+                        // cleanImgsPreview(); // 清空预览区域
                         $('#demo2').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">')
                     });
+                    index = layer.load(0);
                 }
                 ,done: function(res){
                     //上传完毕
                     //每个图片上传结束的回调，成功的话，就把保存好的图片路径保存起来（已重命名），作为数据提交
                     console.log(res.status);
-                    if(res.status == '0'){
+                    if(res.status == '0'){ // 0图片保存成功
                         success++;
                         imgUrls += res.src + ",";
                         $("#imgUrls").val(imgUrls);
                     } else {
-                        if(res.isBanGood == "0") {
-                            if(banGoodNames.search(res.msg) == -1){
-                                banGoodNames += res.msg + " ";
-                            };
+                        if(res.isBaiDuException == '0'){
+                            baiDuExceptionMsg = res.msg;
+                        } else {
+                            if(res.isBanGood == "0") { // 0是禁品
+                                if(banGoodNames.search(res.msg) == -1){
+                                    banGoodNames += res.msg + " ";
+                                };
+                            }
                         }
                         fail++;
                     }
                 }
                 ,allDone:function(obj){
-                    if(banGoodNames == "") {
-                        layer.msg("总共要上传图片总数为：" + (fail + success) + "\n"
-                            + "其中上传成功图片数为：" + success + "\n"
-                            + "上传失败图片数为：" + fail
-                        );
+                    layer.close(index);
+                    // alert(baiDuExceptionMsg);
+
+                    if(baiDuExceptionMsg != "") {
+                        layer.alert(baiDuExceptionMsg);
+                        baiDuExceptionMsg = "";
                     } else {
-                        layer.alert("您上传的图片中还有违规类商品：" + banGoodNames);
+                        if(banGoodNames == "") {
+                            layer.msg("总共要上传图片总数为：" + (fail + success) + "\n"
+                                + "其中上传成功图片数为：" + success + "\n"
+                                + "上传失败图片数为：" + fail
+                            );
+                        } else {
+                            layer.alert("您上传的图片含有违禁品：" + banGoodNames + "，请清空图片！");
+                        }
                     }
 
                 }
@@ -257,6 +275,7 @@
             fail = 0;
             $("#demo2").html("");
             $("#imgUrls").val("");
+            banGoodNames = "";
         });
     }
 

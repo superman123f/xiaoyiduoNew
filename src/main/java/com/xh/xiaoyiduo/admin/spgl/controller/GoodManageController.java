@@ -216,84 +216,95 @@ public class GoodManageController {
     public Object testMultipleUpload(MultipartFile file, HttpServletRequest request){
 
         Map<String,Object> result = new HashMap<>(); //返回给前端的结果
-
         String oldName = file.getOriginalFilename(); //获取原名
 //        String path = request.getServletContext().getRealPath("/upload/"); //获得项目所在绝对路径
         String fileName = changeName(oldName); //将图片重命名
-
 //        String rappendix = "upload/" + fileName; //返回给前端的路径
 //        fileName = imgPath + fileName; //合并具体的路径
+
+        boolean isBan = false; // 是否为禁品, 百度接口异常
 
         // 检测上传的商品是否是违规类商品
         try {
             String results = easydl(file.getBytes());
+            // 错误返回的json
+            // result:{"error_code":336001,"error_msg":"Invalid argument","log_id":1364784071446883619}
+            // 检测百度AI是否返回异常信息的json
+            if(results.contains("error_code")){
+                isBan = true;
+                System.out.println("百度AI接口异常,,,,,,,,");
+                result.put("status", "1"); // 0保存成功，1保存失败
+                result.put("isBaiDuException", "0"); // 0百度返回异常信息
+                result.put("msg", "识别异常");
+            } else {
+                //json转Object
+                JSONObject jsonObject = JSONObject.fromObject(results);
+                Map<String, Class> classMap = new HashMap<>();
+                classMap.put("results", Results.class);
+                // 将json格式的字符创转换为对象
+                CustomBean customBean = (CustomBean) JSONObject.toBean(jsonObject, CustomBean.class, classMap);
+                List<Results> rsList = customBean.getResults();
 
-            //json转Object
-            JSONObject jsonObject = JSONObject.fromObject(results);
-            Map<String, Class> classMap = new HashMap<>();
-            classMap.put("results", Results.class);
-    //        将json格式的字符创转换为对象
-            CustomBean customBean = (CustomBean) JSONObject.toBean(jsonObject, CustomBean.class, classMap);
-            List<Results> rsList = customBean.getResults();
-
-            BigDecimal precision = new BigDecimal(0.80);
-            for(Results rs : rsList){
-                // 检测是哪类商品
-                if(rs.getScore().compareTo(precision) == 1) {
-                    System.out.println("大于80% " +rs.getScore() + rs.getName());
-                    B_GOOD_BAN banGood = banGoodManageService.selectByBanLabel(rs.getName());
-                    if(banGood != null) {
-                        System.out.println("此类禁品是 " + banGood.getBanName());
-                        result.put("status", "1"); //0保存成功，1保存失败
-                        result.put("isBanGood", "0"); // 是禁品为0
-                        result.put("msg", banGood.getBanName());
-                        return result;
-                    } else {
-                        // 保存商品图片
-                        String imgUrl = null; //保存好后的图片路径
-
-                        File file1 = new File(".."); //创建文件夹
-                        try {
-                            String basePath = file1.getCanonicalPath()+"/resources/shop";
-                            File baseFile = new File(basePath);
-                            System.out.println("ready to make baseFile " + basePath);
-                            if(!baseFile.exists()){
-                                baseFile.mkdirs();
-                                System.out.println("to make file success");
-                            }
-
-                            //获取项目根目录的上级目录,并把图片保存在该目录下
-                            imgUrl = baseFile+"/"+fileName;
-                            String newImgUrl = imgUrl.replaceAll("\\\\", "/");
-                            File file2 = new File(imgUrl);
-                            file.transferTo(file2); //保存图片
-                            // imgUrl.replaceAll("\\\\", "/");
-                            result.put("status", "0"); //0保存成功，1保存失败
-                            result.put("src", newImgUrl); //图片路径
-                            result.put("oldName", oldName); //原图片名称
-                            System.out.println("save image success");
-                            return result;
-                        } catch (IllegalStateException e) {
-                            result.put("status", "1");
-                            System.out.println(imgUrl + "图片保存失败");
-                            return result;
-                        } catch (IOException e){
-                            result.put("status", "1");
-                            System.out.println(imgUrl + "图片保存失败");
-                            return result;
+                // 准确率设置，后期训练好模型后需要改为0.80
+                BigDecimal precision = new BigDecimal(0.60);
+                for(Results rs : rsList){
+                    // 检测是哪类禁品
+                    if(rs.getScore().compareTo(precision) == 1) {
+                        System.out.println("大于80% " +rs.getScore() + rs.getName());
+                        B_GOOD_BAN banGood = banGoodManageService.selectByBanLabel(rs.getName());
+                        if(banGood != null) { // 不为空，说明该商品类已被添加为违规类商品
+                            isBan = true;
+                            System.out.println("此类禁品是 " + banGood.getBanName());
+                            result.put("status", "1"); //0保存成功，1保存失败
+                            result.put("isBanGood", "0"); // 是禁品为0
+                            result.put("msg", banGood.getBanName());
                         }
                     }
                 }
-//
             }
 
         } catch (IOException e) {
+            System.out.println("保存异常,,,,,,,,");
+            result.put("status", "1"); //0保存成功，1保存失败
+            result.put("msg", "保存异常");
             e.printStackTrace();
         }
 
+        // 当模型训练的不是很好时，每个标签的准确率都低于80%，则默认不是禁品，保存商品图片
+        if(isBan == false) {
+            // 保存商品图片
+            String imgUrl = null; //保存好后的图片路径
+
+            File file1 = new File(".."); //创建文件夹
+            try {
+                String basePath = file1.getCanonicalPath()+"/resources/shop";
+                File baseFile = new File(basePath);
+                System.out.println("ready to make baseFile " + basePath);
+                if(!baseFile.exists()){
+                    baseFile.mkdirs();
+                    System.out.println("to make file success");
+                }
+
+                //获取项目根目录的上级目录,并把图片保存在该目录下
+                imgUrl = baseFile+"/"+fileName;
+                String newImgUrl = imgUrl.replaceAll("\\\\", "/");
+                File file2 = new File(imgUrl);
+                file.transferTo(file2); //保存图片
+                // imgUrl.replaceAll("\\\\", "/");
+                result.put("status", "0"); //0保存成功，1保存失败
+                result.put("src", newImgUrl); //图片路径
+                result.put("oldName", oldName); //原图片名称
+                System.out.println("save image success");
+            } catch (IllegalStateException e) {
+                result.put("status", "1");
+                System.out.println(imgUrl + "图片保存失败");
+            } catch (IOException e){
+                result.put("status", "1");
+                System.out.println(imgUrl + "图片保存失败");
+            }
+        }
+
         // Stringstr = "{\"code\": 0,\"msg\": \"\",\"data\": {\"src\":\"" + imgUrl + "\"}}"; // layui特定json格式
-        result.put("status", "1");
-        result.put("msg", "识别失败，网络异常");
         return result;
     }
 
