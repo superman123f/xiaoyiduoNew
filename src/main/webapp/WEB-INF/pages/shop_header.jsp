@@ -1,6 +1,7 @@
 <%@ page import="com.xh.xiaoyiduo.shop.pojo.S_USER" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<link rel="stylesheet" href="${ctx}/styles/layui/css/layui.css">
 <link rel="stylesheet" href="${ctx}/styles/shop/shop_header.css">
 
 <div class="site-nav-bg">
@@ -14,7 +15,7 @@
         <div class="sn-quick-menu">
 
             <div class="sp-cart" style="margin-right: 22px;"><a href="/documents/shiro-jstl.html">帮助文档</a></div>
-            <div class="login" style="margin-right: 22px;"><a href="javascript;">公告</a></div>
+            <div class="login" style="margin-right: 22px;"><a id="notice" href="javascript:void(0);">公告</a></div>
             <shiro:hasAnyRoles name="admin,seller">
                 <div class="sp-cart" style="margin-right: 22px;"><a href="/admin/portal">后台管理</a></div>
             </shiro:hasAnyRoles>
@@ -77,7 +78,8 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="../../../scripts/jquery.min.js"></script>
+<script type="text/javascript" src="${ctx}/scripts/jquery.min.js"></script>
+<script type="text/javascript" src="${ctx}/styles/layui/layui.js"></script>
 
 <script>
     $(".favoriteFolder").hover(function () {
@@ -87,4 +89,45 @@
         $("#favoriteIcon").css("color", "grey");
         $(".favoriteFolder").css("color", "grey");
     });
+
+    $(function(){
+        layui.use(['layer'],function(){
+            var layer = layui.layer;
+
+            $("#notice").click(function(){
+                // layer.open({
+                    // type: 2,
+                    // title: false,
+                    // closeBtn: 1, //不显示关闭按钮
+                    // shade: [0],
+                    // area: ['340px', '215px'],
+                    // offset: 'rb', //右下角弹出
+                    // time: 2000, //2秒后自动关闭
+                    // anim: 2,
+                    // content: ['test/guodu.html', 'no'], //iframe的url，no代表不显示滚动条
+                    // end: function(){ //此处用于演示
+                    //     layer.open({
+                    //         type: 2,
+                    //         title: '公告须知',
+                    //         shadeClose: true,
+                    //         shade: false,
+                    //         // maxmin: true, //开启最大化最小化按钮
+                    //         area: ['893px', '600px'],
+                    //         content: '//fly.layui.com/'
+                    //     });
+                    // }
+                // });
+                layer.open({
+                    type: 2,
+                    title: '公告须知',
+                    shadeClose: true,
+                    shade: false,
+                    maxmin: true, //开启最大化最小化按钮
+                    area: ['893px', '600px'],
+                    content: '/notice/toNoticePage'
+                });
+            });
+        });
+    });
+
 </script>

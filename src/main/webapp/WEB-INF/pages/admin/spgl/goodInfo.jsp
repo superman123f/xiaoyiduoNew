@@ -146,7 +146,6 @@
 </body>
 <script type="text/javascript" src="${ctx}/scripts/jquery.min.js"></script>
 <script type="text/javascript" src="${ctx}/styles/layui/layui.js"></script>
-<script type="text/javascript" src="${ctx}/scripts/admin/spgl/image.js"></script>
 
 </html>
 <script>

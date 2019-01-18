@@ -84,7 +84,7 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;">公告管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" onclick="return false;">公告列表</a></dd>
+                        <dd><a href="javascript:;" onclick="choose('/notice/noticeAdminPage')">公告列表</a></dd>
                     </dl>
                 </li>
 
