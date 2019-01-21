@@ -17,6 +17,11 @@ public class NoticeManageServiceImpl implements INoticeManageService {
     NOTICEMapper noticeMapper;
 
     @Override
+    public int deleteByPrimaryKey(String noticeId) {
+        return noticeMapper.deleteByPrimaryKey(noticeId);
+    }
+
+    @Override
     public int insert(NOTICE notice) {
         return noticeMapper.insert(notice);
     }

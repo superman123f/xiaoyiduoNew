@@ -279,8 +279,8 @@
                     // layer.close(index);
                     //向服务端发送删除指令
                     $.post(
-                        "/ban/deleteBanGood",
-                        {banId: data.banId},
+                        "/notice/deleteNotice",
+                        {noticeId: data.noticeId},
                         function(data){
                             if(data.success){
                                 layer.msg(data.msg);

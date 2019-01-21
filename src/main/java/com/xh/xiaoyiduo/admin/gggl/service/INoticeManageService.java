@@ -8,6 +8,7 @@ import java.util.List;
 /**
  */
 public interface INoticeManageService {
+    int deleteByPrimaryKey(String noticeId);
     int insert(NOTICE notice);
     NOTICE selectByPrimaryKey(String noticeId); // 查询公告信息
     Integer getNoticeCount(); // 获取禁品总数

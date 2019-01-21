@@ -56,6 +56,11 @@ public class BanGoodManageController {
 //        return "redirect: ";
     }
 
+    /**
+     * 删除禁品
+     * @param banId
+     * @return
+     */
     @RequestMapping("/deleteBanGood")
     @ResponseBody
     public Map<String, Object> deleteBanGood(String banId){

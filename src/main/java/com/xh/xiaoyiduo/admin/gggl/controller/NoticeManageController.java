@@ -103,4 +103,25 @@ public class NoticeManageController {
         return data;
     }
 
+    /**
+     * 删除公告
+     * @param noticeId
+     * @return
+     */
+    @RequestMapping("/deleteNotice")
+    @ResponseBody
+    public Map<String, Object> deleteNotice(String noticeId){
+        Map<String, Object> result = new HashMap<>();
+        int i = noticeManageService.deleteByPrimaryKey(noticeId);
+        if(i > 0){
+            result.put("success", true);
+            result.put("msg", "删除公告成功");
+        } else {
+            result.put("success", false);
+            result.put("msg", "删除公告失败");
+        }
+
+        return result;
+    }
+
 }
