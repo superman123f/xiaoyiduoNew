@@ -32,8 +32,8 @@ public class NoticeManageServiceImpl implements INoticeManageService {
     }
 
     @Override
-    public Integer getNoticeCount() {
-        return noticeMapper.getNoticeCount();
+    public Integer getNoticeCount(String title) {
+        return noticeMapper.getNoticeCount(title);
     }
 
     @Override
@@ -44,5 +44,10 @@ public class NoticeManageServiceImpl implements INoticeManageService {
     @Override
     public int updateNoticeInfoByNoticeId(NOTICE notice) {
         return noticeMapper.updateNoticeInfoByNoticeId(notice);
+    }
+
+    @Override
+    public List<NOTICE> fuzzyQueryNotices(String pageSize, String currentPage, String title) {
+        return noticeMapper.fuzzyQueryNotices(pageSize, currentPage, title);
     }
 }

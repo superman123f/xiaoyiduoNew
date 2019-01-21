@@ -16,7 +16,7 @@ public interface NOTICEMapper {
 
     NOTICE selectByPrimaryKey(String noticeId); // 查询公告信息
 
-    Integer getNoticeCount(); // 获取禁品总数
+    Integer getNoticeCount(@Param("title") String title); // 获取禁品总数
 
     List<NOTICE> selectAllNotices(@Param("pageSize")String pageSize, @Param("currentPage")String currentPage); // 查询所有公告信息
 
@@ -27,4 +27,7 @@ public interface NOTICEMapper {
     int updateByPrimaryKey(NOTICE record);
 
     int deleteByNoticeIds(String[] noticeId); //批量删除公告
+
+    List<NOTICE> fuzzyQueryNotices(@Param("pageSize")String pageSize, @Param("currentPage")String currentPage, @Param("title")String title); //模糊查询
+
 }

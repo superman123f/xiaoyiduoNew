@@ -21,7 +21,7 @@
             <div class="layui-form-item" style="text-align:center;">
                 <div class="layui-inline">
                     <div class="layui-input-inline">
-                        <input id="searchUser" autocomplete="off" class="layui-input" placeholder="请输入公告标题" type="text" name="name" value="">
+                        <input id="searchNotice" autocomplete="off" class="layui-input" placeholder="请输入公告标题" type="text" name="name" value="">
                     </div>
                 </div>
                 <div class="layui-inline" style="text-align:left;">
@@ -150,17 +150,17 @@
         var $ = layui.$, active =
             {
                 reload: function () {
-                    var studentNo = $('#searchUser').val();//获取输入框的值
+                    var title = $('#searchNotice').val();//获取输入框的值
 
                     //执行重载
-                    table.reload('userId', //与table中的id要一致
+                    table.reload('noticeId', //与table中的id要一致
                         {
                             page:
                                 {
                                     curr: 1 //重新从第 1 页开始
                                 }
-                            , where: { studentNo: studentNo}//这里传参  向后台
-                            // ,url: '/user/getAllUsers'
+                            , where: { title: title}//这里传参  向后台
+                            ,url: '/notice/searchNotice'
                             // , url: '/user/searchUser'//后台做模糊搜索接口路径
                             , method: 'post'
                         });

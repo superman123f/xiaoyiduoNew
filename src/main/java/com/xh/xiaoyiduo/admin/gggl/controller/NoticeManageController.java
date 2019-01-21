@@ -5,6 +5,7 @@ import com.xh.xiaoyiduo.admin.gggl.pojo.NOTICE;
 import com.xh.xiaoyiduo.admin.gggl.service.INoticeManageService;
 import com.xh.xiaoyiduo.admin.gggl.service.impl.NoticeManageServiceImpl;
 import com.xh.xiaoyiduo.admin.jpgl.pojo.B_GOOD_BAN;
+import com.xh.xiaoyiduo.shop.pojo.S_USER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,7 +50,7 @@ public class NoticeManageController {
     @RequestMapping("/getAllNotices")
     @ResponseBody
     public String getAllNotices(String limit, String page){
-        Integer count = noticeManageService.getNoticeCount(); // 获取公告的总数量
+        Integer count = noticeManageService.getNoticeCount(""); // 获取公告的总数量
         if (count == null){
             count = 0;
         }
@@ -151,5 +152,25 @@ public class NoticeManageController {
             data.put("msg", "批量删除公告 失败");
         }
         return data;
+    }
+
+    /**
+     * 搜索公告
+     * @param
+     * @return
+     */
+    @RequestMapping("/searchNotice")
+    @ResponseBody
+    public String searchNotice(String limit, String page, String title, HttpServletResponse response){
+        Integer count = noticeManageService.getNoticeCount(title); // 获取公告的总数量
+
+        if (count == null){
+            count = 0;
+        }
+        List<NOTICE> noticeList = noticeManageService.fuzzyQueryNotices(limit, page, title);
+        String noticeListJson = JSON.toJSONString(noticeList);
+        String json = "{\"code\":0,\"msg\":\"\",\"count\":" + count + ",\"data\":" + noticeListJson + "}";
+
+        return  json;
     }
 }

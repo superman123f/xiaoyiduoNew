@@ -17,9 +17,13 @@
     from NOTICE
     where NOTICE_ID = #{noticeId,jdbcType=VARCHAR}
   </select>
-  <!--获取禁品总数-->
+  <!--获取公告总数-->
   <select id="getNoticeCount" resultType="Integer">
     select sum(1) from NOTICE
+    <if test="title != null" >
+      where
+      title like concat('%',concat(#{title}, '%'))
+    </if>
   </select>
   <!--查询所有公告信息-->
   <select id="selectAllNotices" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -47,6 +51,21 @@
     </set>
     where t.notice_id = #{noticeId,jdbcType=VARCHAR}
   </update>
+
+  <!--模糊查询-->
+  <select id="fuzzyQueryNotices" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT *
+    FROM (SELECT r.*,ROWNUM rn
+    FROM(
+    select
+    <include refid="Base_Column_List" />
+    from notice t
+    where t.title like concat('%',concat(#{title,jdbcType=VARCHAR}, '%'))
+    order by t.release_time desc
+    ) r
+    where ROWNUM &lt;= #{pageSize} * #{currentPage}
+    ) WHERE rn > #{pageSize} * ( #{currentPage} - 1)
+  </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from NOTICE
