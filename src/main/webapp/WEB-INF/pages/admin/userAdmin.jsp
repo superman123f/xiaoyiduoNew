@@ -45,7 +45,7 @@
                 <i class="layui-icon">&#xe654;</i>新增
             </button>
             <button id="deleteData" class="layui-btn layui-btn-xs layui-btn-danger" data-type="deleteData">
-                <i class="layui-icon">&#xe640;</i>删除
+                <i class="layui-icon">&#xe640;</i>批删
             </button>
             <%--<button class="layui-btn layui-btn-xs dw-refresh">--%>
                 <%--<i class="layui-icon">&#x1002;</i>刷新--%>

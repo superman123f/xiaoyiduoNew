@@ -33,16 +33,16 @@
         </form>
         <hr>
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-xs layui-btn-normal dw-dailog" dw-url="/ban/banGoodInfo" dw-title="新增禁品信息" dw-width="100%" dw-height="100%">
+            <button class="layui-btn layui-btn-xs layui-btn-normal dw-dailog" dw-url="/notice/editNotice" dw-title="新增公告信息" dw-width="100%" dw-height="100%">
                 <i class="layui-icon">&#xe654;</i>新增
             </button>
             <button id="deleteData" class="layui-btn layui-btn-xs layui-btn-danger" data-type="deleteData">
-                <i class="layui-icon">&#xe640;</i>删除
+                <i class="layui-icon">&#xe640;</i>批删
             </button>
             <%--<button class="layui-btn layui-btn-xs dw-refresh">--%>
             <%--<i class="layui-icon">&#x1002;</i>刷新--%>
             <%--</button>--%>
-            <button id="exportExl" class="layui-btn layui-btn-xs" data-type="exportExl">导出Excel</button>
+            <%--<button id="exportExl" class="layui-btn layui-btn-xs" data-type="exportExl">导出Excel</button>--%>
         </div>
         <hr>
 
@@ -296,7 +296,7 @@
                 var editBan = layer.open(
                     {
                         type: 2,
-                        title: '编辑禁品信息',
+                        title: '编辑公告信息',
                         // skin: 'layui-layer-molv', //样式
                         shadeClose: false,
                         shade: 0.8,

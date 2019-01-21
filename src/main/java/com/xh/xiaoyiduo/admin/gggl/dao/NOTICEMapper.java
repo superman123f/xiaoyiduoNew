@@ -10,7 +10,7 @@ import java.util.List;
 public interface NOTICEMapper {
     int deleteByPrimaryKey(String noticeId);
 
-    int insert(NOTICE record);
+    int insert(NOTICE notice);
 
     int insertSelective(NOTICE record);
 

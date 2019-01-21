@@ -70,25 +70,25 @@ public class NoticeManageController {
     public Object updateNoticeInfo(NOTICE notice){
         Map<String, Object> data = new HashMap<>();
 
-        //新增用户，判断id是否存在
-//        if(banGood.getBanId().equals("") || banGood.getBanId() == null){
-//
-//            String uuid = UUID.randomUUID().toString().replaceAll("\\-", "");
-//            banGood.setBanId(uuid);  //插入主键
-//
-//            int i = banGoodManageService.insert(banGood); //添加禁品
-//
-//            if(i > 0) {
-//                System.out.println("新增禁品成功");
-//                data.put("success", true);
-//                data.put("msg", "新增成功");
-//            } else {
-//                System.out.println("新增禁品失败");
-//                data.put("success", false);
-//                data.put("msg", "新增失败");
-//            }
-//
-//        } else { //编辑禁品
+        //新增公告，判断id是否存在
+        if(notice.getNoticeId().equals("") || notice.getNoticeId() == null){
+
+            String uuid = UUID.randomUUID().toString().replaceAll("\\-", "");
+            notice.setNoticeId(uuid);  //插入主键
+
+            int i = noticeManageService.insert(notice); //添加公告信息
+
+            if(i > 0) {
+                System.out.println("新增公告成功");
+                data.put("success", true);
+                data.put("msg", "新增成功");
+            } else {
+                System.out.println("新增公告失败");
+                data.put("success", false);
+                data.put("msg", "新增失败");
+            }
+
+        } else { //编辑公告
             int i = noticeManageService.updateNoticeInfoByNoticeId(notice);
 
             if(i > 0) {
@@ -99,7 +99,7 @@ public class NoticeManageController {
                 data.put("success", false);
                 data.put("msg", "保存失败");
             }
-//        }
+        }
         return data;
     }
 
