@@ -114,7 +114,7 @@
 
         //第一个实例
         table.render({
-            id: 'banId', //隐藏的列
+            id: 'noticeId', //隐藏的列
             elem: '#demo'
             ,url: '/notice/getAllNotices' //数据接口
             // ,where: {studentNo: "3"}
@@ -180,20 +180,20 @@
 
                 //批量删除
                 deleteData: function() {
-                    var checkStatus = table.checkStatus('userId') //此时的id为ender的id
+                    var checkStatus = table.checkStatus('noticeId') //此时的id为ender的id
                         ,data = checkStatus.data;
                     // layer.alert(JSON.stringify(data));
                     var str = "";
                     if(data.length > 0){
                         layer.alert('delete?');
                         for(var i = 0; i < data.length; i++){
-                            str += data[i].userId + "，";
+                            str += data[i].noticeId + "，";
                         }
                         layer.confirm("是否删除这" + data.length + "条数据？", {icon: 3, title: '提示'}, function(index){
                             // window.location.href = "/user/deleteUserInfos?userIds=" + str;
-                            $.post("/user/deleteUserInfos",
+                            $.post("/notice/deleteNoticeInfos",
                                 {
-                                    userIds: str
+                                    noticeIds: str
                                 },
                                 function(data){
                                     if(data.success){

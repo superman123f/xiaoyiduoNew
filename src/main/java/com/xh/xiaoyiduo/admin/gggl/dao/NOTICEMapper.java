@@ -15,11 +15,16 @@ public interface NOTICEMapper {
     int insertSelective(NOTICE record);
 
     NOTICE selectByPrimaryKey(String noticeId); // 查询公告信息
+
     Integer getNoticeCount(); // 获取禁品总数
+
     List<NOTICE> selectAllNotices(@Param("pageSize")String pageSize, @Param("currentPage")String currentPage); // 查询所有公告信息
+
     int updateNoticeInfoByNoticeId(NOTICE notice); // 修改公告信息
 
     int updateByPrimaryKeySelective(NOTICE record);
 
     int updateByPrimaryKey(NOTICE record);
+
+    int deleteByNoticeIds(String[] noticeId); //批量删除公告
 }

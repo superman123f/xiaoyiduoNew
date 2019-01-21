@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -124,4 +125,31 @@ public class NoticeManageController {
         return result;
     }
 
+    /**
+     * 批量删除用户
+     * @param
+     * @param
+     * @return
+     */
+    @RequestMapping("/deleteNoticeInfos")
+    @ResponseBody
+    public Object deleteNoticeInfos(String noticeIds, HttpServletResponse response){
+        String[] noticeId = noticeIds.split("，");
+        int count = 0;
+        for(int i = 0; i < noticeId.length; i++){
+            noticeManageService.deleteByPrimaryKey(noticeId[i]);
+            count++;
+        }
+
+        System.out.println("成功删除" + count + "条记录");
+        Map<String,Object> data = new HashMap<>();
+        if(count > 0) {
+            data.put("success", true);
+            data.put("msg", "批量删除公告 成功");
+        } else {
+            data.put("success", false);
+            data.put("msg", "批量删除公告 失败");
+        }
+        return data;
+    }
 }
