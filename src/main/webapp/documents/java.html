@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>java文档</title>
+</head>
+<body>
+    日期转换，在pojo日期属性上加上如下注解<br>
+    @DateTimeFormat(pattern="yyyy-MM-dd HH24:mi:ss")//页面写入数据库时格式化
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")//数据库导出页面时json格式化, 后端返回json格式时生效
+</body>
+</html>

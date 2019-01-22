@@ -55,6 +55,7 @@ layui.use(['table', 'layer', 'form'], function(){
             {field: 'phone', title: '手机号',  sort: true},
             {field: 'dormitoryAddress', title: '宿舍地址', sort: true, hide: false},
             // {fixed: 'createTime', title: '创建时间', width: 200},
+            // 经检验template日期转换无效，在数据库与实体类映射时转换即可
             {field: 'createTime', title: '创建时间', width: 200, sort: true, template: "<div>{{layui.util.toDateString(createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
             {fixed: 'right', title: '操作', toolbar: '#barDemo', width:134, align:'center', unresize: true}
         ]]
