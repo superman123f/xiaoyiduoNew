@@ -1,6 +1,7 @@
 <%@ page import="com.xh.xiaoyiduo.shop.pojo.S_USER" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <link rel="stylesheet" href="${ctx}/styles/layui/css/layui.css">
 <link rel="stylesheet" href="${ctx}/styles/shop/shop_header.css">
 
@@ -123,7 +124,7 @@
                     shadeClose: true,
                     shade: false,
                     maxmin: true, //开启最大化最小化按钮
-                    area: ['893px', '600px'],
+                    area: ['750px', '90%'],
                     content: '/notice/toNoticePage'
                 });
             });

@@ -38,6 +38,13 @@
     where ROWNUM &lt;= #{pageSize} * #{currentPage}
     ) WHERE rn > #{pageSize} * ( #{currentPage} - 1)
   </select>
+  <!--前端显示所有公告信息-->
+  <select id="displayAllNotices" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from NOTICE t
+    order by t.release_time desc
+  </select>
   <!--更新公告信息-->
   <update id="updateNoticeInfoByNoticeId" parameterType="com.xh.xiaoyiduo.admin.gggl.pojo.NOTICE" >
     update NOTICE t
@@ -46,7 +53,10 @@
         TITLE = #{title,jdbcType=VARCHAR},
       </if>
       <if test="content != null" >
-        content = #{content,jdbcType=VARCHAR}
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseTime != null" >
+        release_time = #{releaseTime,jdbcType=TIMESTAMP}
       </if>
     </set>
     where t.notice_id = #{noticeId,jdbcType=VARCHAR}

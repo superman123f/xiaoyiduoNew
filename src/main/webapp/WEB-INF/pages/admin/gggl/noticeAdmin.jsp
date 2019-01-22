@@ -107,6 +107,7 @@
                 content: dw_url,
                 cancel: function (index, layero) {
                     $(".layui-laypage-btn").trigger('click');
+                    window.location.reload();
                     // return false;
                 }
             });
@@ -122,12 +123,10 @@
             // ,initSort: {field: 'studentNo', type: 'desc'} //设置初始排序
             ,cols: [[ //表头
                 {type: 'checkbox'},
-                {field: 'noticeId', title: '公告编号',  sort: true, hide: true} , <!--隐藏-->
-                {field: 'title', title: '公告标题',  sort: true},
-                {field: 'content', title: '公告内容',  sort: true},
-                {field: 'releaseTime', title: '发布时间', width: 200, sort: true, template: "<div>{{layui.util.toDateString(releaseTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
-                // {field: 'userId', title: '用户编号',  sort: true},
-                // {field: 'createTime', title: '创建时间', width: 200, sort: true, template: "<div>{{layui.util.toDateString(createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'title', title: '公告标题', sort: true, width:200},
+                // {field: 'noticeId', title: '公告编号',  sort: true, hide: true} , <!--隐藏-->
+                {field: 'content', title: '公告内容',  sort: true, width: 500},
+                {field: 'releaseTime', title: '发布时间', sort: true, template: "<div>{{layui.util.toDateString(releaseTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {fixed: 'right', title: '操作', toolbar: '#barDemo', width:134, align:'center', unresize: true}
             ]]
             ,height: '472'

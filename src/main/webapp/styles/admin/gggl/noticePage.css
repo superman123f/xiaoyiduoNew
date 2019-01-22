@@ -1,0 +1,23 @@
+.notice_parent{
+    width: 100%;
+    position: relative;
+    /*margin: 7px 13px 5px 13px;*/
+    float: left;
+}
+.notice_header{
+    position: relative;
+    margin: 7px 13px;
+}
+.notice_title{
+    position: absolute;
+}
+.notice_release_time{
+    right: 0px;
+    position: absolute;
+}
+.notice_content{
+    position: relative;
+    float: left;
+    margin: 28px 13px 10px 13px;
+}
+

@@ -1,5 +1,8 @@
 package com.xh.xiaoyiduo.admin.gggl.pojo;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class NOTICE {
@@ -9,6 +12,8 @@ public class NOTICE {
 
     private String content;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd HH24:mi:ss")//页面写入数据库时格式化
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")//数据库导出页面时json格式化
     private Date releaseTime;
 
     private String userId;

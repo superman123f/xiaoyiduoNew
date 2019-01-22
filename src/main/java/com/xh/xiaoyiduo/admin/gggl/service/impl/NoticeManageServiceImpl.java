@@ -32,6 +32,11 @@ public class NoticeManageServiceImpl implements INoticeManageService {
     }
 
     @Override
+    public List<NOTICE> displayAllNotices() {
+        return noticeMapper.displayAllNotices();
+    }
+
+    @Override
     public Integer getNoticeCount(String title) {
         return noticeMapper.getNoticeCount(title);
     }

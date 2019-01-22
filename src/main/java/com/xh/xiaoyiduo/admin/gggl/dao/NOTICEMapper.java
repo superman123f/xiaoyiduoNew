@@ -16,6 +16,8 @@ public interface NOTICEMapper {
 
     NOTICE selectByPrimaryKey(String noticeId); // 查询公告信息
 
+    List<NOTICE> displayAllNotices(); // 前端显示所有公告信息
+
     Integer getNoticeCount(@Param("title") String title); // 获取禁品总数
 
     List<NOTICE> selectAllNotices(@Param("pageSize")String pageSize, @Param("currentPage")String currentPage); // 查询所有公告信息

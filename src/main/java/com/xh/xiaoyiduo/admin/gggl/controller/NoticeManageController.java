@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 
 @Controller
@@ -26,18 +23,29 @@ public class NoticeManageController {
     @Autowired
     INoticeManageService noticeManageService;
 
+    /**
+     * 前端公告页面
+     * @param model
+     * @return
+     */
     @RequestMapping("/toNoticePage")
-    public String toNoticePage(){
+    public String toNoticePage(Model model){
+        List<NOTICE> noticeList = noticeManageService.displayAllNotices();
+        model.addAttribute("noticeList", noticeList);
         return "/admin/gggl/noticePage";
     }
 
+    /**
+     * 后端公告管理页面
+     * @return
+     */
     @RequestMapping("/noticeAdminPage")
     public String noticeAdminPage(){
         return "/admin/gggl/noticeAdmin";
     }
 
     /**
-     * 跳转到公告详细信息页面
+     * 后端查看公告详情页
      * @return
      */
     @RequestMapping("/editNotice")
@@ -47,6 +55,12 @@ public class NoticeManageController {
         return "/admin/gggl/editNotice";
     }
 
+    /**
+     * 获取公告信息列表
+     * @param limit
+     * @param page
+     * @return
+     */
     @RequestMapping("/getAllNotices")
     @ResponseBody
     public String getAllNotices(String limit, String page){
@@ -61,7 +75,7 @@ public class NoticeManageController {
     }
 
     /**
-     * 编辑公告信息
+     * 新增与编辑
      * @param
      * @param
      * @param
@@ -71,12 +85,14 @@ public class NoticeManageController {
     @ResponseBody
     public Object updateNoticeInfo(NOTICE notice){
         Map<String, Object> data = new HashMap<>();
+        Date date = new Date(); // 发布时间，新增或修改都要更新
 
         //新增公告，判断id是否存在
         if(notice.getNoticeId().equals("") || notice.getNoticeId() == null){
 
             String uuid = UUID.randomUUID().toString().replaceAll("\\-", "");
             notice.setNoticeId(uuid);  //插入主键
+            notice.setReleaseTime(date);
 
             int i = noticeManageService.insert(notice); //添加公告信息
 
@@ -91,6 +107,7 @@ public class NoticeManageController {
             }
 
         } else { //编辑公告
+            notice.setReleaseTime(date);
             int i = noticeManageService.updateNoticeInfoByNoticeId(notice);
 
             if(i > 0) {
