@@ -3,6 +3,8 @@ package com.xh.xiaoyiduo.admin.spgl.controller;
 import com.xh.xiaoyiduo.admin.gwcgl.service.ICartManageService;
 import com.xh.xiaoyiduo.admin.jpgl.pojo.B_GOOD_BAN;
 import com.xh.xiaoyiduo.admin.jpgl.service.IBanGoodManageService;
+import com.xh.xiaoyiduo.admin.lygl.pojo.B_GOOD_MESSAGE;
+import com.xh.xiaoyiduo.admin.lygl.service.IMessageManageService;
 import com.xh.xiaoyiduo.admin.scjgl.service.IFavoriteManageService;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_FATHER;
@@ -63,6 +65,9 @@ public class GoodManageController {
 
     @Autowired
     private IBanGoodManageService banGoodManageService;
+
+    @Autowired
+    private IMessageManageService messageManageService;
 
     @RequestMapping("/testGood")
     public String testGoodParent(){
@@ -397,7 +402,7 @@ public class GoodManageController {
      * @return
      */
     @RequestMapping("/toGoodDetailPage")
-    public String toGoodDetailPage(String goodId, Model model){
+    public String toGoodDetailPage(String goodId, Integer currentPage, Integer pageSize, Model model){
         S_USER user = (S_USER) SecurityUtils.getSubject().getPrincipal();
         if(user == null){
             model.addAttribute("noFavorite", "true");
@@ -418,9 +423,16 @@ public class GoodManageController {
         //获取卖家昵称
         String userName = (String)userService.selectByUserId(goodDetail.getUserId()).getUserId();
 
+        int messageCount = messageManageService.getMessageCount(goodId);
+
+        //获取该商品的所有留言信息及回复信息
+        List<B_GOOD_MESSAGE> messageList= messageManageService.selectAllMessageAndReply(goodId, 1, 10);
+
         model.addAttribute("goodDetail", goodDetail);
         model.addAttribute("userGoodList", userGoodList);
         model.addAttribute("userName", userName);
+        model.addAttribute("messageCount", messageCount);
+        model.addAttribute("messageList", messageList);
         return "/shop/details";
     }
 

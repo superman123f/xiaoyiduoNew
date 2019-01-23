@@ -1,0 +1,15 @@
+.messageArea{
+    margin: 23px 23px 9px 17px;
+}
+.messageArea .message_content{
+    margin-bottom: 21px
+}
+.messageArea .user{
+    display: inline;
+}
+.messageArea .message{
+    display: inline;
+    margin-left: 13px;
+}
+.messageArea .message_time{
+}

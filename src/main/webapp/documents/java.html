@@ -8,5 +8,8 @@
     日期转换，在pojo日期属性上加上如下注解<br>
     @DateTimeFormat(pattern="yyyy-MM-dd HH24:mi:ss")//页面写入数据库时格式化
     @JSONField(format="yyyy-MM-dd HH:mm:ss")//数据库导出页面时json格式化, 后端返回json格式时生效
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    SpringMVC接收前端的几种方式
+    https://blog.csdn.net/u013041642/article/details/72611065<br>
 </body>
 </html>

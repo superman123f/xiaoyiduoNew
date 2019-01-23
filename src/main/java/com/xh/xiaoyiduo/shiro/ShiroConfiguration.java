@@ -112,6 +112,7 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/favorite/addToFavorite", "anon"); //访问收藏夹资源
         filterChainDefinitionMap.put("/favorite/toFavoritePage", "authc"); //访问收藏夹资源
         filterChainDefinitionMap.put("/favorite/**", "authc"); //访问收藏夹资源
+        filterChainDefinitionMap.put("/message/**", "anon"); // 留言
         filterChainDefinitionMap.put("/register", "anon");
 
         // 具有某个角色的用户可以访问

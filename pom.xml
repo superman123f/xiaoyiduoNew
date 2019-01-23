@@ -210,7 +210,12 @@
         </dependency>
 <!--.....json-lib相关依赖包end-->
 
-
+        <!--MyBatis分页插件pagehelper-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>4.1.6</version>
+        </dependency>
 
     </dependencies>
 

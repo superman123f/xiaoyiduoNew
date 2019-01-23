@@ -30,6 +30,7 @@
 <input type="hidden" id="goodName1" value="${goodDetail.goodName}">
 <input type="hidden" id="secondPrice" value="${goodDetail.secondPrice}">
 <input type="hidden" id="noFavorite" value="${noFavorite}">
+<input type="text" id="messageCount" value="${messageCount}">
 
 
 
@@ -112,23 +113,6 @@
                     </c:forEach>
                 </div>
             </div>
-            <!--layuiTab标签 示例-->
-            <%--<div class="layui-tab">--%>
-                <%--<ul class="layui-tab-title">--%>
-                    <%--<li class="layui-this">网站设置</li>--%>
-                    <%--<li>用户管理</li>--%>
-                    <%--<li>权限分配</li>--%>
-                    <%--<li>商品管理</li>--%>
-                    <%--<li>订单管理</li>--%>
-                <%--</ul>--%>
-                <%--<div class="layui-tab-content">--%>
-                    <%--<div class="layui-tab-item layui-show">内容1</div>--%>
-                    <%--<div class="layui-tab-item">内容2</div>--%>
-                    <%--<div class="layui-tab-item">内容3</div>--%>
-                    <%--<div class="layui-tab-item">内容4</div>--%>
-                    <%--<div class="layui-tab-item">内容5</div>--%>
-                <%--</div>--%>
-            <%--</div>--%>
 
             <!--layui Tab页签-->
             <div class="layui-tab layui-tab-brief detail" lay-filter="docDemoTabBrief">
@@ -154,23 +138,30 @@
                         <textarea id="layedit" style="display: none;"></textarea>
                         <div class="site-demo-button" style="margin-top: 20px;">
                             <button class="layui-btn site-demo-layedit" data-type="content">发表留言</button>
-                            <%--<button class="layui-btn site-demo-layedit" data-type="text">获取编辑器纯文本内容</button>--%>
-                            <%--<button class="layui-btn site-demo-layedit" data-type="selection">获取编辑器选中内容</button>--%>
                         </div>
-                        <%--留言模块--%>
-                        <%--<div id="Demo">--%>
-                            <%--<div class="Main">--%>
-                                <%--<div class="Input_Box">--%>
-                                    <%--&lt;%&ndash;<textarea class="Input_text"></textarea>&ndash;%&gt;--%>
-                                    <%--<div class="Input_text" contenteditable="true">l</div>--%>
-                                    <%--<div class="faceDiv"> </div>--%>
-                                    <%--<div class="Input_Foot"> <a class="imgBtn" href="javascript:void(0);"></a><a class="postBtn">确定</a> </div>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                        <%--解析表情--%>
-                        <%--<div class="display_face">--%>
-                        <%--</div>--%>
+                        <div id="messageArea" class="messageArea">
+                            <c:forEach items="${messageList}" var="message">
+                                <div class="message_content">
+                                    <%--用户头像：--%>
+                                    <div class="user">
+                                        <a href=""><img width="32" height="32" style="border-radius: 50%" src="/good/displayImage?imageUrl=${message.userImgUrl}"></a>
+                                        <%--用户昵称：--%>
+                                        <a href="">${message.nickname}</a>
+                                    </div>
+                                    <div class="message">
+                                        <%--留言内容：--%>
+                                        ${message.messageContent}
+                                    </div>
+                                    <div class="message_time">
+                                        <%--留言时间：--%>
+                                        <fmt:formatDate value="${message.messageTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+
+                        <!--laypage分页-->
+                        <div id="laypage"></div>
                     </div>
                 </div>
             </div>
@@ -184,9 +175,59 @@
 <script type="text/javascript" src="${ctx}/scripts/admin/reply/reply.js"></script>
 </html>
 <script type="text/javascript">
+
+    var messageCount; // 留言总数
+    var curr = 1; // 当前页
+    var limit = 10; // 页面大小
+
     var cur = 1;
     var star;
     $(function(){
+        // 获取留言
+        function getMessages(curr, limit){
+            var goodId = $("#goodId").val();
+            $.ajax({
+                type:"post",
+                url:"/message/getAllMessageAndReply",//对应controller的URL
+                async:false, //这一步很关键，同步，否则无法获得total的值
+                dataType: 'json',
+                data:{
+                    "goodId":goodId,
+                    "curr":curr,
+                    "limit":limit
+                },
+                success:function(data){
+                    // total = pager.total;  //设置总条数
+                    // console.log(pager);
+
+                    //判断是否为空
+                    // if(typeof(pager.total) == 'undefined' || pager.total == null) {
+                    //     $("#goodBody").html("此类暂无商品信息");
+                    //     return;
+                    // }
+
+                    var html = "";
+                    for(var i = 0; i < data.length; i++){
+                        html +=    '<div class="message_content">';
+                        html +=    '<div class="user">';
+                        html +=    '<a href=""><img width="32" height="32" style="border-radius: 50%" src="/good/displayImage?imageUrl='+data[i].userImgUrl+'"></a>';
+                        html +=    '<a href="">'+data[i].nickname+'</a>';
+                        html +=    '</div>';
+                        html +=    '<div class="message">';
+                        html +=    data[i].messageContent;
+                        html +=    '</div>';
+                        html +=    '<div class="message_time">';
+                        html +=    data[i].messageTime;
+                        html +=    '</div>';
+                        html +=    '</div>';
+                    }
+
+                    $("#messageArea").empty().append(html); //清空后再嵌入商品信息
+                }
+            });
+        }
+
+        messageCount = $("#messageCount").val();
         star = $("#noFavorite").val(); //当前用户是否收藏此商品
         // alert(star);
         if(star == 'true') {
@@ -199,10 +240,27 @@
 
         layui.config({
             base: '${ctx}/scripts/shop/' //你存放新模块的目录，注意，不是layui的模块目录
-        }).use(['mm','jquery','layer','layedit'],function(){
-            var mm = layui.mm, $ = layui.$, layedit = layui.layedit;
+        }).use(['mm','jquery','layer','layedit','laypage'],function(){
+            var mm = layui.mm, $ = layui.$, layedit = layui.layedit, laypage = layui.laypage;
 
-            //构建一个默认的编辑器
+            //laypage分页
+                laypage.render({
+                    elem: 'laypage' //注意，这里的 test1 是 ID，不用加 # 号
+                    ,count: messageCount //数据总数，从服务端得到
+                    ,jump: function(obj, first){
+                        curr = obj.curr;
+                        limit = obj.limit;
+                        //首次不执行
+                        if(!first){
+                            // 获取留言
+                            getMessages(curr, limit);
+
+                        }
+                    }
+                });
+            // ------------------- laypage end --------------------//
+
+            //layedit富文本编辑
             var layedit_index = layedit.build('layedit', {
                 height: 180,
                 tool: [ //工具栏
@@ -210,32 +268,36 @@
                     ,'italic' //斜体
                     ,'underline' //下划线
                     ,'del' //删除线
-
                     ,'|' //分割线
-
                     ,'left' //左对齐
                     ,'center' //居中对齐
                     ,'right' //右对齐
-                    // ,'link' //超链接
-                    // ,'unlink' //清除链接
                     ,'face' //表情
-                    // ,'image' //插入图片
-                    // ,'help' //帮助
                 ]
             });
 
             //编辑器外部操作
             var active = {
                 content: function(){
-                    alert(layedit.getContent(layedit_index)); //获取编辑器内容
+                    // alert(layedit.getContent(layedit_index)); //获取编辑器内容
+                    var goodId = $("#goodId").val(); // 商品编号
+                    var messageContent = layedit.getContent(layedit_index); // 留言内容
 
+                    $.post("/message/insertMessage",
+                        {
+                            goodId: goodId,
+                            messageContent: messageContent
+                        },
+                        function(data){
+                            if(data.success){
+                                layer.msg(data.msg);
+                                getMessages(curr, limit);
+                                messageCount = data.messageCount;
+                            } else {
+                                layer.msg(data.msg);
+                            }
+                    });
                 }
-                // ,text: function(){
-                //     alert(layedit.getText(layedit_index)); //获取编辑器纯文本内容
-                // }
-                // ,selection: function(){
-                //     alert(layedit.getSelection(layedit_index)); //获取编辑器选中内容
-                // }
             };
 
             // 监听所选按钮
@@ -244,7 +306,8 @@
                 active[type] ? active[type].call(this) : '';
             });
 
-            ////////////////////   分隔线     /////////////////////////
+            // ------------------- layedit 富文本编辑 end --------------------//
+
             cur = $('.number-cont input').val();
             var goodNumber =$("#goodNumber").val();
             // alert(goodNumber);
@@ -339,5 +402,6 @@
                 }
 
         });
+
     };
 </script>

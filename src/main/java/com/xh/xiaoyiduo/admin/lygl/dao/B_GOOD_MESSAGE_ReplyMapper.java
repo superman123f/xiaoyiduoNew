@@ -2,7 +2,7 @@ package com.xh.xiaoyiduo.admin.lygl.dao;
 
 import com.xh.xiaoyiduo.admin.lygl.pojo.B_GOOD_MESSAGE_REPLY;
 
-public interface B_GOOD_MESSAGE_REPLYMapper {
+public interface B_GOOD_MESSAGE_ReplyMapper {
     int deleteByPrimaryKey(String replyId);
 
     int insert(B_GOOD_MESSAGE_REPLY record);

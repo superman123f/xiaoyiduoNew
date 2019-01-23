@@ -8,6 +8,16 @@
     <result column="MESSAGE_CONTENT" property="messageContent" jdbcType="VARCHAR" />
     <result column="MESSAGE_TIME" property="messageTime" jdbcType="TIMESTAMP" />
   </resultMap>
+  <!--自定义Mapper-->
+  <resultMap id="MessageMap" type="com.xh.xiaoyiduo.admin.lygl.pojo.B_GOOD_MESSAGE" >
+    <id column="MESSAGE_ID" property="messageId" jdbcType="VARCHAR" />
+    <result column="GOOD_ID" property="goodId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="MESSAGE_CONTENT" property="messageContent" jdbcType="VARCHAR" />
+    <result column="MESSAGE_TIME" property="messageTime" jdbcType="TIMESTAMP" />
+    <result column="URL" property="userImgUrl" jdbcType="VARCHAR" />
+    <result column="NICKNAME" property="nickname" jdbcType="VARCHAR" />
+  </resultMap>
   <sql id="Base_Column_List" >
     MESSAGE_ID, GOOD_ID, USER_ID, MESSAGE_CONTENT, MESSAGE_TIME
   </sql>
@@ -17,6 +27,30 @@
     from B_GOOD_MESSAGE
     where MESSAGE_ID = #{messageId,jdbcType=VARCHAR}
   </select>
+
+  <!--获取该商品留言总数-->
+  <select id="getMessageCount" resultType="int" parameterType="java.lang.String" >
+    select
+      count(*)
+    from B_GOOD_MESSAGE t
+    where t.GOOD_ID = #{goodId,jdbcType=VARCHAR}
+  </select>
+  <!--查询所有留言和对应回复-->
+  <select id="selectAllMessageAndReply" resultMap="MessageMap" parameterType="java.lang.String" >
+    <!--select-->
+    <!--<include refid="Base_Column_List" />-->
+    <!--from B_GOOD_MESSAGE-->
+    <!--where GOOD_ID = #{goodId,jdbcType=VARCHAR}-->
+    <!--ORDER BY MESSAGE_TIME DESC-->
+
+    select b.*, u.nickname, s.url
+    from B_GOOD_MESSAGE b, S_USER u, RESOURCES s
+    where b.user_id = s.source_id
+    and b.user_id = u.user_id
+    and b.GOOD_ID = #{goodId,jdbcType=VARCHAR}
+    ORDER BY b.message_time desc
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from B_GOOD_MESSAGE
     where MESSAGE_ID = #{messageId,jdbcType=VARCHAR}
