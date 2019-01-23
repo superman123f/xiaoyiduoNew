@@ -329,7 +329,7 @@
                     '            <input type="hidden" id="h" name="h" />\n' +
                     '            <div style="bottom: 4px; position: absolute; margin-left: calc(50% - 102px);">' +
                     '                <input id="upload" type="button" value="上传图片" class="btn btn-large btn-inverse layui-btn" />\n' +
-                    '                <input id="cancelUpload" type="button" value="取消上传" class="layui-btn" />\n' +
+                    '                <input id="cancelUpload" type="button" value="确定" class="layui-btn" />\n' +
                     '            </div>' +
                     '            <div style="width:100px; height:100px; margin-left: 380px; border-radius: 50%;" id="preview-pane">\n' +
                     '               <div style="width: 150px; height: 150px; overflow: hidden; border-radius: 50%;" class="preview-container">\n' +

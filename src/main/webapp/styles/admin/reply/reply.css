@@ -11,5 +11,12 @@
     display: inline;
     margin-left: 13px;
 }
+.messageArea .message a{
+    color: #2c7bef;
+}
+.messageArea .message a:hover{
+    color: #0257d4;
+    cursor: pointer;
+}
 .messageArea .message_time{
 }

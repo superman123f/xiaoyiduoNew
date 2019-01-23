@@ -150,7 +150,8 @@
                                     </div>
                                     <div class="message">
                                         <%--留言内容：--%>
-                                        ${message.messageContent}
+                                        ${message.messageContent}&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a scr="javascript:void(0);" onclick="replyMessage('${message.messageId}');">回复</a>
                                     </div>
                                     <div class="message_time">
                                         <%--留言时间：--%>
@@ -175,6 +176,7 @@
 <script type="text/javascript" src="${ctx}/scripts/admin/reply/reply.js"></script>
 </html>
 <script type="text/javascript">
+    var layer;
 
     var messageCount; // 留言总数
     var curr = 1; // 当前页
@@ -241,7 +243,7 @@
         layui.config({
             base: '${ctx}/scripts/shop/' //你存放新模块的目录，注意，不是layui的模块目录
         }).use(['mm','jquery','layer','layedit','laypage'],function(){
-            var mm = layui.mm, $ = layui.$, layedit = layui.layedit, laypage = layui.laypage;
+            var mm = layui.mm, $ = layui.$, layer = layui.layer, layedit = layui.layedit, laypage = layui.laypage;
 
             //laypage分页
                 laypage.render({
@@ -326,7 +328,6 @@
 
         });
 
-
         $("#addCartBtn").click(function(){
             // alert(1);
             var goodName = $("#goodName1").val(); //不知道为啥要换个id名称才可以获取值，使用goodName不行
@@ -369,6 +370,15 @@
         });
     });
 
+    // 回复留言
+    function replyMessage(messageId){
+        // alert(messageId);
+        layer.open({
+            type: 2,
+            area: ['550px', '500px'],
+            content: '/message/toLayEdit'
+        })
+    }
 
     function addFavorite(){
         // star = true;
