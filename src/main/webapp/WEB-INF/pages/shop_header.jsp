@@ -22,9 +22,10 @@
             </shiro:hasAnyRoles>
 
             <%--<shiro:hasAnyRoles name="seller,buyer">--%>
-                <div class="sp-cart" style="margin-right: 22px;"><a href="/cart/seeCartList">购物车</a><span id="cartSpan">${sessionScope.cartGoodCount}</span></div>
-                <div  style="margin-right: 22px;"><a href="/favorite/toFavoritePage"><span class="favoriteFolder"><i id="favoriteIcon" class="layui-icon layui-icon-rate-solid" style="font-size: 14px; color: #9c9c9c; margin-right: 1px;"></i>收藏夹</span></a></div>
-            <%--</shiro:hasAnyRoles>--%>
+            <div class="sp-cart" style="margin-right: 22px;"><a href="/cart/seeCartList">购物车</a><span id="cartSpan">${sessionScope.cartGoodCount}</span></div>
+            <div  style="margin-right: 22px;"><a href="/favorite/toFavoritePage"><span class="favoriteFolder"><i id="favoriteIcon" class="layui-icon layui-icon-rate-solid" style="font-size: 14px; color: #9c9c9c; margin-right: 1px;"></i>收藏夹</span></a></div>
+            <div  style="margin-right: 22px;"><a href="/order/toOrderPage">我的订单</a></div>
+        <%--</shiro:hasAnyRoles>--%>
             <%--${sessionScope.currentUser.getResources().getType()}--%>
             <%--<%--%>
                 <%--S_USER currentUser = (S_USER) session.getAttribute("currentUser");--%>
@@ -56,8 +57,6 @@
         </div>
     </div>
 </div>
-
-
 
 <div class="header">
     <div class="headerLayout w1200">
