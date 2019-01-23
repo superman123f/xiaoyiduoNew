@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xh.xiaoyiduo.admin.lygl.dao.B_GOOD_MESSAGE_REPLYMapper" >
+  <resultMap id="BaseResultMap" type="com.xh.xiaoyiduo.admin.lygl.pojo.B_GOOD_MESSAGE_REPLY" >
+    <id column="REPLY_ID" property="replyId" jdbcType="VARCHAR" />
+    <result column="MESSAGE_ID" property="messageId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="REPLY_CONTENT" property="replyContent" jdbcType="VARCHAR" />
+    <result column="REPLY_TIME" property="replyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    REPLY_ID, MESSAGE_ID, USER_ID, REPLY_CONTENT, REPLY_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from B_GOOD_MESSAGE_REPLY
+    where REPLY_ID = #{replyId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from B_GOOD_MESSAGE_REPLY
+    where REPLY_ID = #{replyId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xh.xiaoyiduo.admin.lygl.pojo.B_GOOD_MESSAGE_REPLY" >
+    insert into B_GOOD_MESSAGE_REPLY (REPLY_ID, MESSAGE_ID, USER_ID, 
+      REPLY_CONTENT, REPLY_TIME)
+    values (#{replyId,jdbcType=VARCHAR}, #{messageId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{replyContent,jdbcType=VARCHAR}, #{replyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xh.xiaoyiduo.admin.lygl.pojo.B_GOOD_MESSAGE_REPLY" >
+    insert into B_GOOD_MESSAGE_REPLY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="replyId != null" >
+        REPLY_ID,
+      </if>
+      <if test="messageId != null" >
+        MESSAGE_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="replyContent != null" >
+        REPLY_CONTENT,
+      </if>
+      <if test="replyTime != null" >
+        REPLY_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="replyId != null" >
+        #{replyId,jdbcType=VARCHAR},
+      </if>
+      <if test="messageId != null" >
+        #{messageId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="replyContent != null" >
+        #{replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="replyTime != null" >
+        #{replyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xh.xiaoyiduo.admin.lygl.pojo.B_GOOD_MESSAGE_REPLY" >
+    update B_GOOD_MESSAGE_REPLY
+    <set >
+      <if test="messageId != null" >
+        MESSAGE_ID = #{messageId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="replyContent != null" >
+        REPLY_CONTENT = #{replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="replyTime != null" >
+        REPLY_TIME = #{replyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where REPLY_ID = #{replyId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xh.xiaoyiduo.admin.lygl.pojo.B_GOOD_MESSAGE_REPLY" >
+    update B_GOOD_MESSAGE_REPLY
+    set MESSAGE_ID = #{messageId,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=VARCHAR},
+      REPLY_CONTENT = #{replyContent,jdbcType=VARCHAR},
+      REPLY_TIME = #{replyTime,jdbcType=TIMESTAMP}
+    where REPLY_ID = #{replyId,jdbcType=VARCHAR}
+  </update>
+</mapper>
