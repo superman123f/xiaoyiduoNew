@@ -69,6 +69,8 @@
                                 layer.msg(data.msg);
                                 // getMessages(curr, limit);
                                 // messageCount = data.messageCount;
+                                var mylayer = parent.layer.getFrameIndex(window.name);
+                                parent.layer.close(mylayer);
                             } else {
                                 layer.msg(data.msg);
                             }

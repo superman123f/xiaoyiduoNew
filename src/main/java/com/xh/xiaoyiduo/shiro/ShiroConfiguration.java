@@ -96,6 +96,7 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/jsp/error.jsp*", "anon");
         filterChainDefinitionMap.put("/jsp/login.jsp*", "authc"); //表示需要认证访问
         filterChainDefinitionMap.put("/documents/**", "anon");
+        filterChainDefinitionMap.put("/user/checkUserLogin", "anon"); //检测用户是否登录
         filterChainDefinitionMap.put("/user/**", "anon"); //访问用户页面
 
         filterChainDefinitionMap.put("/images/**", "anon"); //访问静态资源

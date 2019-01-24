@@ -30,7 +30,7 @@
 <input type="hidden" id="goodName1" value="${goodDetail.goodName}">
 <input type="hidden" id="secondPrice" value="${goodDetail.secondPrice}">
 <input type="hidden" id="noFavorite" value="${noFavorite}">
-<input type="text" id="messageCount" value="${messageCount}">
+<input type="hidden" id="messageCount" value="${messageCount}">
 
 
 
@@ -139,52 +139,59 @@
                         <div class="site-demo-button" style="margin-top: 20px;">
                             <button class="layui-btn site-demo-layedit" data-type="content">发表留言</button>
                         </div>
-                        <div id="messageArea" class="messageArea">
-                            <c:forEach items="${messageList}" var="message">
-                                <div class="message_content">
-                                    <%--用户头像：--%>
-                                    <div class="user">
-                                        <a href=""><img src="/good/displayImage?imageUrl=${message.userImgUrl}"></a>
-                                        <%--用户昵称：--%>
-                                        <a href="">${message.nickname}</a>
-                                    </div>
-                                    <div class="message">
-                                        <%--留言内容：--%>
-                                        ${message.messageContent}
-                                        &nbsp;&nbsp;&nbsp;&nbsp;<a scr="javascript:void(0);" onclick="replyMessage('${message.messageId}');">回复</a>
-                                    </div>
-                                    <div class="message_time">
-                                        <%--留言时间：--%>
-                                        <fmt:formatDate value="${message.messageTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
-                                    </div>
-                                </div>
-                                <div id="replyArea" class="replyArea">
-                                    <c:set value="${message.replyList}" var="replyList"/>
-                                    <c:forEach items="${replyList}" var="replyMessage">
-                                        <div class="reply_content">
-                                                <%--用户头像：--%>
-                                            <div class="reply_user">
-                                                <a href=""><img width="32" height="32" style="border-radius: 50%" src="/good/displayImage?imageUrl=${replyMessage.userImgUrl}"></a>
-                                                    <%--用户昵称：--%>
-                                                <a href="">${replyMessage.nickname}</a>
-                                            </div>
-                                            <div class="reply">
-                                                    <%--留言内容：--%>
-                                                    ${replyMessage.replyContent}
-                                                <%--&nbsp;&nbsp;&nbsp;&nbsp;<a scr="javascript:void(0);" onclick="replyMessage('${message.messageId}');">回复</a>--%>
-                                            </div>
-                                            <div class="reply_time">
-                                                    <%--留言时间：--%>
-                                                <fmt:formatDate value="${replyMessage.replyTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
-                                            </div>
+                        <c:if test="${empty messageList}">
+                            <div style="margin-top: 16px">
+                                <span>暂无留言</span>
+                            </div>
+                        </c:if>
+                        <c:if test="${not empty messageList}">
+                            <div id="messageArea" class="messageArea">
+                                <c:forEach items="${messageList}" var="message">
+                                    <div class="message_content">
+                                        <%--用户头像：--%>
+                                        <div class="user">
+                                            <a href=""><img src="/good/displayImage?imageUrl=${message.userImgUrl}"></a>
+                                            <%--用户昵称：--%>
+                                            <a href="">${message.nickname}</a>
                                         </div>
-                                    </c:forEach>
-                                </div>
-                            </c:forEach>
-                        </div>
+                                        <div class="message">
+                                            <%--留言内容：--%>
+                                            ${message.messageContent}
+                                            &nbsp;&nbsp;&nbsp;&nbsp;<a scr="javascript:void(0);" onclick="replyMessage('${message.messageId}');">回复</a>
+                                        </div>
+                                        <div class="message_time">
+                                            <%--留言时间：--%>
+                                            <fmt:formatDate value="${message.messageTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
+                                        </div>
+                                    </div>
+                                    <div id="replyArea" class="replyArea">
+                                        <c:set value="${message.replyList}" var="replyList"/>
+                                        <c:forEach items="${replyList}" var="replyMessage">
+                                            <div class="reply_content">
+                                                    <%--用户头像：--%>
+                                                <div class="reply_user">
+                                                    <a href=""><img width="32" height="32" style="border-radius: 50%" src="/good/displayImage?imageUrl=${replyMessage.userImgUrl}"></a>
+                                                        <%--用户昵称：--%>
+                                                    <a href="">${replyMessage.nickname}</a>
+                                                </div>
+                                                <div class="reply">
+                                                        <%--留言内容：--%>
+                                                        ${replyMessage.replyContent}
+                                                    <%--&nbsp;&nbsp;&nbsp;&nbsp;<a scr="javascript:void(0);" onclick="replyMessage('${message.messageId}');">回复</a>--%>
+                                                </div>
+                                                <div class="reply_time">
+                                                        <%--留言时间：--%>
+                                                    <fmt:formatDate value="${replyMessage.replyTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                            <!--laypage分页-->
+                            <div id="laypage"></div>
+                        </c:if>
 
-                        <!--laypage分页-->
-                        <div id="laypage"></div>
                     </div>
                 </div>
             </div>
@@ -206,68 +213,94 @@
 
     var cur = 1;
     var star;
-    $(function(){
-        // 获取留言
-        function getMessages(curr, limit){
-            var goodId = $("#goodId").val();
-            $.ajax({
-                type:"post",
-                url:"/message/getAllMessageAndReply",//对应controller的URL
-                async:false, //这一步很关键，同步，否则无法获得total的值
-                dataType: 'json',
-                data:{
-                    "goodId":goodId,
-                    "curr":curr,
-                    "limit":limit
-                },
-                success:function(data){
-                    // total = pager.total;  //设置总条数
-                    // console.log(pager);
 
-                    //判断是否为空
-                    // if(typeof(pager.total) == 'undefined' || pager.total == null) {
-                    //     $("#goodBody").html("此类暂无商品信息");
-                    //     return;
-                    // }
+    // 获取留言
+    function getMessages(curr, limit){
+        var goodId = $("#goodId").val();
+        $.ajax({
+            type:"post",
+            url:"/message/getAllMessageAndReply",//对应controller的URL
+            async:false, //这一步很关键，同步，否则无法获得total的值
+            dataType: 'json',
+            data:{
+                "goodId":goodId,
+                "curr":curr,
+                "limit":limit
+            },
+            success:function(data){
+                // total = pager.total;  //设置总条数
+                // console.log(pager);
 
-                    var html = "";
-                    for(var i = 0; i < data.length; i++){
-                        html +=    '<div class="message_content">';
-                        html +=    '<div class="user">';
-                        html +=    '<a href=""><img width="32" height="32" style="border-radius: 50%" src="/good/displayImage?imageUrl='+data[i].userImgUrl+'"></a>';
-                        html +=    '<a href="">'+data[i].nickname+'</a>';
-                        html +=    '</div>';
-                        html +=    '<div class="message">';
-                        html +=    data[i].messageContent;
-                        html +=    '&nbsp;&nbsp;&nbsp;&nbsp;<a scr="javascript:void(0);" onclick="replyMessage(\''+data[i].messageId+'\');">回复</a>';
-                        html +=    '</div>';
-                        html +=    '<div class="message_time">';
-                        html +=    data[i].messageTime;
-                        html +=    '</div>';
-                        html +=    '</div>';
+                var html = "";
+                for(var i = 0; i < data.length; i++){
+                    html +=    '<div class="message_content">';
+                    html +=    '<div class="user">';
+                    html +=    '<a href=""><img width="32" height="32" style="border-radius: 50%" src="/good/displayImage?imageUrl='+data[i].userImgUrl+'"></a>';
+                    html +=    '<a href="">'+data[i].nickname+'</a>';
+                    html +=    '</div>';
+                    html +=    '<div class="message">';
+                    html +=    data[i].messageContent;
+                    html +=    '&nbsp;&nbsp;&nbsp;&nbsp;<a scr="javascript:void(0);" onclick="replyMessage(\''+data[i].messageId+'\');">回复</a>';
+                    html +=    '</div>';
+                    html +=    '<div class="message_time">';
+                    html +=    data[i].messageTime;
+                    html +=    '</div>';
+                    html +=    '</div>';
 
-                        html +=    '<div id="replyArea" class="replyArea">';
-                        for(var j = 0; j < data[i].replyList.length; j++){
-                            html +=   '<div class="reply_content">'
-                            html +=   '<div class="reply_user">'
-                            html +=   '<a href=""><img width="32" height="32" style="border-radius: 50%" src="/good/displayImage?imageUrl='+data[i].replyList[j].userImgUrl+'"></a>'
-                            html +=   '<a href="">'+data[i].replyList[j].nickname+'</a>'
-                            html +=   '</div>'
-                            html +=   '<div class="reply">'
-                            html +=   data[i].replyList[j].replyContent
-                            html +=   '</div>'
-                            html +=   '<div class="reply_time">'
-                            html +=   data[i].replyList[j].replyTime
-                            html +=   '</div>'
-                            html +=   '</div>'
-                        }
-                        html +=    '</div>';
+                    html +=    '<div id="replyArea" class="replyArea">';
+                    for(var j = 0; j < data[i].replyList.length; j++){
+                        html +=   '<div class="reply_content">'
+                        html +=   '<div class="reply_user">'
+                        html +=   '<a href=""><img width="32" height="32" style="border-radius: 50%" src="/good/displayImage?imageUrl='+data[i].replyList[j].userImgUrl+'"></a>'
+                        html +=   '<a href="">'+data[i].replyList[j].nickname+'</a>'
+                        html +=   '</div>'
+                        html +=   '<div class="reply">'
+                        html +=   data[i].replyList[j].replyContent
+                        html +=   '</div>'
+                        html +=   '<div class="reply_time">'
+                        html +=   data[i].replyList[j].replyTime
+                        html +=   '</div>'
+                        html +=   '</div>'
                     }
+                    html +=    '</div>';
+                }
 
-                    $("#messageArea").empty().append(html); //清空后再嵌入商品信息
+                $("#messageArea").empty().append(html); //清空后再嵌入商品信息
+            }
+        });
+    }
+
+    // 回复留言
+    function replyMessage(messageId){
+        // alert(messageId);
+        $.post("/user/checkUserLogin",
+            {
+
+            },
+            function(data){
+                if(data.success == false){
+                    layer.confirm("您还未登录，是否现在登录", {
+                        btn: ['现在就去', '我在想想'],
+                        btnAlign: 'c'
+                    }, function(index){
+                        layer.close(index);
+                        location.href = "/shop/login";
+                    });
+                } else {
+                    layer.open({
+                        type: 2,
+                        area: ['550px', '326px'],
+                        content: '/reply/toLayEdit?messageId='+messageId,
+                        end: function(){
+                            alert(111);
+                            getMessages(curr, limit);
+                        }
+                    })
                 }
             });
-        }
+    }
+
+    $(function(){
 
         messageCount = $("#messageCount").val();
         star = $("#noFavorite").val(); //当前用户是否收藏此商品
@@ -336,7 +369,14 @@
                                 getMessages(curr, limit);
                                 messageCount = data.messageCount;
                             } else {
-                                layer.msg(data.msg);
+                                // layer.msg(data.msg);
+                                layer.confirm("您还未登录，是否现在登录", {
+                                    btn: ['现在就去', '我在想想'],
+                                    btnAlign: 'c'
+                                }, function(index){
+                                    layer.close(index);
+                                    location.href = "/shop/login";
+                                });
                             }
                     });
                 }
@@ -409,16 +449,6 @@
             });
         });
     });
-
-    // 回复留言
-    function replyMessage(messageId){
-        // alert(messageId);
-        layer.open({
-            type: 2,
-            area: ['550px', '326px'],
-            content: '/reply/toLayEdit?messageId='+messageId
-        })
-    }
 
     function addFavorite(){
         // star = true;

@@ -44,6 +44,22 @@ public class S_USERController {
     @Autowired
     IResourcesManageService resourcesManageService;
 
+    /**
+     * 检测用户是否登录
+     * @return
+     */
+    @RequestMapping("/checkUserLogin")
+    @ResponseBody
+    public Map<String, Object> checkUserLogin(){
+        Map<String, Object> result = new HashMap<>();
+        S_USER currentUser = (S_USER) SecurityUtils.getSubject().getPrincipal();
+        if(currentUser == null){
+            result.put("success", false);
+            result.put("msg", "该用户未登录");
+        }
+        return result;
+    }
+
     @RequestMapping("/testUserHead")
     public String UserHeadTest(){
         return "/admin/yygl/testUserHead";
