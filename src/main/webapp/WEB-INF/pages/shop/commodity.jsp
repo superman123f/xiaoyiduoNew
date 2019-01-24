@@ -32,8 +32,6 @@
             <div class="inner-cont1 w1200">
                 <div class="inner-cont2">
                     <a href="/shop/commodity" class="active">所有商品</a>
-                    <%--<a href="/shop/buytoday">今日团购</a>--%>
-                    <%--<a href="/shop/information">商品资讯</a>--%>
                     <a href="/shop/about">关于我们</a>
                 </div>
             </div>
@@ -64,28 +62,10 @@
                         <a href="javascript:;" event = 'collection'>收藏</a>
                     </div>
                     <div class="prod-number">
-                        <span>200个</span>
+                        <span id="good_number">200个</span>
                     </div>
                     <div class="cont-list layui-clear" id="list-cont">
                         <div id="goodBody">
-                            <%--<c:forEach items="${sonGoodList}" var="sonGood" >--%>
-                                <%--<div class="item">--%>
-                                    <%--<c:set value="${sonGood.imgUrlResource}" var="resources"></c:set>--%>
-                                    <%--<c:forEach items="${resources}" var="resource" end="0">--%>
-                                        <%--<div class="img">--%>
-                                            <%--&lt;%&ndash;<input type="text" value="${resource.url}">&ndash;%&gt;--%>
-                                            <%--<a href="/good/toGoodDetailPage?goodId=${sonGood.goodId}"><img id="mutationImage" style="height:280px;width:280px;" src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}"/></a>--%>
-                                        <%--</div>--%>
-                                    <%--</c:forEach>--%>
-                                    <%--<div class="text">--%>
-                                        <%--<p class="title">${sonGood.goodName}</p>--%>
-                                        <%--<p class="price">--%>
-                                            <%--<span class="nub">${sonGood.originPrice}</span>--%>
-                                            <%--<span class="pri">${sonGood.secondPrice}</span>--%>
-                                        <%--</p>--%>
-                                    <%--</div>--%>
-                                <%--</div>--%>
-                            <%--</c:forEach>--%>
                         </div>
                     </div>
                     <!-- 模版引擎导入 -->
@@ -191,6 +171,11 @@
             },
             success:function(pager){
                 total = pager.total;  //设置总条数
+                if(total == "" || total == null || total == 'undefined'){
+                    $("#good_number").html("0个");
+                } else {
+                    $("#good_number").html(total+"个");
+                }
                 console.log(pager);
 
                 //判断是否为空

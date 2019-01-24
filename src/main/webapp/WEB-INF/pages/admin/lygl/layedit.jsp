@@ -58,23 +58,27 @@
                     // alert(layedit.getContent(layedit_index)); //获取编辑器内容
                     var messageId = $("#messageId").val(); // 商品编号
                     var replyContent = layedit.getContent(layedit_index); // 留言内容
+                    if(replyContent == "" || replyContent == null || replyContent == 'undefined'){
+                        layer.alert("输入内容不能为空");
+                    } else {
+                        $.post("/reply/insertReplyMessage",
+                            {
+                                messageId: messageId,
+                                replyContent: replyContent
+                            },
+                            function(data){
+                                if(data.success){
+                                    layer.msg(data.msg);
+                                    // getMessages(curr, limit);
+                                    // messageCount = data.messageCount;
+                                    var mylayer = parent.layer.getFrameIndex(window.name);
+                                    parent.layer.close(mylayer);
+                                } else {
+                                    layer.msg(data.msg);
+                                }
+                            });
+                    }
 
-                    $.post("/reply/insertReplyMessage",
-                        {
-                            messageId: messageId,
-                            replyContent: replyContent
-                        },
-                        function(data){
-                            if(data.success){
-                                layer.msg(data.msg);
-                                // getMessages(curr, limit);
-                                // messageCount = data.messageCount;
-                                var mylayer = parent.layer.getFrameIndex(window.name);
-                                parent.layer.close(mylayer);
-                            } else {
-                                layer.msg(data.msg);
-                            }
-                        });
                 }
             };
 

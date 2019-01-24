@@ -214,7 +214,7 @@
     var cur = 1;
     var star;
 
-    // 获取留言
+    // 获取留言及回复
     function getMessages(curr, limit){
         var goodId = $("#goodId").val();
         $.ajax({
@@ -292,7 +292,6 @@
                         area: ['550px', '326px'],
                         content: '/reply/toLayEdit?messageId='+messageId,
                         end: function(){
-                            alert(111);
                             getMessages(curr, limit);
                         }
                     })
@@ -357,28 +356,33 @@
                     // alert(layedit.getContent(layedit_index)); //获取编辑器内容
                     var goodId = $("#goodId").val(); // 商品编号
                     var messageContent = layedit.getContent(layedit_index); // 留言内容
+                    // alert(messageContent);
+                    if(messageContent == "" || messageContent == null || messageContent == 'undefined'){
+                        layer.alert("输入内容不能为空");
+                    } else {
+                        $.post("/message/insertMessage",
+                            {
+                                goodId: goodId,
+                                messageContent: messageContent
+                            },
+                            function(data){
+                                if(data.success){
+                                    layer.msg(data.msg);
+                                    getMessages(curr, limit);
+                                    messageCount = data.messageCount;
+                                } else {
+                                    // layer.msg(data.msg);
+                                    layer.confirm("您还未登录，是否现在登录", {
+                                        btn: ['现在就去', '我在想想'],
+                                        btnAlign: 'c'
+                                    }, function(index){
+                                        layer.close(index);
+                                        location.href = "/shop/login";
+                                    });
+                                }
+                            });
+                    }
 
-                    $.post("/message/insertMessage",
-                        {
-                            goodId: goodId,
-                            messageContent: messageContent
-                        },
-                        function(data){
-                            if(data.success){
-                                layer.msg(data.msg);
-                                getMessages(curr, limit);
-                                messageCount = data.messageCount;
-                            } else {
-                                // layer.msg(data.msg);
-                                layer.confirm("您还未登录，是否现在登录", {
-                                    btn: ['现在就去', '我在想想'],
-                                    btnAlign: 'c'
-                                }, function(index){
-                                    layer.close(index);
-                                    location.href = "/shop/login";
-                                });
-                            }
-                    });
                 }
             };
 

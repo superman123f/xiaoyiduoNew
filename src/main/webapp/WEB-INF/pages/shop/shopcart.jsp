@@ -37,10 +37,11 @@
             </div>
         </div>
     </div>
-    <div class="banner-bg w1200">
-        <h3>夏季清仓</h3>
-        <p>宝宝被子、宝宝衣服3折起</p>
-    </div>
+    <%--大图显示--%>
+    <%--<div class="banner-bg w1200">--%>
+        <%--<h3>夏季清仓</h3>--%>
+        <%--<p>宝宝被子、宝宝衣服3折起</p>--%>
+    <%--</div>--%>
     <div class="cart w1200">
         <div class="cart-table-th">
             <div class="th th-chk">
