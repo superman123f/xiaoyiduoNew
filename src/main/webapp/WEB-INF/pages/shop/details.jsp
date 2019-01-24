@@ -144,19 +144,41 @@
                                 <div class="message_content">
                                     <%--用户头像：--%>
                                     <div class="user">
-                                        <a href=""><img width="32" height="32" style="border-radius: 50%" src="/good/displayImage?imageUrl=${message.userImgUrl}"></a>
+                                        <a href=""><img src="/good/displayImage?imageUrl=${message.userImgUrl}"></a>
                                         <%--用户昵称：--%>
                                         <a href="">${message.nickname}</a>
                                     </div>
                                     <div class="message">
                                         <%--留言内容：--%>
-                                        ${message.messageContent}&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <a scr="javascript:void(0);" onclick="replyMessage('${message.messageId}');">回复</a>
+                                        ${message.messageContent}
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<a scr="javascript:void(0);" onclick="replyMessage('${message.messageId}');">回复</a>
                                     </div>
                                     <div class="message_time">
                                         <%--留言时间：--%>
                                         <fmt:formatDate value="${message.messageTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
                                     </div>
+                                </div>
+                                <div id="replyArea" class="replyArea">
+                                    <c:set value="${message.replyList}" var="replyList"/>
+                                    <c:forEach items="${replyList}" var="replyMessage">
+                                        <div class="reply_content">
+                                                <%--用户头像：--%>
+                                            <div class="reply_user">
+                                                <a href=""><img width="32" height="32" style="border-radius: 50%" src="/good/displayImage?imageUrl=${replyMessage.userImgUrl}"></a>
+                                                    <%--用户昵称：--%>
+                                                <a href="">${replyMessage.nickname}</a>
+                                            </div>
+                                            <div class="reply">
+                                                    <%--留言内容：--%>
+                                                    ${replyMessage.replyContent}
+                                                <%--&nbsp;&nbsp;&nbsp;&nbsp;<a scr="javascript:void(0);" onclick="replyMessage('${message.messageId}');">回复</a>--%>
+                                            </div>
+                                            <div class="reply_time">
+                                                    <%--留言时间：--%>
+                                                <fmt:formatDate value="${replyMessage.replyTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
                                 </div>
                             </c:forEach>
                         </div>
@@ -217,10 +239,28 @@
                         html +=    '</div>';
                         html +=    '<div class="message">';
                         html +=    data[i].messageContent;
+                        html +=    '&nbsp;&nbsp;&nbsp;&nbsp;<a scr="javascript:void(0);" onclick="replyMessage(\''+data[i].messageId+'\');">回复</a>';
                         html +=    '</div>';
                         html +=    '<div class="message_time">';
                         html +=    data[i].messageTime;
                         html +=    '</div>';
+                        html +=    '</div>';
+
+                        html +=    '<div id="replyArea" class="replyArea">';
+                        for(var j = 0; j < data[i].replyList.length; j++){
+                            html +=   '<div class="reply_content">'
+                            html +=   '<div class="reply_user">'
+                            html +=   '<a href=""><img width="32" height="32" style="border-radius: 50%" src="/good/displayImage?imageUrl='+data[i].replyList[j].userImgUrl+'"></a>'
+                            html +=   '<a href="">'+data[i].replyList[j].nickname+'</a>'
+                            html +=   '</div>'
+                            html +=   '<div class="reply">'
+                            html +=   data[i].replyList[j].replyContent
+                            html +=   '</div>'
+                            html +=   '<div class="reply_time">'
+                            html +=   data[i].replyList[j].replyTime
+                            html +=   '</div>'
+                            html +=   '</div>'
+                        }
                         html +=    '</div>';
                     }
 
@@ -375,8 +415,8 @@
         // alert(messageId);
         layer.open({
             type: 2,
-            area: ['550px', '500px'],
-            content: '/message/toLayEdit'
+            area: ['550px', '326px'],
+            content: '/reply/toLayEdit?messageId='+messageId
         })
     }
 

@@ -8,14 +8,32 @@
     <result column="REPLY_CONTENT" property="replyContent" jdbcType="VARCHAR" />
     <result column="REPLY_TIME" property="replyTime" jdbcType="TIMESTAMP" />
   </resultMap>
+    <!--自定义Map-->
+    <resultMap id="replyMap" type="com.xh.xiaoyiduo.admin.lygl.pojo.B_GOOD_MESSAGE_REPLY" >
+        <id column="REPLY_ID" property="replyId" jdbcType="VARCHAR" />
+        <result column="MESSAGE_ID" property="messageId" jdbcType="VARCHAR" />
+        <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+        <result column="REPLY_CONTENT" property="replyContent" jdbcType="VARCHAR" />
+        <result column="REPLY_TIME" property="replyTime" jdbcType="TIMESTAMP" />
+        <result column="URL" property="userImgUrl" jdbcType="VARCHAR" />
+        <result column="NICKNAME" property="nickname" jdbcType="VARCHAR" />
+    </resultMap>
   <sql id="Base_Column_List" >
     REPLY_ID, MESSAGE_ID, USER_ID, REPLY_CONTENT, REPLY_TIME
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from B_GOOD_MESSAGE_REPLY
-    where REPLY_ID = #{replyId,jdbcType=VARCHAR}
+  <!--查询单个留言信息-->
+  <select id="selectByPrimaryKey" resultMap="replyMap" parameterType="java.lang.String" >
+      select b.*, u.nickname, s.url
+      from B_GOOD_MESSAGE_REPLY b, S_USER u, RESOURCES s
+      where b.user_id = s.source_id
+      and b.user_id = u.user_id
+      and b.message_id = #{messageId,jdbcType=VARCHAR}
+      ORDER BY b.reply_time desc
+
+      <!--select -->
+    <!--<include refid="Base_Column_List" />-->
+    <!--from B_GOOD_MESSAGE_REPLY-->
+    <!--where MESSAGE_ID = #{messageId,jdbcType=VARCHAR}-->
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from B_GOOD_MESSAGE_REPLY

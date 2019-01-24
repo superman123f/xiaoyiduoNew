@@ -6,15 +6,26 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="/WEB-INF/pages/header.jsp" %>
 <html>
 <head>
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="${ctx}/styles/layui/css/layui.css">
 </head>
+<style>
+    .send-msg-btn{
+        float: right;
+        margin-right: 10px;
+        margin-top: -12px;
+    }
+</style>
 <body>
+<!--隐藏域-->
+<input id="messageId" type="hidden" value="${messageId}"></input>
+
 <textarea id="mylayedit" style="display: none;"></textarea>
 <div class="site-demo-button" style="margin-top: 20px;">
-    <button class="layui-btn site-demo-layedit" data-type="content">发表留言</button>
+    <button class="layui-btn site-demo-layedit send-msg-btn" data-type="content">发表留言</button>
 </div>
 </body>
 <script type="text/javascript" src="${ctx}/scripts/jquery.min.js"></script>
@@ -45,19 +56,19 @@
             var active = {
                 content: function(){
                     // alert(layedit.getContent(layedit_index)); //获取编辑器内容
-                    var goodId = $("#goodId").val(); // 商品编号
-                    var messageContent = layedit.getContent(layedit_index); // 留言内容
+                    var messageId = $("#messageId").val(); // 商品编号
+                    var replyContent = layedit.getContent(layedit_index); // 留言内容
 
-                    $.post("/message/insertMessage",
+                    $.post("/reply/insertReplyMessage",
                         {
-                            goodId: goodId,
-                            messageContent: messageContent
+                            messageId: messageId,
+                            replyContent: replyContent
                         },
                         function(data){
                             if(data.success){
                                 layer.msg(data.msg);
-                                getMessages(curr, limit);
-                                messageCount = data.messageCount;
+                                // getMessages(curr, limit);
+                                // messageCount = data.messageCount;
                             } else {
                                 layer.msg(data.msg);
                             }

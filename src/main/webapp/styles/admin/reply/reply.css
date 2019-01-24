@@ -7,6 +7,11 @@
 .messageArea .user{
     display: inline;
 }
+.messageArea .user img{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
 .messageArea .message{
     display: inline;
     margin-left: 13px;
@@ -19,4 +24,33 @@
     cursor: pointer;
 }
 .messageArea .message_time{
+}
+
+/*回复信息样式*/
+.replyArea{
+    margin: -8px 23px 16px 38px;
+}
+.replyArea .reply_content{
+    margin-bottom: 8px
+}
+.replyArea .reply_user{
+    display: inline;
+}
+.replyArea .reply_user img{
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+}
+.replyArea .reply{
+    display: inline;
+    margin-left: 13px;
+}
+.replyArea .reply a{
+    color: #2c7bef;
+}
+.replyArea .reply a:hover{
+    color: #0257d4;
+    cursor: pointer;
+}
+.replyArea .reply_time{
 }

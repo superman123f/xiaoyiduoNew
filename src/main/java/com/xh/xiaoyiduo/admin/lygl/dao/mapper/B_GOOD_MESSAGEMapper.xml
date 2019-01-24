@@ -17,6 +17,7 @@
     <result column="MESSAGE_TIME" property="messageTime" jdbcType="TIMESTAMP" />
     <result column="URL" property="userImgUrl" jdbcType="VARCHAR" />
     <result column="NICKNAME" property="nickname" jdbcType="VARCHAR" />
+    <collection property="replyList" column="MESSAGE_ID" select="com.xh.xiaoyiduo.admin.lygl.dao.B_GOOD_MESSAGE_ReplyMapper.selectByPrimaryKey"/>
   </resultMap>
   <sql id="Base_Column_List" >
     MESSAGE_ID, GOOD_ID, USER_ID, MESSAGE_CONTENT, MESSAGE_TIME

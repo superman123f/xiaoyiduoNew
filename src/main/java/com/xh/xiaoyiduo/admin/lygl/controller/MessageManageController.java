@@ -1,6 +1,7 @@
 package com.xh.xiaoyiduo.admin.lygl.controller;
 
 import com.xh.xiaoyiduo.admin.lygl.pojo.B_GOOD_MESSAGE;
+import com.xh.xiaoyiduo.admin.lygl.pojo.B_GOOD_MESSAGE_REPLY;
 import com.xh.xiaoyiduo.admin.lygl.service.IMessageManageService;
 import com.xh.xiaoyiduo.shop.pojo.S_USER;
 import org.apache.shiro.SecurityUtils;
@@ -19,11 +20,6 @@ import java.util.*;
 public class MessageManageController {
     @Autowired
     IMessageManageService messageManageService;
-
-    @RequestMapping("/toLayEdit")
-    public String toLayEdit(){
-        return "/admin/lygl/layedit";
-    }
 
     /**
      * 添加留言信息
