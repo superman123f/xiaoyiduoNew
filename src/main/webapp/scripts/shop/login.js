@@ -55,7 +55,26 @@ $(function(){
             // alert('提交成功！');
             $("#authCode").val('');
             draw(show_num);
-            return true;
+
+            // 异步提交表单
+            $.ajax({
+                type: 'POST', // 方法类型
+                dataType: 'json', // 逾期服务器返回的数据类型
+                url: '/user/login', // url
+                data: $('#myForm').serialize(), // 序列化表单数据
+                success: function(data){
+                    if(data.success){
+                       window.location.href = '/shop/commodity';
+                    } else {
+                        $("#mySpan").html('用户名或密码错误').css("color", 'red');
+                    }
+                },
+                error: function(){
+                    // alert('异常');
+                    $("#mySpan").html('用户名或密码错误').css("color", 'red');
+                }
+            });
+            // return true;
 
         }else{
             layer.msg('验证码错误！请重新输入');

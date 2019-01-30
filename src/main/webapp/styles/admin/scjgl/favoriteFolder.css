@@ -10,3 +10,37 @@
     padding-bottom: 180px;
     padding-top: 21px;
 }
+
+/*查看用户信息样式*/
+.userHead{
+    position: absolute;
+    width: 100px;
+    text-align: center;
+}
+.userHead .userImg {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 9px;
+}
+
+.userInfo_content{
+    position: relative;
+    padding-top: 5%;
+    padding-left: 19%;
+    padding-bottom: 105px;
+}
+
+.userInfo_content .userInfo_message {
+    margin-left: 144px;
+    margin-top: 5px;
+    position: relative;
+}
+
+.crumb{
+    margin-top: 14px;
+}
+.chang_info{
+
+}
+

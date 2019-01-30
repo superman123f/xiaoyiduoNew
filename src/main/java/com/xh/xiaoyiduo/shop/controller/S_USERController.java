@@ -183,11 +183,13 @@ public class S_USERController {
      * @return
      */
     @RequestMapping("/login")
-
-    public String login(String userAccount, String password, Model model){
+    @ResponseBody
+    public Map<String, Object> login(String userAccount, String password, Model model){
         System.out.println("登录用户校验身份");
         System.out.println("用户名： " + userAccount);
         System.out.println("密码： " + password);
+
+        Map<String, Object> result = new HashMap<>();
 
         UsernamePasswordToken token = new UsernamePasswordToken(userAccount, password);
         Subject currentUser = SecurityUtils.getSubject();
@@ -199,20 +201,26 @@ public class S_USERController {
             String userId = user.getUserId();
             user = userService.selectByUserId(userId);
             model.addAttribute("currentUser", user);
+            result.put("success", true);
+            result.put("msg", "登录成功");
         } catch (UnknownAccountException e) {
             System.out.println("用户名不存在");
-            return "/shop/login";
-
+//            return "/shop/login";
+            result.put("success", false);
+            result.put("msg", "用户名不存在");
         } catch (IncorrectCredentialsException e) {
             System.out.println("密码错误");
-            return "/shop/login";
+//            return "/shop/login";
+            result.put("success", false);
+            result.put("msg", "密码错误");
         }
 
 //        S_USER user = userService.selectByPhone(userAccount);
 //        userService.selectByStudentNo(userAccount);
 //        userService.selectByNickname(userAccount);
 
-        return "forward:/good/getSonGoodList";
+//        return "forward:/good/getSonGoodList";
+        return result;
     }
 
     /**
@@ -555,7 +563,7 @@ public class S_USERController {
     }
 
     /**
-     * 前端,用户查看个人信息
+     * 前端-查看个人信息
      * @return
      */
     @RequestMapping("/seeUserInfo")
@@ -567,5 +575,16 @@ public class S_USERController {
             model.addAttribute("user", user);
         }
         return "/shop/user/seeUserInfo";
+    }
+    /**
+     * 前端-编辑个人资料
+     * @param userId
+     * @return
+     */
+    @RequestMapping("/userInfo1")
+    public String userInfo1(String userId, Model model){
+        S_USER user = userService.selectByUserId(userId);
+        model.addAttribute("user", user);
+        return "/shop/user/editUserInfo";
     }
 }

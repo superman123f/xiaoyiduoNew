@@ -372,3 +372,11 @@ i{font-style: normal;}
 .userHead:hover a{
     color: #157DCF;
 }
+
+/*登录*/
+.my_span{
+    height: 16px;
+    margin-bottom: 10px;
+    margin-top: -19px;
+    color: red;
+}

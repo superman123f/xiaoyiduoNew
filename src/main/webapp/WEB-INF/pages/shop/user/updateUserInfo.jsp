@@ -18,10 +18,6 @@
 
 <body>
 <%@ include file="../../shop_header.jsp"%> <!--引入头部jsp样式-->
-
-<!--隐藏域-->
-<input id="userId" type="hidden" value="<shiro:principal property="userId"></shiro:principal>">
-
 <div class="content content-nav-base commodity-content">
     <div class="main-nav">
         <div class="inner-cont0">
@@ -71,89 +67,80 @@
             <%--</div>--%>
         <%--</div>--%>
     <%--</div>--%>
-    <div class="data-cont-wrap w1200">
-        <div class="crumb">
-            <a href="/shop/commodity">首页</a>
-            <span>></span>
-            <a href="javascript:;">个人资料</a>
-        </div>
-        <!--用户头像-->
-        <div class="userInfo_content">
-        <c:set value="${user.resources}" var="userResources"/>
-        <div class="userHead">
-            <c:forEach items="${userResources}" var="resource">
-                <img id="userImg" class="userImg" src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}">
-            </c:forEach>
-            <a id="cutImg1" class="cutImg1">修改头像</a>
-        </div>
 
-        <div class="userInfo_message">
-            <form class="layui-form" action="/user/updateUserInfo" method="post">
-                <%--隐藏用户id--%>
-                <input id="userId" type="hidden" name="userId" value="${user.userId}">
+    <!--用户头像-->
+    <div>
+    <c:set value="${user.resources}" var="userResources"/>
+    <div class="userHead">
+        <c:forEach items="${userResources}" var="resource">
+            <img id="userImg" class="userImg" src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}">
+        </c:forEach>
+        <a id="cutImg1" class="cutImg1">修改头像</a>
+    </div>
 
-                <div class="layui-form-item">
-                    <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学号:&nbsp;&nbsp;&nbsp;&nbsp;${user.studentNo}</label>
-                    <%--<div class="layui-input-block">--%>
-                        <%--${user.studentNo}--%>
-                        <%--&lt;%&ndash;<input type="text" id="studentNo" name="studentNo" autocomplete="off" class="layui-input" value="${user.studentNo}" placeholder="请输入学号">&ndash;%&gt;--%>
-                    <%--</div>--%>
-                </div>
+    <div style="margin:16px 19px 0px 0px;">
+        <form class="layui-form" action="/user/updateUserInfo" method="post">
+            <%--隐藏用户id--%>
+            <input id="userId" type="hidden" name="userId" value="${user.userId}">
 
-                <div class="layui-form-item">
-                    <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;昵称:&nbsp;&nbsp;&nbsp;&nbsp;${user.nickname}</label>
-                    <%--<div class="layui-input-block">--%>
-                        <%--${user.nickname}--%>
-                        <%--<input type="text" id="nickname" name="nickname" autocomplete="off" name="studentNo" class="layui-input" value="${user.nickname}" placeholder="请输入昵称">--%>
-                    <%--</div>--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>学号</label>
+                <div class="layui-input-block">
+                    ${user.studentNo}
+                    <%--<input type="text" id="studentNo" name="studentNo" autocomplete="off" class="layui-input" value="${user.studentNo}" placeholder="请输入学号">--%>
                 </div>
-                <div class="layui-form-item">
-                    <label>真实姓名:&nbsp;&nbsp;&nbsp;&nbsp;${user.realName}</label>
-                    <%--<div class="layui-input-block">--%>
-                        <%--${user.realName}--%>
-                        <%--<input type="text" id="realName" name="realName" autocomplete="off" class="layui-input" value="${user.realName}" placeholder="请输入真实姓名">--%>
-                    <%--</div>--%>
-                </div>
-                <div class="layui-form-item">
-                    <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别:&nbsp;&nbsp;&nbsp;&nbsp;${user.sex}</label>
-                    <%--<div class="layui-input-block">--%>
-                        <%--${user.sex}--%>
-                        <%--&lt;%&ndash;<input type="text" id="sex" name="sex" autocomplete="off" class="layui-input" value="${user.sex}" placeholder="请输入性别">&ndash;%&gt;--%>
-                    <%--</div>--%>
-                </div>
-                <div class="layui-form-item">
-                    <label>电子邮箱:&nbsp;&nbsp;&nbsp;&nbsp;${user.email}</label>
-                    <%--<div class="layui-input-block">--%>
-                        <%--${user.email}--%>
-                        <%--&lt;%&ndash;<input type="text" id="email" name="email" autocomplete="off" class="layui-input" value="${user.email}" placeholder="请输入邮箱">&ndash;%&gt;--%>
-                    <%--</div>--%>
-                </div>
-                <div class="layui-form-item">
-                    <label>&nbsp;&nbsp;&nbsp;手机号:&nbsp;&nbsp;&nbsp;&nbsp;${user.phone}</label>
-                    <%--<div class="layui-input-block">--%>
-                        <%--${user.phone}--%>
-                        <%--&lt;%&ndash;<input type="text" id="phone" name="phone" autocomplete="off" class="layui-input" value="${user.phone}" placeholder="请输入手机号">&ndash;%&gt;--%>
-                    <%--</div>--%>
-                </div>
-                <div class="layui-form-item">
-                    <label>宿舍地址:&nbsp;&nbsp;&nbsp;&nbsp;${user.dormitoryAddress}</label>
-                    <%--<div class="layui-input-block">--%>
-                        <%--&lt;%&ndash;<input type="text" id="dormitoryAddress" name="dormitoryAddress" autocomplete="off" class="layui-input" value="${user.dormitoryAddress}" placeholder="请输入宿舍地址">&ndash;%&gt;--%>
-                    <%--</div>--%>
-                </div>
-                <div class="chang_info">
-                    <a id="changeInfo" class="cutImg1">修改资料</a>
-                </div>
+            </div>
 
-                <%--<div class="layui-form-item">--%>
-                    <%--<div class="layui-input-block">--%>
-                        <%--<input id="saveBtn" type="button" class="layui-btn" value="保存">--%>
-                        <%--<input type="reset" class="layui-btn" value="重置">--%>
-                    <%--</div>--%>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>昵称</label>
+                <div class="layui-input-block">
+                    ${user.nickname}
+                    <%--<input type="text" id="nickname" name="nickname" autocomplete="off" name="studentNo" class="layui-input" value="${user.nickname}" placeholder="请输入昵称">--%>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">真实姓名</label>
+                <div class="layui-input-block">
+                    ${user.realName}
+                    <%--<input type="text" id="realName" name="realName" autocomplete="off" class="layui-input" value="${user.realName}" placeholder="请输入真实姓名">--%>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">性别</label>
+                <div class="layui-input-block">
+                    ${user.sex}
+                    <%--<input type="text" id="sex" name="sex" autocomplete="off" class="layui-input" value="${user.sex}" placeholder="请输入性别">--%>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">电子邮箱</label>
+                <div class="layui-input-block">
+                    ${user.email}
+                    <%--<input type="text" id="email" name="email" autocomplete="off" class="layui-input" value="${user.email}" placeholder="请输入邮箱">--%>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>手机号</label>
+                <div class="layui-input-block">
+                    ${user.phone}
+                    <%--<input type="text" id="phone" name="phone" autocomplete="off" class="layui-input" value="${user.phone}" placeholder="请输入手机号">--%>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">宿舍地址</label>
+                <div class="layui-input-block">
+                    <%--<input type="text" id="dormitoryAddress" name="dormitoryAddress" autocomplete="off" class="layui-input" value="${user.dormitoryAddress}" placeholder="请输入宿舍地址">--%>
+                </div>
+            </div>
+
+            <%--<div class="layui-form-item">--%>
+                <%--<div class="layui-input-block">--%>
+                    <%--<input id="saveBtn" type="button" class="layui-btn" value="保存">--%>
+                    <%--<input type="reset" class="layui-btn" value="重置">--%>
                 <%--</div>--%>
-            </form>
-        </div>
-        </div>
+            <%--</div>--%>
+        </form>
+    </div>
     </div>
 </div>
 <%@ include file="/WEB-INF/pages/shop_rooter.jsp" %> <!--引入尾部样式-->
@@ -196,6 +183,7 @@
 <%--</script>--%>
 <script>
     function change(ev) {
+        // layer.alert("fdsf");
         var element_id = document.getElementById("element_id");
         var event = window.event || ev;
         var files = "";
@@ -331,25 +319,7 @@
         });
     })
 
-    //浏览器窗口大小
-    var window_height = $(window).height() - 100;
-    var window_width = $(window).width() - 600;
-
     $(function(){
-        // 修改用户资料
-        $("#changeInfo").click(function(){
-            var userId = $("#userId").val();
-            layer.open({
-                type: 2,
-                title: '修改资料',
-                area: ['650px', '500px'],
-                content: '/user/userInfo1?userId=' + userId,
-                end: function(){
-                    location.reload();
-                }
-            });
-        });
-
         $("#cutImg1").click(function(){
             //页面层
             var editImg = layer.open({

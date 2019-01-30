@@ -52,9 +52,16 @@
     <div class="login-bg">
         <div class="login-cont w1200">
             <div class="form-box">
-                <form class="layui-form" action="/user/login" onsubmit="return login();" method="post">
+                <form id="myForm" class="layui-form" action="#" onsubmit="return false;" method="post">
                     <legend style="padding:40px 0;">用户登录</legend>
+                    <div class="my_span">
+                        <span id="mySpan"></span>
+                    </div>
                     <div class="layui-form-item">
+                        <%--<div class="layui-input-inline">--%>
+                            <%--<i class="layui-icon layui-icon-cellphone iphone-icon"></i>--%>
+                            <%--<input type="tel" name="userAccount" id="phone" lay-verify="required" placeholder="手机号 / 学号 / 昵称" autocomplete="off" class="layui-input">--%>
+                        <%--</div>--%>
                         <div class="layui-inline iphone">
                             <div class="layui-input-inline">
                                 <i class="layui-icon layui-icon-cellphone iphone-icon"></i>
@@ -87,7 +94,7 @@
 
                     <div class="layui-form-item login-btn">
                         <div class="layui-input-block" style="padding-top:7px;">
-                            <button class="layui-btn" type="submit" lay-filter="demo1" onclick="">登录</button>
+                            <button class="layui-btn" type="button" lay-filter="demo1" onclick="login();">登录</button>
                             <%--lay-submit--%>
                         </div>
                     </div>
