@@ -31,6 +31,18 @@ layui.use(['table', 'layer', 'form'], function(){
             offset: '20px',
             area: [dw_width, dw_height],
             content: dw_url,
+            end: function(){
+                //执行重载
+                table.reload('userId', //与table中的id要一致
+                    {
+                        page:
+                            {
+                                curr: 1 //重新从第 1 页开始
+                            }
+                        , where: {}//这里传参  向后台
+                        , method: 'post'
+                    });
+            },
             cancel: function (index, layero) {
                 // $(".layui-laypage-btn").trigger('click');
             }
