@@ -41,7 +41,14 @@
         <div class="layui-form-item">
             <label class="layui-form-label">性别</label>
             <div class="layui-input-block">
-                <input type="text" id="sex" name="sex" autocomplete="off" class="layui-input" value="${user.sex}" placeholder="请输入性别">
+                <c:if test="${user.sex == '男'}">
+                    <input type="radio" name="sex" value="男" title="男" checked>
+                    <input type="radio" name="sex" value="女" title="女">
+                </c:if>
+                <c:if test="${user.sex == '女'}">
+                    <input type="radio" name="sex" value="男" title="男">
+                    <input type="radio" name="sex" value="女" title="女" checked>
+                </c:if>
             </div>
         </div>
         <div class="layui-form-item">
@@ -88,7 +95,8 @@
         var studentNo = $("#studentNo").val();
         var nickname = $("#nickname").val();
         var realName = $("#realName").val();
-        var sex = $("#sex").val();
+        // 获取选中单选按钮的值
+        var sex = $('input[name="sex"]:checked').val();
         var email = $("#email").val();
         var phone = $("#phone").val();
         var dormitoryAddress = $("#dormitoryAddress").val();

@@ -52,10 +52,6 @@ $(function(){
             $("#authCode").focus();
             return false;
         }else if(val == num){
-            // alert('提交成功！');
-            $("#authCode").val('');
-            draw(show_num);
-
             // 异步提交表单
             $.ajax({
                 type: 'POST', // 方法类型
@@ -74,7 +70,6 @@ $(function(){
                     $("#mySpan").html('用户名或密码错误').css("color", 'red');
                 }
             });
-            // return true;
 
         }else{
             layer.msg('验证码错误！请重新输入');

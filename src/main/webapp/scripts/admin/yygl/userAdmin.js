@@ -21,16 +21,18 @@ layui.use(['table', 'layer', 'form'], function(){
         }
         if (dw_width == undefined) dw_width = '50%';
         if (dw_height == undefined) dw_height = '50%';
+
+        // 新增
         layer.open({
             type: 2,
             title: dw_title,
             shadeClose: true,
             shade: 0.8,
+            offset: '20px',
             area: [dw_width, dw_height],
             content: dw_url,
             cancel: function (index, layero) {
-                $(".layui-laypage-btn").trigger('click');
-                // return false;
+                // $(".layui-laypage-btn").trigger('click');
             }
         });
     });
@@ -194,7 +196,7 @@ layui.use(['table', 'layer', 'form'], function(){
                     shadeClose: false,
                     shade: 0.8,
                     content: '/user/userInfo?userId=' + data.userId, //跳转的页面
-                    area: ['880px','660px'],
+                    area: ['880px','500px'],
                     cancel: function (index)
                     {
                         $(".layui-layer-molv").click(); ///这里用于关闭Open时触发回调函数  刷新父页面数据  一定要引入Jquery
@@ -228,10 +230,14 @@ layui.use(['table', 'layer', 'form'], function(){
                     title: '编辑用户信息',
                     // skin: 'layui-layer-molv', //样式
                     shadeClose: false,
+                    offset: '20px',
                     shade: 0.8,
-                    area: ['880px', '550px'],
-                    maxmin: true,
+                    area: ['880px', '500px'],
+                    // maxmin: true, //最大最小化
                     content: '/user/userInfo?userId=' + data.userId,//跳转的页面
+                    end: function(){ // open撤销时触发回调函数
+                        $(".layui-laypage-btn").click(); // 这是分页工具中的“确定”按钮，相当于点击当前页，查询结果
+                    },
                     cancel: function (index)
                     {
                         $(".layui-laypage-btn").click();//这里用于关闭Open时触发回调函数  刷新父页面数据  一定要引入Jquery

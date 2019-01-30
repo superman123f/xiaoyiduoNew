@@ -41,7 +41,14 @@
         <div class="layui-form-item">
             <label class="layui-form-label">性别</label>
             <div class="layui-input-block">
-                <input type="text" id="sex" name="sex" autocomplete="off" class="layui-input" value="${user.sex}" placeholder="请输入性别">
+                <c:if test="${user.sex == '男' or empty user.sex}">
+                    <input type="radio" name="sex" value="男" title="男" checked>
+                    <input type="radio" name="sex" value="女" title="女">
+                </c:if>
+                <c:if test="${user.sex == '女'}">
+                    <input type="radio" name="sex" value="男" title="男">
+                    <input type="radio" name="sex" value="女" title="女" checked>
+                </c:if>
             </div>
         </div>
         <div class="layui-form-item">
@@ -66,7 +73,7 @@
         <div class="layui-form-item">
             <div class="layui-input-block">
                 <input id="saveBtn" type="button" class="layui-btn" value="保存">
-                <input type="reset" class="layui-btn" value="重置">
+                <input type="button" class="layui-btn" value="关闭" onclick="myClose();">
             </div>
         </div>
     </form>
@@ -87,7 +94,8 @@
         var studentNo = $("#studentNo").val();
         var nickname = $("#nickname").val();
         var realName = $("#realName").val();
-        var sex = $("#sex").val();
+        // 获取选中单选按钮的值
+        var sex = $('input[name="sex"]:checked').val();
         var email = $("#email").val();
         var phone = $("#phone").val();
         var dormitoryAddress = $("#dormitoryAddress").val();
@@ -105,15 +113,19 @@
             },
             function(data){
                 if(data.success){
-                    // alert(data.msg);
-                    layer.msg(data.msg);
+                    var myIndex = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(myIndex);
                 } else {
-                    // alert(data.msg);
                     layer.msg(data.msg);
                 }
             });
     });
 
+    // 关闭iframe自身
+    function myClose(){
+        var myIndex = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(myIndex);
+    }
     //异步实例
     // $("button").click(function(){
     //     $.post("/try/ajax/demo_test_post.php",
