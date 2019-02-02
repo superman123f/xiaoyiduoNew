@@ -31,7 +31,7 @@
 <input type="hidden" id="secondPrice" value="${goodDetail.secondPrice}">
 <input type="hidden" id="noFavorite" value="${noFavorite}">
 <input type="hidden" id="messageCount" value="${messageCount}">
-
+<input type="text" id="isLogin" value="<shiro:principal property="userId"></shiro:principal>">
 
 
 <div class="content content-nav-base datails-content">
@@ -356,31 +356,43 @@
                     // alert(layedit.getContent(layedit_index)); //获取编辑器内容
                     var goodId = $("#goodId").val(); // 商品编号
                     var messageContent = layedit.getContent(layedit_index); // 留言内容
-                    // alert(messageContent);
-                    if(messageContent == "" || messageContent == null || messageContent == 'undefined'){
-                        layer.alert("输入内容不能为空");
-                    } else {
-                        $.post("/message/insertMessage",
-                            {
-                                goodId: goodId,
-                                messageContent: messageContent
-                            },
-                            function(data){
-                                if(data.success){
-                                    layer.msg(data.msg);
-                                    getMessages(curr, limit);
-                                    messageCount = data.messageCount;
-                                } else {
-                                    // layer.msg(data.msg);
-                                    layer.confirm("您还未登录，是否现在登录", {
-                                        btn: ['现在就去', '我在想想'],
-                                        btnAlign: 'c'
-                                    }, function(index){
-                                        layer.close(index);
-                                        location.href = "/shop/login";
-                                    });
-                                }
-                            });
+                    var isLogin = $("#isLogin").val(); // 判断用户是否登录
+
+                    if(isLogin){
+                        // 用户已经登录
+                        if(messageContent == "" || messageContent == null || messageContent == 'undefined'){
+                            layer.alert("输入内容不能为空");
+                        } else {
+                            $.post("/message/insertMessage",
+                                {
+                                    goodId: goodId,
+                                    messageContent: messageContent
+                                },
+                                function(data){
+                                    if(data.success){
+                                        layer.msg(data.msg);
+                                        getMessages(curr, limit);
+                                        messageCount = data.messageCount;
+                                    } else {
+                                        // layer.msg(data.msg);
+                                        layer.confirm("您还未登录，是否现在登录", {
+                                            btn: ['现在就去', '我在想想'],
+                                            btnAlign: 'c'
+                                        }, function(index){
+                                            layer.close(index);
+                                            location.href = "/shop/login";
+                                        });
+                                    }
+                                });
+                        }
+                    } else { // 未登录，提示是否“现在登录”
+                        layer.confirm("您还未登录，是否现在登录", {
+                            btn: ['现在就去', '我在想想'],
+                            btnAlign: 'c'
+                        }, function(index){
+                            layer.close(index);
+                            location.href = "/shop/login";
+                        });
                     }
 
                 }

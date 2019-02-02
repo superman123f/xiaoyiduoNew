@@ -66,9 +66,9 @@ public class ShiroConfiguration {
     public ShiroFilterFactoryBean shiroFilter(@Qualifier("securityManager") SecurityManager manager) {
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
         bean.setSecurityManager(manager);
-        //配置登录的url和登录成功的url
+        // 未登录跳转的页面
         // bean.setLoginUrl("/s/login");
-        bean.setLoginUrl("/user/login");
+        bean.setLoginUrl("/shop/commodity");
         // 登录成功跳转的页面
         bean.setSuccessUrl("/s/home");
         //设置未授权跳转的页面
