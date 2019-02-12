@@ -399,11 +399,6 @@ public class S_USERController {
             count = i.intValue();
             System.out.println("account exist");
         }
-//        if(i != null){
-//            count = i.intValue();
-//        } else {
-//            System.out.println("该用户不存在");
-//        }
 
         List<S_USER> userList = userService.getAllUsers(limit, page, studentNo, nickname, realName);
         String userListJson  = JSON.toJSONString(userList); //将对象转换成json
@@ -421,9 +416,6 @@ public class S_USERController {
     @RequestMapping("/searchUser")
     @ResponseBody
     public String searchUser(String limit, String page, String studentNo, String nickname, String realName, HttpServletResponse response){
-        System.out.println("=======================");
-        System.out.println("搜索学号为： " + studentNo);
-
         Integer count = userService.getUserCount(studentNo, nickname, realName);
 
         List<S_USER> userList = userService.fuzzyQueryUsers(limit, page, studentNo, nickname, realName);
@@ -434,6 +426,16 @@ public class S_USERController {
         return  json;
     }
 
+    /**
+     * 导出用户数据
+     * @return
+     */
+    @RequestMapping("exportExcel")
+    @ResponseBody
+    public List<S_USER> exportExcel(){
+        List<S_USER> userList = userService.exportUserExcel();
+        return userList;
+    }
 
     /**
      * 删除用户

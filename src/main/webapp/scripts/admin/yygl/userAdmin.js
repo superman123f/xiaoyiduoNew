@@ -50,8 +50,9 @@ layui.use(['table', 'layer', 'form'], function(){
     });
 
     //第一个实例
-    table.render({
+    var ins1 = table.render({
         id: 'userId', //隐藏的列
+        title: '用户信息Excel表',
         elem: '#demo'
         ,url: '/user/getAllUsers' //数据接口
         // ,where: {studentNo: "3"}
@@ -116,16 +117,33 @@ layui.use(['table', 'layer', 'form'], function(){
             },
 
             //导出数据
-            // exportExl: function(){
-            // alert(111);
-            // alert(222);
-            //将上述表格示例导出为 csv 文件
-            // table.exportFile(ins1.config.id, data, 'xls'); //data 为该实例中的任意数量的数据
-            // table.exportFile(['名字','性别','年龄'], [
-            //     ['张三','男','20'],
-            //     ['李四','女','18'],
-            //     ['王五','女','19']
-            // ], 'xls'); //默认导出 csv，也可以为：xls
+            exportExl: function() {
+                $.post("/user/exportExcel", {
+
+                }, function(data){
+                    console.log(data);
+                    alert(data);
+                    if(data != undefined) {
+                        // table.exportFile(['学号','昵称','真实姓名','性别','电子邮箱','手机号','宿舍地址'],
+                        //     data, 'xls'); //默认导出 csv，也可以为：xls
+                        table.exportFile(ins1.config.id,
+                            data, 'xls'); //默认导出 csv，也可以为：xls
+                    }
+
+                });
+                //将上述表格示例导出为 csv 文件
+                // table.exportFile(ins1.config.id, data, 'xls'); //data 为该实例中的任意数量的数据
+                // table.exportFile(ins1.config.id, [
+                //     ['张三','男','20'],
+                //     ['李四','女','18'],
+                //     ['王五','女','19']
+                // ], 'xls'); //默认导出 csv，也可以为：xls
+                //将上述表格示例导出为 csv 文件
+                // alert(ins1.config.id);
+                // alert(data);
+                // table.exportFile(ins1.config.id, data); //data 为该实例中的任意数量的数据
+                // alert(333);
+            },
 
             //批量删除
             deleteData: function() {

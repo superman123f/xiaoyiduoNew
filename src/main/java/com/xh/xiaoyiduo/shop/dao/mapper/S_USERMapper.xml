@@ -42,10 +42,24 @@
       <result column="SOURCE_ID" property="sourceId"/>
     </collection>
   </resultMap>
+    <!--导出exportMap-->
+    <resultMap id="exportMap" type="com.xh.xiaoyiduo.shop.pojo.S_USER">
+        <result column="STUDENT_NO" property="studentNo" />
+        <result column="NICKNAME" property="nickname" />
+        <result column="REAL_NAME" property="realName" />
+        <result column="SEX" property="sex" />
+        <result column="EMAIL" property="email" />
+        <result column="PHONE" property="phone" />
+        <result column="DORMITORY_ADDRESS" property="dormitoryAddress" />
+        <result column="CREATE_TIME" property="createTime" />
+    </resultMap>
   <sql id="Base_Column_List" >
     USER_ID, STUDENT_NO, NICKNAME, PASSWORD, REAL_NAME, SEX, EMAIL, PHONE, DORMITORY_ADDRESS, CREATE_TIME
   </sql>
 
+  <sql id="Export_Column_List" >
+    STUDENT_NO, NICKNAME, REAL_NAME, SEX, EMAIL, PHONE, DORMITORY_ADDRESS, CREATE_TIME
+  </sql>
   <!--根据用户编号查询-->
   <select id="selectByUserId" resultMap="userMap" parameterType="java.lang.String" >
     select u.*, r.*, p.*, rs.* from S_USER u
@@ -198,6 +212,13 @@
     ) WHERE rn > #{pageSize} * ( #{currentPage} - 1)
   </select>
 
+  <!--导出用户数据-->
+  <select id="exportUserExcel" resultMap="exportMap" parameterType="java.lang.String">
+    select
+    <include refid="Export_Column_List" />
+    from S_USER
+    order by create_time desc
+  </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from S_USER

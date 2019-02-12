@@ -82,6 +82,16 @@ public class S_USERServiceImpl implements IS_USERService {
         return userMapper.fuzzyQueryUsers(pageSize, currentPage, studentNo, nickname, realName);
     }
 
+    /**
+     * 导出用户数据
+     * @return
+     */
+    @Override
+    public List<S_USER> exportUserExcel() {
+        List<S_USER> userList = userMapper.exportUserExcel();
+        return userList;
+    }
+
     @Override
     public int updateUserInfoByUserId(S_USER user) {
         return userMapper.updateUserInfoByUserId(user);

@@ -28,6 +28,8 @@ public interface S_USERMapper {
 
     List<S_USER> fuzzyQueryUsers(@Param("pageSize") String pageSize, @Param("currentPage") String currentPage, @Param("studentNo") String studentNo, @Param("nickname")String nickname, @Param("realName")String realName); //模糊查询用户
 
+    List<S_USER> exportUserExcel(); // 导出用户数据
+
     int updateUserInfoByUserId(S_USER user); //更新用户信息
 
     int updateByPrimaryKey(S_USER record);

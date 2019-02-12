@@ -91,11 +91,3 @@
 <script type="text/javascript" src="../../../styles/layui/layui.js"></script>
 <script type="text/javascript" src="${ctx}/scripts/admin/yygl/userAdmin.js"></script>
 </html>
-<script>
-    $(function(){
-        $("#exportExl").click(function(){
-            // alert(1);
-
-        });
-    });
-</script>

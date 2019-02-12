@@ -29,6 +29,8 @@ public interface IS_USERService {
 
     List<S_USER> fuzzyQueryUsers(String pageSize, String currentPage, String studentNo, String nickname, String realName); //模糊查询用户
 
+    List<S_USER> exportUserExcel(); // 导出用户数据
+
     int updateUserInfoByUserId(S_USER user); //更新用户信息
 
     int associateRoleByRoleId(String userRoleId, String userId, String roleId); //关联角色
