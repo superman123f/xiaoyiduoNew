@@ -90,10 +90,32 @@
   <!--获取用户总数-->
   <select id="getUserCount" resultType="Integer">
     select sum(1) from S_USER
-    <if test="studentNo != null" >
-      where
-        student_no like concat('%',concat(#{studentNo}, '%'))
-    </if>
+    <choose>
+      <when test="studentNo != null">
+        where student_no like concat('%',concat(#{studentNo}, '%'))
+        <if test="nickname != null">
+          and nickname like concat('%',concat(#{nickname}, '%'))
+        </if>
+        <if test="realName != null">
+          and real_name like concat('%',concat(#{realName}, '%'))
+        </if>
+      </when>
+      <otherwise>
+        <choose>
+          <when test="nickname != null">
+            nickname like concat('%',concat(#{nickname}, '%'))
+            <if test="realName != null">
+              real_name like concat('%',concat(#{realName}, '%'))
+            </if>
+          </when>
+          <otherwise>
+            <if test="realName != null">
+              real_name like concat('%',concat(#{realName}, '%'))
+            </if>
+          </otherwise>
+        </choose>
+      </otherwise>
+    </choose>
   </select>
 
   <!--获取所有用户-->
@@ -104,10 +126,32 @@
             select
               <include refid="Base_Column_List" />
             from S_USER
-              <if test="studentNo != null" >
-                where
-                student_no like concat('%',concat(#{studentNo}, '%'))
-              </if>
+            <choose>
+              <when test="studentNo != null">
+                where student_no like concat('%',concat(#{studentNo}, '%'))
+                <if test="nickname != null">
+                  and nickname like concat('%',concat(#{nickname}, '%'))
+                </if>
+                <if test="realName != null">
+                  and real_name like concat('%',concat(#{realName}, '%'))
+                </if>
+              </when>
+              <otherwise>
+                <choose>
+                  <when test="nickname != null">
+                    nickname like concat('%',concat(#{nickname}, '%'))
+                    <if test="realName != null">
+                      real_name like concat('%',concat(#{realName}, '%'))
+                    </if>
+                  </when>
+                  <otherwise>
+                    <if test="realName != null">
+                      real_name like concat('%',concat(#{realName}, '%'))
+                    </if>
+                  </otherwise>
+                </choose>
+              </otherwise>
+            </choose>
             order by create_time desc
         ) r
          where ROWNUM &lt;= #{pageSize} * #{currentPage}
@@ -122,7 +166,32 @@
           select
             <include refid="Base_Column_List" />
           from S_USER
-            where student_no like concat('%',concat(#{studentNo}, '%'))
+            <choose>
+              <when test="studentNo != null">
+                where student_no like concat('%',concat(#{studentNo}, '%'))
+                <if test="nickname != null">
+                    and nickname like concat('%',concat(#{nickname}, '%'))
+                </if>
+                <if test="realName != null">
+                    and real_name like concat('%',concat(#{realName}, '%'))
+                </if>
+              </when>
+              <otherwise>
+                <choose>
+                  <when test="nickname != null">
+                    nickname like concat('%',concat(#{nickname}, '%'))
+                    <if test="realName != null">
+                      real_name like concat('%',concat(#{realName}, '%'))
+                    </if>
+                  </when>
+                  <otherwise>
+                    <if test="realName != null">
+                      real_name like concat('%',concat(#{realName}, '%'))
+                    </if>
+                  </otherwise>
+                </choose>
+              </otherwise>
+            </choose>
             order by create_time desc
         ) r
       where ROWNUM &lt;= #{pageSize} * #{currentPage}

@@ -67,8 +67,8 @@ public class ShiroConfiguration {
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
         bean.setSecurityManager(manager);
         // 未登录跳转的页面
-        // bean.setLoginUrl("/s/login");
-        bean.setLoginUrl("/shop/commodity");
+         bean.setLoginUrl("/shop/login");
+//        bean.setLoginUrl("/shop/commodity");
         // 登录成功跳转的页面
         bean.setSuccessUrl("/s/home");
         //设置未授权跳转的页面

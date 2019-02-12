@@ -5,7 +5,6 @@ import com.sun.image.codec.jpeg.JPEGEncodeParam;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
 import com.xh.xiaoyiduo.utils.baidu.entity.CustomBean;
 import com.xh.xiaoyiduo.utils.baidu.entity.Results;
-import com.xh.xiaoyiduo.utils.baidu.entity.Student;
 import net.sf.ezmorph.bean.MorphDynaBean;
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;

@@ -23,11 +23,11 @@ public interface IS_USERService {
 
     S_USER selectByNickname(String nickname); //根据昵称查询
 
-    Integer getUserCount(String studentNo); //获取用户总数
+    Integer getUserCount(String studentNo, String nickname, String realName); //获取用户总数
 
-    List<S_USER> getAllUsers(String pageSize, String currentPage, String studentNo);  //获取所有用户
+    List<S_USER> getAllUsers(String pageSize, String currentPage, String studentNo, String nickname, String realName);  //获取所有用户
 
-    List<S_USER> fuzzyQueryUsers(String pageSize, String currentPage, String studentNo); //模糊查询用户
+    List<S_USER> fuzzyQueryUsers(String pageSize, String currentPage, String studentNo, String nickname, String realName); //模糊查询用户
 
     int updateUserInfoByUserId(S_USER user); //更新用户信息
 

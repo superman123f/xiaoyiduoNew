@@ -106,6 +106,13 @@
                     </dl>
                 </li>
 
+                <%--<li class="layui-nav-item">--%>
+                    <%--<a href="javascript:;">统计分析</a>--%>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" onclick="return false;">统计分析</a></dd>
+                    </dl>
+                <%--</li>--%>
+
                 <li class="layui-nav-item">
                     <a href="javascript:;">开发者工具</a>
                     <dl class="layui-nav-child">

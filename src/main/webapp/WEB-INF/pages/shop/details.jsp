@@ -31,7 +31,7 @@
 <input type="hidden" id="secondPrice" value="${goodDetail.secondPrice}">
 <input type="hidden" id="noFavorite" value="${noFavorite}">
 <input type="hidden" id="messageCount" value="${messageCount}">
-<input type="text" id="isLogin" value="<shiro:principal property="userId"></shiro:principal>">
+<input type="hidden" id="isLogin" value="<shiro:principal property="userId"></shiro:principal>">
 
 
 <div class="content content-nav-base datails-content">
@@ -452,6 +452,12 @@
                             layer.alert(data.msg)
                         }
                     } else {
+                        // layer.open({
+                        //     type: 2,
+                        //     title: '用户登录',
+                        //     area: ['500px', '500px'],
+                        //     content: '/shop/login',
+                        // });
                         layer.confirm("您还未登录，是否现在登录", {
                              btn: ['现在就去', '我在想想'],
                             btnAlign: 'c'

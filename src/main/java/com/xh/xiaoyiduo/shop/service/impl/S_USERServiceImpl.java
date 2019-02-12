@@ -59,19 +59,27 @@ public class S_USERServiceImpl implements IS_USERService {
         return userMapper.selectByNickname(nickname);
     }
 
+    /**
+     * 获取用户数量
+     * @param studentNo
+     * @return
+     */
     @Override
-    public Integer getUserCount(String studentNo) {
-        return userMapper.getUserCount(studentNo);
+    public Integer getUserCount(String studentNo, String nickname, String realName) {
+        return userMapper.getUserCount(studentNo, nickname, realName);
+    }
+
+    /**
+     * 获取所有用户
+     */
+    @Override
+    public List<S_USER> getAllUsers(String pageSize, String currentPage, String studnetNo, String nickname, String realName) {
+        return userMapper.getAllUsers(pageSize, currentPage, studnetNo, nickname, realName);
     }
 
     @Override
-    public List<S_USER> getAllUsers(String pageSize, String currentPage, String studnetNo) {
-        return userMapper.getAllUsers(pageSize, currentPage, studnetNo);
-    }
-
-    @Override
-    public List<S_USER> fuzzyQueryUsers(String pageSize, String currentPage, String studentNo) {
-        return userMapper.fuzzyQueryUsers(pageSize, currentPage, studentNo);
+    public List<S_USER> fuzzyQueryUsers(String pageSize, String currentPage, String studentNo, String nickname, String realName) {
+        return userMapper.fuzzyQueryUsers(pageSize, currentPage, studentNo, nickname, realName);
     }
 
     @Override

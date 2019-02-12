@@ -94,6 +94,8 @@ layui.use(['table', 'layer', 'form'], function(){
         {
             reload: function () {
                 var studentNo = $('#searchUser').val();//获取输入框的值
+                var nickname = $('#nickname').val();
+                var realName = $('#realName').val();
 
                 //执行重载
                 table.reload('userId', //与table中的id要一致
@@ -102,9 +104,13 @@ layui.use(['table', 'layer', 'form'], function(){
                             {
                                 curr: 1 //重新从第 1 页开始
                             }
-                        , where: { studentNo: studentNo}//这里传参  向后台
-                        // ,url: '/user/getAllUsers'
-                        // , url: '/user/searchUser'//后台做模糊搜索接口路径
+                        , where: {
+                            studentNo: studentNo,
+                            nickname: nickname,
+                            realName: realName
+                        }//这里传参  向后台
+                        // ,url: '/user/getAllUsers' // 注意这里调用的接口还是 /user/getAllUsers
+                        // , url: '/user/searchUser'//后台做模糊搜索接口路径，未使用这个接口
                         , method: 'post'
                     });
             },

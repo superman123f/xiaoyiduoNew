@@ -35,6 +35,9 @@ public class CartManageController {
 //    single_price: ${goodDetail.secondPrice},
 //    good_number: cur,
 //    good_id: ${goodDetail.goodId},
+    /**
+     * 加入购物车
+     * */
     @RequestMapping("/addGoodToCart")
     @ResponseBody
     public Object addGoodToCart(@RequestParam(value = "good_name", required = false)String goodName,

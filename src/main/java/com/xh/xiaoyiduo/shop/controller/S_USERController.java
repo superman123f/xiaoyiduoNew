@@ -378,7 +378,7 @@ public class S_USERController {
     }
 
     /**
-     * 获取用户列表
+     * 获取用户列表、模糊搜索用户
      * @param limit
      * @param page
      * @param response
@@ -386,12 +386,12 @@ public class S_USERController {
      */
     @RequestMapping("/getAllUsers")
     @ResponseBody
-    public String getAllUsers(String limit, String page, String studentNo, HttpServletResponse response){
+    public String getAllUsers(String limit, String page, String studentNo, String nickname, String realName, HttpServletResponse response){
         System.out.println("page: " + page);
         System.out.println("limite: " + limit);
         System.out.println("studentNo: " + studentNo);
 
-        Integer i = userService.getUserCount(studentNo);
+        Integer i = userService.getUserCount(studentNo, nickname, realName);
         int count = 0;
         if(i == null){
             System.out.println("not account");
@@ -405,7 +405,7 @@ public class S_USERController {
 //            System.out.println("该用户不存在");
 //        }
 
-        List<S_USER> userList = userService.getAllUsers(limit, page, studentNo);
+        List<S_USER> userList = userService.getAllUsers(limit, page, studentNo, nickname, realName);
         String userListJson  = JSON.toJSONString(userList); //将对象转换成json
 
         String json = "{\"code\":0,\"msg\":\"\",\"count\":" + count + ",\"data\":" + userListJson + "}";
@@ -420,13 +420,13 @@ public class S_USERController {
      */
     @RequestMapping("/searchUser")
     @ResponseBody
-    public String searchUser(String limit, String page, String studentNo, HttpServletResponse response){
+    public String searchUser(String limit, String page, String studentNo, String nickname, String realName, HttpServletResponse response){
         System.out.println("=======================");
         System.out.println("搜索学号为： " + studentNo);
 
-        Integer count = userService.getUserCount(studentNo);
+        Integer count = userService.getUserCount(studentNo, nickname, realName);
 
-        List<S_USER> userList = userService.fuzzyQueryUsers(limit, page, studentNo);
+        List<S_USER> userList = userService.fuzzyQueryUsers(limit, page, studentNo, nickname, realName);
         String userListJson = JSON.toJSONString(userList);
 
         String json = "{\"code\":0,\"msg\":\"\",\"count\":" + count + ",\"data\":" + userListJson + "}";

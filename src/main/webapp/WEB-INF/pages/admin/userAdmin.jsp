@@ -29,7 +29,13 @@
             <div class="layui-form-item" style="text-align:center;">
                 <div class="layui-inline">
                     <div class="layui-input-inline">
-                        <input id="searchUser" autocomplete="off" class="layui-input" placeholder="请输入名称" type="text" name="name" value="">
+                        <input id="searchUser" autocomplete="off" class="layui-input" placeholder="学号" type="text" name="name" value="">
+                    </div>
+                    <div class="layui-input-inline">
+                        <input id="nickname" autocomplete="off" class="layui-input" placeholder="昵称" type="text" name="nickname" value="">
+                    </div>
+                    <div class="layui-input-inline">
+                        <input id="realName" autocomplete="off" class="layui-input" placeholder="真实姓名" type="text" name="realName" value="">
                     </div>
                 </div>
                 <div class="layui-inline" style="text-align:left;">
