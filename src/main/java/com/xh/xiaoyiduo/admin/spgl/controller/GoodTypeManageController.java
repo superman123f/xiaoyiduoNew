@@ -26,14 +26,30 @@ public class GoodTypeManageController {
     IGoodTypeManageService goodTypeManageService;
 
     @RequestMapping("/toGoodTypePage")
-    public String toGoodTypePage(){
+    public String toGoodTypePage(Model model){
+        goodTypeManageService.getGoodFatherList(model);
         return "/admin/spgl/goodType";
     }
 
+    /**
+     * 获取所有商品父类
+     * @return
+     */
     @RequestMapping("/getGoodFatherList")
     @ResponseBody
-    public String getGoodFatherList(){
-        String result = goodTypeManageService.getGoodFatherList();
+    public String getGoodFatherList(Model model){
+        String result = goodTypeManageService.getGoodFatherList(model);
+        return result;
+    }
+
+    /**
+     * 获取所有商品子类
+     * @return
+     */
+    @RequestMapping("/getGoodSonList")
+    @ResponseBody
+    public String getGoodSonList(){
+        String result = goodTypeManageService.getGoodSonList();
         return result;
     }
 
@@ -81,6 +97,11 @@ public class GoodTypeManageController {
         return null;
     }
 
+    /**
+     * 单个删除父类
+     * @param fatherId
+     * @return
+     */
     @RequestMapping("/deleteGoodFatherType")
     @ResponseBody
     public Map<String, Object> deleteGoodFatherType(String fatherId){

@@ -50,7 +50,7 @@ layui.use(['table', 'layer', 'form', 'element'], function(){
         });
     });
 
-    //第一个实例
+    //第一个实例 商品父类
     var ins1 = table.render({
         id: 'userId', //隐藏的列
         title: '用户信息表',
@@ -71,6 +71,25 @@ layui.use(['table', 'layer', 'form', 'element'], function(){
         ,method: 'post'
     });
 
+    //第二个实例 商品子类
+    var ins2 = table.render({
+        id: 'sonId', //隐藏的列
+        elem: '#demo1'
+        ,url: '/type/getGoodSonList' //数据接口
+        // ,where: {studentNo: "3"}
+        ,page: true //开启分页
+        // ,initSort: {field: 'studentNo', type: 'desc'} //设置初始排序
+        ,cols: [[ //表头
+            {type: 'checkbox'},
+            {field: 'sonId', title: '商品子类id',  sort: true, hide: true} , <!--隐藏-->
+            {field: 'sonName', title: '商品子类名称',  sort: true},
+            // 经检验template日期转换无效，在数据库与实体类映射时转换即可
+            // {field: 'createTime', title: '创建时间', width: 200, sort: true, template: "<div>{{layui.util.toDateString(createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+            {fixed: 'right', title: '操作', toolbar: '#barDemo', width:134, align:'center', unresize: true}
+        ]]
+        ,height: '472'
+        ,method: 'post'
+    });
 
 
 

@@ -32,7 +32,7 @@
     order by son_id
   </select>
   <!--获取商品子类总数-->
-  <select id="getGoodSonCount" resultMap="GoodSonMap">
+  <select id="getGoodSonCount" resultType="int">
     select
     count(1)
     from B_GOOD_SON

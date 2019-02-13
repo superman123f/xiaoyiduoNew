@@ -1,6 +1,7 @@
 package com.xh.xiaoyiduo.admin.spgl.service;
 
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_FATHER;
+import org.springframework.ui.Model;
 
 import java.util.List;
 import java.util.Map;
@@ -9,7 +10,9 @@ import java.util.Map;
  */
 public interface IGoodTypeManageService {
 
-    String getGoodFatherList(); //获取商品父类列表
+    String getGoodFatherList(Model model); //获取商品父类列表
+
+    String getGoodSonList(); //获取商品子类列表
 
     B_GOOD_FATHER selectGoodFatherById(String fatherId); // 根据id获取商品父类信息
 

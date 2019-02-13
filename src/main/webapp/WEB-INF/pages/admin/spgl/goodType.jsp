@@ -73,7 +73,60 @@
             <%--商品子类内容--%>
             <div class="layui-tab-item">
                 <div class="layui-tab-content">
-                    son
+                    <div class="layui-field-box">
+                        <%--商品父类选项--%>
+                        <form class="layui-form">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">商品种类</label>
+                                <div class="layui-input-inline" style="max-height: 300px;">
+                                    <select id="fatherId" name="fatherId" lay-verify="" lay-filter="fatherId">
+                                        <option value="">请选择商品父类</option>
+                                        <c:forEach items="${father}" var="father">
+                                            <option value="${father.fatherId}">${father.fatherName}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                        <%--<form class="layui-form" action="">--%>
+                        <%--<div class="layui-form-item" style="text-align:center;">--%>
+                        <%--<div class="layui-inline">--%>
+                        <%--<div class="layui-input-inline">--%>
+                        <%--<input id="searchUser" autocomplete="off" class="layui-input" placeholder="学号" type="text" name="name" value="">--%>
+                        <%--</div>--%>
+                        <%--<div class="layui-input-inline">--%>
+                        <%--<input id="nickname" autocomplete="off" class="layui-input" placeholder="昵称" type="text" name="nickname" value="">--%>
+                        <%--</div>--%>
+                        <%--<div class="layui-input-inline">--%>
+                        <%--<input id="realName" autocomplete="off" class="layui-input" placeholder="真实姓名" type="text" name="realName" value="">--%>
+                        <%--</div>--%>
+                        <%--</div>--%>
+                        <%--<div class="layui-inline" style="text-align:left;">--%>
+                        <%--<div class="layui-input-inline">--%>
+                        <%--<button id="reload" type="button" class="layui-btn" data-type="reload"><i class="layui-icon"></i>查询</button>--%>
+                        <%--</div>--%>
+                        <%--</div>--%>
+                        <%--</div>--%>
+                        <%--</form>--%>
+                        <hr>
+                        <div class="layui-btn-group">
+                            <button class="layui-btn layui-btn-xs layui-btn-normal dw-dailog" dw-url="/type/editGoodFatherType" dw-title="新增商品父类" dw-width="880px" dw-height="500px">
+                                <i class="layui-icon">&#xe654;</i>新增
+                            </button>
+                            <button id="deleteData" class="layui-btn layui-btn-xs layui-btn-danger" data-type="deleteData">
+                                <i class="layui-icon">&#xe640;</i>批删
+                            </button>
+                            <%--<button class="layui-btn layui-btn-xs dw-refresh">--%>
+                            <%--<i class="layui-icon">&#x1002;</i>刷新--%>
+                            <%--</button>--%>
+                            <%--<button id="exportExl" class="layui-btn layui-btn-xs" data-type="exportExl">导出Excel</button>--%>
+                        </div>
+                        <hr>
+
+                        <table id="demo1" lay-filter="test"></table>
+
+                    </div>
+
                 </div>
             </div>
         </div>
