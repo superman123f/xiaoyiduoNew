@@ -102,16 +102,18 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;">订单管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" onclick="return false;">订单列表</a></dd>
+                        <dd><a href="javascript:void(0);" onclick="return false;">订单列表</a></dd>
                     </dl>
                 </li>
 
                 <%--<li class="layui-nav-item">--%>
                     <%--<a href="javascript:;">统计分析</a>--%>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" onclick="return false;">统计分析</a></dd>
-                    </dl>
+                    <%--<dl class="layui-nav-child">--%>
+                        <%--<dd><a href="javascript:;" onclick="return false;">统计分析</a></dd>--%>
+                    <%--</dl>--%>
                 <%--</li>--%>
+
+                <li class="layui-nav-item"><a href="javascript:void(0);">统计分析</a></li>
 
                 <li class="layui-nav-item">
                     <a href="javascript:;">开发者工具</a>

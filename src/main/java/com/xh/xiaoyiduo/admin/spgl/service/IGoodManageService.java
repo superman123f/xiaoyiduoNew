@@ -2,6 +2,7 @@ package com.xh.xiaoyiduo.admin.spgl.service;
 
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_FATHER;
+import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_SON;
 
 import java.util.List;
 import java.util.Set;
@@ -14,6 +15,10 @@ public interface IGoodManageService {
     int insert(B_GOOD good); //保存商品信息
 
     List<B_GOOD_FATHER> getGoodTypeList(); //获取商品菜单列表 父类跟子类
+
+    List<B_GOOD_FATHER> getGoodFatherList(); //获取商品父类列表
+
+    List<B_GOOD_SON> selectGoodSonsByFatherId(String fatherId); //通过父类ID查询子类目
 
     List<B_GOOD> getSonGoodList(String sonId, String goodName, String currentPage, String pageSize); //获取对应子类商品列表
 

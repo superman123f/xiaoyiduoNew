@@ -1,5 +1,7 @@
 package com.xh.xiaoyiduo.admin.controller;
 
+import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_FATHER;
+import com.xh.xiaoyiduo.admin.spgl.service.IGoodManageService;
 import com.xh.xiaoyiduo.admin.yygl.service.IUserManageService;
 import com.xh.xiaoyiduo.shop.pojo.S_USER;
 import com.xh.xiaoyiduo.shop.service.IS_USERService;
@@ -8,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  */
@@ -29,6 +33,8 @@ public class AdminController {
 
     @Autowired
     IS_USERService userService;
+    @Autowired
+    IGoodManageService goodManageService;
 
 
     @RequestMapping("/admin")
@@ -105,7 +111,8 @@ public class AdminController {
     }
 
     @RequestMapping("/goodInfo")
-    public String goodInfo(){
-        System.out.println("测试后端框架");
+    public String goodInfo(Model model){
+        List<B_GOOD_FATHER> fatherList = goodManageService.getGoodFatherList();
+        model.addAttribute("fatherList", fatherList);
         return GOODINFO_VIEW;
     }}

@@ -9,6 +9,7 @@ import java.util.List;
 public interface B_GOOD_SonMapper {
 
     List<B_GOOD_SON> selectGoodSonsByFatherId(String fatherId); //通过父类ID查询子类目
+
     int deleteByPrimaryKey(String sonId);
 
     int insert(B_GOOD_SON record);

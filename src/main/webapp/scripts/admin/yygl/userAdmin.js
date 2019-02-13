@@ -52,7 +52,7 @@ layui.use(['table', 'layer', 'form'], function(){
     //第一个实例
     var ins1 = table.render({
         id: 'userId', //隐藏的列
-        title: '用户信息Excel表',
+        title: '用户信息表',
         elem: '#demo'
         ,url: '/user/getAllUsers' //数据接口
         // ,where: {studentNo: "3"}
@@ -122,7 +122,6 @@ layui.use(['table', 'layer', 'form'], function(){
 
                 }, function(data){
                     console.log(data);
-                    alert(data);
                     if(data != undefined) {
                         // table.exportFile(['学号','昵称','真实姓名','性别','电子邮箱','手机号','宿舍地址'],
                         //     data, 'xls'); //默认导出 csv，也可以为：xls

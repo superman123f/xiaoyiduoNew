@@ -8,7 +8,9 @@ import java.util.List;
 @Repository("fatherMapper")
 public interface B_GOOD_FatherMapper {
 
-    public List<B_GOOD_FATHER> getGoodTypeList(); //获取商品类目列表 父类跟子类
+    List<B_GOOD_FATHER> getGoodTypeList(); //获取商品类目列表 父类跟子类
+
+    List<B_GOOD_FATHER> getGoodFatherList(); //获取商品父类列表
 
     int deleteByPrimaryKey(String fatherId);
 

@@ -32,31 +32,34 @@
         <div class="layui-form-item">
             <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>商品种类</label>
             <div class="layui-input-inline">
-                <select name="fatherId" lay-verify="">
+                <select id="fatherId" name="fatherId" lay-verify="" lay-filter="fatherId">
                     <option value="">请选择商品父类</option>
-                    <option value="1">书籍专栏</option>
-                    <option value="2">体育运动</option>
-                    <option value="3">电子数码</option>
-                    <option value="4">美容护理</option>
-                    <option value="5">男士服装</option>
-                    <option value="6">女士服装</option>
+                    <%--<option value="1">书籍专栏</option>--%>
+                    <%--<option value="2">体育运动</option>--%>
+                    <%--<option value="3">电子数码</option>--%>
+                    <%--<option value="4">美容护理</option>--%>
+                    <%--<option value="5">男士服装</option>--%>
+                    <%--<option value="6">女士服装</option>--%>
+                    <c:forEach items="${fatherList}" var="father">
+                        <option value="${father.fatherId}">${father.fatherName}</option>
+                    </c:forEach>
                 </select>
             </div>
             <div class="layui-input-inline">
                 <select id="sonId" name="sonId" lay-verify="">
                     <option value="">请选择商品子类</option>
-                    <option value="1">大学课本</option>
-                    <option value="2">小说</option>
-                    <option value="3">篮球</option>
-                    <option value="4">网球拍</option>
-                    <option value="5">手机</option>
-                    <option value="6">电脑</option>
-                    <option value="7">发胶</option>
-                    <option value="8">洗面奶</option>
-                    <option value="9">羽绒服</option>
-                    <option value="10">牛仔裤</option>
-                    <option value="11">外套</option>
-                    <option value="12">棉裤</option>
+                    <%--<option value="1">大学课本</option>--%>
+                    <%--<option value="2">小说</option>--%>
+                    <%--<option value="3">篮球</option>--%>
+                    <%--<option value="4">网球拍</option>--%>
+                    <%--<option value="5">手机</option>--%>
+                    <%--<option value="6">电脑</option>--%>
+                    <%--<option value="7">发胶</option>--%>
+                    <%--<option value="8">洗面奶</option>--%>
+                    <%--<option value="9">羽绒服</option>--%>
+                    <%--<option value="10">牛仔裤</option>--%>
+                    <%--<option value="11">外套</option>--%>
+                    <%--<option value="12">棉裤</option>--%>
                 </select>
             </div>
             <%--<div class="layui-input-block">--%>
@@ -162,6 +165,24 @@
                 , form = layui.form
                 , layer = layui.layer;
             var index;
+
+            //监听form下拉菜单栏
+            form.on('select(fatherId)', function(data){
+                // alert(data.value);
+                //获取父类商品的子类商品项
+                $.post("/good/getGoodSonType",
+                    {
+                        fatherId: data.value
+                    },
+                    function(data){
+                        var goodSonTypeHtml = "";
+                        for(var i = 0; i < data.length; i++) {
+                            goodSonTypeHtml += '<option value="'+data[i].sonId+'">'+data[i].sonName+'</option>';
+                        }
+                        $("#sonId").html("").append('<option value="">请选择商品子类</option>'+goodSonTypeHtml);
+                        form.render('select'); //必须写上这句
+                });
+            });
 
             //普通图片上传
             var uploadInst = upload.render({

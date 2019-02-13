@@ -8,6 +8,7 @@ import com.xh.xiaoyiduo.admin.lygl.service.IMessageManageService;
 import com.xh.xiaoyiduo.admin.scjgl.service.IFavoriteManageService;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_FATHER;
+import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_SON;
 import com.xh.xiaoyiduo.admin.spgl.service.IGoodManageService;
 import com.xh.xiaoyiduo.admin.utils.Pager;
 import com.xh.xiaoyiduo.admin.yygl.service.IUserManageService;
@@ -436,6 +437,12 @@ public class GoodManageController {
         return "/shop/details";
     }
 
+    @RequestMapping("/getGoodSonType")
+    @ResponseBody
+    public List<B_GOOD_SON> getGoodSonType(String fatherId){
+        List<B_GOOD_SON> goodSonList = goodManageService.selectGoodSonsByFatherId(fatherId);
+        return goodSonList;
+    }
     //将图片重命名
     public static String changeName(String oldName){
 //        Random r = new Random();

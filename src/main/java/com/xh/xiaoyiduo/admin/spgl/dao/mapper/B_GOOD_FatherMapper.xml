@@ -31,6 +31,14 @@
     on f.father_id = s.father_id order by f.father_id
   </select>
 
+  <!--获取商品父类列表-->
+  <select id="getGoodFatherList" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List"/>
+    from B_GOOD_FATHER f
+    order by f.father_id
+  </select>
+
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 

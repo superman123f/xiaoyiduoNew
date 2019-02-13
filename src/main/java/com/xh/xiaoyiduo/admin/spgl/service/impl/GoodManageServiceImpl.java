@@ -2,8 +2,10 @@ package com.xh.xiaoyiduo.admin.spgl.service.impl;
 
 import com.xh.xiaoyiduo.admin.spgl.dao.B_GOODMapper;
 import com.xh.xiaoyiduo.admin.spgl.dao.B_GOOD_FatherMapper;
+import com.xh.xiaoyiduo.admin.spgl.dao.B_GOOD_SonMapper;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_FATHER;
+import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_SON;
 import com.xh.xiaoyiduo.admin.spgl.service.IGoodManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,8 @@ public class GoodManageServiceImpl implements IGoodManageService {
     @Autowired
     B_GOOD_FatherMapper fatherMapper;
     @Autowired
+    B_GOOD_SonMapper SonMapper;
+    @Autowired
     B_GOODMapper goodMapper;
 
     @Override
@@ -30,6 +34,25 @@ public class GoodManageServiceImpl implements IGoodManageService {
     @Override
     public List<B_GOOD_FATHER> getGoodTypeList() {
         return fatherMapper.getGoodTypeList();
+    }
+
+    /**
+     * 获取商品父类列表
+     * @return
+     */
+    @Override
+    public List<B_GOOD_FATHER> getGoodFatherList() {
+        return fatherMapper.getGoodFatherList();
+    }
+
+    /**
+     * 通过父类ID查询子类目
+     * @param fatherId
+     * @return
+     */
+    @Override
+    public List<B_GOOD_SON> selectGoodSonsByFatherId(String fatherId) {
+        return SonMapper.selectGoodSonsByFatherId(fatherId);
     }
 
     @Override
