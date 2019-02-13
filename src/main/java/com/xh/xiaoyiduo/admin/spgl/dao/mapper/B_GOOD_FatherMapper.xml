@@ -39,6 +39,12 @@
     order by f.father_id
   </select>
 
+  <!--获取商品父类个数-->
+  <select id="getGoodFatherCount" resultType="int">
+    select
+    count(1)
+    from B_GOOD_FATHER
+  </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -46,10 +52,6 @@
     from B_GOOD_FATHER
     where FATHER_ID = #{fatherId,jdbcType=VARCHAR}
   </select>
-
-
-
-
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from B_GOOD_FATHER

@@ -25,12 +25,27 @@
     where FATHER_ID = #{fatherId, jdbcType=VARCHAR}
   </select>
 
+  <!--获取商品子类类目-->
+  <select id="getGoodSonList" resultMap="GoodSonMap">
+    select *
+    from B_GOOD_SON
+    order by son_id
+  </select>
+  <!--获取商品子类总数-->
+  <select id="getGoodSonCount" resultMap="GoodSonMap">
+    select
+    count(1)
+    from B_GOOD_SON
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from B_GOOD_SON
     where SON_ID = #{sonId,jdbcType=VARCHAR}
   </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from B_GOOD_SON
     where SON_ID = #{sonId,jdbcType=VARCHAR}

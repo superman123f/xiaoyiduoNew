@@ -31,45 +31,19 @@
     <form class="layui-form" action="/user/register" method="post">
         <div class="layui-form-item">
             <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>商品种类</label>
-            <div class="layui-input-inline">
+            <div class="layui-input-inline" style="max-height: 300px;">
                 <select id="fatherId" name="fatherId" lay-verify="" lay-filter="fatherId">
                     <option value="">请选择商品父类</option>
-                    <%--<option value="1">书籍专栏</option>--%>
-                    <%--<option value="2">体育运动</option>--%>
-                    <%--<option value="3">电子数码</option>--%>
-                    <%--<option value="4">美容护理</option>--%>
-                    <%--<option value="5">男士服装</option>--%>
-                    <%--<option value="6">女士服装</option>--%>
                     <c:forEach items="${fatherList}" var="father">
                         <option value="${father.fatherId}">${father.fatherName}</option>
                     </c:forEach>
                 </select>
             </div>
-            <div class="layui-input-inline">
+            <div class="layui-input-inline" style="max-height: 300px;">
                 <select id="sonId" name="sonId" lay-verify="">
                     <option value="">请选择商品子类</option>
-                    <%--<option value="1">大学课本</option>--%>
-                    <%--<option value="2">小说</option>--%>
-                    <%--<option value="3">篮球</option>--%>
-                    <%--<option value="4">网球拍</option>--%>
-                    <%--<option value="5">手机</option>--%>
-                    <%--<option value="6">电脑</option>--%>
-                    <%--<option value="7">发胶</option>--%>
-                    <%--<option value="8">洗面奶</option>--%>
-                    <%--<option value="9">羽绒服</option>--%>
-                    <%--<option value="10">牛仔裤</option>--%>
-                    <%--<option value="11">外套</option>--%>
-                    <%--<option value="12">棉裤</option>--%>
                 </select>
             </div>
-            <%--<div class="layui-input-block">--%>
-                <%--<select name="city" lay-verify="">--%>
-                    <%--<option value="">请选择一个城市</option>--%>
-                    <%--<option value="010">北京</option>--%>
-                    <%--<option value="021">上海</option>--%>
-                    <%--<option value="0571">杭州</option>--%>
-                <%--</select>--%>
-            <%--</div>--%>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>商品标题</label>
@@ -149,7 +123,6 @@
 </body>
 <script type="text/javascript" src="${ctx}/scripts/jquery.min.js"></script>
 <script type="text/javascript" src="${ctx}/styles/layui/layui.js"></script>
-
 </html>
 <script>
     var success = 0; //图片保存成功的个数
@@ -329,15 +302,4 @@
             });
         });
     }
-    <%--GOOD_ID	商品编号--%>
-    <%--SON_ID	子类别编号--%>
-    <%--GOOD_NAME	商品名称--%>
-    <%--INFORMATION	商品简介--%>
-    <%--ORIGIN_PRICE	原价--%>
-    <%--SECOND_PRICE	二手价--%>
-    <%--DEGREE	新旧程度--%>
-    <%--COLLECT_NUMBER	收藏数--%>
-    <%--GOOD_NUMBER	商品数量--%>
-    <%--STATUS	商品状态（1售卖中，2已售出，3已下架）--%>
-    <%--USER_ID	用户编号--%>
 </script>

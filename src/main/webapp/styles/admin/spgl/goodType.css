@@ -1,0 +1,5 @@
+/*覆盖layui样式*/
+.layui-table-cell .layui-form-checkbox[lay-skin=primary] {
+    top: 4px;
+    padding: 0;
+}

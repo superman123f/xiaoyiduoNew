@@ -11,16 +11,11 @@
 <html>
 <head>
     <link rel="icon" type="image/x-icon" href="${ctx}/images/shop/icon.ico"/>
-    <title>用户管理测试</title>
+    <title>用户管理</title>
     <link rel="stylesheet" type="text/css" href="../../../styles/layui/css/layui.css">
     <link rel="stylesheet" type="text/css" href="${ctx}/styles/admin/yygl/userAdmin.css">
 </head>
 <body bgcolor="white" style="margin:15px;">
-
-<%--测试在div中嵌入html代码<br>--%>
-<%--<div id="div1">--%>
-    <%--<span>hhhh</span>--%>
-<%--</div>--%>
 
 <fieldset class="layui-elem-field">
     <legend>用户管理 - 用户列表</legend>

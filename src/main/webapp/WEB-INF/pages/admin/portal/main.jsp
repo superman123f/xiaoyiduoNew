@@ -28,14 +28,14 @@
         <div class="layui-logo">校益多后台管理系统</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <%--<ul class="layui-nav layui-layout-left">--%>
-            <%--<li class="layui-nav-item"><a href="javascript:;" onclick="choose('/admin/admin');">用户列表</a></li>--%>
-            <%--<li class="layui-nav-item"><a href="javascript:;" onclick="choose('/admin/member');">会员列表</a></li>--%>
+            <%--<li class="layui-nav-item"><a href="javascript:void(0);" onclick="choose('/admin/admin');">用户列表</a></li>--%>
+            <%--<li class="layui-nav-item"><a href="javascript:void(0);" onclick="choose('/admin/member');">会员列表</a></li>--%>
         <%--</ul>--%>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item"><a href="/shop/commodity">首页</a></li>
             <li class="layui-nav-item">
                 <%--<input type="text" value="${user.userId}">--%>
-                <a href="javascript:;">
+                <a href="javascript:void(0);">
                     <c:set value="${user.resources}" var="userResources"/>
                         <c:forEach items="${userResources}" var="resource" end="0">
                             <img src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}" class="layui-nav-img">
@@ -58,73 +58,76 @@
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
                 <shiro:hasRole name="admin">
                     <li class="layui-nav-item layui-nav-itemed">
-                        <a href="javascript:;">用户管理</a>
+                        <a href="javascript:void(0);">用户管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a class="layui-this"  href="javascript:;" onclick="choose('/admin/userAdmin');">用户列表</a></dd>
+                            <dd><a class="layui-this"  href="javascript:void(0);" onclick="choose('/admin/userAdmin');">用户列表</a></dd>
                         </dl>
                     </li>
                 </shiro:hasRole>
 
                 <li class="layui-nav-item">
-                    <a href="javascript:;">权限管理</a>
+                    <a href="javascript:void(0);">权限管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" onclick="choose('/admin/admin');">规则列表</a></dd>
-                        <dd><a href="javascript:;" onclick="choose('/admin/role');">角色列表</a></dd>
-                        <dd><a href="javascript:;" onclick="choose('/admin/adminRole');">用户角色</a></dd>
+                        <dd><a href="javascript:void(0);" onclick="choose('/admin/admin');">规则列表</a></dd>
+                        <dd><a href="javascript:void(0);" onclick="choose('/admin/role');">角色列表</a></dd>
+                        <dd><a href="javascript:void(0);" onclick="choose('/admin/adminRole');">用户角色</a></dd>
                     </dl>
                 </li>
 
                 <li class="layui-nav-item">
-                    <a href="javascript:;">禁品管理</a>
+                    <a href="javascript:void(0);">禁品管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" onclick="choose('/ban/toBanManagePage');">禁品列表</a></dd>
-                        <dd><a href="javascript:;" onclick="choose('/ban/toBaiduAIWebsite');">模型训练</a></dd>
+                        <dd><a href="javascript:void(0);" onclick="choose('/ban/toBanManagePage');">禁品列表</a></dd>
+                        <dd><a href="javascript:void(0);" onclick="choose('/ban/toBaiduAIWebsite');">模型训练</a></dd>
                     </dl>
                 </li>
 
                 <li class="layui-nav-item">
-                    <a href="javascript:;">公告管理</a>
+                    <a href="javascript:void(0);">公告管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" onclick="choose('/notice/noticeAdminPage')">公告列表</a></dd>
+                        <dd><a href="javascript:void(0);" onclick="choose('/notice/noticeAdminPage')">公告列表</a></dd>
                     </dl>
                 </li>
 
                 <li class="layui-nav-item">
-                    <a class="" href="javascript:;">商品管理</a>
+                    <a class="" href="javascript:void(0);">商品管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" onclick="choose('/admin/goodAdmin');">商品列表</a></dd>
+                        <dd><a href="javascript:void(0);" onclick="choose('/type/toGoodTypePage');">商品类目</a></dd>
                     </dl>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" onclick="choose('/admin/goodInfo');">商品信息</a></dd>
+                        <dd><a href="javascript:void(0);" onclick="choose('/admin/goodAdmin');">商品列表</a></dd>
+                    </dl>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:void(0);" onclick="choose('/admin/goodInfo');">商品信息</a></dd>
                     </dl>
                 </li>
 
                 <li class="layui-nav-item">
-                    <a href="javascript:;">订单管理</a>
+                    <a href="javascript:void(0);">订单管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:void(0);" onclick="return false;">订单列表</a></dd>
                     </dl>
                 </li>
 
                 <%--<li class="layui-nav-item">--%>
-                    <%--<a href="javascript:;">统计分析</a>--%>
+                    <%--<a href="javascript:void(0);">统计分析</a>--%>
                     <%--<dl class="layui-nav-child">--%>
-                        <%--<dd><a href="javascript:;" onclick="return false;">统计分析</a></dd>--%>
+                        <%--<dd><a href="javascript:void(0);" onclick="return false;">统计分析</a></dd>--%>
                     <%--</dl>--%>
                 <%--</li>--%>
 
                 <li class="layui-nav-item"><a href="javascript:void(0);">统计分析</a></li>
 
                 <li class="layui-nav-item">
-                    <a href="javascript:;">开发者工具</a>
+                    <a href="javascript:void(0);">开发者工具</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" onclick="choose('/admin/index');">控制台</a></dd>
+                        <dd><a href="javascript:void(0);" onclick="choose('/admin/index');">控制台</a></dd>
                     </dl>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" onclick="choose('/admin/member');">会员列表</a></dd>
+                        <dd><a href="javascript:void(0);" onclick="choose('/admin/member');">会员列表</a></dd>
                     </dl>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" onclick="choose('/admin/sysConfig');">系统变量</a></dd>
+                        <dd><a href="javascript:void(0);" onclick="choose('/admin/sysConfig');">系统变量</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -140,7 +143,8 @@
 
     <div class="layui-footer">
         <!-- 底部固定区域 -->
-        © layui.com - 底部固定区域
+        <%--© layui.com - 底部固定区域--%>
+        校益多，竭诚为您服务！
     </div>
 </div>
 <script type="text/javascript" src="${ctx}/scripts/jquery.min.js"></script>

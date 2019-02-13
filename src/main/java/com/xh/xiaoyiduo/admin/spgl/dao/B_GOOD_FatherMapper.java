@@ -12,16 +12,18 @@ public interface B_GOOD_FatherMapper {
 
     List<B_GOOD_FATHER> getGoodFatherList(); //获取商品父类列表
 
-    int deleteByPrimaryKey(String fatherId);
+    int getGoodFatherCount(); // 获取商品父类个数
 
-    int insert(B_GOOD_FATHER record);
+    B_GOOD_FATHER selectByPrimaryKey(String fatherId); // 根据id获取商品父类信息
+
+    int deleteByPrimaryKey(String fatherId); // 删除父类信息
+
+    int insert(B_GOOD_FATHER father); // 添加商品父类信息
 
     int insertSelective(B_GOOD_FATHER record);
 
-    B_GOOD_FATHER selectByPrimaryKey(String fatherId);
-
     int updateByPrimaryKeySelective(B_GOOD_FATHER record);
 
-    int updateByPrimaryKey(B_GOOD_FATHER record);
+    int updateByPrimaryKey(B_GOOD_FATHER father); // 根据id编辑父类
 
 }
