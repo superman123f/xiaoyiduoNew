@@ -23,7 +23,7 @@ layui.use(['table', 'layer', 'form', 'element'], function(){
         if (dw_width == undefined) dw_width = '50%';
         if (dw_height == undefined) dw_height = '50%';
 
-        // 新增
+        // 新增父类
         layer.open({
             type: 2,
             title: dw_title,
@@ -70,28 +70,6 @@ layui.use(['table', 'layer', 'form', 'element'], function(){
         ,height: '472'
         ,method: 'post'
     });
-
-    //第二个实例 商品子类
-    var ins2 = table.render({
-        id: 'sonId', //隐藏的列
-        elem: '#demo1'
-        ,url: '/type/getGoodSonList' //数据接口
-        // ,where: {studentNo: "3"}
-        ,page: true //开启分页
-        // ,initSort: {field: 'studentNo', type: 'desc'} //设置初始排序
-        ,cols: [[ //表头
-            {type: 'checkbox'},
-            {field: 'sonId', title: '商品子类id',  sort: true, hide: true} , <!--隐藏-->
-            {field: 'sonName', title: '商品子类名称',  sort: true},
-            // 经检验template日期转换无效，在数据库与实体类映射时转换即可
-            // {field: 'createTime', title: '创建时间', width: 200, sort: true, template: "<div>{{layui.util.toDateString(createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
-            {fixed: 'right', title: '操作', toolbar: '#barDemo', width:134, align:'center', unresize: true}
-        ]]
-        ,height: '472'
-        ,method: 'post'
-    });
-
-
 
     //搜索 ----------------------------------------------- Begin-----------------------------------------------------------
     var $ = layui.$, active =
@@ -147,7 +125,7 @@ layui.use(['table', 'layer', 'form', 'element'], function(){
                 // alert(333);
             },
 
-            //批量删除
+            //批量删除父类
             deleteData: function() {
                 var checkStatus = table.checkStatus('userId') //此时的id为render的id
                     ,data = checkStatus.data;
@@ -183,6 +161,37 @@ layui.use(['table', 'layer', 'form', 'element'], function(){
                 //     // var data = obj.data;
                 //     // layer.alert(JSON.stringify(data));
                 // });
+            },
+
+            //批量删除子类
+            deleteDataSon: function() {
+                var checkStatus = table.checkStatus('sonId') //此时的id为render的id
+                    , data = checkStatus.data;
+                // layer.alert(JSON.stringify(data));
+                var str = "";
+                if (data.length > 0) {
+                    layer.alert('delete?');
+                    for (var i = 0; i < data.length; i++) {
+                        str += data[i].sonId + "，";
+                    }
+                    layer.confirm("是否删除这" + data.length + "条数据？", {icon: 3, title: '提示'}, function (index) {
+                        // window.location.href = "/user/deleteUserInfos?userIds=" + str;
+                        $.post("/type/deleteGoodSonTypes",
+                            {
+                                sonIds: str
+                            },
+                            function (data) {
+                                if (data.success) {
+                                    $(".layui-laypage-btn").click();//这里用于关闭Open时触发回调函数  刷新父页面数据  一定要引入Jquery
+                                } else {
+                                    layer.msg(data.msg);
+                                }
+                            });
+                        layer.close(index);
+                    });
+                } else {
+                    layer.alert("请选择要删除的数据");
+                }
             }
 
         }
@@ -208,8 +217,14 @@ layui.use(['table', 'layer', 'form', 'element'], function(){
         active[type] ? active[type].call(this) : '';
     });
 
-    //批量删除
+    //批量删除父类
     $('#deleteData').on('click', function() {
+        var type = $(this).data('type');
+        active[type] ? active[type].call(this) : '';
+    });
+
+    //批量删除子类
+    $('#deleteDataSon').on('click', function() {
         var type = $(this).data('type');
         active[type] ? active[type].call(this) : '';
     });
@@ -294,4 +309,160 @@ layui.use(['table', 'layer', 'form', 'element'], function(){
 
     //监听工具条 ----------------------------------------------- ENd-----------------------------------------------------------
 
+    //商品子类目管理--------------------------------------------- begin -----------------------------------------------------------
+
+    //检测数据表格是否有内容
+    // alert($("#demo1").rows.length);
+
+    //监听父类下拉选项 与 初始化数据表格
+    form.on('select(fatherId)', function(data){
+        // alert(data.value);
+        $("#sonTips").html("");
+        $("#sonEmpty").val("false");
+
+        var ins2 = table.render({
+            id: 'sonId', //隐藏的列
+            elem: '#demo1'
+            ,url: '/type/getGoodSonList?fatherId='+data.value //数据接口
+            // ,where: {studentNo: "3"}
+            ,page: true //开启分页
+            // ,initSort: {field: 'studentNo', type: 'desc'} //设置初始排序
+            ,cols: [[ //表头
+                {type: 'checkbox'},
+                {field: 'sonId', title: '商品子类id',  sort: true, hide: true} , <!--隐藏-->
+                {field: 'sonName', title: '商品子类名称',  sort: true},
+                {field: 'fatherId', title: '商品父类id',  sort: true, hide: true} , <!--隐藏-->
+                // 经检验template日期转换无效，在数据库与实体类映射时转换即可
+                // {field: 'createTime', title: '创建时间', width: 200, sort: true, template: "<div>{{layui.util.toDateString(createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {fixed: 'right', title: '操作', toolbar: '#barDemo', width:134, align:'center', unresize: true}
+            ]]
+            ,height: '472'
+            ,method: 'post'
+        });
+    });
+
+    //新增子类
+    $("#addSon").click(function(){
+        // alert($("#fatherId").val());
+        var fatherId = $("#fatherId").val();
+        var sonEmpty = $("#sonEmpty").val();
+
+        if(sonEmpty != "true") {
+            layer.open({
+                type: 2,
+                title: "新增商品子类类目",
+                shadeClose: true,
+                shade: 0.8,
+                offset: '20px',
+                area: ['880px', '500px'],
+                content: '/type/editGoodSonType?fatherId='+fatherId,
+                end: function(){
+                    //执行重载
+                    table.reload('sonId', //与table中的id要一致
+                        {
+                            page:
+                                {
+                                    curr: 1 //重新从第 1 页开始
+                                }
+                            , where: {}//这里传参  向后台
+                            , method: 'post'
+                        });
+                },
+                cancel: function (index, layero) {
+                    // $(".layui-laypage-btn").trigger('click');
+                }
+            });
+        } else {
+            layer.alert("请选择商品父类目");
+        }
+    });
+    //监听工具条 ----------------------------------------------- Begin-----------------------------------------------------------
+    table.on('tool(test)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+        var data = obj.data; //获得当前行数据
+        var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+        var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+        if(layEvent === 'detail'){ //查看
+            //do somehing
+            layer.msg("click to check pages");
+
+            layer.open(
+                {
+                    type: 2, //iframe层
+                    title: '查看用户信息',
+                    skin: 'layui-layer-molv',
+                    shadeClose: false,
+                    shade: 0.8,
+                    content: '/user/userInfo?userId=' + data.userId, //跳转的页面
+                    area: ['880px','500px'],
+                    cancel: function (index)
+                    {
+                        $(".layui-layer-molv").click(); ///这里用于关闭Open时触发回调函数  刷新父页面数据  一定要引入Jquery
+                    }
+                });
+
+
+        } else if(layEvent === 'del'){ //删除子类
+            layer.confirm('真的删除行么', function(index){
+                // obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                // layer.close(index);
+                //向服务端发送删除指令
+                $.post(
+                    "/type/deleteGoodSonType",
+                    {sonId: data.sonId},
+                    function(data){
+                        if(data.success){
+                            layer.msg(data.msg);
+                            obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                            layer.close(index);
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                    }
+                );
+            });
+        } else if(layEvent === 'edit'){ //编辑子类
+            layer.open(
+                {
+                    type: 2,
+                    title: '编辑商品子类信息',
+                    // skin: 'layui-layer-molv', //样式
+                    shadeClose: false,
+                    offset: '20px',
+                    shade: 0.8,
+                    area: ['880px', '500px'],
+                    // maxmin: true, //最大最小化
+                    content: '/type/editGoodSonType?sonId=' + data.sonId,//跳转的页面
+                    end: function(){ // open撤销时触发回调函数
+                        $(".layui-laypage-btn").click(); // 这是分页工具中的“确定”按钮，相当于点击当前页，查询结果
+                    },
+                    cancel: function (index)
+                    {
+                        $(".layui-laypage-btn").click();//这里用于关闭Open时触发回调函数  刷新父页面数据  一定要引入Jquery
+                    }
+
+                });
+            //do something
+            // layer.msg('edit pages');
+            //同步更新缓存对应的值
+            // obj.update({
+            //     username: '123'
+            //     ,title: 'xxx'
+            // });
+        }
+    });
+
+    //监听工具条 ----------------------------------------------- ENd-----------------------------------------------------------
+    //商品子类目管理--------------------------------------------- end -----------------------------------------------------------
+});
+
+$(function(){
+    var table1 = document.getElementById("demo1");
+    var table1_tr = table1.getElementsByTagName("tr");
+    // alert(table1_tr.length);
+    if(table1_tr.length == 0){
+        $("#sonTips").html("请选择商品父类目");
+    } else {
+        $("#sonTips").html("");
+    }
 });

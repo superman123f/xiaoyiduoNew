@@ -36,6 +36,7 @@
     select
     count(1)
     from B_GOOD_SON
+    where father_id = #{fatherId,jdbcType=VARCHAR}
   </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >

@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="${ctx}/styles/admin/spgl/goodType.css">
 </head>
 <body bgcolor="white" style="margin:15px;">
+<input type="hidden" id="sonEmpty" value="true">
+
 <fieldset class="layui-elem-field">
     <legend>商品管理 - 商品类目</legend>
     <%--Tab选项卡--%>
@@ -28,26 +30,6 @@
             <%--商品父类content--%>
             <div class="layui-tab-item layui-show">
                 <div class="layui-field-box">
-                    <%--<form class="layui-form" action="">--%>
-                    <%--<div class="layui-form-item" style="text-align:center;">--%>
-                    <%--<div class="layui-inline">--%>
-                    <%--<div class="layui-input-inline">--%>
-                    <%--<input id="searchUser" autocomplete="off" class="layui-input" placeholder="学号" type="text" name="name" value="">--%>
-                    <%--</div>--%>
-                    <%--<div class="layui-input-inline">--%>
-                    <%--<input id="nickname" autocomplete="off" class="layui-input" placeholder="昵称" type="text" name="nickname" value="">--%>
-                    <%--</div>--%>
-                    <%--<div class="layui-input-inline">--%>
-                    <%--<input id="realName" autocomplete="off" class="layui-input" placeholder="真实姓名" type="text" name="realName" value="">--%>
-                    <%--</div>--%>
-                    <%--</div>--%>
-                    <%--<div class="layui-inline" style="text-align:left;">--%>
-                    <%--<div class="layui-input-inline">--%>
-                    <%--<button id="reload" type="button" class="layui-btn" data-type="reload"><i class="layui-icon"></i>查询</button>--%>
-                    <%--</div>--%>
-                    <%--</div>--%>
-                    <%--</div>--%>
-                    <%--</form>--%>
                     <hr>
                     <div class="layui-btn-group">
                         <button class="layui-btn layui-btn-xs layui-btn-normal dw-dailog" dw-url="/type/editGoodFatherType" dw-title="新增商品父类" dw-width="880px" dw-height="500px">
@@ -56,20 +38,14 @@
                         <button id="deleteData" class="layui-btn layui-btn-xs layui-btn-danger" data-type="deleteData">
                             <i class="layui-icon">&#xe640;</i>批删
                         </button>
-                        <%--<button class="layui-btn layui-btn-xs dw-refresh">--%>
-                        <%--<i class="layui-icon">&#x1002;</i>刷新--%>
-                        <%--</button>--%>
-                        <%--<button id="exportExl" class="layui-btn layui-btn-xs" data-type="exportExl">导出Excel</button>--%>
                     </div>
                     <hr>
 
                     <table id="demo" lay-filter="test"></table>
 
                 </div>
-
-
-
             </div>
+
             <%--商品子类内容--%>
             <div class="layui-tab-item">
                 <div class="layui-tab-content">
@@ -88,41 +64,19 @@
                                 </div>
                             </div>
                         </form>
-                        <%--<form class="layui-form" action="">--%>
-                        <%--<div class="layui-form-item" style="text-align:center;">--%>
-                        <%--<div class="layui-inline">--%>
-                        <%--<div class="layui-input-inline">--%>
-                        <%--<input id="searchUser" autocomplete="off" class="layui-input" placeholder="学号" type="text" name="name" value="">--%>
-                        <%--</div>--%>
-                        <%--<div class="layui-input-inline">--%>
-                        <%--<input id="nickname" autocomplete="off" class="layui-input" placeholder="昵称" type="text" name="nickname" value="">--%>
-                        <%--</div>--%>
-                        <%--<div class="layui-input-inline">--%>
-                        <%--<input id="realName" autocomplete="off" class="layui-input" placeholder="真实姓名" type="text" name="realName" value="">--%>
-                        <%--</div>--%>
-                        <%--</div>--%>
-                        <%--<div class="layui-inline" style="text-align:left;">--%>
-                        <%--<div class="layui-input-inline">--%>
-                        <%--<button id="reload" type="button" class="layui-btn" data-type="reload"><i class="layui-icon"></i>查询</button>--%>
-                        <%--</div>--%>
-                        <%--</div>--%>
-                        <%--</div>--%>
-                        <%--</form>--%>
                         <hr>
                         <div class="layui-btn-group">
-                            <button class="layui-btn layui-btn-xs layui-btn-normal dw-dailog" dw-url="/type/editGoodFatherType" dw-title="新增商品父类" dw-width="880px" dw-height="500px">
+                            <button id="addSon" class="layui-btn layui-btn-xs layui-btn-normal" dw-url="/type/editGoodSonType" dw-title="新增商品子类" dw-width="880px" dw-height="500px">
                                 <i class="layui-icon">&#xe654;</i>新增
                             </button>
-                            <button id="deleteData" class="layui-btn layui-btn-xs layui-btn-danger" data-type="deleteData">
+                            <button id="deleteDataSon" class="layui-btn layui-btn-xs layui-btn-danger" data-type="deleteDataSon">
                                 <i class="layui-icon">&#xe640;</i>批删
                             </button>
-                            <%--<button class="layui-btn layui-btn-xs dw-refresh">--%>
-                            <%--<i class="layui-icon">&#x1002;</i>刷新--%>
-                            <%--</button>--%>
-                            <%--<button id="exportExl" class="layui-btn layui-btn-xs" data-type="exportExl">导出Excel</button>--%>
                         </div>
                         <hr>
 
+                        <%--子类表格--%>
+                        <div id="sonTips"></div>
                         <table id="demo1" lay-filter="test"></table>
 
                     </div>
@@ -134,6 +88,25 @@
 </fieldset>
 <%--@*工具栏  在Table中使用 toolbar声明一个 Id  放置在任意位置皆可*@--%>
 <script type="text/html" id="barDemo">
+    <%--<a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="detail">查看</a>--%>
+    <%--<button class="layui-btn layui-btn-xs layui-btn-normal dw-dailog" dw-url="create1" dw-title="新增用户" dw-width="100%" dw-height="100%">--%>
+    <%--<i class="layui-icon">&#xe654;</i>新增--%>
+    <%--</button>--%>
+
+    <%--<button class="layui-btn layui-btn-xs layui-btn-normal">--%>
+    <%--<i class="layui-icon">&#xe642;</i>编辑--%>
+    <%--</button>--%>
+    <div class="layui-btn-group">
+        <button class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">
+            <i class="layui-icon">&#xe642;</i>编辑
+        </button>
+        <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">
+            <i class="layui-icon">&#xe640;</i>删除
+        </button>
+    </div>
+</script>
+<%--@*工具栏  在Table中使用 toolbar声明一个 Id  放置在任意位置皆可*@--%>
+<script type="text/html" id="barDemoSon">
     <%--<a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="detail">查看</a>--%>
     <%--<button class="layui-btn layui-btn-xs layui-btn-normal dw-dailog" dw-url="create1" dw-title="新增用户" dw-width="100%" dw-height="100%">--%>
     <%--<i class="layui-icon">&#xe654;</i>新增--%>

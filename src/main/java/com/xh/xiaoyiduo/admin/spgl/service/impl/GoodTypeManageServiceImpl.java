@@ -48,10 +48,10 @@ public class GoodTypeManageServiceImpl implements IGoodTypeManageService {
      * @return
      */
     @Override
-    public String getGoodSonList() {
+    public String getGoodSonList(String fatherId) {
 
-        int count = sonMapper.getGoodSonCount(); // 商品父类类目总数
-        List<B_GOOD_SON> goodSonList = sonMapper.getGoodSonList();// 获取商品父类类目
+        int count = sonMapper.getGoodSonCount(fatherId); // 商品子类类目总数
+        List<B_GOOD_SON> goodSonList = sonMapper.selectGoodSonsByFatherId(fatherId);// 获取商品子类类目
         String sonListJson = JSON.toJSONString(goodSonList);
         String json = "{\"code\":0,\"msg\":\"\",\"count\":" + count + ",\"data\":" + sonListJson + "}";
 
@@ -63,6 +63,16 @@ public class GoodTypeManageServiceImpl implements IGoodTypeManageService {
         return fatherMapper.selectByPrimaryKey(fatherId);
     }
 
+    @Override
+    public B_GOOD_SON selectGoodSonById(String sonId) {
+        return sonMapper.selectByPrimaryKey(sonId);
+    }
+
+    /**
+     * 新增父类
+     * @param father
+     * @return
+     */
     @Override
     public Map<String, Object> insertGoodFatherType(B_GOOD_FATHER father) {
         Map<String, Object> data = new HashMap<>();
@@ -81,6 +91,11 @@ public class GoodTypeManageServiceImpl implements IGoodTypeManageService {
         return data;
     }
 
+    /**
+     * 编辑父类
+     * @param father
+     * @return
+     */
     @Override
     public Map<String, Object> updateGoodFatherType(B_GOOD_FATHER father) {
         Map<String, Object> data = new HashMap<>();
@@ -96,6 +111,54 @@ public class GoodTypeManageServiceImpl implements IGoodTypeManageService {
         return data;
     }
 
+    /**
+     * 新增子类
+     * @param son
+     * @return
+     */
+    @Override
+    public Map<String, Object> insertGoodSonType(B_GOOD_SON son) {
+        Map<String, Object> data = new HashMap<>();
+
+        String uuid = UUID.randomUUID().toString().replaceAll("\\-", "");
+        son.setSonId(uuid); //插入主键
+        int i = sonMapper.insert(son);
+
+        if(i > 0) {
+            data.put("success", true);
+            data.put("msg", "新增成功 ");
+        } else {
+            data.put("success", false);
+            data.put("msg", "新增失败 ");
+        }
+        return data;
+    }
+
+    /**
+     * 编辑子类
+     * @param son
+     * @return
+     */
+    @Override
+    public Map<String, Object> updateGoodSonType(B_GOOD_SON son) {
+        Map<String, Object> data = new HashMap<>();
+
+        int i = sonMapper.updateByPrimaryKey(son);
+        if(i > 0) {
+            data.put("success", true);
+            data.put("msg", "保存成功 ");
+        } else {
+            data.put("success", false);
+            data.put("msg", "保存失败");
+        }
+        return data;
+    }
+
+    /**
+     * 单个删除父类
+     * @param fatherId
+     * @return
+     */
     @Override
     public Map<String, Object> deleteGoodFatherById(String fatherId) {
         Map<String, Object> data = new HashMap<>();
@@ -112,6 +175,26 @@ public class GoodTypeManageServiceImpl implements IGoodTypeManageService {
     }
 
     @Override
+    public Map<String, Object> deleteGoodSonById(String sonId) {
+        Map<String, Object> data = new HashMap<>();
+
+        int i = sonMapper.deleteByPrimaryKey(sonId);
+        if(i > 0) {
+            data.put("success", true);
+            data.put("msg", "删除成功");
+        } else {
+            data.put("success", false);
+            data.put("msg", "删除失败 ");
+        }
+        return data;
+    }
+
+    /**
+     * 批量删除父类
+     * @param fatherIds
+     * @return
+     */
+    @Override
     public Map<String, Object> deleteGoodFatherTypeByIds(String fatherIds) {
         Map<String,Object> data = new HashMap<>();
 
@@ -127,6 +210,31 @@ public class GoodTypeManageServiceImpl implements IGoodTypeManageService {
         } else {
             data.put("success", false);
             data.put("msg", "批量删除商品父类类目 失败");
+        }
+        return data;
+    }
+
+    /**
+     * 批量删除子类
+     * @param sonIds
+     * @return
+     */
+    @Override
+    public Map<String, Object> deleteGoodSonTypeByIds(String sonIds) {
+        Map<String,Object> data = new HashMap<>();
+
+        String[] sonId = sonIds.split("，");
+        int count = 0;
+        for(int i = 0; i < sonId.length; i++){
+            sonMapper.deleteByPrimaryKey(sonId[i]);
+            count++;
+        }
+        if(count > 0) {
+            data.put("success", true);
+            data.put("msg", "批量删除商品子类类目 成功 ");
+        } else {
+            data.put("success", false);
+            data.put("msg", "批量删除商品子类类目 失败");
         }
         return data;
     }

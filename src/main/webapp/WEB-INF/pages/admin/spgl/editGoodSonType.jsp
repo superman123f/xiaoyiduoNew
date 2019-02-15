@@ -13,6 +13,9 @@
     <link rel="stylesheet" type="text/css" href="${ctx}/styles/layui/css/layui.css">
 </head>
 <body>
+<%--隐藏域--%>
+<input type="hidden" id="fatherId" value="${fatherId}">
+
 <div style="margin:16px 19px 0px 0px;">
     <form class="layui-form" action="/ban/updateBanGoodInfo" method="post">
         <%--隐藏用户id--%>
@@ -47,11 +50,13 @@
 
         var sonId = $("#sonId").val();
         var sonName = $("#sonName").val();
+        var fatherId = $("#fatherId").val();
 
         $.post("/type/updateGoodSonType",
             {
                 sonId: sonId,
-                sonName: sonName
+                sonName: sonName,
+                fatherId: fatherId
             },
             function(data){
                 if(data.success){
