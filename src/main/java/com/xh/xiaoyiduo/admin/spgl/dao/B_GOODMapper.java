@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 商品管理Mapper
@@ -33,5 +34,7 @@ public interface B_GOODMapper {
     int updateByPrimaryKey(B_GOOD record);
 
     int saveGoodImageUrls(@Param("resourceId")String resourceId, @Param("type")String type, @Param("imgUrl") String imgUrl, @Param("sonId")String sonId); //保存商品图片路径
+
+    List<Map<String, String>> getGoodTypeReport();// 种类商品数量统计报表
 
 }

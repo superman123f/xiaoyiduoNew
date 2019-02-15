@@ -1,5 +1,7 @@
 package com.xh.xiaoyiduo.admin.spgl.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.xh.xiaoyiduo.admin.spgl.dao.B_GOODMapper;
 import com.xh.xiaoyiduo.admin.spgl.dao.B_GOOD_FatherMapper;
 import com.xh.xiaoyiduo.admin.spgl.dao.B_GOOD_SonMapper;
@@ -9,8 +11,11 @@ import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_SON;
 import com.xh.xiaoyiduo.admin.spgl.service.IGoodManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -78,5 +83,26 @@ public class GoodManageServiceImpl implements IGoodManageService {
     @Override
     public int saveGoodImageUrls(String resourceId, String type, String imgUrl, String sonId) {
         return goodMapper.saveGoodImageUrls(resourceId, type, imgUrl, sonId);
+    }
+
+    /**
+     * 获取种类商品统计报表
+     * @return
+     */
+    @Override
+    public void getGoodTypeReport(Model model) {
+        List<Map<String, String>> goodTypeReportList = goodMapper.getGoodTypeReport();
+        List<String> goodFatherNameList1 = new ArrayList<>();
+        List<String> goodFatherCountList1 = new ArrayList<>();
+        for(Map<String, String> map : goodTypeReportList) {
+            goodFatherNameList1.add(map.get("FATHER_NAME"));
+            goodFatherCountList1.add(map.get("GOOD_NUM"));
+        }
+//        String goodFatherNameList = JSON.toJSONString(goodFatherNameList1);
+//        String goodFatherCountList = JSON.toJSONString(goodFatherCountList1);
+        JSONArray fatherNameArray = JSONArray.parseArray(JSONArray.toJSONString(goodFatherNameList1));
+        JSONArray fatherCountArray = JSONArray.parseArray(JSONArray.toJSONString(goodFatherCountList1));
+        model.addAttribute("goodFatherNameList", fatherNameArray);
+        model.addAttribute("goodFatherCountList", fatherCountArray);
     }
 }

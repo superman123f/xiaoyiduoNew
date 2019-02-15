@@ -3,8 +3,10 @@ package com.xh.xiaoyiduo.admin.spgl.service;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_FATHER;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_SON;
+import org.springframework.ui.Model;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -29,4 +31,6 @@ public interface IGoodManageService {
     List<B_GOOD> getUserReleaseAllGood(String userId); //获取用户发布的所有商品
 
     int saveGoodImageUrls(String resourceId, String type, String imgUrl, String sonId); //保存商品图片路径
+
+    void getGoodTypeReport(Model model);// 种类商品数量统计报表
 }

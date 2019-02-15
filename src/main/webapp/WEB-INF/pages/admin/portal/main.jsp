@@ -116,7 +116,7 @@
                     <%--</dl>--%>
                 <%--</li>--%>
 
-                <li class="layui-nav-item"><a href="javascript:void(0);">统计分析</a></li>
+                <li class="layui-nav-item"><a href="javascript:void(0);" onclick="choose('/good/getReport');">统计分析</a></li>
 
                 <li class="layui-nav-item">
                     <a href="javascript:void(0);">开发者工具</a>

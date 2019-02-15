@@ -89,6 +89,16 @@ public class GoodManageController {
         return "/shop/commodity";
     }
 
+    /**
+     * 跳转到默认商品页
+     * @return
+     */
+    @RequestMapping("/getReport")
+    public String getReport(Model model){
+        goodManageService.getGoodTypeReport(model);
+        return "/admin/tjfx/report";
+    }
+
 
     /**
      * 获取对应商品子类物品
@@ -443,6 +453,7 @@ public class GoodManageController {
         List<B_GOOD_SON> goodSonList = goodManageService.selectGoodSonsByFatherId(fatherId);
         return goodSonList;
     }
+
     //将图片重命名
     public static String changeName(String oldName){
 //        Random r = new Random();

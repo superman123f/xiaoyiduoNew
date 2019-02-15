@@ -115,6 +115,21 @@
     from B_GOOD
     where GOOD_ID = #{goodId,jdbcType=VARCHAR}
   </select>
+  <!--种类商品数量统计报表-->
+  <select id="getGoodTypeReport" resultType="java.util.Map">
+    SELECT
+	  bf.father_name,
+	  count(good_id) AS good_num
+    FROM
+      B_GOOD_FATHER  bf,
+      B_GOOD_SON bs,
+      B_GOOD  bd
+    WHERE
+	  bf.father_id = bs.father_id
+    AND
+      bs.son_id = bd.son_id
+    GROUP BY bf.father_name
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from B_GOOD
     where GOOD_ID = #{goodId,jdbcType=VARCHAR}
