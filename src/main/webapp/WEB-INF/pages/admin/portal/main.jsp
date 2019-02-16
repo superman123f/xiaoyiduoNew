@@ -90,6 +90,13 @@
                 </li>
 
                 <li class="layui-nav-item">
+                    <a class="" href="javascript:void(0);">类目管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:void(0);" onclick="choose('/type/toGoodTypePage');">类目列表</a></dd>
+                    </dl>
+                </li>
+
+                <li class="layui-nav-item">
                     <a class="" href="javascript:void(0);">商品管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:void(0);" onclick="choose('/type/toGoodTypePage');">商品类目</a></dd>
@@ -118,18 +125,18 @@
 
                 <li class="layui-nav-item"><a href="javascript:void(0);" onclick="choose('/good/getReport');">统计分析</a></li>
 
-                <li class="layui-nav-item">
-                    <a href="javascript:void(0);">开发者工具</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:void(0);" onclick="choose('/admin/index');">控制台</a></dd>
-                    </dl>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:void(0);" onclick="choose('/admin/member');">会员列表</a></dd>
-                    </dl>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:void(0);" onclick="choose('/admin/sysConfig');">系统变量</a></dd>
-                    </dl>
-                </li>
+                <%--<li class="layui-nav-item">--%>
+                    <%--<a href="javascript:void(0);">开发者工具</a>--%>
+                    <%--<dl class="layui-nav-child">--%>
+                        <%--<dd><a href="javascript:void(0);" onclick="choose('/admin/index');">控制台</a></dd>--%>
+                    <%--</dl>--%>
+                    <%--<dl class="layui-nav-child">--%>
+                        <%--<dd><a href="javascript:void(0);" onclick="choose('/admin/member');">会员列表</a></dd>--%>
+                    <%--</dl>--%>
+                    <%--<dl class="layui-nav-child">--%>
+                        <%--<dd><a href="javascript:void(0);" onclick="choose('/admin/sysConfig');">系统变量</a></dd>--%>
+                    <%--</dl>--%>
+                <%--</li>--%>
             </ul>
         </div>
     </div>

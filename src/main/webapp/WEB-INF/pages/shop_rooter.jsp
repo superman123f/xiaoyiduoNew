@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<div class="footer">
-    <div class="ng-promise-box">
+<div class="footer" style="height: 150px;">
+    <div class="ng-promise-box" style="line-height: 120px;">
         <div class="ng-promise w1200">
             <p class="text">
                 <a class="icon1" href="javascript:;">现场检测商品质量</a>

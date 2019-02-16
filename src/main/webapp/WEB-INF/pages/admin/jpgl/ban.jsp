@@ -42,7 +42,7 @@
             <%--<button class="layui-btn layui-btn-xs dw-refresh">--%>
             <%--<i class="layui-icon">&#x1002;</i>刷新--%>
             <%--</button>--%>
-            <button id="exportExl" class="layui-btn layui-btn-xs" data-type="exportExl">导出Excel</button>
+            <%--<button id="exportExl" class="layui-btn layui-btn-xs" data-type="exportExl">导出Excel</button>--%>
         </div>
         <hr>
 
@@ -298,7 +298,7 @@
                         // skin: 'layui-layer-molv', //样式
                         shadeClose: false,
                         shade: 0.8,
-                        area: ['500px', '300px'],
+                        area: ['500px', '250px'],
                         maxmin: true,
                         content: '/ban/banGoodInfo?banId=' + data.banId,//跳转的页面
                         cancel: function (index)

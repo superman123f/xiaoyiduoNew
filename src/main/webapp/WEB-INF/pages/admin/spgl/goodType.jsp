@@ -18,7 +18,7 @@
 <input type="hidden" id="sonEmpty" value="true">
 
 <fieldset class="layui-elem-field">
-    <legend>商品管理 - 商品类目</legend>
+    <legend>类目管理 - 类目列表</legend>
     <%--Tab选项卡--%>
     <div class="layui-tab layui-tab-card" lay-filter="docDemoTabBrief">
         <ul class="layui-tab-title">
@@ -56,7 +56,7 @@
                                 <label class="layui-form-label">商品种类</label>
                                 <div class="layui-input-inline" style="max-height: 300px;">
                                     <select id="fatherId" name="fatherId" lay-verify="" lay-filter="fatherId">
-                                        <option value="请选择商品父类" disabled="disabled">请选择商品父类</option>
+                                        <option value="" disabled="disabled">请选择商品父类</option>
                                         <c:forEach items="${father}" var="father">
                                             <option value="${father.fatherId}">${father.fatherName}</option>
                                         </c:forEach>

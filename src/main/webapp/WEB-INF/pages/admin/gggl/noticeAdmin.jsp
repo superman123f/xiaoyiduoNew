@@ -299,7 +299,7 @@
                         // skin: 'layui-layer-molv', //样式
                         shadeClose: false,
                         shade: 0.8,
-                        area: ['500px', '300px'],
+                        area: ['500px', '250px'],
                         maxmin: true,
                         content: '/notice/editNotice?noticeId=' + data.noticeId,//跳转的页面
                         cancel: function (index)

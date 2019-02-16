@@ -21,8 +21,8 @@
         <%--隐藏用户id--%>
         <input id="sonId" type="hidden" name="sonId" value="${son.sonId}">
         <div class="layui-form-item">
-            <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>商品子类名称</label>
-            <div class="layui-input-block">
+            <label class="layui-form-label" style="width:98px;"><font style="color:red;margin-right:7px;">*</font>商品子类名称</label>
+            <div class="layui-input-block" style="margin-left: 128px;">
                 <input type="text" id="sonName" name="sonName" autocomplete="off" class="layui-input" value="${son.sonName}" placeholder="请输入商品子类名称">
             </div>
         </div>

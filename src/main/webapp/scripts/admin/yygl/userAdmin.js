@@ -51,12 +51,14 @@ layui.use(['table', 'layer', 'form'], function(){
 
     //第一个实例
     var ins1 = table.render({
-        id: 'userId', //隐藏的列
-        title: '用户信息表',
-        elem: '#demo'
+        id: 'userId' //隐藏的列
+        ,title: '用户信息表'
+        // ,height: 312
+        ,elem: '#demo'
         ,url: '/user/getAllUsers' //数据接口
         // ,where: {studentNo: "3"}
         ,page: true //开启分页
+        // ,limits: [6, 7, 8, 9]
         // ,initSort: {field: 'studentNo', type: 'desc'} //设置初始排序
         ,cols: [[ //表头
             {type: 'checkbox'},

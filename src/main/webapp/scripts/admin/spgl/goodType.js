@@ -276,7 +276,7 @@ layui.use(['table', 'layer', 'form', 'element'], function(){
                     }
                 );
             });
-        } else if(layEvent === 'edit'){ //编辑
+        } else if(layEvent === 'edit'){ //编辑父类
             layer.open(
                 {
                     type: 2,
@@ -285,7 +285,7 @@ layui.use(['table', 'layer', 'form', 'element'], function(){
                     shadeClose: false,
                     offset: '20px',
                     shade: 0.8,
-                    area: ['880px', '500px'],
+                    area: ['500px', '180px'],
                     // maxmin: true, //最大最小化
                     content: '/type/editGoodFatherType?fatherId=' + data.fatherId,//跳转的页面
                     end: function(){ // open撤销时触发回调函数
@@ -309,8 +309,9 @@ layui.use(['table', 'layer', 'form', 'element'], function(){
 
     //监听工具条 ----------------------------------------------- ENd-----------------------------------------------------------
 
-    //商品子类目管理--------------------------------------------- begin -----------------------------------------------------------
 
+
+    //商品子类目管理--------------------------------------------- begin -----------------------------------------------------------
     //检测数据表格是否有内容
     // alert($("#demo1").rows.length);
 
@@ -334,7 +335,7 @@ layui.use(['table', 'layer', 'form', 'element'], function(){
                 {field: 'fatherId', title: '商品父类id',  sort: true, hide: true} , <!--隐藏-->
                 // 经检验template日期转换无效，在数据库与实体类映射时转换即可
                 // {field: 'createTime', title: '创建时间', width: 200, sort: true, template: "<div>{{layui.util.toDateString(createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
-                {fixed: 'right', title: '操作', toolbar: '#barDemo', width:134, align:'center', unresize: true}
+                {fixed: 'right', title: '操作', toolbar: '#barDemoSon', width:134, align:'center', unresize: true}
             ]]
             ,height: '472'
             ,method: 'post'
@@ -430,7 +431,7 @@ layui.use(['table', 'layer', 'form', 'element'], function(){
                     shadeClose: false,
                     offset: '20px',
                     shade: 0.8,
-                    area: ['880px', '500px'],
+                    area: ['500px', '180px'],
                     // maxmin: true, //最大最小化
                     content: '/type/editGoodSonType?sonId=' + data.sonId,//跳转的页面
                     end: function(){ // open撤销时触发回调函数
