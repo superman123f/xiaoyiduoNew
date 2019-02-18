@@ -53,7 +53,7 @@
                         <%--商品父类选项--%>
                         <form class="layui-form">
                             <div class="layui-form-item">
-                                <label class="layui-form-label">商品种类</label>
+                                <label class="layui-form-label">商品父类目</label>
                                 <div class="layui-input-inline" style="max-height: 300px;">
                                     <select id="fatherId" name="fatherId" lay-verify="" lay-filter="fatherId">
                                         <option value="" disabled="disabled">请选择商品父类</option>
