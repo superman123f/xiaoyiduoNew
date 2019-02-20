@@ -56,7 +56,8 @@
                                 <label class="layui-form-label">商品父类目</label>
                                 <div class="layui-input-inline" style="max-height: 300px;">
                                     <select id="fatherId" name="fatherId" lay-verify="" lay-filter="fatherId">
-                                        <option value="" disabled="disabled">请选择商品父类</option>
+                                        <%--<option value="请选择商品父类" disabled="disabled">请选择商品父类</option>--%>
+                                        <option value="" >请选择商品父类</option>
                                         <c:forEach items="${father}" var="father">
                                             <option value="${father.fatherId}">${father.fatherName}</option>
                                         </c:forEach>
