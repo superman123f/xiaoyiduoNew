@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xh.xiaoyiduo.admin.ddgl.dao.B_GOOD_ORDER_DETAILMapper" >
+  <resultMap id="BaseResultMap" type="com.xh.xiaoyiduo.admin.ddgl.pojo.B_GOOD_ORDER_DETAIL" >
+    <id column="DETAIL_ID" property="detailId" jdbcType="VARCHAR" />
+    <result column="ORDER_ID" property="orderId" jdbcType="VARCHAR" />
+    <result column="GOOD_ID" property="goodId" jdbcType="VARCHAR" />
+    <result column="SINGLE_PRICE" property="singlePrice" jdbcType="FLOAT" />
+    <result column="GOOD_NUMBER" property="goodNumber" jdbcType="DECIMAL" />
+    <result column="KIND_TOTAL_PRICE" property="kindTotalPrice" jdbcType="FLOAT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    DETAIL_ID, ORDER_ID, GOOD_ID, SINGLE_PRICE, GOOD_NUMBER, KIND_TOTAL_PRICE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from B_GOOD_ORDER_DETAIL
+    where DETAIL_ID = #{detailId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from B_GOOD_ORDER_DETAIL
+    where DETAIL_ID = #{detailId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xh.xiaoyiduo.admin.ddgl.pojo.B_GOOD_ORDER_DETAIL" >
+    insert into B_GOOD_ORDER_DETAIL (DETAIL_ID, ORDER_ID, GOOD_ID, 
+      SINGLE_PRICE, GOOD_NUMBER, KIND_TOTAL_PRICE
+      )
+    values (#{detailId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{goodId,jdbcType=VARCHAR}, 
+      #{singlePrice,jdbcType=FLOAT}, #{goodNumber,jdbcType=DECIMAL}, #{kindTotalPrice,jdbcType=FLOAT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xh.xiaoyiduo.admin.ddgl.pojo.B_GOOD_ORDER_DETAIL" >
+    insert into B_GOOD_ORDER_DETAIL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="detailId != null" >
+        DETAIL_ID,
+      </if>
+      <if test="orderId != null" >
+        ORDER_ID,
+      </if>
+      <if test="goodId != null" >
+        GOOD_ID,
+      </if>
+      <if test="singlePrice != null" >
+        SINGLE_PRICE,
+      </if>
+      <if test="goodNumber != null" >
+        GOOD_NUMBER,
+      </if>
+      <if test="kindTotalPrice != null" >
+        KIND_TOTAL_PRICE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="detailId != null" >
+        #{detailId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodId != null" >
+        #{goodId,jdbcType=VARCHAR},
+      </if>
+      <if test="singlePrice != null" >
+        #{singlePrice,jdbcType=FLOAT},
+      </if>
+      <if test="goodNumber != null" >
+        #{goodNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="kindTotalPrice != null" >
+        #{kindTotalPrice,jdbcType=FLOAT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xh.xiaoyiduo.admin.ddgl.pojo.B_GOOD_ORDER_DETAIL" >
+    update B_GOOD_ORDER_DETAIL
+    <set >
+      <if test="orderId != null" >
+        ORDER_ID = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodId != null" >
+        GOOD_ID = #{goodId,jdbcType=VARCHAR},
+      </if>
+      <if test="singlePrice != null" >
+        SINGLE_PRICE = #{singlePrice,jdbcType=FLOAT},
+      </if>
+      <if test="goodNumber != null" >
+        GOOD_NUMBER = #{goodNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="kindTotalPrice != null" >
+        KIND_TOTAL_PRICE = #{kindTotalPrice,jdbcType=FLOAT},
+      </if>
+    </set>
+    where DETAIL_ID = #{detailId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xh.xiaoyiduo.admin.ddgl.pojo.B_GOOD_ORDER_DETAIL" >
+    update B_GOOD_ORDER_DETAIL
+    set ORDER_ID = #{orderId,jdbcType=VARCHAR},
+      GOOD_ID = #{goodId,jdbcType=VARCHAR},
+      SINGLE_PRICE = #{singlePrice,jdbcType=FLOAT},
+      GOOD_NUMBER = #{goodNumber,jdbcType=DECIMAL},
+      KIND_TOTAL_PRICE = #{kindTotalPrice,jdbcType=FLOAT}
+    where DETAIL_ID = #{detailId,jdbcType=VARCHAR}
+  </update>
+</mapper>
