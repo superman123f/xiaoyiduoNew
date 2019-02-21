@@ -28,9 +28,9 @@ public class S_USER {
 
     private String dormitoryAddress;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd HH24:mi:ss")//页面写入数据库时格式化
-//    @JSONField(format="yyyy-MM-dd HH:mm:ss")//数据库导出页面时json格式化
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH24:mi:ss")//页面写入数据库时格式化
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")//数据库导出页面时json格式化
     private Date createTime;
 
     private Set<S_USER_ROLES> roles = new HashSet<>();

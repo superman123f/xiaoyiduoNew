@@ -31,7 +31,7 @@
             <%--<li class="layui-nav-item"><a href="javascript:void(0);" onclick="choose('/admin/admin');">用户列表</a></li>--%>
             <%--<li class="layui-nav-item"><a href="javascript:void(0);" onclick="choose('/admin/member');">会员列表</a></li>--%>
         <%--</ul>--%>
-        <ul class="layui-nav layui-layout-right">
+        <ul class="layui-nav layui-layout-right" style="margin-right: 20px;">
             <li class="layui-nav-item"><a href="/shop/commodity">首页</a></li>
             <li class="layui-nav-item">
                 <%--<input type="text" value="${user.userId}">--%>
@@ -44,11 +44,11 @@
                     <shiro:principal property="nickname"></shiro:principal>
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">基本资料</a></dd>
-                    <dd><a href="">安全设置</a></dd>
+                    <dd><a id="jbzl" href="javascript:void(0);">基本资料</a></dd>
+                    <dd><a href="/user/logout">注销</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item"><a href="/user/logout">退了</a></li>
+            <%--<li class="layui-nav-item"><a href="/user/logout">退了</a></li>--%>
         </ul>
     </div>
 
@@ -161,3 +161,20 @@
 <script type="text/javascript" src="${ctx}/scripts/admin/portal/main.js"></script>
 </body>
 </html>
+<script>
+    layui.use(['layer'], function(){
+       var layer = layui.layer;
+    });
+
+    $(function(){
+        $('#jbzl').click(function(){
+            layer.open({
+                title: '基本资料',
+                type: 2,
+                // skin: 'layui-layer-rim', //加上边框
+                area: ['685px', '504px'], //宽高
+                content: '/user/seeUserInfoEnd'
+            });
+        });
+    });
+</script>

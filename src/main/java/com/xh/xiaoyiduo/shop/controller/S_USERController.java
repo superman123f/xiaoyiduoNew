@@ -589,4 +589,18 @@ public class S_USERController {
         model.addAttribute("user", user);
         return "/shop/user/editUserInfo";
     }
+    /**
+     * 后端-基本信息
+     * @return
+     */
+    @RequestMapping("/seeUserInfoEnd")
+    public String seeUserInfoEnd(Model model){
+        S_USER currentUser = (S_USER) SecurityUtils.getSubject().getPrincipal();
+        if(currentUser != null) {
+            String userId =currentUser.getUserId();
+            S_USER user = userService.selectByUserId(userId);
+            model.addAttribute("user", user);
+        }
+        return "/shop/user/editUserInfo";
+    }
 }

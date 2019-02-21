@@ -12,7 +12,7 @@
 </head>
 <body>
 <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-<div id="main" style="width: 100%;height:285px; margin-top: 10px;"></div>
+<div id="main" style="width: 100%;height:285px; margin-top: 30px;"></div>
 </body>
 <script type="text/javascript" src="${ctx}/scripts/jquery.min.js"></script>
 <script type="text/javascript" src="${ctx}/scripts/echarts/echarts.js"></script>
