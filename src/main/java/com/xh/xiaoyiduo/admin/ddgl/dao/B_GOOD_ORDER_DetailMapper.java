@@ -1,5 +1,6 @@
 package com.xh.xiaoyiduo.admin.ddgl.dao;
 
+
 import com.xh.xiaoyiduo.admin.ddgl.pojo.B_GOOD_ORDER_DETAIL;
 import org.springframework.stereotype.Repository;
 

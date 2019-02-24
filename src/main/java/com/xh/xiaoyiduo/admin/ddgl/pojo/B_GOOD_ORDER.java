@@ -27,6 +27,10 @@ public class B_GOOD_ORDER {
 
     private String sellerId;
 
+    private Double singlePrice;
+
+    private Integer goodNumber;
+
     public String getOrderId() {
         return orderId;
     }
@@ -121,5 +125,22 @@ public class B_GOOD_ORDER {
 
     public void setSellerId(String sellerId) {
         this.sellerId = sellerId == null ? null : sellerId.trim();
+    }
+
+
+    public Double getSinglePrice() {
+        return singlePrice;
+    }
+
+    public void setSinglePrice(Double singlePrice) {
+        this.singlePrice = singlePrice;
+    }
+
+    public Integer getGoodNumber() {
+        return goodNumber;
+    }
+
+    public void setGoodNumber(Integer goodNumber) {
+        this.goodNumber = goodNumber;
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.xh.xiaoyiduo.admin.ddgl.dao.B_GOOD_ORDER_DETAILMapper" >
+<mapper namespace="com.xh.xiaoyiduo.admin.ddgl.dao.B_GOOD_ORDER_DetailMapper" >
   <resultMap id="BaseResultMap" type="com.xh.xiaoyiduo.admin.ddgl.pojo.B_GOOD_ORDER_DETAIL" >
     <id column="DETAIL_ID" property="detailId" jdbcType="VARCHAR" />
     <result column="ORDER_ID" property="orderId" jdbcType="VARCHAR" />

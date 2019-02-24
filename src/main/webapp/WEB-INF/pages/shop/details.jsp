@@ -75,11 +75,11 @@
                     </div>
                     <div class="choose-attrs">
                         <%--<div class="color layui-clear"><span class="title">颜&nbsp;&nbsp;&nbsp;&nbsp;色</span> <div class="color-cont"><span class="btn">白色</span> <span class="btn active">粉丝</span></div></div>--%>
-                        <div class="number layui-clear"><span class="title">数&nbsp;&nbsp;&nbsp;&nbsp;量</span>&nbsp;&nbsp;件 (库存${goodDetail.goodNumber}件)<div class="number-cont"><span class="cut btn">-</span><input onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="4" type="" name="" value="1"><span class="add btn">+</span></div></div>
+                        <div class="number layui-clear"><span class="title">数&nbsp;&nbsp;&nbsp;&nbsp;量</span>&nbsp;&nbsp;件 (库存${goodDetail.goodNumber}件)<div  class="number-cont"><span class="cut btn">-</span><input id="goodNum" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="4" type="" name="" value="1"><span class="add btn">+</span></div></div>
                         <input id="goodNumber" type="hidden" value="${goodDetail.goodNumber}">
                     </div>
                     <div class="choose-btns">
-                        <button class="layui-btn layui-btn-primary purchase-btn">立刻购买</button>
+                        <button id="buy_now_btn" class="layui-btn layui-btn-primary purchase-btn">立刻购买</button>
                         <button id="addCartBtn" class="layui-btn  layui-btn-danger car-btn"><i class="layui-icon layui-icon-cart-simple"></i>加入购物车</button>
                     </div>
                 </div>
@@ -280,7 +280,7 @@
             function(data){
                 if(data.success == false){
                     layer.confirm("您还未登录，是否现在登录", {
-                        btn: ['现在就去', '我在想想'],
+                        btn: ['现在就去', '我再想想'],
                         btnAlign: 'c'
                     }, function(index){
                         layer.close(index);
@@ -376,7 +376,7 @@
                                     } else {
                                         // layer.msg(data.msg);
                                         layer.confirm("您还未登录，是否现在登录", {
-                                            btn: ['现在就去', '我在想想'],
+                                            btn: ['现在就去', '我再想想'],
                                             btnAlign: 'c'
                                         }, function(index){
                                             layer.close(index);
@@ -387,7 +387,7 @@
                         }
                     } else { // 未登录，提示是否“现在登录”
                         layer.confirm("您还未登录，是否现在登录", {
-                            btn: ['现在就去', '我在想想'],
+                            btn: ['现在就去', '我再想想'],
                             btnAlign: 'c'
                         }, function(index){
                             layer.close(index);
@@ -424,6 +424,46 @@
 
         });
 
+        //立即购买
+        $("#buy_now_btn").click(function(){
+            var goodId = $("#goodId").val();
+            var goodNum = $("#goodNum").val();
+            alert(goodNum);
+            // alert($("#goodId").val());
+            //检测是否登录
+            $.post("/user/checkUserLogin",
+                {
+
+                },
+                function(data){
+                    if(data.success == false){
+                        layer.confirm("您还未登录，是否现在登录", {
+                            btn: ['现在就去', '我再想想'],
+                            btnAlign: 'c'
+                        }, function(index){
+                            layer.close(index);
+                            location.href = "/shop/login";
+                        });
+                    } else {
+                        // // 生成订单
+                        $.post(
+                              "/order/createGoodOrderInfo",
+                              {
+                                  goodId: goodId,
+                                  goodNum: goodNum
+                              },
+                              function(data){
+                                  if(data.success) {
+                                      window.location.href="/order/showGoodOrderPage?orderId="+data.orderId;
+                                  }
+                              }
+                        );
+                    }
+                });
+
+        });
+
+        //加入购物车
         $("#addCartBtn").click(function(){
             // alert(1);
             var goodName = $("#goodName1").val(); //不知道为啥要换个id名称才可以获取值，使用goodName不行
@@ -459,7 +499,7 @@
                         //     content: '/shop/login',
                         // });
                         layer.confirm("您还未登录，是否现在登录", {
-                             btn: ['现在就去', '我在想想'],
+                             btn: ['现在就去', '我再想想'],
                             btnAlign: 'c'
                         }, function(index){
                             layer.close(index);
@@ -485,7 +525,7 @@
                 if(data.isLogin == false){
                     // alert(1);
                     layer.confirm("您还未登录，是否现在登录", {
-                        btn: ['现在就去', '我在想想'],
+                        btn: ['现在就去', '我再想想'],
                         btnAlign: 'c'
                     }, function(index){
                         layer.close(index);
