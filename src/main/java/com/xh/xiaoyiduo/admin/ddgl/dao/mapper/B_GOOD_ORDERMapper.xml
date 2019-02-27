@@ -3,21 +3,27 @@
 <mapper namespace="com.xh.xiaoyiduo.admin.ddgl.dao.B_GOOD_ORDERMapper" >
   <resultMap id="BaseResultMap" type="com.xh.xiaoyiduo.admin.ddgl.pojo.B_GOOD_ORDER" >
     <id column="ORDER_ID" property="orderId" jdbcType="VARCHAR" />
-    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
     <result column="BUYER_ID" property="buyerId" jdbcType="VARCHAR" />
     <result column="BUYER_NAME" property="buyerName" jdbcType="VARCHAR" />
     <result column="BUYER_ADDRESS" property="buyerAddress" jdbcType="VARCHAR" />
     <result column="PHONE" property="phone" jdbcType="VARCHAR" />
     <result column="EMAIL" property="email" jdbcType="VARCHAR" />
     <result column="ORDER_CREATE_TIME" property="orderCreateTime" jdbcType="TIMESTAMP" />
+    <result column="SINGLE_PRICE" property="singlePrice" jdbcType="FLOAT" />
+    <result column="GOOD_NUMBER" property="goodNumber" jdbcType="DOUBLE" />
     <result column="TOTAL_PRICE" property="totalPrice" jdbcType="FLOAT" />
     <result column="ORDER_STATUS" property="orderStatus" jdbcType="VARCHAR" />
     <result column="delivery Method" property="deliveryMethod" jdbcType="VARCHAR" />
+    <result column="ORDER_MESSAGE" property="orderMessage" jdbcType="VARCHAR" />
     <result column="SELLER_ID" property="sellerId" jdbcType="VARCHAR" />
+    <result column="GOOD_ID" property="goodId" jdbcType="VARCHAR" />
+    <association property="good" column="GOOD_ID" select="com.xh.xiaoyiduo.admin.spgl.dao.B_GOODMapper.selectByPrimaryKey"/>
+    <collection property="resources" column="GOOD_ID" select="com.xh.xiaoyiduo.admin.spgl.dao.ResourcesMapper.selectBySourceId"/>
   </resultMap>
   <sql id="Base_Column_List" >
-    ORDER_ID, USER_ID, BUYER_ID, BUYER_NAME, BUYER_ADDRESS, PHONE, EMAIL, ORDER_CREATE_TIME, 
-    TOTAL_PRICE, ORDER_STATUS, "delivery Method", SELLER_ID
+    ORDER_ID, BUYER_ID, BUYER_NAME, BUYER_ADDRESS, PHONE, EMAIL, ORDER_CREATE_TIME,
+    SINGLE_PRICE, GOOD_NUMBER,
+    TOTAL_PRICE, ORDER_STATUS, "delivery Method", ORDER_MESSAGE, SELLER_ID, GOOD_ID
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -25,20 +31,28 @@
     from B_GOOD_ORDER
     where ORDER_ID = #{orderId,jdbcType=VARCHAR}
   </select>
+  <!--显示所有订单-->
+  <select id="selectAllOrder" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from B_GOOD_ORDER
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from B_GOOD_ORDER
     where ORDER_ID = #{orderId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.xh.xiaoyiduo.admin.ddgl.pojo.B_GOOD_ORDER" >
-    insert into B_GOOD_ORDER (ORDER_ID, USER_ID, BUYER_ID, 
+    insert into B_GOOD_ORDER (ORDER_ID, BUYER_ID,
       BUYER_NAME, BUYER_ADDRESS, PHONE, 
       EMAIL, ORDER_CREATE_TIME, TOTAL_PRICE, 
-      ORDER_STATUS, "delivery Method", SELLER_ID
+      ORDER_STATUS, "delivery Method", SELLER_ID,
+      SINGLE_PRICE, GOOD_NUMBER, ORDER_MESSAGE, GOOD_ID
       )
-    values (#{orderId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{buyerId,jdbcType=VARCHAR}, 
+    values (#{orderId,jdbcType=VARCHAR},  #{buyerId,jdbcType=VARCHAR},
       #{buyerName,jdbcType=VARCHAR}, #{buyerAddress,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{orderCreateTime,jdbcType=TIMESTAMP}, #{totalPrice,jdbcType=FLOAT}, 
-      #{orderStatus,jdbcType=VARCHAR}, #{deliveryMethod,jdbcType=VARCHAR}, #{sellerId,jdbcType=VARCHAR}
+      #{orderStatus,jdbcType=VARCHAR}, #{deliveryMethod,jdbcType=VARCHAR}, #{sellerId,jdbcType=VARCHAR},
+      #{singlePrice,jdbcType=FLOAT},#{goodNumber,jdbcType=DOUBLE},#{orderMessage,jdbcType=VARCHAR}, #{goodId,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.xh.xiaoyiduo.admin.ddgl.pojo.B_GOOD_ORDER" >
@@ -46,9 +60,6 @@
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="orderId != null" >
         ORDER_ID,
-      </if>
-      <if test="userId != null" >
-        USER_ID,
       </if>
       <if test="buyerId != null" >
         BUYER_ID,
@@ -85,9 +96,7 @@
       <if test="orderId != null" >
         #{orderId,jdbcType=VARCHAR},
       </if>
-      <if test="userId != null" >
-        #{userId,jdbcType=VARCHAR},
-      </if>
+
       <if test="buyerId != null" >
         #{buyerId,jdbcType=VARCHAR},
       </if>
@@ -123,9 +132,7 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.xh.xiaoyiduo.admin.ddgl.pojo.B_GOOD_ORDER" >
     update B_GOOD_ORDER
     <set >
-      <if test="userId != null" >
-        USER_ID = #{userId,jdbcType=VARCHAR},
-      </if>
+
       <if test="buyerId != null" >
         BUYER_ID = #{buyerId,jdbcType=VARCHAR},
       </if>
@@ -161,7 +168,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.xh.xiaoyiduo.admin.ddgl.pojo.B_GOOD_ORDER" >
     update B_GOOD_ORDER
-    set USER_ID = #{userId,jdbcType=VARCHAR},
+    set
       BUYER_ID = #{buyerId,jdbcType=VARCHAR},
       BUYER_NAME = #{buyerName,jdbcType=VARCHAR},
       BUYER_ADDRESS = #{buyerAddress,jdbcType=VARCHAR},

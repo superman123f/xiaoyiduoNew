@@ -428,8 +428,6 @@
         $("#buy_now_btn").click(function(){
             var goodId = $("#goodId").val();
             var goodNum = $("#goodNum").val();
-            alert(goodNum);
-            // alert($("#goodId").val());
             //检测是否登录
             $.post("/user/checkUserLogin",
                 {
@@ -446,18 +444,7 @@
                         });
                     } else {
                         // // 生成订单
-                        $.post(
-                              "/order/createGoodOrderInfo",
-                              {
-                                  goodId: goodId,
-                                  goodNum: goodNum
-                              },
-                              function(data){
-                                  if(data.success) {
-                                      window.location.href="/order/showGoodOrderPage?orderId="+data.orderId;
-                                  }
-                              }
-                        );
+                        window.location.href="/order/createGoodOrderInfo?goodId="+goodId+"&goodNum="+goodNum;
                     }
                 });
 
@@ -465,19 +452,14 @@
 
         //加入购物车
         $("#addCartBtn").click(function(){
-            // alert(1);
+
             var goodName = $("#goodName1").val(); //不知道为啥要换个id名称才可以获取值，使用goodName不行
-            // alert(goodName);
             var secondPrice = $("#secondPrice").val();
-            // alert(secondPrice);
             var cur_ = cur;
-            // alert(cur);
             var goodId = $("#goodId").val();
-            // alert(goodId);
+
             $.post("/cart/addGoodToCart",
                 {
-                    // cart_id: 通过uuid生成
-                    // buyer_id:, 后台获取当前用户id
                     good_name: goodName,
                     single_price: secondPrice,
                     good_number: cur_,
@@ -492,12 +474,6 @@
                             layer.alert(data.msg)
                         }
                     } else {
-                        // layer.open({
-                        //     type: 2,
-                        //     title: '用户登录',
-                        //     area: ['500px', '500px'],
-                        //     content: '/shop/login',
-                        // });
                         layer.confirm("您还未登录，是否现在登录", {
                              btn: ['现在就去', '我再想想'],
                             btnAlign: 'c'
@@ -505,8 +481,6 @@
                             layer.close(index);
                             location.href = "/shop/login";
                         });
-
-                        // layer.alert("您还未登录，请先登录");
                     }
             });
         });
@@ -542,7 +516,6 @@
                         layer.msg("取消收藏");
                     }
                 }
-
         });
 
     };

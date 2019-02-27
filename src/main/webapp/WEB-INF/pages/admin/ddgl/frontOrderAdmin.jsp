@@ -14,13 +14,18 @@
     <meta charset="UTF-8">
     <link rel="icon" type="image/x-icon" href="${ctx}/images/shop/icon.ico"/>
     <title>校益多</title>
-    <link rel="stylesheet" type="text/css" href="../../../styles/shop/main.css">
-    <link rel="stylesheet" type="text/css" href="../../../styles/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="${ctx}/styles/shop/main.css">
+    <link rel="stylesheet" type="text/css" href="${ctx}/styles/layui/css/layui.css">
     <link rel="stylesheet" type="text/css" href="${ctx}/styles/admin/scjgl/favoriteFolder.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 </head>
+<style>
+    .shopcart-content .th-common{
+        width: 150px;
+    }
+</style>
 <body>
 
 <%@ include file="../../shop_header.jsp"%> <!--引入头部jsp样式-->
@@ -57,19 +62,24 @@
                     商品
                 </div>
             </div>
-            <div class="th th-price">
+            <div class="th th-common">
                 <div class="th-inner">
                     单价
                 </div>
             </div>
-            <div class="th th-amount">
+            <div class="th th-common">
                 <div class="th-inner">
                     数量
                 </div>
             </div>
-            <div class="th th-sum">
+            <div class="th th-common">
                 <div class="th-inner">
-                    小计
+                    合计
+                </div>
+            </div>
+            <div class="th th-common">
+                <div class="th-inner">
+                    状态
                 </div>
             </div>
             <div class="th th-op">
@@ -80,7 +90,7 @@
         </div>
         <div class="OrderList">
             <div class="order-content" id="list-cont">
-                <c:forEach items="${cartList}" var="cart">
+                <c:forEach items="${orderList}" var="order">
                     <ul class="item-content layui-clear">
                         <li class="th th-chk">
                             <div class="select-all">
@@ -90,30 +100,35 @@
                             </div>
                         </li>
 
-                        <c:set value="${cart.resources}" var="resources"></c:set>
+                        <c:set value="${order.resources}" var="resources"></c:set>
                         <li class="th th-item">
                             <div class="item-cont">
                                 <c:forEach items="${resources}" var="resource" end="0">
-                                    <a href="/good/toGoodDetailPage?goodId=${cart.goodId}"><img src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}" alt=""></a>
+                                    <a href="/good/toGoodDetailPage?goodId=${order.goodId}"><img src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}" alt=""></a>
                                 </c:forEach>
                                 <div class="text">
-                                    <div class="title1"><a href="/good/toGoodDetailPage?goodId=${cart.goodId}">${cart.goodName}</a></div>
+                                    <div class="title1"><a href="/good/toGoodDetailPage?goodId=${order.goodId}">${order.good.goodName}</a></div>
                                         <%--<p><span>粉色</span>  <span>130</span>cm</p>--%>
                                 </div>
                             </div>
                         </li>
-                        <li class="th th-price">
-                            <span class="th-su">${cart.singlePrice}</span>
+                        <li class="th th-common">
+                            <span class="th-su">${order.singlePrice}</span>
                         </li>
-                        <li class="th th-amount">
-                            <div class="box-btn layui-clear">
-                                <div class="less layui-btn">-</div>
-                                <input class="Quantity-input" type="" name="" value="${cart.goodNumber}" disabled="disabled">
-                                <div class="add layui-btn">+</div>
-                            </div>
+                        <li class="th th-common">
+                            <%--<div class="box-btn layui-clear">--%>
+                                <%--<div class="less layui-btn">-</div>--%>
+                                <%--<input class="Quantity-input" type="" name="" value="${order.goodNumber}" disabled="disabled">--%>
+                                <%--<div class="add layui-btn">+</div>--%>
+                            <%--</div>--%>
+                            <%--<input type="text" style="border:0px;" value="${order.goodNumber}" disabled="disabled" readonly="readonly">--%>
+                            ${order.goodNumber}
                         </li>
-                        <li class="th th-sum">
-                            <span class="sum">${cart.singlePrice * cart.goodNumber}</span>
+                        <li class="th th-common">
+                            <span class="sum">${order.totalPrice}</span>
+                        </li>
+                        <li class="th th-common">
+                            <span class="">${order.orderStatus}</span>
                         </li>
                         <li class="th th-op">
                                 <%--<span class="dele-btn" onclick="delCartItem('${cart.cartId}');">删除</span>--%>
@@ -124,48 +139,6 @@
                 </c:forEach>
             </div>
         </div>
-
-
-        <!-- 模版导入数据 -->
-        <!-- <script type="text/html" id="demo">
-          {{# layui.each(d.infoList,function(index,item){}}
-            <ul class="item-content layui-clear">
-              <li class="th th-chk">
-                <div class="select-all">
-                  <div class="cart-checkbox">
-                    <input class="CheckBoxShop check" id="" type="checkbox" num="all" name="select-all" value="true">
-                  </div>
-                </div>
-              </li>
-              <li class="th th-item">
-                <div class="item-cont">
-                  <a href="javascript:;"><img src="../../../images/shop/paging_img1.jpg" alt=""></a>
-                  <div class="text">
-                    <div class="title">宝宝T恤棉质小衫</div>
-                    <p><span>粉色</span>  <span>130</span>cm</p>
-                  </div>
-                </div>
-              </li>
-              <li class="th th-price">
-                <span class="th-su">189.00</span>
-              </li>
-              <li class="th th-amount">
-                <div class="box-btn layui-clear">
-                  <div class="less layui-btn">-</div>
-                  <input class="Quantity-input" type="" name="" value="1" disabled="disabled">
-                  <div class="add layui-btn">+</div>
-                </div>
-              </li>
-              <li class="th th-sum">
-                <span class="sum">189.00</span>
-              </li>
-              <li class="th th-op">
-                <span class="dele-btn">删除</span>
-              </li>
-            </ul>
-          {{# });}}
-        </script> -->
-
 
         <div class="FloatBarHolder layui-clear">
             <div class="th th-chk">
@@ -179,12 +152,12 @@
             <div class="th batch-deletion">
                 <span class="batch-dele-btn">批量删除</span>
             </div>
-            <div class="th Settlement">
-                <button class="layui-btn">结算</button>
-            </div>
-            <div class="th total">
-                <p>应付：<span class="pieces-total">0</span></p>
-            </div>
+            <%--<div class="th Settlement">--%>
+                <%--<button class="layui-btn">结算</button>--%>
+            <%--</div>--%>
+            <%--<div class="th total">--%>
+                <%--<p>应付：<span class="pieces-total">0</span></p>--%>
+            <%--</div>--%>
         </div>
     </div>
 </div>

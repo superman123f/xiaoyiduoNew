@@ -13,6 +13,8 @@ public interface ResourcesMapper {
 
     RESOURCES selectByPrimaryKey(String resourceId);
 
+    RESOURCES selectBySourceId(String sourceId);
+
     int updateByPrimaryKeySelective(RESOURCES record);
 
     int updateByPrimaryKey(RESOURCES record);

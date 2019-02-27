@@ -1,11 +1,13 @@
 package com.xh.xiaoyiduo.admin.ddgl.pojo;
 
+import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD;
+import com.xh.xiaoyiduo.admin.spgl.pojo.RESOURCES;
+
 import java.util.Date;
+import java.util.List;
 
 public class B_GOOD_ORDER {
     private String orderId;
-
-    private String userId;
 
     private String buyerId;
 
@@ -31,20 +33,20 @@ public class B_GOOD_ORDER {
 
     private Integer goodNumber;
 
+    private String orderMessage;
+
+    private String goodId;
+
+    private B_GOOD good;
+
+    private List<RESOURCES> resources;
+
     public String getOrderId() {
         return orderId;
     }
 
     public void setOrderId(String orderId) {
         this.orderId = orderId == null ? null : orderId.trim();
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId == null ? null : userId.trim();
     }
 
     public String getBuyerId() {
@@ -143,4 +145,37 @@ public class B_GOOD_ORDER {
     public void setGoodNumber(Integer goodNumber) {
         this.goodNumber = goodNumber;
     }
+
+    public String getOrderMessage() {
+        return orderMessage;
+    }
+
+    public void setOrderMessage(String orderMessage) {
+        this.orderMessage = orderMessage;
+    }
+
+    public String getGoodId() {
+        return goodId;
+    }
+
+    public void setGoodId(String goodId) {
+        this.goodId = goodId;
+    }
+
+    public B_GOOD getGood() {
+        return good;
+    }
+
+    public void setGood(B_GOOD good) {
+        this.good = good;
+    }
+
+    public List<RESOURCES> getResources() {
+        return resources;
+    }
+
+    public void setResources(List<RESOURCES> resources) {
+        this.resources = resources;
+    }
+
 }

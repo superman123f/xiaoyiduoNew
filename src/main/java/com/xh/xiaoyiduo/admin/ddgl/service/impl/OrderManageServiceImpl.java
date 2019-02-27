@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  */
@@ -27,6 +24,13 @@ public class OrderManageServiceImpl implements IOrderManageService {
     @Autowired
     B_GOODMapper goodMapper;
 
+    /**
+     * 生成订单
+     * @param goodId
+     * @param goodNum
+     * @param model
+     * @return
+     */
     @Override
     public Map<String, Object> createGoodOrder(String goodId, Integer goodNum, Model model) {
         Map<String, Object> result = new HashMap<>();
@@ -36,7 +40,6 @@ public class OrderManageServiceImpl implements IOrderManageService {
         String orderId = UUID.randomUUID().toString().replaceAll("\\-","");
 
         B_GOOD good = goodMapper.selectByPrimaryKey(goodId); //获取商品信息
-//        Double totalPrice = good.getSecondPrice();
 
         Date date = new Date();
 
@@ -47,16 +50,18 @@ public class OrderManageServiceImpl implements IOrderManageService {
         order.setBuyerAddress(currentUser.getDormitoryAddress()); //收货地址
         order.setPhone(currentUser.getPhone()); //联系电话
         order.setEmail(currentUser.getEmail()); //电子邮箱
-        order.setOrderCreateTime(date); //订单创建时间
+//        order.setOrderCreateTime(date); //订单创建时间
         order.setSinglePrice(good.getSecondPrice()); //商品单价
         order.setGoodNumber(goodNum); //商品数量
         order.setTotalPrice(good.getSecondPrice()*goodNum); //订单总价
         order.setOrderStatus("未付款"); //订单状态
         order.setDeliveryMethod("卖家配送"); //配送方式
+        order.setOrderMessage("");
         order.setSellerId(good.getUserId()); //卖家id
+        order.setGoodId(good.getGoodId());
 
-        int i = orderMapper.insert(order);
-        if(i > 0){
+//        int i = orderMapper.insert(order);
+        if(order !=null){
             result.put("success", true);
             result.put("msg", "生成订单成功");
             result.put("orderId", orderId);
@@ -76,5 +81,27 @@ public class OrderManageServiceImpl implements IOrderManageService {
         B_GOOD_ORDER order = orderMapper.selectByPrimaryKey(orderId);
         model.addAttribute("order", order);
         return order;
+    }
+
+    @Override
+    public int saveGoodOrder(B_GOOD_ORDER order) {
+        String orderId = UUID.randomUUID().toString().replaceAll("\\-", "");
+        Date date = new Date();
+        order.setOrderId(orderId);
+        order.setOrderCreateTime(date);
+
+        int i = orderMapper.insert(order);
+        if(i > 0) {
+            System.out.println("订单保存成功");
+        } else {
+            System.out.println("订单保存失败");
+        }
+        return 0;
+    }
+
+    @Override
+    public List<B_GOOD_ORDER> showGoodOrderList() {
+        orderMapper.selectAllOrder();
+        return orderMapper.selectAllOrder();
     }
 }
