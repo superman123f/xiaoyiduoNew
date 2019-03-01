@@ -14,4 +14,5 @@ public interface IOrderManageService {
     B_GOOD_ORDER showGoodOrdel(String orderId, Model model); //展示订单
     List<B_GOOD_ORDER> showGoodOrderList(); //显示所有订单
     int saveGoodOrder(B_GOOD_ORDER order); //保存订单
+    int deleteOrderItemByOrderId(String orderId); //删除订单
 }

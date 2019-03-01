@@ -20,6 +20,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 </head>
+<style>
+    .shopcart-content .th-common{
+        width: 150px;
+    }
+</style>
 <body>
 
 <%@ include file="../shop_header.jsp"%> <!--引入头部jsp样式-->
@@ -52,21 +57,21 @@
                 </div>
             </div>
             <div class="th th-item">
-                <div class="th-inner">
+                <div class="th-common">
                     商品
                 </div>
             </div>
-            <div class="th th-price">
+            <div class="th th-common">
                 <div class="th-inner">
                     转卖价
                 </div>
             </div>
-            <div class="th th-sum">
+            <div class="th th-common">
                 <div class="th-inner">
                     原价
                 </div>
             </div>
-            <div class="th th-op">
+            <div class="th th-common">
                 <div class="th-inner">
                     操作
                 </div>
@@ -97,17 +102,17 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="th th-price">
+                            <li class="th th-common">
                                 <span class="th-su">${folder.good.originPrice}</span>
                             </li>
 
-                            <li class="th th-sum">
+                            <li class="th th-common">
                                 <span class="th-su">${folder.good.secondPrice}</span>
                             </li>
-                            <li class="th th-op">
+                            <li class="th th-common">
                                     <%--<span class="dele-btn" onclick="delCartItem('${cart.cartId}');">删除</span>--%>
                                 <span class="dele-btn">删除</span>
-                                <input type="hidden" id="cartId" class="cartId" value="${cart.cartId}">
+                                <input type="text" id="folderId" class="folderId" value="${folder.folderId}">
                             </li>
                         </ul>
                     </c:forEach>
@@ -174,56 +179,21 @@
 </div>
 <%@ include file="/WEB-INF/pages/shop_rooter.jsp" %> <!--引入尾部样式-->
 </body>
-<script type="text/javascript" src="../../../scripts/jquery.min.js"></script>
-<script type="text/javascript" src="../../../styles/layui/layui.js"></script>
+<script type="text/javascript" src="${ctx}/scripts/jquery.min.js"></script>
+<script type="text/javascript" src="${ctx}/styles/layui/layui.js"></script>
 </html>
 <script type="text/javascript">
     $(function(){
         layui.config({
             base: '${ctx}/scripts/shop/' //你存放新模块的目录，注意，不是layui的模块目录
-        }).use(['mm','jquery','element','car'],function(){
-            var mm = layui.mm,$ = layui.$,element = layui.element,car = layui.car;
+        }).use(['mm','jquery','element','folder'],function(){
+            var mm = layui.mm,$ = layui.$,element = layui.element,folder = layui.folder;
 
-            // 模版导入数据
-            // var html = demo.innerHTML,
-            // listCont = document.getElementById('list-cont');
-            // mm.request({
-            //   url: '../json/shopcart.json',
-            //   success : function(res){
-            //     listCont.innerHTML = mm.renderHtml(html,res)
-            //     element.render();
-            //     car.init()
-            //   },
-            //   error: function(res){
-            //     console.log(res);
-            //   }
-            // })
-            //
-            car.init()
+            folder.init()
 
             $(".dele-btn").click(function(){
-                // alert(111);
-                // car.init();
-                // var cartId = $("#cartId").val();
-                // alert(cartId);
+
             });
         });
-
-
     });
-
-    // function delCartItem(cartId){
-    //     $.post("/cart/deleteCartItemByCartId",
-    //         {
-    //             cartId: cartId
-    //         },
-    //         function(data){
-    //             if(data.success){
-    //                 console.log(data.msg);
-    //             } else {
-    //                 console.log(data.msg);
-    //             }
-    //         });
-    // };
-
 </script>

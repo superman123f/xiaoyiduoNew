@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -74,4 +75,51 @@ public class OrderManageController {
         orderManageService.saveGoodOrder(order);
         return "/admin/ddgl/goodOrderPage";
     }
+
+    /**
+     * 删除订单
+     * @return
+     */
+    @RequestMapping("/deleteOrderItemByOrderId")
+    @ResponseBody
+    public Map<String, Object> deleteOrderItemByOrderId(String orderId, Model model) {
+        Map<String, Object> result = new HashMap<>();
+        int i = orderManageService.deleteOrderItemByOrderId(orderId);
+        if(i > 0) {
+            result.put("success", true);
+            System.out.println("删除订单成功");
+        } else {
+            System.out.println("删除订单失败");
+        }
+        return result;
+    }
+
+    /**
+     * 批量删除订单
+     * @return
+     */
+    @RequestMapping("/deleteOrderItemByOrderIds")
+    @ResponseBody
+    public Map<String, Object> deleteOrderItemByOrderIds(String orderIds) {
+        Map<String, Object> result = new HashMap<>();
+        String[] orders = orderIds.split(",");
+        int sum = 0;
+        int temp = 0;
+        for(int i = 0; i < orders.length; i++) {
+            temp = orderManageService.deleteOrderItemByOrderId(orders[i]);
+            if(temp > 0) {
+                sum++;
+            }
+        }
+
+        if(sum > 0) {
+            result.put("success", true);
+            result.put("msg", "成功删除"+sum+"个订单");
+            System.out.println("批量删除订单成功");
+        } else {
+            System.out.println("批量删除订单失败");
+        }
+        return result;
+    }
+
 }

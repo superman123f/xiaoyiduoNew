@@ -133,7 +133,7 @@
                         <li class="th th-op">
                                 <%--<span class="dele-btn" onclick="delCartItem('${cart.cartId}');">删除</span>--%>
                             <span class="dele-btn">删除</span>
-                            <input type="hidden" id="cartId" class="cartId" value="${cart.cartId}">
+                            <input type="hidden" id="orderId" class="orderId" value="${order.orderId}">
                         </li>
                     </ul>
                 </c:forEach>
@@ -170,25 +170,10 @@
     $(function(){
         layui.config({
             base: '${ctx}/scripts/shop/' //你存放新模块的目录，注意，不是layui的模块目录
-        }).use(['mm','jquery','element','car'],function(){
-            var mm = layui.mm,$ = layui.$,element = layui.element,car = layui.car;
+        }).use(['mm','jquery','element','order'],function(){
+            var mm = layui.mm,$ = layui.$,element = layui.element,order = layui.order;
 
-            // 模版导入数据
-            // var html = demo.innerHTML,
-            // listCont = document.getElementById('list-cont');
-            // mm.request({
-            //   url: '../json/shopcart.json',
-            //   success : function(res){
-            //     listCont.innerHTML = mm.renderHtml(html,res)
-            //     element.render();
-            //     car.init()
-            //   },
-            //   error: function(res){
-            //     console.log(res);
-            //   }
-            // })
-            //
-            car.init()
+            order.init()
 
             $(".dele-btn").click(function(){
                 // alert(111);

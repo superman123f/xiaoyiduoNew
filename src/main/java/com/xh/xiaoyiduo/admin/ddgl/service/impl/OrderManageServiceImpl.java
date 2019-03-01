@@ -104,4 +104,9 @@ public class OrderManageServiceImpl implements IOrderManageService {
         orderMapper.selectAllOrder();
         return orderMapper.selectAllOrder();
     }
+
+    @Override
+    public int deleteOrderItemByOrderId(String orderId) {
+        return orderMapper.deleteByPrimaryKey(orderId);
+    }
 }

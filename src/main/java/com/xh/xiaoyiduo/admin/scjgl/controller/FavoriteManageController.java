@@ -26,6 +26,7 @@ public class FavoriteManageController {
      */
     @Autowired
     IFavoriteManageService favoriteManageService;
+
     @RequestMapping("/toFavoritePage")
     public String toFavoritePage(Model model){
         S_USER user = (S_USER)SecurityUtils.getSubject().getPrincipal();
@@ -79,6 +80,52 @@ public class FavoriteManageController {
                 result.put("msg", "取消收藏失败");
             }
 
+        return result;
+    }
+
+    /**
+     * 删除收藏夹
+     * @return
+     */
+    @RequestMapping("/deleteFolderItemByFolderId")
+    @ResponseBody
+    public Map<String, Object> deleteFolderItemByFolderId(String folderId, Model model) {
+        Map<String, Object> result = new HashMap<>();
+        int i = favoriteManageService.deleteFolderItemByFolderId(folderId);
+        if(i > 0) {
+            result.put("success", true);
+            System.out.println("删除收藏夹成功");
+        } else {
+            System.out.println("删除收藏夹失败");
+        }
+        return result;
+    }
+
+    /**
+     * 批量删除收藏夹
+     * @return
+     */
+    @RequestMapping("/deleteFolderItemByFolderIds")
+    @ResponseBody
+    public Map<String, Object> deleteFolderItemByFolderIds(String folderIds) {
+        Map<String, Object> result = new HashMap<>();
+        String[] folders = folderIds.split(",");
+        int sum = 0;
+        int temp = 0;
+        for(int i = 0; i < folders.length; i++) {
+            temp = favoriteManageService.deleteFolderItemByFolderId(folders[i]);
+            if(temp > 0) {
+                sum++;
+            }
+        }
+
+        if(sum > 0) {
+            result.put("success", true);
+            result.put("msg", "成功取消" + sum + "个收藏夹");
+            System.out.println("批量删除收藏夹成功 ");
+        } else {
+            System.out.println("批量删除收藏夹失败 ");
+        }
         return result;
     }
 

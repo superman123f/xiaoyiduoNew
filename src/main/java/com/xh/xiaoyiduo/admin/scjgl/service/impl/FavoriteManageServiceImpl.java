@@ -35,4 +35,9 @@ public class FavoriteManageServiceImpl implements IFavoriteManageService {
     public List<B_GOOD_FAVORITE_FOLDER> getFavoriteFolderByUserId(String userId) {
         return folderMapper.getFavoriteFolderByUserId(userId);
     }
+
+    @Override
+    public int deleteFolderItemByFolderId(String folderId) {
+        return folderMapper.deleteByPrimaryKey(folderId);
+    }
 }
