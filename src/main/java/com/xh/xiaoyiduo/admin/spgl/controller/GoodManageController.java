@@ -106,6 +106,7 @@ public class GoodManageController {
      */
     @RequestMapping("/getSonGoodList")
     public String getSonGoodList(String sonId, String currentPage, String pageSize, Model model, HttpServletRequest request){
+        String goodName1 =request.getParameter("goodName1")=="" ? "":request.getParameter("goodName1");
         S_USER user = (S_USER) SecurityUtils.getSubject().getPrincipal();
         HttpSession session = request.getSession();
         Integer cartGoodCount = null;
@@ -126,6 +127,7 @@ public class GoodManageController {
         model.addAttribute("goodFatherList", goodFatherList);
         model.addAttribute("sonGoodList", sonGoodList);
         model.addAttribute("cartGoodCount", cartGoodCount);
+        model.addAttribute("goodName1", goodName1);
 //        model.addAttribute("sonGoodCount", sonGoodCount);
 
         return "/shop/commodity";

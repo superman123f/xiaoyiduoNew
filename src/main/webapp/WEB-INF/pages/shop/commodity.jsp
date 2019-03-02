@@ -31,6 +31,7 @@
 <!--隐藏域-->
 <%--<input id="sonGoodCount" type="text" value="11">--%>
 <input id="goodSonId" type="hidden" value="">
+<input id="isFrontPage" type="hidden" value="true">
 
 <div class="content content-nav-base commodity-content">
     <div class="main-nav">
@@ -111,6 +112,7 @@
     var total; //总记录数
     var sonId = ""; //初始为4的子类商品，实际该变量的初始值没用到
     var goodName = ""; //初始商品搜索内容
+    var goodName2 = ""; //其它页面搜索
 
     //升降序
     var sort_time = "";
@@ -119,21 +121,21 @@
     var sort_collect = "";
 
     $(function(){
+        goodName =  $.trim($("#goodName").val());
         getInfo(sonId, goodName, '', '', '', ''); //获取数据
         toPage(); //进行分页
 
         //商品搜索功能
-        $("#searchBtn").click(function(){
-
-            clearSort();
-
-            sonId = ""; //置空，此时按照商品名称查询
-            goodName = $.trim($("#goodName").val());
-            // alert(goodName);
-            getInfo(sonId, goodName, sort_time, sort_price, sort_degree, sort_collect); //获取数据
-            toPage(); //进行分页
-        });
-
+        // $("#searchBtn").click(function(){
+        //
+        //     clearSort();
+        //
+        //     sonId = ""; //置空，此时按照商品名称查询
+        //     goodName = $.trim($("#goodName").val());
+        //     // alert(goodName);
+        //     getInfo(sonId, goodName, sort_time, sort_price, sort_degree, sort_collect); //获取数据
+        //     toPage(); //进行分页
+        // });
 
         //商品菜单栏收缩功能
         $('.sort a').on('click',function(){
@@ -390,7 +392,7 @@
     }
 
     function getSonGoodList(goodSonId){
-
+        $("#goodName").val("");
         clearSort();
 
         $("#goodSonId").val(goodSonId);

@@ -68,7 +68,7 @@
             </h1>
             <div class="mallSearch">
                 <form class="layui-form" novalidate>
-                    <input id="goodName" type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input" placeholder="请输入需要的商品">
+                    <input id="goodName" type="text" name="title" required  autocomplete="off" class="layui-input" placeholder="请输入需要的商品" value="${goodName1}">
                     <button type="button" id="searchBtn" class="layui-btn" lay-submit lay-filter="formDemo">
                         <i class="layui-icon layui-icon-search"></i>
                     </button>
@@ -91,6 +91,22 @@
     });
 
     $(function(){
+        //商品搜索功能
+        $("#searchBtn").click(function(){
+            var isFrontPage = $("#isFrontPage").val();
+            if(isFrontPage){ //商品首页
+                clearSort();
+
+                sonId = ""; //置空，此时按照商品名称查询
+                goodName = $.trim($("#goodName").val());
+                getInfo(sonId, goodName, sort_time, sort_price, sort_degree, sort_collect); //获取数据
+                toPage(); //进行分页
+            } else {
+                var goodName1 = $.trim($("#goodName").val());
+                window.location.href = "/good/getSonGoodList?goodName1="+goodName1;
+            }
+        });
+
         layui.use(['layer'],function(){
             var layer = layui.layer;
 
