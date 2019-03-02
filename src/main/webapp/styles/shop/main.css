@@ -135,8 +135,18 @@ i{font-style: normal;}
 .commodity-content .commod-cont .right-cont-wrap{float:  left; width: 940px;}
 .commodity-content .commod-cont .right-cont{width: 1000px;}
 .commodity-content .commod-cont .right-cont .sort{margin-top: 5px;}
-.commodity-content .commod-cont .right-cont .sort a{width: 58px; height: 26px; line-height: 26px; font-size: 14px; color: #333333; border:1px solid #eaeaea; margin-left: -1px; float: left; background: #fff; background:#fff url(../../images/shop/sort-arrow.png) no-repeat 41px 0; text-indent: 9px;}
-.commodity-content .commod-cont .right-cont .sort a.active{background-position: 41px -26px;}
+.commodity-content .commod-cont .right-cont .sort a{width: 58px; height: 26px; line-height: 26px; font-size: 14px; color: #333333; border:1px solid #eaeaea; margin-left: -1px; float: left; background: #fff; background:#fff url(../../images/shop/sort-arrow-all.png) no-repeat 41px 0; text-indent: 9px;}
+/*.commodity-content .commod-cont .right-cont .sort a{width: 58px; height: 26px; line-height: 26px; font-size: 14px; color: #333333; border:1px solid #eaeaea; margin-left: -1px; float: left; background: #fff; background:#fff url(../../images/shop/sort-arrow1.png) no-repeat 41px 0; text-indent: 9px;}*/
+
+/*.commodity-content .commod-cont .right-cont .sort a.active{background-position: 41px -26px;}*/
+.active{
+    /*width: 58px; height: 26px; line-height: 26px; font-size: 14px; color: #333333; border:1px solid #eaeaea; margin-left: -1px; float: left; background: #fff; background:#fff url(../../images/shop/sort-arrow.png) no-repeat 41px 0; text-indent: 9px;*/
+    background-position: 41px -26px;}
+.active1{
+    /*width: 58px; height: 26px; line-height: 26px; font-size: 14px; color: #333333; border:1px solid #eaeaea; margin-left: -1px; float: left; background: #fff; background:#fff url(../../images/shop/sort-arrow1.png) no-repeat 41px 0; text-indent: 9px;*/
+    background-position: 81px -26px;
+}
+
 .commodity-content .commod-cont .right-cont .prod-number{line-height: 44px; font-size: 16px; padding-left: 7px;}
 .commodity-content .commod-cont .right-cont .cont-list .item{float: left; width: 280px; height: 366px; border:1px solid #eaeaea; background: #fff; margin:0 47px 60px 0;}
 .commodity-content .commod-cont .right-cont .cont-list .item .img{border-bottom: 1px solid #eaeaea}

@@ -22,9 +22,9 @@ public interface IGoodManageService {
 
     List<B_GOOD_SON> selectGoodSonsByFatherId(String fatherId); //通过父类ID查询子类目
 
-    List<B_GOOD> getSonGoodList(String sonId, String goodName, String currentPage, String pageSize); //获取对应子类商品列表
+    List<B_GOOD> getSonGoodList(String sonId, String goodName, String time, String price, String degree, String collect, String currentPage, String pageSize); //获取对应子类商品列表
 
-    Integer getSonGoodCount(String sonId, String goodName); //获取子类商品个数
+    Integer getSonGoodCount(String sonId, String goodName, String time, String price, String degree, String collect); //获取子类商品个数
 
     B_GOOD getGoodDetailByGoodId(String goodId); //获取商品详情信息
 

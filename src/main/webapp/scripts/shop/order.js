@@ -62,7 +62,7 @@ layui.define(['layer','jquery'],function(exports){ //需要正确引入所需要
                     // var less = this.getElementsByClassName('less')[0];
                     // var val = parseInt(input.value);
                     // var cartId = this.getElementsByClassName('cartId')[0].value; //获取cartId值，与jquery获取方式不同，原因没有正确引入jquery模块
-                    var orderId = $("#orderId").val(); //获取cartId
+                    var orderId = this.getElementsByTagName("input")[1].value; //获取cartId
                     // var cartItemTotalPrice = singlePrice * input.value; //单个购物项总价
                     var that = this;
                     switch(cls){

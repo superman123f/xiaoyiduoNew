@@ -108,7 +108,6 @@ layui.define(['layer','jquery'],function(exports){ //需要正确引入所需要
                 }
             }
 
-            var cartIds = ""; //批量删除购物项，保存cartIds
             batchdeletion.onclick = function(){
                 if(SelectedPieces.innerHTML != 0){
                     var folderIds = "";
@@ -124,7 +123,7 @@ layui.define(['layer','jquery'],function(exports){ //需要正确引入所需要
                                     i--;
                                 }
                             }
-alert(folderIds);
+// alert(folderIds);
                             $.post("/favorite/deleteFolderItemByFolderIds",
                                 {
                                     folderIds: folderIds

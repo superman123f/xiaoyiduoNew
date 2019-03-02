@@ -120,7 +120,7 @@ public class GoodManageController {
         }
 
         List<B_GOOD_FATHER> goodFatherList = goodManageService.getGoodTypeList(); //获取商品菜单栏列表
-        List<B_GOOD> sonGoodList = goodManageService.getSonGoodList(null, null,"1", "2"); //获取对应商品子类物品
+        List<B_GOOD> sonGoodList = goodManageService.getSonGoodList(null, null, null, null, null, null, "1", "2"); //获取对应商品子类物品
 //        Integer sonGoodCount = goodManageService.getSonGoodCount(sonId); //某个子类商品总数
 
         model.addAttribute("goodFatherList", goodFatherList);
@@ -137,20 +137,25 @@ public class GoodManageController {
      */
     @RequestMapping("/getSonGoodList1")
     @ResponseBody
-    public Object getSonGoodList1(String sonId, String goodName, String currentPage, String pageSize, Model model, HttpServletRequest request){
+    public Object getSonGoodList1(Model model, HttpServletRequest request){
 
+        String sonId = request.getParameter("sonId")=="" ? null:request.getParameter("sonId");
+        String goodName = request.getParameter("goodName")=="" ? null:request.getParameter("goodName");
+        String time = request.getParameter("time")=="" ? null:request.getParameter("time");
+        String price = request.getParameter("price")=="" ? null:request.getParameter("price");
+        String degree = request.getParameter("degree")=="" ? null:request.getParameter("degree");
+        String collect = request.getParameter("collect")=="" ? null:request.getParameter("collect");
+
+        String currentPage = request.getParameter("currentPage")=="" ? null:request.getParameter("currentPage");
+        String pageSize = request.getParameter("pageSize")=="" ? null:request.getParameter("pageSize");
 
 //        List<B_GOOD_FATHER> goodFatherList = goodManageService.getGoodTypeList(); //获取商品菜单栏列表
-        if(sonId.equals("") || sonId == null) {
-            sonId = null;
-        }
-        if(goodName.equals("") || goodName == null) {
-            goodName = null;
-        }
+
         //1.查询总记录数
-        Integer total = goodManageService.getSonGoodCount(sonId, goodName);
+        Integer total = goodManageService.getSonGoodCount(sonId, goodName, time, price, degree, collect);
         //1.1 查询分页数据
-        List<B_GOOD> sonGoodList = goodManageService.getSonGoodList(sonId, goodName, currentPage, pageSize); //获取对应商品子类物品
+        List<B_GOOD> sonGoodList = goodManageService.getSonGoodList(sonId, goodName, time, price, degree, collect, currentPage, pageSize); //获取对应商品子类物品
+//        sonGoodList.sort();
         //2. 封装分页类对象
         Pager<B_GOOD> pager = new Pager<>();
         pager.setCurrentPage(Integer.parseInt(currentPage));
@@ -168,7 +173,7 @@ public class GoodManageController {
     @ResponseBody
     public Map<String, Object> getSonGoodCount(String sonId, String goodName, Model model){
         Map<String, Object> result = new HashMap<>();
-        Integer sonGoodCount = goodManageService.getSonGoodCount(sonId, goodName); //某个子类商品总数
+        Integer sonGoodCount = goodManageService.getSonGoodCount(sonId, goodName, null, null, null,null); //某个子类商品总数
         if(sonGoodCount != null) {
             result.put("success", true);
             result.put("sonGoodCount", sonGoodCount);

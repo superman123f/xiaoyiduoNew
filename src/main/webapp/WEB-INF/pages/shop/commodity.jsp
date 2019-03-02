@@ -19,12 +19,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 </head>
+<style>
+    .sort_position{
+        background-position: 41px 5px;
+    }
+</style>
 <body>
 
 <%@ include file="../shop_header.jsp"%> <!--引入头部jsp样式-->
 
 <!--隐藏域-->
 <%--<input id="sonGoodCount" type="text" value="11">--%>
+<input id="goodSonId" type="hidden" value="">
 
 <div class="content content-nav-base commodity-content">
     <div class="main-nav">
@@ -56,13 +62,14 @@
             <div class="right-cont-wrap">
                 <div class="right-cont">
                     <div class="sort layui-clear">
-                        <a class="active" href="javascript:;" event = 'volume'>时间</a>
-                        <a href="javascript:;" event = 'price'>价格</a>
-                        <a href="javascript:;" event = 'newprod'>新品</a>
-                        <a href="javascript:;" event = 'collection'>收藏</a>
+                        <%--<a class="active" href="javascript:;" onclick="goSort(1, 0, 0, 0);" event = 'volume'>时间</a>--%>
+                        <a id="time" class="sort_position" style="background-position: 41px 5px;" href="javascript:;" onclick="goSort(1, '', '', '');" event = 'volume'>时间</a>
+                        <a id="price" class="sort_position" style="background-position: 41px 5px;" href="javascript:;" onclick="goSort('', 1, '', '');" event = 'price'>价格</a>
+                        <a id="degree" class="sort_position" style="background-position: 41px 5px;" href="javascript:;" onclick="goSort('', '', 1, '');" event = 'newprod'>新品</a>
+                        <a id="collect" class="sort_position" style="background-position: 41px 5px;" href="javascript:;" onclick="goSort('', '', '', 1);" event = 'collection'>收藏</a>
                     </div>
                     <div class="prod-number">
-                        <span id="good_number">200个</span>
+                        <span id="good_number"></span>
                     </div>
                     <div class="cont-list layui-clear" id="list-cont">
                         <div id="goodBody">
@@ -105,16 +112,25 @@
     var sonId = ""; //初始为4的子类商品，实际该变量的初始值没用到
     var goodName = ""; //初始商品搜索内容
 
+    //升降序
+    var sort_time = "";
+    var sort_price = "";
+    var sort_degree = "";
+    var sort_collect = "";
+
     $(function(){
-        getInfo(sonId, goodName); //获取数据
+        getInfo(sonId, goodName, '', '', '', ''); //获取数据
         toPage(); //进行分页
 
         //商品搜索功能
         $("#searchBtn").click(function(){
+
+            clearSort();
+
             sonId = ""; //置空，此时按照商品名称查询
             goodName = $.trim($("#goodName").val());
             // alert(goodName);
-            getInfo(sonId, goodName); //获取数据
+            getInfo(sonId, goodName, sort_time, sort_price, sort_degree, sort_collect); //获取数据
             toPage(); //进行分页
         });
 
@@ -134,29 +150,108 @@
         })
     });
 
-    //获取数据
-    function getInfo(sonId, goodName) {
+    //排序
+    function goSort(time, price, degree, collect){
+        // var sort_time ;
+        // var sort_price ;
+        // var sort_degree ;
+        // var sort_collect ;
+        //时间排序
+        if(time == 1) {
+            // alert("time");
+            sort_price = "";
+            sort_degree = "";
+            sort_collect = "";
+            // $("#time").css("background-position","41px 5px");
+            $("#price").css("background-position","41px 5px");
+            $("#degree").css("background-position","41px 5px");
+            $("#collect").css("background-position","41px 5px");
+            // sort_time = $("#sort_time").val();
+            if(sort_time == "" || sort_time == undefined) {
+                sort_time = 1;
+                $("#time").css("background-position","41px -23px");
+            } else if(sort_time == 1) {
+                sort_time = 2;
+                $("#time").css("background-position","41px -46px");
+            } else {
+                sort_time = 1;
+                $("#time").css("background-position","41px -23px");
+            }
+            getInfo(sonId, goodName, sort_time, "", "", "");
+        }
+        //价格排序
+        if(price == 1) {
+            // alert("price");
+            sort_time = "";
+            sort_degree = "";
+            sort_collect = "";
+            $("#time").css("background-position","41px 5px");
+            // $("#price").css("background-position","41px 5px");
+            $("#degree").css("background-position","41px 5px");
+            $("#collect").css("background-position","41px 5px");
+            // sort_price = $("#sort_price").val();
+            if(sort_price == "" || sort_price == undefined) {
+                sort_price = 1;
+                $("#price").css("background-position","41px -23px");
+            } else if(sort_price == 1) {
+                sort_price = 2;
+                $("#price").css("background-position","41px -46px");
+            } else {
+                sort_price = 1;
+                $("#price").css("background-position","41px -23px");
+            }
+            getInfo(sonId, goodName, "", sort_price, "", "");
+        }
+        //新旧排序
+        if(degree == 1) {
+            // alert("degree");
+            sort_time = "";
+            sort_price = "";
+            sort_collect = "";
+            $("#time").css("background-position","41px 5px");
+            $("#price").css("background-position","41px 5px");
+            // $("#degree").css("background-position","41px 5px");
+            $("#collect").css("background-position","41px 5px");
+            // sort_degree = $("#sort_degree").val();
+            if(sort_degree == "" || sort_degree == undefined) {
+                sort_degree = 1;
+                $("#degree").css("background-position","41px -23px");
+            } else if(sort_degree == 1) {
+                sort_degree = 2;
+                $("#degree").css("background-position","41px -46px");
+            } else {
+                sort_degree = 1;
+                $("#degree").css("background-position","41px -23px");
+            }
+            getInfo(sonId, goodName, "", "", sort_degree, "");
+        }
+        //收藏量排序
+        if(collect == 1) {
+            // alert("collect");
+            sort_time = "";
+            sort_price = "";
+            sort_degree = "";
+            $("#time").css("background-position","41px 5px");
+            $("#price").css("background-position","41px 5px");
+            $("#degree").css("background-position","41px 5px");
+            // $("#collect").css("background-position","41px 5px");
+            // sort_collect = $("#sort_collect").val();
+            if(sort_collect == "" || sort_collect == undefined) {
+                sort_collect = 1;
+                $("#collect").css("background-position","41px -23px");
+            } else if(sort_collect == 1) {
+                sort_collect = 2;
+                $("#collect").css("background-position","41px -46px");
+            } else {
+                sort_collect = 1;
+                $("#collect").css("background-position","41px -23px");
+            }
+            getInfo(sonId, goodName, "", "", "", sort_collect);
+        }
+    }
 
-        //原异步，有问题，没有取消异步的方法
-        // $.post("/good/getSonGoodList1",
-        //     {
-        //         sonId: sonId,
-        //         currentPage: currentPage,
-        //         pageSize: pageSize
-        //     },
-        //     function(pager){
-        //
-        //         successFul(pager);
-        //         // if(pager.success){
-        //         //     $("#sonGoodCount").val(pager.sonGoodCount);
-        //         //     // alert(data.sonGoodCount);
-        //         //     successFul(pager);
-        //         // } else {
-        //         //     alert("商品列表获取失败");
-        //         // }
-        //
-        //         // toPage(); //进行分页
-        //     });
+    //获取数据
+    function getInfo(sonId, goodName, time, price, degree, collect) {
 
         $.ajax({
             type:"post",
@@ -166,6 +261,10 @@
             data:{
                 "sonId":sonId,
                 "goodName":goodName,
+                "time": time,
+                "price": price,
+                "degree": degree,
+                "collect": collect,
                 "currentPage":currentPage,
                 "pageSize":pageSize
             },
@@ -282,37 +381,35 @@
 
                     //首次不执行
                     if(!first) {
-                        getInfo(sonId, goodName);
+                        getInfo(sonId, goodName, sort_time, sort_price, sort_degree, sort_collect);
                     }
                 }
             });
-
-
-            // 模版引擎导入
-            //  var html = demo.innerHTML;
-            //  var listCont = document.getElementById('list-cont');
-            //  // console.log(layui.router("#/about.html"))
-            // mm.request({
-            //     url: '../json/commodity.json',
-            //     success : function(res){
-            //       console.log(res)
-            //       listCont.innerHTML = mm.renderHtml(html,res)
-            //     },
-            //     error: function(res){
-            //       console.log(res);
-            //     }
-            //   })
-
-
 
         });
     }
 
     function getSonGoodList(goodSonId){
+
+        clearSort();
+
+        $("#goodSonId").val(goodSonId);
         goodName = ""; //置空，此时按照分类查找商品
         // alert(goodSonId);
         sonId = goodSonId;
-        getInfo(sonId, goodName); //获取数据
+        getInfo(sonId, goodName, sort_time, sort_price, sort_degree, sort_collect); //获取数据
         toPage(); //进行分页
+    }
+
+    //清空排序
+    function clearSort(){
+        sort_time = "";
+        sort_price = "";
+        sort_degree = "";
+        sort_collect = "";
+        $("#time").css("background-position","41px 5px");
+        $("#price").css("background-position","41px 5px");
+        $("#degree").css("background-position","41px 5px");
+        $("#collect").css("background-position","41px 5px");
     }
 </script>

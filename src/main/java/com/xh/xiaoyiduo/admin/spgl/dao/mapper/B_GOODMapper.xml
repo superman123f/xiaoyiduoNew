@@ -16,6 +16,27 @@
   </resultMap>
 
   <resultMap id="GoodMap" type="com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD" >
+  <id column="GOOD_ID" property="goodId" jdbcType="VARCHAR" />
+  <result column="SON_ID" property="sonId" jdbcType="VARCHAR" />
+  <result column="GOOD_NAME" property="goodName" jdbcType="VARCHAR" />
+  <result column="INFORMATION" property="information" jdbcType="VARCHAR" />
+  <result column="ORIGIN_PRICE" property="originPrice" jdbcType="FLOAT" />
+  <result column="SECOND_PRICE" property="secondPrice" jdbcType="FLOAT" />
+  <result column="DEGREE" property="degree" jdbcType="VARCHAR" />
+  <result column="COLLECT_NUMBER" property="collectNumber" jdbcType="DECIMAL" />
+  <result column="GOOD_NUMBER" property="goodNumber" jdbcType="DECIMAL" />
+  <result column="STATUS" property="status" jdbcType="VARCHAR" />
+  <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+  <collection property="imgUrlResource" ofType="com.xh.xiaoyiduo.admin.spgl.pojo.RESOURCES">
+    <id column="RESOURCE_ID" property="resourceId"></id>
+    <result column="TYPE" property="type"/>
+    <result column="URL" property="url"/>
+    <result column="SOURCE_ID" property="sourceId"/>
+  </collection>
+</resultMap>
+
+<!--测试顺序-->
+  <resultMap id="GoodMapSort" type="com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD" >
     <id column="GOOD_ID" property="goodId" jdbcType="VARCHAR" />
     <result column="SON_ID" property="sonId" jdbcType="VARCHAR" />
     <result column="GOOD_NAME" property="goodName" jdbcType="VARCHAR" />
@@ -27,12 +48,8 @@
     <result column="GOOD_NUMBER" property="goodNumber" jdbcType="DECIMAL" />
     <result column="STATUS" property="status" jdbcType="VARCHAR" />
     <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
-    <collection property="imgUrlResource" ofType="com.xh.xiaoyiduo.admin.spgl.pojo.RESOURCES">
-      <id column="RESOURCE_ID" property="resourceId"></id>
-      <result column="TYPE" property="type"/>
-      <result column="URL" property="url"/>
-      <result column="SOURCE_ID" property="sourceId"/>
-    </collection>
+    <!--一对多级联-->
+    <collection property="imgUrlResource" column="GOOD_ID" select="com.xh.xiaoyiduo.admin.spgl.dao.ResourcesMapper.selectBySourceId"/>
   </resultMap>
 
   <!--测试一对多级联-->
@@ -49,7 +66,7 @@
     <result column="STATUS" property="status" jdbcType="VARCHAR" />
     <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
     <!--一对多级联-->
-    <collection property="imgUrlResource" column="SOURCE_ID" select="com.xh.xiaoyiduo.admin.spgl.dao.ResourcesMapper.selectByPrimaryKey"/>
+    <!--<collection property="imgUrlResource" column="SOURCE_ID" select="com.xh.xiaoyiduo.admin.spgl.dao.ResourcesMapper.selectByPrimaryKey"/>-->
   </resultMap>
 
   <sql id="Base_Column_List" >
@@ -57,12 +74,9 @@
     GOOD_NUMBER, STATUS, USER_ID
   </sql>
   <!--获取对应子类商品列表-->
-  <select id="getSonGoodList" resultMap="GoodMap" parameterType="java.lang.String" >
-    <!--select-->
-    <!--<include refid="Base_Column_List" />-->
-    <!--from B_GOOD-->
-    <!--where SON_ID = #{sonId,jdbcType=VARCHAR}-->
-    select t.*, r.* from (SELECT *
+  <select id="getSonGoodList" resultMap="GoodMapSort" parameterType="java.lang.String" >
+
+    select t.* from (SELECT *
     FROM (SELECT r.*,ROWNUM rn
     FROM(
     select b.* from B_GOOD b
@@ -74,9 +88,54 @@
       like concat('%',concat(#{goodName,jdbcType=VARCHAR},'%'))
     </if>
 
+    <choose>
+      <when test="time == 1">
+        order by create_time asc
+      </when>
+      <otherwise>
+        <if test="time == 2">
+          order by create_time desc
+        </if>
+      </otherwise>
+    </choose>
+
+    <choose>
+      <when test="price == 1">
+        order by second_price asc
+      </when>
+      <otherwise>
+        <if test="price == 2">
+          order by second_price desc
+        </if>
+      </otherwise>
+    </choose>
+
+    <choose>
+      <when test="degree == 1">
+        order by degree asc
+      </when>
+      <otherwise>
+        <if test="degree == 2">
+          order by degree desc
+        </if>
+      </otherwise>
+    </choose>
+
+    <choose>
+      <when test="collect == 1">
+        order by collect_number asc
+      </when>
+      <otherwise>
+        <if test="collect == 2">
+          order by collect_number desc
+        </if>
+      </otherwise>
+    </choose>
+
     ) r
     where ROWNUM &lt;= #{pageSize} * #{currentPage}
-    ) WHERE rn > #{pageSize} * ( #{currentPage} - 1)) t left join RESOURCES r on t.good_id = r.source_id
+    ) WHERE rn > #{pageSize} * ( #{currentPage} - 1)) t
+
   </select>
 
   <!--获取子类商品个数-->
@@ -86,6 +145,7 @@
     <if test="sonId != null">
       where b.son_id = #{sonId,jdbcType=VARCHAR}
     </if>
+
     <if test="goodName != null">
       where good_Name
       like concat('%',concat(#{goodName,jdbcType=VARCHAR},'%'))
