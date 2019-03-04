@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="${ctx}/styles/layui/css/layui.css">
 <link rel="stylesheet" href="${ctx}/styles/shop/shop_header.css">
 
+<%--<input type="text" value="${user.userId}">--%>
 <div class="site-nav-bg">
     <div class="site-nav w1200">
         <p class="sn-back-home">

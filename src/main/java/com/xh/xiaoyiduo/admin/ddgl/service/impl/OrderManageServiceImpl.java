@@ -100,13 +100,43 @@ public class OrderManageServiceImpl implements IOrderManageService {
     }
 
     @Override
-    public List<B_GOOD_ORDER> showGoodOrderList() {
-        orderMapper.selectAllOrder();
-        return orderMapper.selectAllOrder();
+    public List<B_GOOD_ORDER> showGoodOrderList(String buyerId) {
+        return orderMapper.selectAllOrder(buyerId);
     }
 
     @Override
     public int deleteOrderItemByOrderId(String orderId) {
         return orderMapper.deleteByPrimaryKey(orderId);
+    }
+
+//    @Override
+//    public List<B_GOOD_ORDER> selectAllOrderBackend(String sellerId) {
+//        return orderMapper.selectAllOrderBackend(sellerId);
+//    }
+
+
+    @Override
+    public int getOrderCount(String sellerId,String orderId, String buyerName,String orderStatus) {
+        return orderMapper.getOrderCount(sellerId,orderId,buyerName,orderStatus);
+    }
+
+    @Override
+    public List<B_GOOD_ORDER> getAllOrdersBackend(String sellerId, String orderId, String buyerName,String orderStatus,String currentPage, String pageSize) {
+        return orderMapper.getAllOrdersBackend(sellerId,orderId,buyerName,orderStatus,currentPage, pageSize);
+    }
+
+    @Override
+    public int deleteOrderByOrderId(String orderId) {
+        return orderMapper.deleteByPrimaryKey(orderId);
+    }
+
+    @Override
+    public B_GOOD_ORDER showBackGoodOrdel(String orderId) {
+        return orderMapper.showBackGoodOrdel(orderId);
+    }
+
+    @Override
+    public int saveBackOrderDetail(B_GOOD_ORDER order) {
+        return orderMapper.updateByPrimaryKeySelective(order);
     }
 }

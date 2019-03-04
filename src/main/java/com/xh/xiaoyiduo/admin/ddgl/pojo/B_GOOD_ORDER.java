@@ -1,7 +1,11 @@
 package com.xh.xiaoyiduo.admin.ddgl.pojo;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD;
 import com.xh.xiaoyiduo.admin.spgl.pojo.RESOURCES;
+import com.xh.xiaoyiduo.shop.pojo.S_USER;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -19,6 +23,9 @@ public class B_GOOD_ORDER {
 
     private String email;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH24:mi:ss")//页面写入数据库时格式化
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")//数据库导出页面时json格式化
     private Date orderCreateTime;
 
     private Double totalPrice;
@@ -40,6 +47,16 @@ public class B_GOOD_ORDER {
     private B_GOOD good;
 
     private List<RESOURCES> resources;
+
+    private S_USER seller;
+
+    private String sellerName;
+
+    private String sellerPhone;
+
+    private String sellerEmail;
+
+    private String sellerAddress;
 
     public String getOrderId() {
         return orderId;
@@ -178,4 +195,43 @@ public class B_GOOD_ORDER {
         this.resources = resources;
     }
 
+    public S_USER getSeller() {
+        return seller;
+    }
+
+    public void setSeller(S_USER seller) {
+        this.seller = seller;
+    }
+
+    public String getSellerName() {
+        return sellerName;
+    }
+
+    public void setSellerName(String sellerName) {
+        this.sellerName = sellerName;
+    }
+
+    public String getSellerPhone() {
+        return sellerPhone;
+    }
+
+    public void setSellerPhone(String sellerPhone) {
+        this.sellerPhone = sellerPhone;
+    }
+
+    public String getSellerEmail() {
+        return sellerEmail;
+    }
+
+    public void setSellerEmail(String sellerEmail) {
+        this.sellerEmail = sellerEmail;
+    }
+
+    public String getSellerAddress() {
+        return sellerAddress;
+    }
+
+    public void setSellerAddress(String sellerAddress) {
+        this.sellerAddress = sellerAddress;
+    }
 }

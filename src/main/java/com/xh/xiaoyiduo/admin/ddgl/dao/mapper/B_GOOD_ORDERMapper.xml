@@ -20,10 +20,38 @@
     <association property="good" column="GOOD_ID" select="com.xh.xiaoyiduo.admin.spgl.dao.B_GOODMapper.selectByPrimaryKey"/>
     <collection property="resources" column="GOOD_ID" select="com.xh.xiaoyiduo.admin.spgl.dao.ResourcesMapper.selectBySourceId"/>
   </resultMap>
+
+  <resultMap id="BackOrderMap" type="com.xh.xiaoyiduo.admin.ddgl.pojo.B_GOOD_ORDER" >
+    <id column="ORDER_ID" property="orderId" jdbcType="VARCHAR" />
+    <result column="BUYER_ID" property="buyerId" jdbcType="VARCHAR" />
+    <result column="BUYER_NAME" property="buyerName" jdbcType="VARCHAR" />
+    <result column="BUYER_ADDRESS" property="buyerAddress" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="ORDER_CREATE_TIME" property="orderCreateTime" jdbcType="TIMESTAMP" />
+    <result column="SINGLE_PRICE" property="singlePrice" jdbcType="FLOAT" />
+    <result column="GOOD_NUMBER" property="goodNumber" jdbcType="DOUBLE" />
+    <result column="TOTAL_PRICE" property="totalPrice" jdbcType="FLOAT" />
+    <result column="ORDER_STATUS" property="orderStatus" jdbcType="VARCHAR" />
+    <result column="delivery Method" property="deliveryMethod" jdbcType="VARCHAR" />
+    <result column="ORDER_MESSAGE" property="orderMessage" jdbcType="VARCHAR" />
+    <result column="SELLER_ID" property="sellerId" jdbcType="VARCHAR" />
+    <result column="GOOD_ID" property="goodId" jdbcType="VARCHAR" />
+
+    <result column="seller_name" property="sellerName" jdbcType="VARCHAR" />
+    <result column="seller_phone" property="sellerPhone" jdbcType="VARCHAR" />
+    <result column="seller_email" property="sellerEmail" jdbcType="VARCHAR" />
+    <result column="seller_address" property="sellerAddress" jdbcType="VARCHAR" />
+
+    <association property="good" column="GOOD_ID" select="com.xh.xiaoyiduo.admin.spgl.dao.B_GOODMapper.selectByPrimaryKey"/>
+    <association property="seller" column="SELLER_ID" select="com.xh.xiaoyiduo.shop.dao.S_USERMapper.selectByUserId"/>
+    <collection property="resources" column="GOOD_ID" select="com.xh.xiaoyiduo.admin.spgl.dao.ResourcesMapper.selectBySourceId"/>
+  </resultMap>
   <sql id="Base_Column_List" >
     ORDER_ID, BUYER_ID, BUYER_NAME, BUYER_ADDRESS, PHONE, EMAIL, ORDER_CREATE_TIME,
     SINGLE_PRICE, GOOD_NUMBER,
-    TOTAL_PRICE, ORDER_STATUS, "delivery Method", ORDER_MESSAGE, SELLER_ID, GOOD_ID
+    TOTAL_PRICE, ORDER_STATUS, "delivery Method", ORDER_MESSAGE, SELLER_ID, GOOD_ID,
+    seller_name, seller_phone, seller_email, seller_address
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -31,11 +59,96 @@
     from B_GOOD_ORDER
     where ORDER_ID = #{orderId,jdbcType=VARCHAR}
   </select>
-  <!--显示所有订单-->
+  <!--前端显示所有订单-->
   <select id="selectAllOrder" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
     <include refid="Base_Column_List" />
     from B_GOOD_ORDER
+      where buyer_id = #{buyerId,jdbcType=VARCHAR}
+  </select>
+  <!--订单个数-->
+  <select id="getOrderCount" resultType="int" >
+    select
+    count(1)
+    from B_GOOD_ORDER
+    <if test="sellerId != null">
+      where seller_id = #{sellerId,jdbcType=VARCHAR}
+    </if>
+    <choose>
+      <when test="orderId != null">
+        where order_id like concat('%',concat(#{orderId}, '%'))
+        <if test="buyerName != null">
+          and buyer_name like concat('%',concat(#{buyerName}, '%'))
+        </if>
+        <if test="orderStatus != null">
+          and order_status like concat('%',concat(#{orderStatus}, '%'))
+        </if>
+      </when>
+      <otherwise>
+        <choose>
+          <when test="buyerName != null">
+            buyer_name like concat('%',concat(#{buyerName}, '%'))
+            <if test="orderStatus != null">
+              order_status like concat('%',concat(#{orderStatus}, '%'))
+            </if>
+          </when>
+          <otherwise>
+            <if test="orderStatus != null">
+              order_status like concat('%',concat(#{orderStatus}, '%'))
+            </if>
+          </otherwise>
+        </choose>
+      </otherwise>
+    </choose>
+  </select>
+  <!--后端显示所有订单-->
+  <select id="getAllOrdersBackend" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT *
+    FROM (SELECT r.*,ROWNUM rn
+    FROM(
+    select
+    <include refid="Base_Column_List" />
+    from B_GOOD_ORDER
+    <if test="sellerId != null">
+      where seller_id = #{sellerId,jdbcType=VARCHAR}
+    </if>
+    <choose>
+      <when test="orderId != null">
+        where order_id like concat('%',concat(#{orderId}, '%'))
+        <if test="buyerName != null">
+          and buyer_name like concat('%',concat(#{buyerName}, '%'))
+        </if>
+        <if test="orderStatus != null">
+          and order_status like concat('%',concat(#{orderStatus}, '%'))
+        </if>
+      </when>
+      <otherwise>
+        <choose>
+          <when test="buyerName != null">
+            buyer_name like concat('%',concat(#{buyerName}, '%'))
+            <if test="orderStatus != null">
+              order_status like concat('%',concat(#{orderStatus}, '%'))
+            </if>
+          </when>
+          <otherwise>
+            <if test="orderStatus != null">
+              order_status like concat('%',concat(#{orderStatus}, '%'))
+            </if>
+          </otherwise>
+        </choose>
+      </otherwise>
+    </choose>
+    order by ORDER_CREATE_TIME desc
+    ) r
+    where ROWNUM &lt;= #{pageSize} * #{currentPage}
+    ) WHERE rn > #{pageSize} * ( #{currentPage} - 1)
+  </select>
+  <!--后端显示商品详情-->
+  <select id="showBackGoodOrdel" resultMap="BackOrderMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from B_GOOD_ORDER
+    where ORDER_ID = #{orderId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from B_GOOD_ORDER
@@ -163,6 +276,31 @@
       <if test="sellerId != null" >
         SELLER_ID = #{sellerId,jdbcType=VARCHAR},
       </if>
+
+      <if test="singlePrice != null" >
+        SINGLE_PRICE = #{singlePrice,jdbcType=FLOAT},
+      </if>
+      <if test="goodNumber != null" >
+        GOOD_NUMBER = #{goodNumber,jdbcType=DOUBLE},
+      </if>
+      <if test="orderMessage != null" >
+        ORDER_MESSAGE = #{orderMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="goodId != null" >
+        GOOD_ID = #{goodId,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerName != null" >
+        SELLER_NAME = #{sellerName,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerPhone != null" >
+        SELLER_PHONE = #{sellerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerEmail != null" >
+        SELLER_EMAIL = #{sellerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerAddress != null" >
+        SELLER_ADDRESS = #{sellerAddress,jdbcType=VARCHAR}
+      </if>
     </set>
     where ORDER_ID = #{orderId,jdbcType=VARCHAR}
   </update>
@@ -178,7 +316,16 @@
       TOTAL_PRICE = #{totalPrice,jdbcType=FLOAT},
       ORDER_STATUS = #{orderStatus,jdbcType=VARCHAR},
       "delivery Method" = #{deliveryMethod,jdbcType=VARCHAR},
-      SELLER_ID = #{sellerId,jdbcType=VARCHAR}
+      SELLER_ID = #{sellerId,jdbcType=VARCHAR},
+
+      SINGLE_PRICE = #{singlePrice,jdbcType=FLOAT},
+      GOOD_NUMBER = #{goodNumber,jdbcType=DOUBLE},
+      ORDER_MESSAGE = #{orderMessage,jdbcType=VARCHAR},
+      GOOD_ID = #{goodId,jdbcType=VARCHAR},
+      SELLER_NAME = #{sellerName,jdbcType=VARCHAR},
+      SELLER_PHONE = #{sellerPhone,jdbcType=VARCHAR},
+      SELLER_EMAIL = #{sellerEmail,jdbcType=VARCHAR},
+      SELLER_ADDRESS = #{sellerAddress,jdbcType=VARCHAR}
     where ORDER_ID = #{orderId,jdbcType=VARCHAR}
   </update>
 </mapper>

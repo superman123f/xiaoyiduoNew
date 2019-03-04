@@ -102,6 +102,15 @@ layui.define(['layer','jquery'],function(exports){ //需要正确引入所需要
                                 }
                             });
                             break;
+                        case 'order_detail':
+                            // alert(1);
+                            layer.open({
+                                type: 2,
+                                title: '订单详情',
+                                area: ['665px', '650px'],
+                                content: '/order/seeOrderDetail?orderId='+orderId,
+                            });
+                            break;
                     }
                     getTotal();
                 }

@@ -52,7 +52,7 @@ $(function(){
             $("#authCode").focus();
             return false;
         }else if(val == num){
-            // 异步提交表单
+            // form异步表单
             $.ajax({
                 type: 'POST', // 方法类型
                 dataType: 'json', // 逾期服务器返回的数据类型

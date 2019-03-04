@@ -133,6 +133,7 @@
                         <li class="th th-op">
                                 <%--<span class="dele-btn" onclick="delCartItem('${cart.cartId}');">删除</span>--%>
                             <span class="dele-btn">删除</span>
+                            <span class="order_detail">详情</span>
                             <input type="hidden" id="orderId" class="orderId" value="${order.orderId}">
                         </li>
                     </ul>

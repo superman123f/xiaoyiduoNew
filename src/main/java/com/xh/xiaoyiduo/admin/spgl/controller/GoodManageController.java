@@ -128,6 +128,7 @@ public class GoodManageController {
         model.addAttribute("sonGoodList", sonGoodList);
         model.addAttribute("cartGoodCount", cartGoodCount);
         model.addAttribute("goodName1", goodName1);
+        model.addAttribute("user", user);
 //        model.addAttribute("sonGoodCount", sonGoodCount);
 
         return "/shop/commodity";

@@ -98,9 +98,9 @@
 
                 <li class="layui-nav-item">
                     <a class="" href="javascript:void(0);">商品管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:void(0);" onclick="choose('/type/toGoodTypePage');">商品类目</a></dd>
-                    </dl>
+                    <%--<dl class="layui-nav-child">--%>
+                        <%--<dd><a href="javascript:void(0);" onclick="choose('/type/toGoodTypePage');">商品类目</a></dd>--%>
+                    <%--</dl>--%>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:void(0);" onclick="choose('/admin/goodAdmin');">商品列表</a></dd>
                     </dl>
@@ -112,7 +112,7 @@
                 <li class="layui-nav-item">
                     <a href="javascript:void(0);">订单管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:void(0);" onclick="return false;">订单列表</a></dd>
+                        <dd><a href="javascript:void(0);" onclick="choose('/order/backOrderManagePage');">订单列表</a></dd>
                     </dl>
                 </li>
 

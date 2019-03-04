@@ -41,7 +41,7 @@
                     </div>
                     <hr>
 
-                    <table id="demo" lay-filter="test"></table>
+                    <table id="demo" lay-filter="test1"></table>
 
                 </div>
             </div>
