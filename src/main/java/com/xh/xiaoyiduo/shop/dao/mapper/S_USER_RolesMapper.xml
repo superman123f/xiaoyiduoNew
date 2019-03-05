@@ -15,6 +15,30 @@
     from S_USER_ROLES
     where ROLE_ID = #{roleId,jdbcType=VARCHAR}
   </select>
+  <!--获取角色总数-->
+  <select id="getRolesCount" resultType="int">
+    select
+    count(1)
+    from S_USER_ROLES
+    <if test="roleName != null">
+      where ROLE_NAME like concat('%',concat(#{roleName,jdbcType=VARCHAR}, '%'))
+    </if>
+  </select>
+  <!--分页获取角色-->
+  <select id="selectAllRoles" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT *
+    FROM (SELECT r.*,ROWNUM rn
+    FROM(
+    select
+    <include refid="Base_Column_List" />
+    from S_USER_ROLES t
+    <if test="roleName != null">
+      where ROLE_NAME like concat('%',concat(#{roleName,jdbcType=VARCHAR}, '%'))
+    </if>
+    ) r
+    where ROWNUM &lt;= #{pageSize} * #{currentPage}
+    ) WHERE rn > #{pageSize} * ( #{currentPage} - 1)
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from S_USER_ROLES
     where ROLE_ID = #{roleId,jdbcType=VARCHAR}

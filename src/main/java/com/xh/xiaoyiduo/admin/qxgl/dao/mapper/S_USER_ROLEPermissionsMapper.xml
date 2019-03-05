@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xh.xiaoyiduo.admin.qxgl.dao.S_USER_ROLEPermissionsMapper" >
+  <resultMap id="BaseResultMap" type="com.xh.xiaoyiduo.admin.qxgl.pojo.S_USER_ROLEPERMISSIONS" >
+    <id column="ROLE_PERMISSION_ID" property="rolePermissionId" jdbcType="VARCHAR" />
+    <result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+    <result column="PERMISSION_ID" property="permissionId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ROLE_PERMISSION_ID, ROLE_ID, PERMISSION_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from S_USER_ROLEPERMISSIONS
+    where ROLE_PERMISSION_ID = #{rolePermissionId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from S_USER_ROLEPERMISSIONS
+    where ROLE_PERMISSION_ID = #{rolePermissionId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xh.xiaoyiduo.admin.qxgl.pojo.S_USER_ROLEPERMISSIONS" >
+    insert into S_USER_ROLEPERMISSIONS (ROLE_PERMISSION_ID, ROLE_ID, PERMISSION_ID
+      )
+    values (#{rolePermissionId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, #{permissionId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xh.xiaoyiduo.admin.qxgl.pojo.S_USER_ROLEPERMISSIONS" >
+    insert into S_USER_ROLEPERMISSIONS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rolePermissionId != null" >
+        ROLE_PERMISSION_ID,
+      </if>
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="permissionId != null" >
+        PERMISSION_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rolePermissionId != null" >
+        #{rolePermissionId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionId != null" >
+        #{permissionId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xh.xiaoyiduo.admin.qxgl.pojo.S_USER_ROLEPERMISSIONS" >
+    update S_USER_ROLEPERMISSIONS
+    <set >
+      <if test="roleId != null" >
+        ROLE_ID = #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionId != null" >
+        PERMISSION_ID = #{permissionId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ROLE_PERMISSION_ID = #{rolePermissionId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xh.xiaoyiduo.admin.qxgl.pojo.S_USER_ROLEPERMISSIONS" >
+    update S_USER_ROLEPERMISSIONS
+    set ROLE_ID = #{roleId,jdbcType=VARCHAR},
+      PERMISSION_ID = #{permissionId,jdbcType=VARCHAR}
+    where ROLE_PERMISSION_ID = #{rolePermissionId,jdbcType=VARCHAR}
+  </update>
+</mapper>

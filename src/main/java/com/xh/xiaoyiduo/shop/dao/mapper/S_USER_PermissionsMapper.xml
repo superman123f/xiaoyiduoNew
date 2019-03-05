@@ -15,6 +15,30 @@
     from S_USER_PERMISSIONS
     where PERMISSION_ID = #{permissionId,jdbcType=VARCHAR}
   </select>
+  <!--获取权限总数-->
+  <select id="getPermissionCount" resultType="int">
+    select
+    count(1)
+    from S_USER_PERMISSIONS
+    <if test="permissionName != null">
+      where PERMISSION_NAME like concat('%',concat(#{permissionName,jdbcType=VARCHAR}, '%'))
+    </if>
+  </select>
+  <!--分页获取权限-->
+  <select id="selectAllPermissions" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT *
+    FROM (SELECT r.*,ROWNUM rn
+    FROM(
+    select
+    <include refid="Base_Column_List" />
+    from S_USER_PERMISSIONS t
+    <if test="permissionName != null">
+      where PERMISSION_NAME like concat('%',concat(#{permissionName,jdbcType=VARCHAR}, '%'))
+    </if>
+    ) r
+    where ROWNUM &lt;= #{pageSize} * #{currentPage}
+    ) WHERE rn > #{pageSize} * ( #{currentPage} - 1)
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from S_USER_PERMISSIONS
     where PERMISSION_ID = #{permissionId,jdbcType=VARCHAR}

@@ -68,9 +68,9 @@
                 <li class="layui-nav-item">
                     <a href="javascript:void(0);">权限管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:void(0);" onclick="choose('/admin/admin');">规则列表</a></dd>
-                        <dd><a href="javascript:void(0);" onclick="choose('/admin/role');">角色列表</a></dd>
-                        <dd><a href="javascript:void(0);" onclick="choose('/admin/adminRole');">用户角色</a></dd>
+                        <dd><a href="javascript:void(0);" onclick="choose('/role/toRoleAdminPage');">权限列表</a></dd>
+                        <dd><a href="javascript:void(0);" onclick="choose('/role/permissionToRole');">角色列表</a></dd>
+                        <dd><a href="javascript:void(0);" onclick="choose('/role/roleToUser');">用户角色</a></dd>
                     </dl>
                 </li>
 

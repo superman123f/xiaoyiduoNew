@@ -144,7 +144,7 @@ public class NoticeManageController {
     }
 
     /**
-     * 批量删除用户
+     * 批量删除公告
      * @param
      * @param
      * @return
