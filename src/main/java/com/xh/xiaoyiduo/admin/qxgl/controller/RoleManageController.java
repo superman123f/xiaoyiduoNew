@@ -210,4 +210,17 @@ public class RoleManageController {
 
         return  json;
     }
+
+    /**
+     * 查看角色权限
+     * @param roleId
+     * @param model
+     * @return
+     */
+    @RequestMapping("/seeRolePermissions")
+    public String seeRolePermissions(String roleId, Model model) {
+        S_USER_ROLES role = roleManageService.seeRolePermissions(roleId);
+        model.addAttribute("role", role);
+        return "/admin/qxgl/seeRolePermissions";
+    }
 }

@@ -58,4 +58,9 @@ public class RoleManageServiceImpl implements IRoleManageService {
     public List<S_USER_ROLES> selectAllRoles(String pageSize, String currentPage, String roleName) {
         return rolesMapper.selectAllRoles(pageSize, currentPage, roleName);
     }
+
+    @Override
+    public S_USER_ROLES seeRolePermissions(String roleId) {
+        return rolesMapper.seeRolePermissions(roleId);
+    }
 }

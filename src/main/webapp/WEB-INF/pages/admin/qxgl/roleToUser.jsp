@@ -73,7 +73,8 @@
     <%--</button>--%>
     <div class="layui-btn-group">
         <button class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">
-            <i class="layui-icon">&#xe642;</i>查看权限
+            <%--<i class="layui-icon">&#xe642;</i>--%>
+            查看权限
         </button>
         <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">
             <i class="layui-icon">&#xe640;</i>删除
@@ -84,5 +85,5 @@
 </body>
 <script type="text/javascript" src="${ctx}/scripts/jquery.min.js"></script>
 <script type="text/javascript" src="${ctx}/styles/layui/layui.js"></script>
-<script type="text/javascript" src="${ctx}/scripts/admin/yygl/userAdmin.js"></script>
+<script type="text/javascript" src="${ctx}/scripts/admin/qxgl/userRoleAdmin.js"></script>
 </html>

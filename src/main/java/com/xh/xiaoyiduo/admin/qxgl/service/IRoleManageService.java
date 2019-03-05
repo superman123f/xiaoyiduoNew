@@ -15,9 +15,9 @@ public interface IRoleManageService {
     int insert(S_USER_PERMISSIONS permission); //新增权限
     int updatePermissionInfoByPermissionId(S_USER_PERMISSIONS rolePermissionId); //更新权限
     int deleteByPrimaryKey(String permissionId); //删除权限
-//    List<S_USER_PERMISSIONS> fuzzyQueryPermission(String permissionName); //搜索
 
 //    -------------------------角色--------------
     int getRolesCount(String roleName); // 获取权限总数
     List<S_USER_ROLES> selectAllRoles(String pageSize, String currentPage, String roleName); //分页查询
+    S_USER_ROLES seeRolePermissions(String roleId); // 查看角色权限
 }

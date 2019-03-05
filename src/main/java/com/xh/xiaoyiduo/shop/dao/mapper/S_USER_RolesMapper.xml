@@ -6,6 +6,16 @@
     <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
     <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
   </resultMap>
+
+  <resultMap id="RolePermissionMap" type="com.xh.xiaoyiduo.shop.pojo.S_USER_ROLES" >
+    <id column="ROLE_ID" property="roleId"  />
+    <result column="ROLE_NAME" property="roleName"  />
+    <result column="USER_ID" property="userId"  />
+    <collection property="permissions" ofType="com.xh.xiaoyiduo.shop.pojo.S_USER_PERMISSIONS">
+      <id column="PERMISSION_ID" property="permissionId" />
+      <result column="PERMISSION_NAME" property="permissionName" />
+    </collection>
+  </resultMap>
   <sql id="Base_Column_List" >
     ROLE_ID, ROLE_NAME, USER_ID
   </sql>
@@ -14,6 +24,14 @@
     <include refid="Base_Column_List" />
     from S_USER_ROLES
     where ROLE_ID = #{roleId,jdbcType=VARCHAR}
+  </select>
+  <!--查看角色权限-->
+  <select id="seeRolePermissions" resultMap="RolePermissionMap" parameterType="java.lang.String" >
+    select r.role_id, r.role_name, p.permission_name
+    from S_USER_ROLES r, S_USER_ROLEPERMISSIONS rp, S_USER_PERMISSIONS p
+    where r.role_id = rp.role_id
+    and rp.permission_id = p.permission_id
+    and r.role_id = #{roleId,jdbcType=VARCHAR}
   </select>
   <!--获取角色总数-->
   <select id="getRolesCount" resultType="int">

@@ -73,6 +73,7 @@
 </body>
 <script type="text/javascript" src="${ctx}/scripts/jquery.min.js"></script>
 <script type="text/javascript" src="${ctx}/styles/layui/layui.js"></script>
+<script type="text/javascript" src="${ctx}/scripts/admin/qxgl/userRoleAdmin.js"></script>
 </html>
 <script>
     layui.use(['table', 'layer', 'form'], function(){
@@ -294,17 +295,17 @@
                         }
                     );
                 });
-            } else if(layEvent === 'edit'){ //编辑
+            } else if(layEvent === 'edit'){ //查看权限
                 var editBan = layer.open(
                     {
                         type: 2,
-                        title: '编辑公告信息',
+                        title: '查看角色权限',
                         // skin: 'layui-layer-molv', //样式
                         shadeClose: false,
                         shade: 0.8,
                         area: ['500px', '250px'],
                         maxmin: true,
-                        content: '/Role/editRole?roleId=' + data.roleId,//跳转的页面
+                        content: '/role/seeRolePermissions?roleId=' + data.roleId,//跳转的页面
                         cancel: function (index)
                         {
                             $(".layui-laypage-btn").click();//这里用于关闭Open时触发回调函数  刷新父页面数据  一定要引入Jquery
