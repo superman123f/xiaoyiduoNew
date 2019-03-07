@@ -56,65 +56,78 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <shiro:hasRole name="admin">
+                <shiro:hasPermission name="用户管理">
                     <li class="layui-nav-item layui-nav-itemed">
                         <a href="javascript:void(0);">用户管理</a>
                         <dl class="layui-nav-child">
                             <dd><a class="layui-this"  href="javascript:void(0);" onclick="choose('/admin/userAdmin');">用户列表</a></dd>
                         </dl>
                     </li>
-                </shiro:hasRole>
+                </shiro:hasPermission>
 
-                <li class="layui-nav-item">
-                    <a href="javascript:void(0);">权限管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:void(0);" onclick="choose('/role/toRoleAdminPage');">权限列表</a></dd>
-                        <dd><a href="javascript:void(0);" onclick="choose('/role/permissionToRole');">角色列表</a></dd>
-                        <dd><a href="javascript:void(0);" onclick="choose('/role/roleToUser');">用户角色</a></dd>
-                    </dl>
-                </li>
+                <shiro:hasPermission name="权限管理">
+                    <li class="layui-nav-item">
+                        <a href="javascript:void(0);">权限管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:void(0);" onclick="choose('/role/toRoleAdminPage');">权限列表</a></dd>
+                            <dd><a href="javascript:void(0);" onclick="choose('/role/permissionToRole');">角色列表</a></dd>
+                            <dd><a href="javascript:void(0);" onclick="choose('/role/roleToUser');">用户角色</a></dd>
+                        </dl>
+                    </li>
+                </shiro:hasPermission>
 
-                <li class="layui-nav-item">
-                    <a href="javascript:void(0);">禁品管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:void(0);" onclick="choose('/ban/toBanManagePage');">禁品列表</a></dd>
-                        <dd><a href="javascript:void(0);" onclick="choose('/ban/toBaiduAIWebsite');">模型训练</a></dd>
-                    </dl>
-                </li>
+                <shiro:hasPermission name="禁品管理">
+                    <li class="layui-nav-item">
+                        <a href="javascript:void(0);">禁品管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:void(0);" onclick="choose('/ban/toBanManagePage');">禁品列表</a></dd>
+                            <dd><a href="javascript:void(0);" onclick="choose('/ban/toBaiduAIWebsite');">模型训练</a></dd>
+                        </dl>
+                    </li>
+                </shiro:hasPermission>
 
-                <li class="layui-nav-item">
-                    <a href="javascript:void(0);">公告管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:void(0);" onclick="choose('/notice/noticeAdminPage')">公告列表</a></dd>
-                    </dl>
-                </li>
+                <shiro:hasPermission name="公告管理">
+                    <li class="layui-nav-item">
+                        <a href="javascript:void(0);">公告管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:void(0);" onclick="choose('/notice/noticeAdminPage')">公告列表</a></dd>
+                        </dl>
+                    </li>
+                </shiro:hasPermission>
 
-                <li class="layui-nav-item">
-                    <a class="" href="javascript:void(0);">类目管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:void(0);" onclick="choose('/type/toGoodTypePage');">类目列表</a></dd>
-                    </dl>
-                </li>
+                <shiro:hasPermission name="类目管理">
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:void(0);">类目管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:void(0);" onclick="choose('/type/toGoodTypePage');">类目列表</a></dd>
+                        </dl>
+                    </li>
+                </shiro:hasPermission>
 
-                <li class="layui-nav-item">
-                    <a class="" href="javascript:void(0);">商品管理</a>
-                    <%--<dl class="layui-nav-child">--%>
-                        <%--<dd><a href="javascript:void(0);" onclick="choose('/type/toGoodTypePage');">商品类目</a></dd>--%>
-                    <%--</dl>--%>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:void(0);" onclick="choose('/admin/goodAdmin');">商品列表</a></dd>
-                    </dl>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:void(0);" onclick="choose('/admin/goodInfo');">商品信息</a></dd>
-                    </dl>
-                </li>
+                <shiro:hasPermission name="商品管理">
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:void(0);">商品管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:void(0);" onclick="choose('/admin/goodAdmin');">商品列表</a></dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:void(0);" onclick="choose('/admin/goodInfo');">商品信息</a></dd>
+                        </dl>
+                    </li>
+                </shiro:hasPermission>
 
-                <li class="layui-nav-item">
-                    <a href="javascript:void(0);">订单管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:void(0);" onclick="choose('/order/backOrderManagePage');">订单列表</a></dd>
-                    </dl>
-                </li>
+                <shiro:hasPermission name="订单管理">
+                    <li class="layui-nav-item">
+                        <a href="javascript:void(0);">订单管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:void(0);" onclick="choose('/order/backOrderManagePage');">订单列表</a></dd>
+                        </dl>
+                    </li>
+                </shiro:hasPermission>
+
+                <shiro:hasPermission name="统计分析">
+                    <li class="layui-nav-item"><a href="javascript:void(0);" onclick="choose('/good/getReport');">统计分析</a></li>
+                </shiro:hasPermission>
 
                 <%--<li class="layui-nav-item">--%>
                     <%--<a href="javascript:void(0);">统计分析</a>--%>
@@ -122,8 +135,6 @@
                         <%--<dd><a href="javascript:void(0);" onclick="return false;">统计分析</a></dd>--%>
                     <%--</dl>--%>
                 <%--</li>--%>
-
-                <li class="layui-nav-item"><a href="javascript:void(0);" onclick="choose('/good/getReport');">统计分析</a></li>
 
                 <%--<li class="layui-nav-item">--%>
                     <%--<a href="javascript:void(0);">开发者工具</a>--%>

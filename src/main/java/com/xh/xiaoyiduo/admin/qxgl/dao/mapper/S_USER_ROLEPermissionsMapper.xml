@@ -17,9 +17,15 @@
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from S_USER_ROLEPERMISSIONS
-    where ROLE_PERMISSION_ID = #{rolePermissionId,jdbcType=VARCHAR}
+    where ROLE_ID = #{roleId,jdbcType=VARCHAR} and PERMISSION_ID = #{permissionId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.xh.xiaoyiduo.admin.qxgl.pojo.S_USER_ROLEPERMISSIONS" >
+  <!--<insert id="insert" parameterType="com.xh.xiaoyiduo.admin.qxgl.pojo.S_USER_ROLEPERMISSIONS" >-->
+    <!--insert into S_USER_ROLEPERMISSIONS (ROLE_PERMISSION_ID, ROLE_ID, PERMISSION_ID-->
+      <!--)-->
+    <!--values (#{rolePermissionId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, #{permissionId,jdbcType=VARCHAR}-->
+      <!--)-->
+  <!--</insert>-->
+  <insert id="insert" parameterType="java.lang.String" >
     insert into S_USER_ROLEPERMISSIONS (ROLE_PERMISSION_ID, ROLE_ID, PERMISSION_ID
       )
     values (#{rolePermissionId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, #{permissionId,jdbcType=VARCHAR}

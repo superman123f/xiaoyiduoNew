@@ -19,8 +19,9 @@
     }
 </style>
 <body>
+<input type="hidden" id="userId" value="${userId}">
 <fieldset class="layui-elem-field">
-    <legend>权限管理 - 角色列表</legend>
+    <legend>角色管理 - 角色列表</legend>
     <div class="layui-field-box">
         <form class="layui-form" action="">
             <div class="layui-form-item" style="text-align:center;">
@@ -39,32 +40,32 @@
         <hr>
 
         <%--<script type="text/html" id="toolbarDemo">--%>
-            <%--<div class="layui-btn-container">--%>
-                <%--<button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>--%>
-            <%--</div>--%>
+        <%--<div class="layui-btn-container">--%>
+        <%--<button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>--%>
+        <%--</div>--%>
         <%--</script>--%>
 
         <%--<script type="text/html" id="toolbarDemo">--%>
-            <%--<div class="layui-btn-group">--%>
-                <%--<button class="layui-btn layui-btn-xs layui-btn-normal dw-dailog" dw-url="/role/editRole" dw-title="关联权限" dw-width="100%" dw-height="100%" lay-event="getCheckData">--%>
-                    <%--<i class="layui-icon">&#xe654;</i>关联权限--%>
-                <%--</button>--%>
-                <%--<button id="deleteData" class="layui-btn layui-btn-xs layui-btn-danger" data-type="deleteData">--%>
-                    <%--<i class="layui-icon">&#xe640;</i>批删--%>
-                <%--</button>--%>
-                <%--<button class="layui-btn layui-btn-xs dw-refresh">--%>
-                <%--<i class="layui-icon">&#x1002;</i>刷新--%>
-                <%--</button>--%>
-                <%--<button id="exportExl" class="layui-btn layui-btn-xs" data-type="exportExl">导出Excel</button>--%>
-            <%--</div>--%>
-            <div class="layui-btn-group">
-                <button id="getCheckData" class="layui-btn layui-btn-xs layui-btn-normal"  data-type="getCheckData">
-                    <i class="layui-icon">&#xe654;</i>关联权限
-                </button>
-                <%--<button id="celPermission" class="layui-btn layui-btn-xs layui-btn-normal"  data-type="celPermission">--%>
-                    <%--<i class="layui-icon">&#xe654;</i>取消权限--%>
-                <%--</button>--%>
-            </div>
+        <%--<div class="layui-btn-group">--%>
+        <%--<button class="layui-btn layui-btn-xs layui-btn-normal dw-dailog" dw-url="/role/editRole" dw-title="关联角色" dw-width="100%" dw-height="100%" lay-event="getCheckData">--%>
+        <%--<i class="layui-icon">&#xe654;</i>关联角色--%>
+        <%--</button>--%>
+        <%--<button id="deleteData" class="layui-btn layui-btn-xs layui-btn-danger" data-type="deleteData">--%>
+        <%--<i class="layui-icon">&#xe640;</i>批删--%>
+        <%--</button>--%>
+        <%--<button class="layui-btn layui-btn-xs dw-refresh">--%>
+        <%--<i class="layui-icon">&#x1002;</i>刷新--%>
+        <%--</button>--%>
+        <%--<button id="exportExl" class="layui-btn layui-btn-xs" data-type="exportExl">导出Excel</button>--%>
+        <%--</div>--%>
+        <div class="layui-btn-group">
+            <button id="getCheckData" class="layui-btn layui-btn-xs layui-btn-normal"  data-type="getCheckData">
+                <i class="layui-icon">&#xe654;</i>关联角色
+            </button>
+            <button id="celRole" class="layui-btn layui-btn-xs layui-btn-normal"  data-type="celRole">
+            <i class="layui-icon">&#xe654;</i>取消角色
+            </button>
+        </div>
         <%--</script>--%>
         <hr>
 
@@ -76,7 +77,7 @@
 <%--@*工具栏  在Table中使用 toolbar声明一个 Id  放置在任意位置皆可*@--%>
 <script type="text/html" id="barDemo">
     <%--<a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="detail">查看</a>--%>
-    <%--<button class="layui-btn layui-btn-xs layui-btn-normal dw-dailog" dw-url="create1" dw-title="新增权限" dw-width="100%" dw-height="100%">--%>
+    <%--<button class="layui-btn layui-btn-xs layui-btn-normal dw-dailog" dw-url="create1" dw-title="新增角色" dw-width="100%" dw-height="100%">--%>
     <%--<i class="layui-icon">&#xe654;</i>新增--%>
     <%--</button>--%>
 
@@ -85,10 +86,10 @@
     <%--</button>--%>
     <div class="layui-btn-group">
         <button class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">
-            <i class="layui-icon">&#xe642;</i>查看权限
+            <i class="layui-icon">&#xe642;</i>查看角色
         </button>
         <%--<button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">--%>
-            <%--<i class="layui-icon">&#xe640;</i>删除--%>
+        <%--<i class="layui-icon">&#xe640;</i>删除--%>
         <%--</button>--%>
     </div>
 </script>
@@ -171,33 +172,33 @@
                                 {
                                     curr: 1 //重新从第 1 页开始
                                 }
-                            , where: { roleName: roleName}//这里传参  向后台
-                            ,url: '/role/searchRole'
+                            , where: {roleName: roleName}//这里传参  向后台
+                            , url: '/role/searchRole'
                             // , url: '/user/searchUser'//后台做模糊搜索接口路径
                             , method: 'post'
                         });
                 },
 
                 //批量删除
-                deleteData: function() {
+                deleteData: function () {
                     var checkStatus = table.checkStatus('roleId') //此时的id为render的id
-                        ,data = checkStatus.data;
+                        , data = checkStatus.data;
                     // layer.alert(JSON.stringify(data));
                     var str = "";
-                    if(data.length > 0){
+                    if (data.length > 0) {
                         layer.alert('delete?');
-                        for(var i = 0; i < data.length; i++){
+                        for (var i = 0; i < data.length; i++) {
                             str += data[i].roleId + "，";
                         }
                         // alert(str);
-                        layer.confirm("是否删除这" + data.length + "条数据？", {icon: 3, title: '提示'}, function(index){
+                        layer.confirm("是否删除这" + data.length + "条数据？", {icon: 3, title: '提示'}, function (index) {
                             // window.location.href = "/user/deleteUserInfos?userIds=" + str;
                             $.post("/role/deleteRoleInfos",
                                 {
                                     roleIds: str
                                 },
-                                function(data){
-                                    if(data.success){
+                                function (data) {
+                                    if (data.success) {
                                         // layer.msg(data.msg);
                                         // window.location.reload();
                                         $(".layui-laypage-btn").click(); ///这里用于关闭Open时触发回调函数  刷新父页面数据  一定要引入Jquery
@@ -212,25 +213,71 @@
                     }
 
                 },
-                //关联权限
-                getCheckData: function(){
+                //关联角色
+                getCheckData: function () {
                     var checkStatus = table.checkStatus('roleId') //此时的id为render的id,获取选中行状态
-                        ,data = checkStatus.data; //获取选中行数据
-                    if(data.length > 0) {
+                        , data = checkStatus.data; //获取选中行数据
+                    if (data.length > 0) {
                         var roleId = data[0].roleId;
                         // layer.alert(JSON.stringify(data)+"add");
-                        window.location.href="/role/toRoleAdminPage1?roleId="+roleId;
+                        // window.location.href="/role/toRoleAdminPage1?roleId="+roleId;
+                        // alert(permissionId);
+                        var userId = $("#userId").val();
+
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            data: {
+                                userId: userId,
+                                roleId: roleId
+                            },
+                            url: "/role/giveUserRole",
+                            success: function (data) {
+                                if (data.success) {
+                                    layer.alert("关联成功");
+                                } else {
+                                    layer.alert("关联失败");
+                                }
+                            },
+                            error: function () {
+                                layer.alert("关联失败");
+                            }
+                        });
                     } else {
                         layer.alert("请选择角色");
                     }
                 },
 
-                //取消权限
-                celPermission: function(){
+                //取消角色
+                celRole: function () {
                     var checkStatus = table.checkStatus('roleId') //此时的id为render的id,获取选中行状态
-                        ,data = checkStatus.data; //获取选中行数据
-                    if(data.length > 0) {
-                        layer.alert(JSON.stringify(data)+"cancel");
+                        , data = checkStatus.data; //获取选中行数据
+                    if (data.length > 0) {
+                        var roleId = data[0].roleId;
+                        // layer.alert(JSON.stringify(data)+"add");
+                        // window.location.href="/role/toRoleAdminPage1?roleId="+roleId;
+                        // alert(permissionId);
+                        var userId = $("#userId").val();
+
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            data: {
+                                userId: userId,
+                                roleId: roleId
+                            },
+                            url: "/role/cancelUserRole",
+                            success: function (data) {
+                                if (data.success) {
+                                    layer.alert("取消关联成功");
+                                } else {
+                                    layer.alert("取消关联失败");
+                                }
+                            },
+                            error: function () {
+                                layer.alert("取消关联失败");
+                            }
+                        });
                     } else {
                         layer.alert("请选择角色");
                     }
@@ -256,14 +303,14 @@
             active[type] ? active[type].call(this) : '';
         });
 
-        //关联权限
+        //关联角色
         $('#getCheckData').on('click', function() {
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });
 
-        //取消权限
-        $('#celPermission').on('click', function() {
+        //取消角色
+        $('#celRole').on('click', function() {
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });
@@ -315,11 +362,11 @@
                         }
                     );
                 });
-            } else if(layEvent === 'edit'){ //查看权限
+            } else if(layEvent === 'edit'){ //查看角色
                 var editBan = layer.open(
                     {
                         type: 2,
-                        title: '查看角色权限',
+                        title: '查看角色角色',
                         // skin: 'layui-layer-molv', //样式
                         shadeClose: false,
                         shade: 0.8,

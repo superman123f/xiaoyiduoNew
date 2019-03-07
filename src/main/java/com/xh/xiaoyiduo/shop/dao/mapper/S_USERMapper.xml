@@ -13,6 +13,14 @@
     <result column="DORMITORY_ADDRESS" property="dormitoryAddress" jdbcType="VARCHAR" />
     <result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
   </resultMap>
+  <resultMap id="UserRoleMap" type="com.xh.xiaoyiduo.shop.pojo.S_USER" >
+    <id column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="NICKNAME" property="nickname" jdbcType="VARCHAR" />
+    <collection property="roles" ofType="com.xh.xiaoyiduo.shop.pojo.S_USER_ROLES">
+      <id column="ROLE_ID" property="roleId" />
+      <result column="ROLE_NAME" property="roleName" />
+    </collection>
+  </resultMap>
   <!--自定义resultMap-->
   <resultMap id="userMap" type="com.xh.xiaoyiduo.shop.pojo.S_USER">
     <id column="USER_ID" property="userId" />
@@ -60,6 +68,14 @@
   <sql id="Export_Column_List" >
     STUDENT_NO, NICKNAME, REAL_NAME, SEX, EMAIL, PHONE, DORMITORY_ADDRESS, CREATE_TIME
   </sql>
+  <!--查看用户角色-->
+  <select id="seeUserRoles" resultMap="UserRoleMap" parameterType="java.lang.String" >
+    select u.user_id, u.nickname, r.role_name
+    from S_USER u, S_USER_USERROLES ur, S_USER_ROLES r
+    where u.user_id = ur.user_id
+    and ur.role_id = r.role_id
+    and u.user_id = #{userId,jdbcType=VARCHAR}
+  </select>
   <!--根据用户编号查询-->
   <select id="selectByUserId" resultMap="userMap" parameterType="java.lang.String" >
     select u.*, r.*, p.*, rs.* from S_USER u

@@ -15,6 +15,11 @@
     <link rel="stylesheet" type="text/css" href="../../../styles/layui/css/layui.css">
     <link rel="stylesheet" type="text/css" href="${ctx}/styles/admin/yygl/userAdmin.css">
 </head>
+<style>
+    .layui-table-view .layui-form-radio {
+        margin-top: 15px;
+    }
+</style>
 <body bgcolor="white" style="margin:15px;">
 
 <fieldset class="layui-elem-field">
@@ -42,10 +47,10 @@
         </form>
         <hr>
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-xs layui-btn-normal dw-dailog" dw-url="/user/userInfo" dw-title="新增用户信息" dw-width="880px" dw-height="500px">
-                <i class="layui-icon">&#xe654;</i>新增
-            </button>
-            <button id="deleteData" class="layui-btn layui-btn-xs layui-btn-danger" data-type="deleteData">
+            <%--<button class="layui-btn layui-btn-xs layui-btn-normal dw-dailog" dw-url="/user/userInfo" dw-title="新增用户信息" dw-width="880px" dw-height="500px">--%>
+                <%--<i class="layui-icon">&#xe654;</i>新增--%>
+            <%--</button>--%>
+            <button id="giveUserRole" class="layui-btn layui-btn-xs layui-btn-danger" data-type="giveUserRole">
                 <i class="layui-icon">&#xe640;</i>关联角色
             </button>
             <%--<button class="layui-btn layui-btn-xs dw-refresh">--%>
@@ -74,11 +79,11 @@
     <div class="layui-btn-group">
         <button class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">
             <%--<i class="layui-icon">&#xe642;</i>--%>
-            查看权限
+            查看角色
         </button>
-        <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">
-            <i class="layui-icon">&#xe640;</i>删除
-        </button>
+        <%--<button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">--%>
+            <%--<i class="layui-icon">&#xe640;</i>删除--%>
+        <%--</button>--%>
     </div>
 </script>
 

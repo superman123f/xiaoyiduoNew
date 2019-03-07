@@ -61,7 +61,8 @@ layui.use(['table', 'layer', 'form'], function(){
         // ,limits: [6, 7, 8, 9]
         // ,initSort: {field: 'studentNo', type: 'desc'} //设置初始排序
         ,cols: [[ //表头
-            {type: 'checkbox'},
+            // {type: 'checkbox'},
+            {type: 'radio'},
             {field: 'userId', title: '用户编号',  sort: true, hide: true} , <!--隐藏-->
             {field: 'studentNo', title: '学号',  sort: true},
             {field: 'nickname', title: '昵称',  sort: true},
@@ -133,18 +134,6 @@ layui.use(['table', 'layer', 'form'], function(){
                     }
 
                 });
-                //将上述表格示例导出为 csv 文件
-                // table.exportFile(ins1.config.id, data, 'xls'); //data 为该实例中的任意数量的数据
-                // table.exportFile(ins1.config.id, [
-                //     ['张三','男','20'],
-                //     ['李四','女','18'],
-                //     ['王五','女','19']
-                // ], 'xls'); //默认导出 csv，也可以为：xls
-                //将上述表格示例导出为 csv 文件
-                // alert(ins1.config.id);
-                // alert(data);
-                // table.exportFile(ins1.config.id, data); //data 为该实例中的任意数量的数据
-                // alert(333);
             },
 
             //批量删除
@@ -177,24 +166,23 @@ layui.use(['table', 'layer', 'form'], function(){
                 } else {
                     layer.alert("请选择要删除的数据");
                 }
+            },
 
-                // table.on('checkbox(test)', function(obj){
-                //     alert(obj.data);
-                //     // var data = obj.data;
-                //     // layer.alert(JSON.stringify(data));
-                // });
+            giveUserRole: function(){
+                // alert(1);
+                var checkStatus = table.checkStatus('userId') //此时的id为render的id,获取选中行状态
+                    ,data = checkStatus.data; //获取选中行数据
+                if(data.length > 0) {
+                    var userId = data[0].userId;
+                    // alert(userId);
+                    // layer.alert(JSON.stringify(data)+"add");
+                    window.location.href="/role/toUserAdminPage1?userId="+userId;
+                } else {
+                    layer.alert("请选择角色");
+                }
             }
 
         }
-
-    //复选框监听
-    // table.on('checkbox(test)', function(obj){
-    //     alert(obj.checked);
-    //     alert(obj.data);
-    //     console.log(obj.checked); //当前是否选中状态
-    //     console.log(obj.data); //选中行的相关数据
-    //     console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
-    // });
 
     //这个是用于创建点击事件的实例
     $('#reload').on('click', function () {
@@ -210,6 +198,12 @@ layui.use(['table', 'layer', 'form'], function(){
 
     //批量删除
     $('#deleteData').on('click', function() {
+        var type = $(this).data('type');
+        active[type] ? active[type].call(this) : '';
+    });
+
+    //关联角色
+    $('#giveUserRole').on('click', function() {
         var type = $(this).data('type');
         active[type] ? active[type].call(this) : '';
     });
@@ -261,19 +255,19 @@ layui.use(['table', 'layer', 'form'], function(){
                     }
                 );
             });
-        } else if(layEvent === 'edit'){ //查看权限
-            alert(data.roleId);
+        } else if(layEvent === 'edit'){ //查看角色
+            // alert(data.roleId);
             layer.open(
                 {
                     type: 2,
-                    title: '查看角色权限',
+                    title: '查看用户角色',
                     // skin: 'layui-layer-molv', //样式
                     shadeClose: false,
                     offset: '20px',
                     shade: 0.8,
                     area: ['880px', '500px'],
                     // maxmin: true, //最大最小化
-                    content: '/role/seeRolePermissions?roleId=' + data.roleId,//跳转的页面
+                    content: '/role/seeUserRoles?userId=' + data.userId,//跳转的页面
                     end: function(){ // open撤销时触发回调函数
                         $(".layui-laypage-btn").click(); // 这是分页工具中的“确定”按钮，相当于点击当前页，查询结果
                     },

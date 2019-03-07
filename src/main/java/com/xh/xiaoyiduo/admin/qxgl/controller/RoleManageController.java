@@ -1,7 +1,9 @@
 package com.xh.xiaoyiduo.admin.qxgl.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.xh.xiaoyiduo.admin.qxgl.pojo.S_USER_ROLEPERMISSIONS;
 import com.xh.xiaoyiduo.admin.qxgl.service.IRoleManageService;
+import com.xh.xiaoyiduo.shop.pojo.S_USER;
 import com.xh.xiaoyiduo.shop.pojo.S_USER_PERMISSIONS;
 import com.xh.xiaoyiduo.shop.pojo.S_USER_ROLES;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,26 @@ public class RoleManageController {
     @RequestMapping("/permissionToRole")
     public String permissionToRole() {
         return "/admin/qxgl/permissionToRole";
+    }
+
+    /**
+     * 关联权限页面
+     * @return
+     */
+    @RequestMapping("/toRoleAdminPage1")
+    public String toRoleAdminPage1(String roleId, Model model) {
+        model.addAttribute("roleId", roleId);
+        return "/admin/qxgl/glqx/permissionToRole1";
+    }
+
+    /**
+     * 关联角色页面
+     * @return
+     */
+    @RequestMapping("/toUserAdminPage1")
+    public String toUserAdminPage1(String userId, Model model) {
+        model.addAttribute("userId", userId);
+        return "/admin/qxgl/gljs/roleToUser1";
     }
 
     @RequestMapping("/roleToUser")
@@ -222,5 +244,89 @@ public class RoleManageController {
         S_USER_ROLES role = roleManageService.seeRolePermissions(roleId);
         model.addAttribute("role", role);
         return "/admin/qxgl/seeRolePermissions";
+    }
+
+    /**
+     * 查看用户角色
+     * @param userId
+     * @param model
+     * @return
+     */
+    @RequestMapping("/seeUserRoles")
+    public String seeUserRoles(String userId, Model model) {
+        S_USER user = roleManageService.seeUserRoles(userId);
+        model.addAttribute("user", user);
+        return "/admin/qxgl/seeUserRoles";
+    }
+
+    /**
+     * 角色关联权限
+     * @param record
+     * @return
+     */
+    @RequestMapping("/giveRolePermission")
+    @ResponseBody
+    public Map<String, Object> giveRolePermission(S_USER_ROLEPERMISSIONS record){
+        Map<String, Object> result = new HashMap<>();
+        String uuid = UUID.randomUUID().toString().replaceAll("\\-", "");
+        record.setRolePermissionId(uuid);
+        int i = roleManageService.giveRolePermission(record);
+        if(i > 0){
+            result.put("success", true);
+        } else {
+            result.put("success", false);
+        }
+        return result;
+    }
+
+    /**
+     * 角色取消权限
+     * @return
+     */
+    @RequestMapping("/cancelRolePermission")
+    @ResponseBody
+    public Map<String, Object> cancelRolePermission(String roleId, String permissionId){
+        Map<String, Object> result1 = new HashMap<>();
+        int j = roleManageService.cancelRolePermission(roleId, permissionId);
+        if(j > 0){
+            result1.put("success", true);
+        } else {
+            result1.put("success", false);
+        }
+        return result1;
+    }
+
+    /**
+     * 用户关联角色
+     * @return
+     */
+    @RequestMapping("/giveUserRole")
+    @ResponseBody
+    public Map<String, Object> giveUserRole(String userId, String roleId){
+        Map<String, Object> result = new HashMap<>();
+        int i = roleManageService.giveUserRole(userId, roleId);
+        if(i > 0){
+            result.put("success", true);
+        } else {
+            result.put("success", false);
+        }
+        return result;
+    }
+
+    /**
+     * 用户取消角色
+     * @return
+     */
+    @RequestMapping("/cancelUserRole")
+    @ResponseBody
+    public Map<String, Object> cancelUserRole(String userId, String roleId){
+        Map<String, Object> result1 = new HashMap<>();
+        int j = roleManageService.cancelUserRole(userId, roleId);
+        if(j > 0){
+            result1.put("success", true);
+        } else {
+            result1.put("success", false);
+        }
+        return result1;
     }
 }
