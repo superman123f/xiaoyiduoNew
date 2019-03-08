@@ -28,8 +28,8 @@ public class AdminController {
     private final static String USERADMIN_VIEW = "/admin/userAdmin";
     private final static String SYSCONFIG_VIEW = "/admin/sysConfig";
     private final static String UPLOAD_VIEW = "/admin/upload";
-    private final static String GOODADMIN_VIEW = "/admin/spgl/goodAdmin";
-    private final static String GOODINFO_VIEW = "/admin/spgl/goodInfo";
+    private final static String GOODADMIN_VIEW = "/admin/spgl/goodAdminPage";
+//    private final static String GOODINFO_VIEW = "/admin/spgl/goodInfo";
 
     @Autowired
     IS_USERService userService;
@@ -110,9 +110,10 @@ public class AdminController {
         return GOODADMIN_VIEW;
     }
 
-    @RequestMapping("/goodInfo")
-    public String goodInfo(Model model){
-        List<B_GOOD_FATHER> fatherList = goodManageService.getGoodFatherList();
-        model.addAttribute("fatherList", fatherList);
-        return GOODINFO_VIEW;
-    }}
+//    @RequestMapping("/goodInfo")
+//    public String goodInfo(Model model){
+//        List<B_GOOD_FATHER> fatherList = goodManageService.getGoodFatherList();
+//        model.addAttribute("fatherList", fatherList);
+//        return GOODINFO_VIEW;
+//    }
+}

@@ -12,6 +12,8 @@ public interface B_GOOD_SonMapper {
 
     List<B_GOOD_SON> getGoodSonList(String fatherId); // 获取商品子类类目
 
+    List<B_GOOD_SON> getGoodSonList1(String fatherId); // 获取商品子类类目
+
     int getGoodSonCount(String fatherId); // 获取商品子类总数
 
     int deleteByPrimaryKey(String sonId);

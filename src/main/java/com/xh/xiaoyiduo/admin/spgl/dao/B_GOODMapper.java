@@ -37,4 +37,8 @@ public interface B_GOODMapper {
 
     List<Map<String, String>> getGoodTypeReport();// 种类商品数量统计报表
 
+    int getGoodCount(@Param("goodName")String goodName, @Param("nickname")String nickname, @Param("realName")String realName); //获取商品总数
+
+    List<B_GOOD> getAllGoods(@Param("pageSize")String pageSize, @Param("currentPage")String currentPage, @Param("goodName")String goodName, @Param("nickname")String nickname, @Param("realName")String realName);  //获取所有商品
+
 }

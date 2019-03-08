@@ -33,7 +33,12 @@
             <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>商品种类</label>
             <div class="layui-input-inline" style="max-height: 300px;">
                 <select id="fatherId" name="fatherId" lay-verify="" lay-filter="fatherId">
-                    <option value="">请选择商品父类</option>
+                    <c:if test="${not empty father}">
+                        <option value="${father.fatherId}">${father.fatherName}</option>
+                    </c:if>
+                    <c:if test="${empty father}">
+                        <option value="">请选择商品父类</option>
+                    </c:if>
                     <c:forEach items="${fatherList}" var="father">
                         <option value="${father.fatherId}">${father.fatherName}</option>
                     </c:forEach>
@@ -41,14 +46,22 @@
             </div>
             <div class="layui-input-inline" style="max-height: 300px;">
                 <select id="sonId" name="sonId" lay-verify="">
-                    <option value="">请选择商品子类</option>
+                    <c:if test="${not empty father}">
+                        <option value="${son.sonId}" >${son.sonName}</option>
+                        <c:forEach items="${goodSonList}" var="son">
+                            <option value="${son.sonId}">${son.sonName}</option>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${empty father}">
+                        <option value="">请选择商品子类</option>
+                    </c:if>
                 </select>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>商品标题</label>
             <div class="layui-input-block">
-                <input type="text" id="goodName" name="goodName" class="layui-input" placeholder="请输入商品标题（30字以内）" maxlength="30" autocomplete="off">
+                <input type="text" id="goodName" name="goodName" class="layui-input" placeholder="请输入商品标题（30字以内）" maxlength="30" autocomplete="off" value="${good.goodName}">
             <%--<textarea name="" required lay-verify="required" placeholder="请输入标题，30字以内" class="layui-textarea"></textarea>--%>
             </div>
         </div>
@@ -56,7 +69,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>商品简介</label>
             <div class="layui-input-block">
-                <textarea id="information" name="information" required lay-verify="required" placeholder="描述一下宝贝的转手原因、入手渠道和使用感受（250字以内）" class="layui-textarea" maxlength="250"></textarea>
+                <textarea id="information" name="information" required lay-verify="required" placeholder="描述一下宝贝的转手原因、入手渠道和使用感受（250字以内）" class="layui-textarea" maxlength="250">${good.information}</textarea>
             </div>
         </div>
 
@@ -79,7 +92,12 @@
                 <button type="button" class="layui-btn" id="cleanImgs"> <i class="fa fa-trash-o fa-lg"></i>清空图片</button>
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
-                    <div class="layui-upload-list" id="demo2"></div>
+                    <div class="layui-upload-list" id="demo2">
+                        <c:set value="${good.imgUrlResource}" var="resources"/>
+                        <c:forEach items="${resources}" var="resource">
+                            <img src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}" alt="" class="layui-upload-img"/>
+                        </c:forEach>
+                    </div>
                 </blockquote>
                 <!--上传图片的路径集合-->
                 <input type="hidden" id="imgUrls" name="imgUrls">
@@ -89,25 +107,25 @@
         <div class="layui-form-item">
             <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>原价</label>
             <div class="layui-input-inline">
-                <input type="text" id="originPrice" name="originPrice" class="layui-input" placeholder="请输入原价" autocomplete="off">
+                <input type="text" id="originPrice" name="originPrice" class="layui-input" placeholder="请输入原价" autocomplete="off" value="${good.originPrice}">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>二手价</label>
             <div class="layui-input-inline">
-                <input type="text" id="secondPrice" name="secondPrice" class="layui-input" placeholder="请输入二手价" autocomplete="off">
+                <input type="text" id="secondPrice" name="secondPrice" class="layui-input" placeholder="请输入二手价" autocomplete="off" value="${good.secondPrice}">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>新旧程度</label>
             <div class="layui-input-inline">
-                <input type="text" id="degree" name="degree" class="layui-input" placeholder="请输入新旧程度" autocomplete="off">
+                <input type="text" id="degree" name="degree" class="layui-input" placeholder="请输入新旧程度" autocomplete="off" value="${good.degree}">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>商品数量</label>
             <div class="layui-input-inline">
-                <input type="text" id="goodNumber" name="goodNumber" class="layui-input" placeholder="请输入商品数量" autocomplete="off">
+                <input type="text" id="goodNumber" name="goodNumber" class="layui-input" placeholder="请输入商品数量" autocomplete="off" value="${good.goodNumber}">
             </div>
         </div>
 

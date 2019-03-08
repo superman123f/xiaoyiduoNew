@@ -1,5 +1,7 @@
 package com.xh.xiaoyiduo.admin.spgl.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.StringUtil;
 import com.xh.xiaoyiduo.admin.gwcgl.service.ICartManageService;
 import com.xh.xiaoyiduo.admin.jpgl.pojo.B_GOOD_BAN;
 import com.xh.xiaoyiduo.admin.jpgl.service.IBanGoodManageService;
@@ -226,8 +228,6 @@ public class GoodManageController {
         }
         String str = "{\"code\": 0,\"msg\": \"\",\"data\": {\"src\":\"" + rappendix + "\"}}";
         return str;
-
-//        return data;
     }
 
 
@@ -435,7 +435,7 @@ public class GoodManageController {
             }
         }
 
-        B_GOOD goodDetail = goodManageService.getGoodDetailByGoodId(goodId); // 获取商品详情信息
+        B_GOOD goodDetail = goodManageService.getGoodDetailByGoodId(goodId, model); // 获取商品详情信息
 
         //获取该商品所属者的所有商品
         List<B_GOOD> userGoodList = goodManageService.getUserReleaseAllGood(goodDetail.getUserId());
@@ -472,5 +472,45 @@ public class GoodManageController {
 //        newName = r.nextInt(99999999) + d.getTime() + newName;
         newName = uuid + newName;
         return newName;
+    }
+
+//    --------------------------后台商品管理列表--------------------------//
+
+    /**
+     * 获取商品列表、模糊搜索商品
+     * @param limit
+     * @param page
+     * @param response
+     * @return
+     */
+    @RequestMapping("/getAllGoods")
+    @ResponseBody
+    public String getAllGoods(String limit, String page, String goodName, String nickname, String realName, HttpServletResponse response){
+
+        int count = goodManageService.getGoodCount(goodName, nickname, realName);
+        if(count > 0){
+            System.out.println("not good");
+        } else {
+            System.out.println("good exist");
+        }
+        List<B_GOOD> goodList = goodManageService.getAllGoods(limit, page, goodName, nickname, realName);
+        String goodListJson  = JSON.toJSONString(goodList); //将对象转换成json
+
+        String json = "{\"code\":0,\"msg\":\"\",\"count\":" + count + ",\"data\":" + goodListJson + "}";
+        return json;
+    }
+
+    /**
+     * 商品新增、编辑
+     * @param goodId
+     * @return
+     */
+    @RequestMapping("/goodInfo")
+    public String userInfo(String goodId, Model model){
+        B_GOOD good = goodManageService.getGoodDetailByGoodId(goodId, model);
+        List<B_GOOD_FATHER> fatherList = goodManageService.getGoodFatherList();
+        model.addAttribute("good", good);
+        model.addAttribute("fatherList", fatherList);
+        return "/admin/spgl/goodInfo";
     }
 }

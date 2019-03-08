@@ -1,6 +1,11 @@
 package com.xh.xiaoyiduo.admin.spgl.pojo;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 public class B_GOOD {
@@ -25,6 +30,11 @@ public class B_GOOD {
     private String status;
 
     private String userId;
+
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH24:mi:ss")//页面写入数据库时格式化
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")//数据库导出页面时json格式化
+    private Date createTime;
 
     private List<RESOURCES> imgUrlResource = null;
 
@@ -122,5 +132,14 @@ public class B_GOOD {
 
     public void setImgUrlResource(List<RESOURCES> imgUrlResource) {
         this.imgUrlResource = imgUrlResource;
+    }
+
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

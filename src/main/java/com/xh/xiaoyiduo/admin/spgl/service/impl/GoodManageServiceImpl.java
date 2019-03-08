@@ -71,8 +71,20 @@ public class GoodManageServiceImpl implements IGoodManageService {
     }
 
     @Override
-    public B_GOOD getGoodDetailByGoodId(String goodId) {
-        return goodMapper.getGoodDetailByGoodId(goodId);
+    public B_GOOD getGoodDetailByGoodId(String goodId, Model model) {
+        B_GOOD good = goodMapper.getGoodDetailByGoodId(goodId);
+
+        String sonId = good.getSonId();
+        B_GOOD_SON son = SonMapper.selectByPrimaryKey(sonId);
+
+        String fatherId = son.getFatherId();
+        B_GOOD_FATHER father = fatherMapper.selectByPrimaryKey(fatherId);
+        List<B_GOOD_SON> goodSonList = SonMapper.getGoodSonList1(fatherId);
+
+        model.addAttribute("son", son);
+        model.addAttribute("father", father);
+        model.addAttribute("goodSonList", goodSonList);
+        return good;
     }
 
     @Override
@@ -104,5 +116,15 @@ public class GoodManageServiceImpl implements IGoodManageService {
         JSONArray fatherCountArray = JSONArray.parseArray(JSONArray.toJSONString(goodFatherCountList1));
         model.addAttribute("goodFatherNameList", fatherNameArray);
         model.addAttribute("goodFatherCountList", fatherCountArray);
+    }
+
+    @Override
+    public int getGoodCount(String goodName, String nickname, String realName) {
+        return goodMapper.getGoodCount(goodName, nickname, realName);
+    }
+
+    @Override
+    public List<B_GOOD> getAllGoods(String pageSize, String currentPage, String goodName, String nickname, String realName) {
+        return goodMapper.getAllGoods(pageSize, currentPage, goodName, nickname, realName);
     }
 }

@@ -31,6 +31,12 @@
     from B_GOOD_SON
     order by son_id
   </select>
+
+  <select id="getGoodSonList1" resultMap="GoodSonMap">
+    select *
+    from B_GOOD_SON
+    where father_id = #{fatherId,jdbcType=VARCHAR}
+  </select>
   <!--获取商品子类总数-->
   <select id="getGoodSonCount" resultType="int">
     select
@@ -45,7 +51,6 @@
     from B_GOOD_SON
     where SON_ID = #{sonId,jdbcType=VARCHAR}
   </select>
-
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from B_GOOD_SON

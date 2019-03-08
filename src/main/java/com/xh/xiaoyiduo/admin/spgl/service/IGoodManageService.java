@@ -26,11 +26,15 @@ public interface IGoodManageService {
 
     Integer getSonGoodCount(String sonId, String goodName, String time, String price, String degree, String collect); //获取子类商品个数
 
-    B_GOOD getGoodDetailByGoodId(String goodId); //获取商品详情信息
+    B_GOOD getGoodDetailByGoodId(String goodId, Model model); //获取商品详情信息
 
     List<B_GOOD> getUserReleaseAllGood(String userId); //获取用户发布的所有商品
 
     int saveGoodImageUrls(String resourceId, String type, String imgUrl, String sonId); //保存商品图片路径
 
     void getGoodTypeReport(Model model);// 种类商品数量统计报表
+
+    int getGoodCount(String goodName, String nickname, String realName); //获取商品总数
+
+    List<B_GOOD> getAllGoods(String pageSize, String currentPage, String goodName, String nickname, String realName);  //获取所有商品
 }

@@ -110,9 +110,9 @@
                         <dl class="layui-nav-child">
                             <dd><a href="javascript:void(0);" onclick="choose('/admin/goodAdmin');">商品列表</a></dd>
                         </dl>
-                        <dl class="layui-nav-child">
-                            <dd><a href="javascript:void(0);" onclick="choose('/admin/goodInfo');">商品信息</a></dd>
-                        </dl>
+                        <%--<dl class="layui-nav-child">--%>
+                            <%--<dd><a href="javascript:void(0);" onclick="choose('/admin/goodInfo');">商品信息</a></dd>--%>
+                        <%--</dl>--%>
                     </li>
                 </shiro:hasPermission>
 
