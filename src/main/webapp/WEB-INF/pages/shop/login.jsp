@@ -15,10 +15,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/x-icon" href="${ctx}/images/shop/icon.ico"/>
+    <link rel="icon" type="image/x-icon" href="${ctx}/images/shop/icon1.ico"/>
     <title>校益多</title>
-    <link rel="stylesheet" type="text/css" href="../../../styles/shop/main.css">
-    <link rel="stylesheet" type="text/css" href="../../../styles/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="${ctx}/styles/shop/main.css">
+    <link rel="stylesheet" type="text/css" href="${ctx}/styles/layui/css/layui.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 </head>

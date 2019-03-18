@@ -10,6 +10,8 @@ import java.util.List;
 public interface B_GOOD_CartMapper {
     int deleteByPrimaryKey(String cartId); //删除购物项
 
+    int deleteByGoodId(String goodId); //根据商品id删除购物项
+
     int insert(B_GOOD_CART cart); //添加商品到购物车
 
     Integer queryCartGoodCountsByUserId(String userId); //查询登录用户的购物车商品个数

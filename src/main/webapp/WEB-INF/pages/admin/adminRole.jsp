@@ -10,7 +10,7 @@
 
 <html>
 <head>
-    <link rel="icon" type="image/x-icon" href="${ctx}/images/shop/icon.ico"/>
+    <link rel="icon" type="image/x-icon" href="${ctx}/images/shop/icon1.ico"/>
     <title>404 Not Found</title></head>
 <body bgcolor="white">
 <center><h1>404 Not Found</h1></center>

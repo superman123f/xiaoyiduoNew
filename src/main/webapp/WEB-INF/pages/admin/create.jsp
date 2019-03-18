@@ -13,7 +13,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="icon" type="image/x-icon" href="${ctx}/images/shop/icon.ico"/>
+    <link rel="icon" type="image/x-icon" href="${ctx}/images/shop/icon1.ico"/>
     <title>校益多后台管理系统</title>
     <link rel="stylesheet" href="${ctx}/styles/layui/css/layui.css">
 </head>

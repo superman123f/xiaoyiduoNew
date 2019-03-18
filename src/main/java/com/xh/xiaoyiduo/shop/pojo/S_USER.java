@@ -37,6 +37,8 @@ public class S_USER {
 
     private Set<RESOURCES> resources; // 用户头像资源
 
+    private Float userBalance;
+
     public String getUserId() {
         return userId;
     }
@@ -131,5 +133,13 @@ public class S_USER {
 
     public void setResources(Set<RESOURCES> resources) {
         this.resources = resources;
+    }
+
+    public Float getUserBalance() {
+        return userBalance;
+    }
+
+    public void setUserBalance(Float userBalance) {
+        this.userBalance = userBalance;
     }
 }

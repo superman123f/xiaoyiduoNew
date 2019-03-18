@@ -12,7 +12,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/x-icon" href="${ctx}/images/shop/icon.ico"/>
+    <link rel="icon" type="image/x-icon" href="${ctx}/images/shop/icon1.ico"/>
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="../../../styles/shop/main.css">
     <link rel="stylesheet" type="text/css" href="../../../styles/layui/css/layui.css">

@@ -49,6 +49,10 @@
     delete from B_GOOD_CART
     where CART_ID = #{cartId,jdbcType=VARCHAR}
   </delete>
+  <delete id="deleteByGoodId" parameterType="java.lang.String" >
+    delete from B_GOOD_CART
+    where GOOD_ID = #{goodId,jdbcType=VARCHAR}
+  </delete>
   <insert id="insert" parameterType="com.xh.xiaoyiduo.admin.gwcgl.pojo.B_GOOD_CART" >
     insert into B_GOOD_CART (CART_ID, GOOD_ID, USER_ID, 
       GOOD_NAME, SINGLE_PRICE, GOOD_NUMBER

@@ -4,12 +4,13 @@ layui.define(['layer','jquery'],function(exports){ //需要正确引入所需要
 
 var car = {
   init : function(){
-  		var uls = document.getElementById('list-cont').getElementsByTagName('ul');//每一行
-  		var checkInputs = document.getElementsByClassName('check'); // 所有勾选框
+      var uls = document.getElementById('list-cont').getElementsByTagName('ul');//每一行
+      var checkInputs = document.getElementsByClassName('check'); // 所有勾选框
       var checkAll = document.getElementsByClassName('check-all'); //全选框
       var SelectedPieces = document.getElementsByClassName('Selected-pieces')[0];//总件数
       var piecesTotal = document.getElementsByClassName('pieces-total')[0];//总价
-      var batchdeletion = document.getElementsByClassName('batch-deletion')[0]//批量删除按钮
+      var batchdeletion = document.getElementsByClassName('batch-deletion')[0];//批量删除按钮
+      var settlement = document.getElementsByClassName('Settlement')[0]; //结算按钮
       //计算
       function getTotal(){
           var seleted = 0,price = 0;
@@ -145,6 +146,44 @@ var car = {
           layer.msg('请选择商品')
         }
         
+      }
+
+      //结算
+      settlement.onclick = function(){
+          var cartIds = "";
+          var goodIds = "";
+          var goodNums = "";
+          for(var i = 0;i < uls.length;i++){
+              var input = uls[i].getElementsByTagName('input')[0]; //勾选框
+              var cartId = uls[i].getElementsByTagName('input')[2].value; //购物车编号
+              var goodId = uls[i].getElementsByTagName('input')[3].value; //购物车编号
+              var goodNum = uls[i].getElementsByTagName('input')[1].value; //商品数量
+
+              if(input.checked){
+                  cartIds += cartId + ",";
+                  goodIds += goodId + ",";
+                  goodNums += goodNum + ",";
+              }
+          }
+
+          // alert(cartIds);
+          // alert(goodIds);
+          // alert(goodNums);
+          // $.post("/order/createGoodOrderInfo",
+          //     {
+          //         goodIds: goodIds,
+          //         goodNums: goodNums
+          //     },
+          //     function(data){
+          //         if(data.success){
+          //             console.log(data.msg);
+                      // $("#cartSpan").html(data.cartGoodCount);
+                      window.location.href = "/order/createGoodOrderInfo?goodIds="+goodIds+"&goodNums="+goodNums+"&cartIds="+cartIds;
+          //         } else {
+          //             console.log(data.msg);
+          //         }
+          //     }
+          // );
       }
         checkAll[0].checked = true;
         checkAll[0].onclick();

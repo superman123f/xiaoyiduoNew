@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link rel="icon" type="image/x-icon" href="${ctx}/images/shop/icon.ico"/>
+    <link rel="icon" type="image/x-icon" href="${ctx}/images/shop/icon1.ico"/>
     <title>订单详情</title>
     <link rel="stylesheet" type="text/css" href="${ctx}/styles/shop/main.css">
     <link rel="stylesheet" type="text/css" href="${ctx}/styles/layui/css/layui.css">

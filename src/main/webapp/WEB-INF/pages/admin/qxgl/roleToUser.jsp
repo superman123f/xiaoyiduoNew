@@ -10,7 +10,7 @@
 
 <html>
 <head>
-    <link rel="icon" type="image/x-icon" href="${ctx}/images/shop/icon.ico"/>
+    <link rel="icon" type="image/x-icon" href="${ctx}/images/shop/icon1.ico"/>
     <title>权限管理</title>
     <link rel="stylesheet" type="text/css" href="../../../styles/layui/css/layui.css">
     <link rel="stylesheet" type="text/css" href="${ctx}/styles/admin/yygl/userAdmin.css">

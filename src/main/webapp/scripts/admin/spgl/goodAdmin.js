@@ -158,20 +158,19 @@ layui.use(['table', 'layer', 'form'], function(){
                 if(data.length > 0){
                     layer.alert('delete?');
                     for(var i = 0; i < data.length; i++){
-                        str += data[i].userId + "，";
+                        str += data[i].goodId + "，";
                     }
                     layer.confirm("是否删除这" + data.length + "条数据？", {icon: 3, title: '提示'}, function(index){
                         // window.location.href = "/user/deleteUserInfos?userIds=" + str;
-                        $.post("/user/deleteUserInfos",
+                        $.post("/good/deleteGoodInfos",
                             {
-                                userIds: str
+                                goodIds: str
                             },
                             function(data){
                                 if(data.success){
-                                    // layer.msg(data.msg);
                                     window.location.reload();
                                 } else {
-                                    layer.msg(data.msg);
+                                    layer.msg("批量删除失败");
                                 }
                             });
                         layer.close(index);
@@ -250,15 +249,15 @@ layui.use(['table', 'layer', 'form'], function(){
                 // layer.close(index);
                 //向服务端发送删除指令
                 $.post(
-                    "/user/deleteUser",
-                    {userId: data.userId},
+                    "/good/deleteGood",
+                    {goodId: data.goodId},
                     function(data){
                         if(data.success){
-                            layer.msg(data.msg);
+                            layer.msg("删除成功");
                             obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
                             layer.close(index);
                         } else {
-                            layer.msg(data.msg);
+                            layer.msg("删除失败");
                         }
                     }
                 );

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 public interface ResourcesMapper {
     int deleteByPrimaryKey(String userId); // 删除用户头像资源文件
 
+    int deleteGoodPicture(String goodId); // 删除商品图片
+
     int insert(RESOURCES record);
 
     int insertSelective(RESOURCES record);

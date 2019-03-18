@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.xh.xiaoyiduo.admin.spgl.dao.B_GOODMapper;
 import com.xh.xiaoyiduo.admin.spgl.dao.B_GOOD_FatherMapper;
 import com.xh.xiaoyiduo.admin.spgl.dao.B_GOOD_SonMapper;
+import com.xh.xiaoyiduo.admin.spgl.dao.ResourcesMapper;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_FATHER;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_SON;
@@ -12,6 +13,7 @@ import com.xh.xiaoyiduo.admin.spgl.service.IGoodManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,8 @@ public class GoodManageServiceImpl implements IGoodManageService {
     B_GOOD_SonMapper SonMapper;
     @Autowired
     B_GOODMapper goodMapper;
+    @Autowired
+    ResourcesMapper resourcesMapper;
 
     @Override
     public int insert(B_GOOD good) {
@@ -74,12 +78,18 @@ public class GoodManageServiceImpl implements IGoodManageService {
     public B_GOOD getGoodDetailByGoodId(String goodId, Model model) {
         B_GOOD good = goodMapper.getGoodDetailByGoodId(goodId);
 
-        String sonId = good.getSonId();
-        B_GOOD_SON son = SonMapper.selectByPrimaryKey(sonId);
+        B_GOOD_SON son = null;
+        B_GOOD_FATHER father = null;
+        List<B_GOOD_SON> goodSonList = null;
 
-        String fatherId = son.getFatherId();
-        B_GOOD_FATHER father = fatherMapper.selectByPrimaryKey(fatherId);
-        List<B_GOOD_SON> goodSonList = SonMapper.getGoodSonList1(fatherId);
+        if(!ObjectUtils.isEmpty(good)){
+            String sonId = good.getSonId();
+
+            son = SonMapper.selectByPrimaryKey(sonId);
+            String fatherId = son.getFatherId();
+            father = fatherMapper.selectByPrimaryKey(fatherId);
+            goodSonList = SonMapper.getGoodSonList1(fatherId);
+        }
 
         model.addAttribute("son", son);
         model.addAttribute("father", father);
@@ -119,12 +129,24 @@ public class GoodManageServiceImpl implements IGoodManageService {
     }
 
     @Override
-    public int getGoodCount(String goodName, String nickname, String realName) {
-        return goodMapper.getGoodCount(goodName, nickname, realName);
+    public int getGoodCount(String goodName, String nickname, String realName, String userId) {
+        return goodMapper.getGoodCount(goodName, nickname, realName, userId);
     }
 
     @Override
-    public List<B_GOOD> getAllGoods(String pageSize, String currentPage, String goodName, String nickname, String realName) {
-        return goodMapper.getAllGoods(pageSize, currentPage, goodName, nickname, realName);
+    public List<B_GOOD> getAllGoods(String pageSize, String currentPage, String goodName, String nickname, String realName, String userId) {
+        return goodMapper.getAllGoods(pageSize, currentPage, goodName, nickname, realName, userId);
+    }
+
+    @Override
+    public int deleteGoodByGoodId(String goodId) {
+
+        int j = resourcesMapper.deleteGoodPicture(goodId);
+        if(j > 0) {
+            System.out.println("资源图片删除成功");
+        } else {
+            System.out.println("资源图片删除失败");
+        }
+        return goodMapper.deleteGoodByGoodId(goodId);
     }
 }

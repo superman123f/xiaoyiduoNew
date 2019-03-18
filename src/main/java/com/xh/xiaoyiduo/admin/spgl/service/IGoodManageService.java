@@ -34,7 +34,9 @@ public interface IGoodManageService {
 
     void getGoodTypeReport(Model model);// 种类商品数量统计报表
 
-    int getGoodCount(String goodName, String nickname, String realName); //获取商品总数
+    int getGoodCount(String goodName, String nickname, String realName, String userId); //获取商品总数
 
-    List<B_GOOD> getAllGoods(String pageSize, String currentPage, String goodName, String nickname, String realName);  //获取所有商品
+    List<B_GOOD> getAllGoods(String pageSize, String currentPage, String goodName, String nickname, String realName, String userId);  //获取所有商品
+
+    int deleteGoodByGoodId(String goodId);
 }

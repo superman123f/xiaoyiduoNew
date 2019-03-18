@@ -1,6 +1,8 @@
 package com.xh.xiaoyiduo.admin.ddgl.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.xh.xiaoyiduo.admin.ddgl.pojo.B_GOOD_ORDER;
 import com.xh.xiaoyiduo.admin.ddgl.service.IOrderManageService;
 import com.xh.xiaoyiduo.shop.pojo.S_USER;
@@ -10,9 +12,11 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,14 +36,15 @@ public class OrderManageController {
 
     /**
      * 加载订单
-     * @param goodId
-     * @param goodNum
+     * @param goodIds
+     * @param goodNums
      * @param model
      * @return
      */
     @RequestMapping("/createGoodOrderInfo")
-    public String createGoodOrderInfo(String goodId, Integer goodNum, Model model){
-        orderManageService.createGoodOrder(goodId, goodNum, model);
+    public String createGoodOrderInfo(String goodIds, String goodNums, String cartIds, Model model){
+        orderManageService.createGoodOrder(goodIds, goodNums, model);
+        model.addAttribute("cartIds", cartIds);
         return "/admin/ddgl/goodOrderPage";
     }
 
@@ -47,6 +52,12 @@ public class OrderManageController {
     public String showGoodOrderPage(String orderId, Model model){
         orderManageService.showGoodOrdel(orderId, model);
         return "/admin/ddgl/goodOrderPage";
+    }
+
+    @RequestMapping("/showGoodOrderPage3")
+    public String showGoodOrderPage3(String orderId, Model model){
+//        orderManageService.showGoodOrdel(orderId, model);
+        return "/admin/ddgl/goodOrderPage3";
     }
 
     /**
@@ -75,14 +86,55 @@ public class OrderManageController {
     }
 
     /**
-     * 保存订单
-     * @param order
+     * 批量保存订单
+     * @param
      * @return
      */
     @RequestMapping("/saveGoodOrder")
-    public String saveGoodOrder(B_GOOD_ORDER order){
-        orderManageService.saveGoodOrder(order);
-        return "/admin/ddgl/goodOrderPage";
+    public String saveGoodOrder(String orderListJson, Model model, HttpServletRequest request){
+        System.out.println(orderListJson);
+        List<B_GOOD_ORDER> orderList;
+        orderList = JSONObject.parseArray(orderListJson, B_GOOD_ORDER.class);
+
+        if(ObjectUtils.isEmpty(orderList)) {
+
+        } else {
+            orderManageService.saveGoodOrder(orderList, model, request);
+        }
+
+        return "/admin/ddgl/goodOrderPage1";
+    }
+
+    /**
+     * 付款后改变订单状态
+     * @param
+     * @return
+     */
+    @RequestMapping("/updateOrderStatus")
+    @ResponseBody
+    public Map<String,Object> updateOrderStatus(String orderIds, Float userBalance, Model model, HttpServletRequest request){
+        S_USER currentUser = (S_USER)SecurityUtils.getSubject().getPrincipal();
+        Map<String,Object> result = new HashMap<>();
+        int count = 0;
+        if(currentUser != null) {
+            currentUser.setUserBalance(userBalance);
+            userService.updateUserInfoByUserId(currentUser); //更新余额
+            String[] orderId = orderIds.split(",");
+            for(int i = 0; i < orderId.length; i++) {
+                B_GOOD_ORDER order = orderManageService.showBackGoodOrdel(orderId[i]);
+                order.setOrderStatus("已付款");
+                int f = orderManageService.saveBackOrderDetail(order);
+                if(f > 0) {
+                    count++;
+                }
+            }
+        }
+        if(count > 0) {
+            result.put("success", true);
+        } else {
+            result.put("success", false);
+        }
+        return result;
     }
 
     /**

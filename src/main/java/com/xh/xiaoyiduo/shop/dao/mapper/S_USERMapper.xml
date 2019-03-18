@@ -33,6 +33,7 @@
     <result column="PHONE" property="phone" />
     <result column="DORMITORY_ADDRESS" property="dormitoryAddress" />
     <result column="CREATE_TIME" property="createTime" />
+    <result column="USER_BALANCE" property="userBalance" />
     <collection property="roles" ofType="com.xh.xiaoyiduo.shop.pojo.S_USER_ROLES">
       <id column="ROLE_ID" property="roleId"/>
       <result column="ROLE_NAME" property="roleName"/>
@@ -349,7 +350,10 @@
         DORMITORY_ADDRESS = #{dormitoryAddress,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null " >
-        #{createTime,jdbcType=DATE}
+        CREATE_TIME = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="userBalance != null " >
+        USER_BALANCE = #{userBalance,jdbcType=DATE}
       </if>
     </set>
     where USER_ID = #{userId,jdbcType=VARCHAR}

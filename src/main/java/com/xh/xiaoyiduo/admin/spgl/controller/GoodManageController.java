@@ -26,6 +26,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -486,15 +487,22 @@ public class GoodManageController {
     @RequestMapping("/getAllGoods")
     @ResponseBody
     public String getAllGoods(String limit, String page, String goodName, String nickname, String realName, HttpServletResponse response){
+        S_USER currentUser = (S_USER) SecurityUtils.getSubject().getPrincipal();
 
-        int count = goodManageService.getGoodCount(goodName, nickname, realName);
-        if(count > 0){
-            System.out.println("not good");
-        } else {
-            System.out.println("good exist");
+        int count = 0;
+        String goodListJson = null;
+        if(!ObjectUtils.isEmpty(currentUser)) {
+            String userId = currentUser.getUserId();
+
+            count = goodManageService.getGoodCount(goodName, nickname, realName, userId);
+            if(count > 0){
+                System.out.println("not good");
+            } else {
+                System.out.println("good exist");
+            }
+            List<B_GOOD> goodList = goodManageService.getAllGoods(limit, page, goodName, nickname, realName, userId);
+            goodListJson  = JSON.toJSONString(goodList); //将对象转换成json
         }
-        List<B_GOOD> goodList = goodManageService.getAllGoods(limit, page, goodName, nickname, realName);
-        String goodListJson  = JSON.toJSONString(goodList); //将对象转换成json
 
         String json = "{\"code\":0,\"msg\":\"\",\"count\":" + count + ",\"data\":" + goodListJson + "}";
         return json;
@@ -512,5 +520,51 @@ public class GoodManageController {
         model.addAttribute("good", good);
         model.addAttribute("fatherList", fatherList);
         return "/admin/spgl/goodInfo";
+    }
+
+    /**
+     * 删除商品
+     * @param goodId
+     * @return
+     */
+    @RequestMapping("/deleteGood")
+    @ResponseBody
+    public Map<String, Object> deleteGood(String goodId, Model model){
+        Map<String, Object> result = new HashMap<>();
+
+        int i = goodManageService.deleteGoodByGoodId(goodId);
+        if(i > 0) {
+            result.put("success", true);
+        } else {
+            result.put("success", false);
+        }
+        return result;
+    }
+
+    /**
+     * 批量删除商品
+     * @param goodIds
+     * @param response
+     * @return
+     */
+    @RequestMapping("/deleteGoodInfos")
+    @ResponseBody
+    public Object deleteGoodInfos(String goodIds, HttpServletResponse response){
+        String[] goodId = goodIds.split("，");
+        int count = 0;
+        for(int i = 0; i < goodId.length; i++) {
+           int j = goodManageService.deleteGoodByGoodId(goodId[i]);
+           if(j > 0){
+               count ++;
+           }
+        }
+
+        Map<String,Object> data = new HashMap<>();
+        if(count > 0) {
+            data.put("success", true);
+        } else {
+            data.put("success", false);
+        }
+        return data;
     }
 }

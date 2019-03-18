@@ -12,7 +12,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/x-icon" href="${ctx}/images/shop/icon.ico"/>
+    <link rel="icon" type="image/x-icon" href="${ctx}/images/shop/icon1.ico"/>
     <title>校益多</title>
     <link rel="stylesheet" type="text/css" href="../../../styles/shop/main.css">
     <link rel="stylesheet" type="text/css" href="../../../styles/layui/css/layui.css">
@@ -43,6 +43,13 @@
         <%--<p>宝宝被子、宝宝衣服3折起</p>--%>
     <%--</div>--%>
     <div class="cart w1200">
+        <div class="crumb" style="margin-bottom: 23px;margin-top: 4px;">
+            <a href="/shop/commodity">首页</a>
+            <%--<span>></span>--%>
+            <%--<a href="/shop/commodity">所有商品</a>--%>
+            <span>></span>
+            <a href="javascript:;">购物车</a>
+        </div>
         <div class="cart-table-th">
             <div class="th th-chk">
                 <div class="select-all">
@@ -119,6 +126,7 @@
                             <%--<span class="dele-btn" onclick="delCartItem('${cart.cartId}');">删除</span>--%>
                             <span class="dele-btn">删除</span>
                             <input type="hidden" id="cartId" class="cartId" value="${cart.cartId}">
+                            <input type="text" id="goodId" class="cartId" value="${cart.goodId}">
                         </li>
                     </ul>
                 </c:forEach>
