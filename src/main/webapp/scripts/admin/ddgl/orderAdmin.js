@@ -81,7 +81,7 @@ layui.use(['table', 'layer', 'form'], function(){
             // 经检验template日期转换无效，在数据库与实体类映射时转换即可
             // {field: 'createTime', title: '创建时间', sort: true, template: "<div>{{layui.util.toDateString(createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
             // {field: 'createTime', title: '创建时间', width: 200, sort: true, "<div>{{layui.util.toDateString(createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
-            {fixed: 'right', title: '操作', toolbar: '#barDemo', width:134, align:'center', unresize: true}
+            {fixed: 'right', title: '操作', toolbar: '#barDemo', width:180, align:'center', unresize: true}
         ]]
         ,height: '472'
         ,method: 'post'

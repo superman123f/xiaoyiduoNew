@@ -155,7 +155,7 @@
     <div class="layui-body">
         <!-- 内容主体区域 -->
         <div style="">
-            <iframe id="iframeBody" frameborder="0" width="100%" height="800px" src="/admin/userAdmin"></iframe>
+            <iframe id="iframeBody" frameborder="0" width="100%" height="720px" src="/admin/userAdmin"></iframe>
         </div>
     </div>
 

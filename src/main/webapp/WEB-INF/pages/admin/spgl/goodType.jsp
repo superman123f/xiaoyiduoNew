@@ -14,13 +14,14 @@
     <link rel="stylesheet" href="${ctx}/styles/layui/css/layui.css">
     <link rel="stylesheet" href="${ctx}/styles/admin/spgl/goodType.css">
 </head>
+
 <body bgcolor="white" style="margin:15px;">
 <input type="hidden" id="sonEmpty" value="true">
 
 <fieldset class="layui-elem-field">
     <legend>类目管理 - 类目列表</legend>
     <%--Tab选项卡--%>
-    <div class="layui-tab layui-tab-card" lay-filter="docDemoTabBrief">
+    <div class="layui-tab layui-tab-card" lay-filter="docDemoTabBrief" style="margin-left: -1px;margin-right: -1px;margin-bottom: -1px;height: 630px;box-shadow: none;">
         <ul class="layui-tab-title">
             <li class="layui-this">商品父类</li>
             <li>商品子类</li>

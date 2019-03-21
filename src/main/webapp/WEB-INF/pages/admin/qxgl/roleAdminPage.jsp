@@ -70,6 +70,10 @@
         </button>
     </div>
 </script>
+<%--LayUI模板引擎，增加序号--%>
+<script type="text/html" id="indexTpl">
+    {{d.LAY_TABLE_INDEX+1}}
+</script>
 </body>
 <script type="text/javascript" src="${ctx}/scripts/jquery.min.js"></script>
 <script type="text/javascript" src="${ctx}/styles/layui/layui.js"></script>
@@ -123,10 +127,11 @@
             // ,initSort: {field: 'studentNo', type: 'desc'} //设置初始排序
             ,cols: [[ //表头
                 {type: 'checkbox'},
-                {field: 'permissionId', title: '权限编号', sort: true, width:200},
+                {title: '序号', templet: '#indexTpl'},
+                {field: 'permissionId', title: '权限编号', sort: true, hide: true},
                 // {field: 'permissionId', title: '公告编号',  sort: true, hide: true} , <!--隐藏-->
-                {field: 'permissionName', title: '权限名称',  sort: true, width: 500},
-                {field: 'roleId', title: '角色编号',  sort: true, width: 500, hide: true},
+                {field: 'permissionName', title: '权限名称',  sort: true},
+                {field: 'roleId', title: '角色编号',  sort: true, hide: true},
                 // {field: 'releaseTime', title: '发布时间', sort: true, template: "<div>{{layui.util.toDateString(releaseTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {fixed: 'right', title: '操作', toolbar: '#barDemo', width:134, align:'center', unresize: true}
             ]]
