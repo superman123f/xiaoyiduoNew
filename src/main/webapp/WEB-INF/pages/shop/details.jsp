@@ -87,7 +87,7 @@
         </div>
         <div class="layui-clear">
             <div class="aside">
-                <h4>${userName}商品橱窗</h4>
+                <h4><a href="javascript:void(0);" onclick="sellerInfo('${userName}');">${userName}</a>商品橱窗</h4>
                 <div class="item-list">
                     <%--原模板样式--%>
                     <%--<div class="item">--%>
@@ -214,6 +214,19 @@
     var cur = 1;
     var star;
 
+    //查看卖家信息
+    function sellerInfo(sellerId) {
+        // alert(sellerId);
+        layer.open({
+            type: 2,
+            title: '卖家信息',
+            data: {
+                sellerId: sellerId
+            },
+            area: ['530px', '350px'],
+            content: "/user/seeSellerInfo?sellerId="+sellerId
+        })
+    }
     // 获取留言及回复
     function getMessages(curr, limit){
         var goodId = $("#goodId").val();

@@ -586,6 +586,18 @@ public class S_USERController {
         return "/shop/user/seeUserInfo";
     }
     /**
+     * 前端-查看卖家信息
+     * @return
+     */
+    @RequestMapping("/seeSellerInfo")
+    public String seeSellerInfo(String sellerId, Model model){
+        if(sellerId != null) {
+            S_USER user = userService.selectByUserId(sellerId);
+            model.addAttribute("user", user);
+        }
+        return "/shop/user/seeSellerInfo";
+    }
+    /**
      * 前端-编辑个人资料
      * @param userId
      * @return
