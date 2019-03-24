@@ -126,7 +126,7 @@
                             <%--<span class="dele-btn" onclick="delCartItem('${cart.cartId}');">删除</span>--%>
                             <span class="dele-btn">删除</span>
                             <input type="hidden" id="cartId" class="cartId" value="${cart.cartId}">
-                            <input type="text" id="goodId" class="cartId" value="${cart.goodId}">
+                            <input type="hidden" id="goodId" class="cartId" value="${cart.goodId}">
                         </li>
                     </ul>
                 </c:forEach>

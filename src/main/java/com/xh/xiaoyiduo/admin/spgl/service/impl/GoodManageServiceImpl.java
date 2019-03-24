@@ -149,4 +149,14 @@ public class GoodManageServiceImpl implements IGoodManageService {
         }
         return goodMapper.deleteGoodByGoodId(goodId);
     }
+
+    @Override
+    public B_GOOD selectByPrimaryKey(String goodId) {
+        return goodMapper.selectByPrimaryKey(goodId);
+    }
+
+    @Override
+    public int updateByPrimaryKeySelective(B_GOOD good) {
+        return goodMapper.updateByPrimaryKeySelective(good);
+    }
 }

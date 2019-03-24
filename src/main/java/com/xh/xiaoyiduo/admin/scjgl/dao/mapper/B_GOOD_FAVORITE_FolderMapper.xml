@@ -33,9 +33,15 @@
     from B_GOOD_FAVORITE_FOLDER
     where FOLDER_ID = #{folderId,jdbcType=VARCHAR}
   </select>
+  <select id="selectByGoodId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from B_GOOD_FAVORITE_FOLDER
+    where GOOD_ID = #{goodId,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from B_GOOD_FAVORITE_FOLDER
-    where FOLDER_ID = #{goodId,jdbcType=VARCHAR}
+    where GOOD_ID = #{goodId,jdbcType=VARCHAR} and USER_ID = #{userId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.xh.xiaoyiduo.admin.scjgl.pojo.B_GOOD_FAVORITE_FOLDER" >
     insert into B_GOOD_FAVORITE_FOLDER (FOLDER_ID, USER_ID, GOOD_ID

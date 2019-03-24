@@ -119,7 +119,7 @@
                             <li class="th th-common">
                                     <%--<span class="dele-btn" onclick="delCartItem('${cart.cartId}');">删除</span>--%>
                                 <span class="dele-btn">删除</span>
-                                <input type="text" id="folderId" class="folderId" value="${folder.folderId}">
+                                <input type="hidden" id="folderId" class="folderId" value="${folder.goodId}">
                             </li>
                         </ul>
                     </c:forEach>

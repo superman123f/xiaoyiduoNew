@@ -28,6 +28,8 @@ public interface IGoodManageService {
 
     B_GOOD getGoodDetailByGoodId(String goodId, Model model); //获取商品详情信息
 
+    B_GOOD selectByPrimaryKey(String goodId); //获取商品详情信息，测试一对多级联
+
     List<B_GOOD> getUserReleaseAllGood(String userId); //获取用户发布的所有商品
 
     int saveGoodImageUrls(String resourceId, String type, String imgUrl, String sonId); //保存商品图片路径
@@ -39,4 +41,6 @@ public interface IGoodManageService {
     List<B_GOOD> getAllGoods(String pageSize, String currentPage, String goodName, String nickname, String realName, String userId);  //获取所有商品
 
     int deleteGoodByGoodId(String goodId);
+
+    int updateByPrimaryKeySelective(B_GOOD record);
 }

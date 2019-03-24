@@ -77,7 +77,7 @@ layui.define(['layer','jquery'],function(exports){ //需要正确引入所需要
                             getSubTotal(this)
                             break;
                         case 'dele-btn':
-                            layer.alert(folderId);
+                            // layer.alert(folderId);
                             layer.confirm('你确定要删除吗',{
                                 yes:function(index,layero){
                                     $.post("/favorite/deleteFolderItemByFolderId",

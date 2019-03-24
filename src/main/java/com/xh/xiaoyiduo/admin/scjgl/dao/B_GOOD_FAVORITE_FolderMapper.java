@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository("favoriteFolderMapper")
 public interface B_GOOD_FAVORITE_FolderMapper {
-    int deleteByPrimaryKey(String goodId); //取消收藏
+    int deleteByPrimaryKey(@Param("goodId") String goodId, @Param("userId")String userId); //取消收藏
 
     int insert(B_GOOD_FAVORITE_FOLDER folder); //收藏商品
 
@@ -16,8 +16,9 @@ public interface B_GOOD_FAVORITE_FolderMapper {
 
     B_GOOD_FAVORITE_FOLDER selectByPrimaryKey(String folderId);
 
-    List<B_GOOD_FAVORITE_FOLDER> getFavoriteFolderByUserId(String userId);//获取收藏夹内容
+    B_GOOD_FAVORITE_FOLDER selectByGoodId(String goodId);
 
+    List<B_GOOD_FAVORITE_FOLDER> getFavoriteFolderByUserId(String userId);//获取收藏夹内容
 
     boolean queryGoodInFolder(@Param("userId") String currentUserId, @Param("goodId") String goodId); // 查询该商品是否在收藏夹中,交给mapper判断，要确保数据的唯一性，否则count>1时，为false
 
