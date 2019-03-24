@@ -54,6 +54,7 @@ public class OrderManageServiceImpl implements IOrderManageService {
 
         S_USER currentUser = (S_USER)SecurityUtils.getSubject().getPrincipal();
         List<B_GOOD_ORDER> orderList = new ArrayList<>();
+        Double bigPrice = 0D;
         if(ObjectUtils.isEmpty(currentUser)){
 
         }else{
@@ -68,7 +69,7 @@ public class OrderManageServiceImpl implements IOrderManageService {
                     Date date = new Date();
                     String orderId = UUID.randomUUID().toString().replaceAll("\\-","");
                     B_GOOD_ORDER order = new B_GOOD_ORDER();
-
+                    bigPrice += good.getSecondPrice()*goodNum.get(i);
                     order.setOrderId(orderId); //订单id
                     order.setBuyerId(userId); //买家id
                     order.setGood(good); //商品信息
@@ -100,6 +101,7 @@ public class OrderManageServiceImpl implements IOrderManageService {
 //            result.put("orderId", orderId);
             model.addAttribute("user", currentUser);
             model.addAttribute("orderList", orderList);
+            model.addAttribute("bigPrice", bigPrice);
         } else {
             result.put("success", false);
             result.put("msg", "生成订单失败");
@@ -116,7 +118,7 @@ public class OrderManageServiceImpl implements IOrderManageService {
     }
 
     @Override
-    public int saveGoodOrder(List<B_GOOD_ORDER> orderList, Model model, HttpServletRequest request) {
+    public int saveGoodOrder(List<B_GOOD_ORDER> orderList, String cartIds, String source, Model model, HttpServletRequest request) {
         S_USER currentUser = (S_USER) SecurityUtils.getSubject().getPrincipal();
         S_USER user = null;
         HttpSession session = request.getSession();
@@ -129,6 +131,9 @@ public class OrderManageServiceImpl implements IOrderManageService {
             String userId = currentUser.getUserId();
             user = userMapper.selectByUserId(userId);
 
+            String[] carId = cartIds.split(",");
+            int carIndex = 0;
+
             for(B_GOOD_ORDER order: orderList) {
                 B_GOOD _good = goodMapper.selectByPrimaryKey(order.getGoodId());
                 if(_good != null && !_good.equals("")) {
@@ -140,13 +145,17 @@ public class OrderManageServiceImpl implements IOrderManageService {
                     order.setSellerId(_good.getUserId());
                     order.setOrderCreateTime(date);
                     order.setDeliveryMethod("卖家配送");
+                    order.setSinglePrice(_good.getSecondPrice());
                     order.setTotalPrice(smallPrice);
                     order.setOrderStatus("未付款");
 
                     //保存订单
                     int i = orderMapper.insert(order);
                     if(i > 0) {
-                        cartMapper.deleteByGoodId(order.getGoodId()); //删除购物项
+                        if(!carId[carIndex].equals("")) {
+                            cartMapper.deleteByGoodId(carId[carIndex]); //删除购物项
+                        }
+                        carIndex++;
                         //减少商品数量
                         count++;
                     }
@@ -156,7 +165,12 @@ public class OrderManageServiceImpl implements IOrderManageService {
 
         if(count > 0) {
             System.out.println("成功保存" + count + "个订单");
-            int cartGoodCount = (int)session.getAttribute("cartGoodCount") - count; //减少购物车数量
+            int cartGoodCount;
+            if(source.equals("buynow")) {
+                cartGoodCount = (int)session.getAttribute("cartGoodCount"); //立即购买则为原数量
+            } else {
+                cartGoodCount = (int)session.getAttribute("cartGoodCount") - count; //减少购物车数量
+            }
             session.setAttribute("cartGoodCount", cartGoodCount);
             model.addAttribute("bigPrice", bigPrice);
             model.addAttribute("orderIds", orderIds);

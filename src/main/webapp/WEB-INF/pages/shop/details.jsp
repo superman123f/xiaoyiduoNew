@@ -426,28 +426,29 @@
 
         //立即购买
         $("#buy_now_btn").click(function(){
-            var goodId = $("#goodId").val();
-            var goodNum = $("#goodNum").val();
+            var goodIds = $("#goodId").val();
+            var goodNums = $("#goodNum").val();
+            var cartIds = "";
+            var source = "buynow";
             //检测是否登录
             $.post("/user/checkUserLogin",
                 {
 
                 },
-                function(data){
-                    if(data.success == false){
+                function(data) {
+                    if (data.success == false) {
                         layer.confirm("您还未登录，是否现在登录", {
                             btn: ['现在就去', '我再想想'],
                             btnAlign: 'c'
-                        }, function(index){
+                        }, function (index) {
                             layer.close(index);
                             location.href = "/shop/login";
                         });
                     } else {
-                        // // 生成订单
-                        window.location.href="/order/createGoodOrderInfo?goodId="+goodId+"&goodNum="+goodNum;
+                        // 生成订单
+                        window.location.href = "/order/createGoodOrderInfo?goodIds=" + goodIds + "&goodNums=" + goodNums + "&cartIds=" + cartIds + "&source=" + source;
                     }
                 });
-
         });
 
         //加入购物车

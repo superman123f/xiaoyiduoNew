@@ -42,9 +42,10 @@ public class OrderManageController {
      * @return
      */
     @RequestMapping("/createGoodOrderInfo")
-    public String createGoodOrderInfo(String goodIds, String goodNums, String cartIds, Model model){
+    public String createGoodOrderInfo(String goodIds, String goodNums, String cartIds, String source, Model model){
         orderManageService.createGoodOrder(goodIds, goodNums, model);
         model.addAttribute("cartIds", cartIds);
+        model.addAttribute("source", source);
         return "/admin/ddgl/goodOrderPage";
     }
 
@@ -91,15 +92,14 @@ public class OrderManageController {
      * @return
      */
     @RequestMapping("/saveGoodOrder")
-    public String saveGoodOrder(String orderListJson, Model model, HttpServletRequest request){
+    public String saveGoodOrder(String orderListJson, String cartIds, String source, Model model, HttpServletRequest request){
         System.out.println(orderListJson);
         List<B_GOOD_ORDER> orderList;
         orderList = JSONObject.parseArray(orderListJson, B_GOOD_ORDER.class);
 
         if(ObjectUtils.isEmpty(orderList)) {
-
         } else {
-            orderManageService.saveGoodOrder(orderList, model, request);
+            orderManageService.saveGoodOrder(orderList, cartIds, source, model, request);
         }
 
         return "/admin/ddgl/goodOrderPage1";

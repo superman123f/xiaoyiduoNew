@@ -284,8 +284,15 @@ public class S_USERController {
                 user.setUserId(uuid);  //插入主键
                 //user.setCreateTime(date);  //时间用sql生成，sysdate
                 user.setPassword(passowrd);
+                int i = userService.insert(user); //添加用户
 
-                int i = userService.insert(user);
+                RESOURCES resources = new RESOURCES();
+                String userImgUrl = "H:/1MyGraduateProject/XIAOYIDUO/resources/user/default.jpg";   // 为了开发与演示，先设为绝对路径
+                resources.setResourceId(uuid);
+                resources.setUrl(userImgUrl);
+                resources.setSourceId(uuid);
+                resourcesManageService.insert(resources); //用户默认头像
+
                 if(i > 0){
                     System.out.println("添加用户成功！");
                     data.put("success", true);

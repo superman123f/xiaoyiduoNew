@@ -29,8 +29,8 @@
 </style>
 
 <body>
-
 <%@ include file="../../shop_header.jsp"%> <!--引入头部jsp样式-->
+
 <div class="content content-nav-base shopcart-content">
     <div class="main-nav">
         <div class="inner-cont0">
@@ -142,7 +142,8 @@
                             <%--小计--%>
                             <li class="th th-sum">
                                 <span class="sum">
-                                    <input id="totalPrice_${status.index}" name="totalPrice_${status.index}" type="hidden" value="${order.singlePrice * order.goodNumber}">
+                                    <%--<input id="totalPrice_${status.index}" name="totalPrice_${status.index}" type="text" value="${order.singlePrice * order.goodNumber}">--%>
+                                    ${order.singlePrice * order.goodNumber}
                                 </span>
                             </li>
                             <%--订单留言--%>
@@ -203,8 +204,8 @@
             <%--</div>--%>
             <div class="th total">
                 <p>应付：<span class="pieces-total">
-                    ${order.singlePrice * order.goodNumber}
-                    <input name="bigTotalPrice" type="text" value="12">
+                    ${bigPrice}
+                    <%--<input name="bigTotalPrice" type="text" value="12">--%>
                 </span></p>
             </div>
         </div>
@@ -213,6 +214,8 @@
 
             <%--JSON隐藏域--%>
             <input id="orderListJson" name="orderListJson" type="hidden" value="">
+            <input id="cartIds" name="cartIds" type="hidden" value="${cartIds}">
+            <input id="source" name="source" type="hidden" value="${source}">
             <%--JSON隐藏域--%>
             <%--<input name="bigTotalPrice" type="text" value="12">--%>
             <div class="layui-form-item">

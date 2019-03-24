@@ -16,7 +16,7 @@ public interface IOrderManageService {
     Map<String, Object> createGoodOrder(String goodIds, String goodNums, Model model); //生成订单
     B_GOOD_ORDER showGoodOrdel(String orderId, Model model); //展示订单
     List<B_GOOD_ORDER> showGoodOrderList(String buyerId); //前端显示用户所有订单
-    int saveGoodOrder(List<B_GOOD_ORDER> orderList, Model model, HttpServletRequest request); //批量保存订单
+    int saveGoodOrder(List<B_GOOD_ORDER> orderList, String cartIds, String source, Model model, HttpServletRequest request); //批量保存订单
     int deleteOrderItemByOrderId(String orderId); //删除订单
     int updateUserInfoByUserId(S_USER user); //更新用户信息
 
