@@ -26,6 +26,54 @@
         /*padding:59px 0;*/
         box-sizing: border-box;
         position: relative;}
+    .shopcart-content .item_1 {
+        width: 40%;
+        text-align: left;
+        box-sizing: border-box;
+        position: relative;
+    }
+    .shopcart-content .item_2 {
+        width: 20%;
+        text-align: left;
+        box-sizing: border-box;
+    }
+    .inner_item1 {
+        margin-left: calc(40% - 10px);
+    }
+    .inner_item2 {
+        margin-left: calc(20% - 10px);
+    }
+    .img_size {
+        width: 70px;
+        height: 70px;
+        float: left;
+    }
+    .my-mark {
+        margin-top: 12px;
+        margin-left: 15px;
+    }
+    .title1 {
+        float: left;
+        /* margin-top: 38px; */
+        margin-left: 88px;
+        width: calc(100% - 150px);
+        position: absolute;
+    }
+    .th-su {
+        margin-left: calc(20% - 20px);
+    }
+    .box-btn {
+        margin-left: calc(20% - 6px);
+    }
+    .sum {
+        margin-left: calc(20% - 17px);
+    }
+    .order-item {
+        margin-left: 64px;
+        margin-top: 50px;
+        float: left;
+        position: absolute;
+    }
 </style>
 
 <body>
@@ -74,23 +122,23 @@
             <%--<label>&nbsp;&nbsp;全选</label>--%>
             <%--</div>--%>
             <%--</div>--%>
-            <div class="th th-item">
-                <div class="th-inner">
+            <div class="th item_1">
+                <div class="inner_item1">
                     商品
                 </div>
             </div>
-            <div class="th th-price">
-                <div class="th-inner">
+            <div class="th item_2">
+                <div class="inner_item2">
                     单价
                 </div>
             </div>
-            <div class="th th-amount">
-                <div class="th-inner">
+            <div class="th item_2">
+                <div class="inner_item2">
                     数量
                 </div>
             </div>
-            <div class="th th-sum">
-                <div class="th-inner">
+            <div class="th item_2">
+                <div class="inner_item2">
                     小计
                 </div>
             </div>
@@ -112,26 +160,33 @@
                             <%--商品编号--%>
                             <input id="goodId_${status.index}" name="goodId_${status.index}" type="hidden" value="${order.goodId}">
                                 <%--商品名称--%>
-                            <li class="th th-item">
+                            <li class="th item_1">
                                 <div class="item-cont">
                                     <c:set value="${order.good.imgUrlResource}" var="resources"/>
                                     <c:forEach items="${resources}" var="resource" end="0">
                                         <%--${resource.url}--%>
-                                    <a href="/good/toGoodDetailPage?goodId=${order.goodId}"><img src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}" alt=""></a>
+                                        <a href="/good/toGoodDetailPage?goodId=${order.goodId}"><img class="img_size" width="100" height="100" src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}" alt=""></a>
                                         <div class="title1">
                                             ${order.good.goodName}
+                                        </div>
+                                        <%--订单留言--%>
+                                        <div class="layui-form-item order-item">
+                                            <label class="layui-form-label" style="padding: 0px 0px;">订单留言</label>
+                                            <div class="layui-input-inline">
+                                                <input id="orderMessage_${status.index}" name="orderMessage_${status.index}" style=""  type="text" value="${order.orderMessage}">
+                                            </div>
                                         </div>
                                     </c:forEach>
                                 </div>
                             </li>
                             <%--商品单价--%>
-                            <li class="th th-price">
+                            <li class="th item_2">
                                 <span class="th-su">
                                     <input id="singlePrice_${status.index}" name="singlePrice_${status.index}" style="border:0px;" readonly="readonly" type="text" value="${order.singlePrice}">
                                 </span>
                             </li>
                             <%--商品数量--%>
-                            <li class="th th-amount">
+                            <li class="th item_2">
                                 <div class="box-btn layui-clear">
                                         <%--<div class="less layui-btn">-</div>--%>
                                         <%--<input class="Quantity-input" type="" name="" value="${cart.goodNumber}" disabled="disabled">--%>
@@ -140,19 +195,19 @@
                                 </div>
                             </li>
                             <%--小计--%>
-                            <li class="th th-sum">
+                            <li class="th item_2">
                                 <span class="sum">
                                     <%--<input id="totalPrice_${status.index}" name="totalPrice_${status.index}" type="text" value="${order.singlePrice * order.goodNumber}">--%>
                                     ${order.singlePrice * order.goodNumber}
                                 </span>
                             </li>
                             <%--订单留言--%>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">订单留言</label>
-                                <div class="layui-input-inline">
-                                    <input id="orderMessage_${status.index}" name="orderMessage_${status.index}" style=""  type="text" value="${order.orderMessage}">
-                                </div>
-                            </div>
+                            <%--<div class="layui-form-item">--%>
+                                <%--<label class="layui-form-label">订单留言</label>--%>
+                                <%--<div class="layui-input-inline">--%>
+                                    <%--<input id="orderMessage_${status.index}" name="orderMessage_${status.index}" style=""  type="text" value="${order.orderMessage}">--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
                         <%--</div>--%>
                         <%--</form>--%>
                         </div>
