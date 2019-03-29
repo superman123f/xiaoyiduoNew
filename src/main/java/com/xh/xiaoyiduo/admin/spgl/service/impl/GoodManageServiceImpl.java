@@ -10,6 +10,9 @@ import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_FATHER;
 import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD_SON;
 import com.xh.xiaoyiduo.admin.spgl.service.IGoodManageService;
+import com.xh.xiaoyiduo.shop.pojo.S_USER;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -113,19 +116,43 @@ public class GoodManageServiceImpl implements IGoodManageService {
      */
     @Override
     public void getGoodTypeReport(Model model) {
-        List<Map<String, String>> goodTypeReportList = goodMapper.getGoodTypeReport();
-        List<String> goodFatherNameList1 = new ArrayList<>();
-        List<String> goodFatherCountList1 = new ArrayList<>();
-        for(Map<String, String> map : goodTypeReportList) {
-            goodFatherNameList1.add(map.get("FATHER_NAME"));
-            goodFatherCountList1.add(map.get("GOOD_NUM"));
+        Subject subject = SecurityUtils.getSubject();
+        if(subject != null) {
+            boolean isAdmin = subject.hasRole("admin");
+            String userId = "";
+            if(!isAdmin) {
+                S_USER currentUser = (S_USER)subject.getPrincipal();
+                userId = currentUser.getUserId();
+            }
+            List<Map<String, String>> goodTypeReportList = goodMapper.getGoodTypeReport(isAdmin, userId); //商品种类统计数量
+            List<B_GOOD_FATHER> fatherTypeList = fatherMapper.getGoodFatherList(); //所有商品种类名称
+            List<String> goodFatherNameList1 = new ArrayList<>();
+            List<String> goodFatherCountList1 = new ArrayList<>();
+
+            boolean exist = false;
+            for(B_GOOD_FATHER father: fatherTypeList) {
+                for(Map<String, String> map : goodTypeReportList) {
+                    if(map.get("FATHER_NAME").equals(father.getFatherName())) {
+                        goodFatherNameList1.add(father.getFatherName());
+                        goodFatherCountList1.add(map.get("GOOD_NUM"));
+                        exist = true;
+                        break;
+                    } else {
+                        exist = false;
+                    }
+                }
+                if(!exist) {
+                    goodFatherNameList1.add(father.getFatherName());
+                    goodFatherCountList1.add("0");
+                }
+            }
+
+
+            JSONArray fatherNameArray = JSONArray.parseArray(JSONArray.toJSONString(goodFatherNameList1));
+            JSONArray fatherCountArray = JSONArray.parseArray(JSONArray.toJSONString(goodFatherCountList1));
+            model.addAttribute("goodFatherNameList", fatherNameArray);
+            model.addAttribute("goodFatherCountList", fatherCountArray);
         }
-//        String goodFatherNameList = JSON.toJSONString(goodFatherNameList1);
-//        String goodFatherCountList = JSON.toJSONString(goodFatherCountList1);
-        JSONArray fatherNameArray = JSONArray.parseArray(JSONArray.toJSONString(goodFatherNameList1));
-        JSONArray fatherCountArray = JSONArray.parseArray(JSONArray.toJSONString(goodFatherCountList1));
-        model.addAttribute("goodFatherNameList", fatherNameArray);
-        model.addAttribute("goodFatherCountList", fatherCountArray);
     }
 
     @Override

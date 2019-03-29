@@ -35,7 +35,7 @@ public interface B_GOODMapper {
 
     int saveGoodImageUrls(@Param("resourceId")String resourceId, @Param("type")String type, @Param("imgUrl") String imgUrl, @Param("sonId")String sonId); //保存商品图片路径
 
-    List<Map<String, String>> getGoodTypeReport();// 种类商品数量统计报表
+    List<Map<String, String>> getGoodTypeReport(@Param("isAdmin")boolean isAdmin, @Param("userId")String userId);// 种类商品数量统计报表
 
     int getGoodCount(@Param("goodName")String goodName, @Param("nickname")String nickname, @Param("realName")String realName, @Param("userId")String userId); //获取商品总数
 
