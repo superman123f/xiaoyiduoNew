@@ -34,7 +34,7 @@
         <img src="${ctx}/images/qrdd2.png">
     </div>
 
-    <input id="orderIds" name="orderIds" type="text" value="${orderIds}">
+    <input id="orderIds" name="orderIds" type="hidden" value="${orderIds}">
 
 
     <div class="layui-form-item">

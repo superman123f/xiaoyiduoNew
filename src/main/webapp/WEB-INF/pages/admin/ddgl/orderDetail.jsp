@@ -17,6 +17,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 </head>
+<style>
+    .layui-form-label {
+        float: left;
+        display: block;
+        padding: 0px 0px;
+        width: 80px;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: right;
+        margin-right: 15px;
+    }
+    .layui-form {
+        margin: 19px 38px;
+    }
+    .buyer_info {
+        margin-bottom: 28px;
+    }
+</style>
 <body>
 <form class="layui-form" action="/order/saveGoodOrder" onsubmit="return false;" method="post">
 
@@ -24,69 +42,92 @@
     <input id="sellerId" name="sellerId" type="hidden" value="${order.sellerId}">
     <input id="goodId" name="goodId" type="hidden" value="${order.goodId}">
 
-    <div class="layui-form-item">
-        <label class="layui-form-label">收货人姓名</label>
-        <div class="layui-input-inline">
-            <%--<input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">--%>
-            <input id="buyerName" name="buyerName" style="border:0px;" readonly="readonly" type="text" value="${order.buyerName}">
+    <div class="buyer_info">
+        <div class="layui-form-item">
+            <label class="layui-form-label">收货人姓名:</label>
+            <div class="layui-input-inline">
+                <%--<input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">--%>
+                <input id="buyerName" name="buyerName" style="border:0px;" readonly="readonly" type="text" value="${order.buyerName}">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">收货人地址</label>
-        <div class="">
-            <input id="buyerAddress" name="buyerAddress" style="border:0px; width:100%;" readonly="readonly" type="text" value="${order.buyerAddress}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">收货人地址:</label>
+            <div class="layui-input-inline" style="width:auto;">
+                <%--<input id="buyerAddress" name="buyerAddress" style="border:0px; width:100%;" readonly="readonly" type="text" value="${order.buyerAddress}">--%>
+                <span>${order.buyerAddress}</span>
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">联系电话</label>
-        <div class="layui-input-inline">
-            <input id="phone" name="phone" style="border:0px;" readonly="readonly" type="text" value="${order.phone}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">联系电话:</label>
+            <div class="layui-input-inline">
+                <input id="phone" name="phone" style="border:0px;" readonly="readonly" type="text" value="${order.phone}">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">电子邮箱</label>
-        <div class="layui-input-inline">
-            <input id="email" name="email" style="border:0px;" readonly="readonly" type="text" value="${order.email}">
-        </div>
-    </div>
-    <%--<div>--%>
+        <%--<div class="layui-form-item">--%>
+        <%--<label class="layui-form-label">电子邮箱:</label>--%>
+        <%--<div class="layui-input-inline">--%>
+        <%--<input id="email" name="email" style="border:0px;" readonly="readonly" type="text" value="${order.email}">--%>
+        <%--</div>--%>
+        <%--</div>--%>
+        <%--<div>--%>
         <%--<a id="editInfo" href="javascript:void(0);">修改信息</a>--%>
-    <%--</div>--%>
+        <%--</div>--%>
+    </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">商品单价</label>
+        <label class="layui-form-label">订单编号:</label>
+        <div class="layui-input-inline">
+            <input id="orderId" name="orderId" style="border:0px;" readonly="readonly" type="text" value="${order.orderId}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">商品名称:</label>
+        <div class="layui-input-inline" style="width:auto;">
+            <%--<input id="goodName" name="goodName" style="border:0px;" readonly="readonly" type="text" value="${order.good.goodName}">--%>
+            <span>${order.good.goodName}</span>
+        </div>
+    </div>
+    <%--<div class="layui-form-item">--%>
+        <%--<label class="layui-form-label">卖家昵称:</label>--%>
+        <%--<div class="layui-input-inline">--%>
+            <%--<input id="sellerName" name="sellerName" style="border:0px;" readonly="readonly" type="text" value="${order.singlePrice}">--%>
+        <%--</div>--%>
+    <%--</div>--%>
+    <div class="layui-form-item">
+        <label class="layui-form-label">商品单价:</label>
         <div class="layui-input-inline">
             <input id="singlePrice" name="singlePrice" style="border:0px;" readonly="readonly" type="text" value="${order.singlePrice}">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">商品数量</label>
+        <label class="layui-form-label">商品数量:</label>
         <div class="layui-input-inline">
             <input id="goodNumber" name="goodNumber" style="border:0px;" readonly="readonly" type="text" value="${order.goodNumber}">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">订单总价</label>
+        <label class="layui-form-label">订单总价:</label>
         <div class="layui-input-inline">
             <input id="totalPrice" name="totalPrice" style="border:0px;" readonly="readonly" type="text" value="${order.totalPrice}">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">订单状态</label>
+        <label class="layui-form-label">订单状态:</label>
         <div class="layui-input-inline">
             <input id="orderStatus" name="orderStatus" style="border:0px;" readonly="readonly" type="text" value="${order.orderStatus}">
         </div>
     </div>
+    <%--<div class="layui-form-item">--%>
+        <%--<label class="layui-form-label">配送方式:</label>--%>
+        <%--<div class="layui-input-inline">--%>
+            <%--<input id="deliveryMethod" name="deliveryMethod" style="border:0px;" readonly="readonly" type="text" value="${order.deliveryMethod}">--%>
+        <%--</div>--%>
+    <%--</div>--%>
     <div class="layui-form-item">
-        <label class="layui-form-label">配送方式</label>
-        <div class="layui-input-inline">
-            <input id="deliveryMethod" name="deliveryMethod" style="border:0px;" readonly="readonly" type="text" value="${order.deliveryMethod}">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">订单留言</label>
-        <div class="layui-input-inline">
-            <input id="orderMessage" name="orderMessage" style="border:0px;" readonly="readonly" type="text" value="${order.orderMessage}">
+        <label class="layui-form-label">订单留言:</label>
+        <div class="layui-input-inline" style="width:auto;">
+            <%--<input id="orderMessage" name="orderMessage" style="border:0px;" readonly="readonly" type="text" value="${order.orderMessage}">--%>
+            <span>${order.orderMessage}</span>
         </div>
     </div>
     <div class="layui-form-item">

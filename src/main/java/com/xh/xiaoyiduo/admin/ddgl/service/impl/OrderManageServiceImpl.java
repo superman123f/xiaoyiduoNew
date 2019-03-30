@@ -153,13 +153,14 @@ public class OrderManageServiceImpl implements IOrderManageService {
                     int i = orderMapper.insert(order);
                     if(i > 0) {
                         if(!carId[carIndex].equals("")) {
-                            cartMapper.deleteByGoodId(carId[carIndex]); //删除购物项
+                            cartMapper.deleteByPrimaryKey(carId[carIndex]); //删除购物项
                         }
-                        carIndex++;
+
                         //减少商品数量
                         count++;
                     }
                 }
+                carIndex++;
             }
         }
 
