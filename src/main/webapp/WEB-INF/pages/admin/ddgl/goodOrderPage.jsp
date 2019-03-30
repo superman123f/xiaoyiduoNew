@@ -27,7 +27,7 @@
         box-sizing: border-box;
         position: relative;}
     .shopcart-content .item_1 {
-        width: 40%;
+        width: 44%;
         text-align: left;
         box-sizing: border-box;
         position: relative;
@@ -38,10 +38,10 @@
         box-sizing: border-box;
     }
     .inner_item1 {
-        margin-left: calc(40% - 10px);
+        text-align: center;
     }
     .inner_item2 {
-        margin-left: calc(20% - 10px);
+        /*text-align: center;*/
     }
     .img_size {
         width: 70px;
@@ -49,8 +49,12 @@
         float: left;
     }
     .my-mark {
-        margin-top: 12px;
-        margin-left: 15px;
+        margin-top: 22px;
+        /* width: 100%; */
+        height: 90px;
+        /*margin-left: 15px;*/
+        /*margin-right: 15px;*/
+        border-bottom: 1px solid #e4e4e4
     }
     .title1 {
         float: left;
@@ -60,13 +64,13 @@
         position: absolute;
     }
     .th-su {
-        margin-left: calc(20% - 20px);
+        /*margin-left: calc(20% - 20px);*/
     }
     .box-btn {
-        margin-left: calc(20% - 6px);
+        /*margin-left: calc(20% - 6px);*/
     }
     .sum {
-        margin-left: calc(20% - 17px);
+        /*margin-left: calc(20% - 17px);*/
     }
     .order-item {
         margin-left: 64px;
@@ -74,10 +78,64 @@
         float: left;
         position: absolute;
     }
+    .shopcart-content .FloatBarHolder {
+        line-height: 78px;
+        border: 1px solid #ececee;
+        background: #f5f5f5;
+        position: relative;
+        /*margin-top: 22px;*/
+        float: left;
+        width: 100%;
+    }
+    .shopcart-content .FloatBarHolder .total{
+        margin-right: 150px;
+    }
+    .shopcart-content .item-content1{
+        border: 1px solid #ececee;
+        border-bottom: 0;
+        height: auto;
+        /* padding: 59px 0; */
+        box-sizing: border-box;
+        position: relative;
+    }
+    .item-cont {
+        margin-left: 15px;
+    }
+    ._total{
+        margin-left: 78%;
+    }
+    .shopcart-content .FloatBarHolder ._total span {
+        color: #ee0000;
+        font-size: 26px;
+        font-weight: bold;
+        padding-left: 5px;
+    }
+    .myform {
+        margin-top: 36px;
+        margin-bottom: 44px;
+    }
+    .front{
+        font-size: 15px;
+    }
+    .form-top {
+        margin-bottom: 18px;
+    }
+    .form-foot {
+        margin-left: 30px;
+    }
+    .form-foot a{
+        color: blue;
+    }
+    .form-foot a:hover{
+        color: red;
+    }
 </style>
 
 <body>
 <%@ include file="../../shop_header.jsp"%> <!--引入头部jsp样式-->
+<input id="buyerAddress1" type="hidden" value="${user.dormitoryAddress}">
+<input id="buyerName1" type="hidden" value="${user.realName}">
+<input id="phone1" type="hidden" value="${user.phone}">
 
 <div class="content content-nav-base shopcart-content">
     <div class="main-nav">
@@ -96,23 +154,26 @@
     <div style="margin-left: calc(100% - 535px);">
         <img src="${ctx}/images/qrdd1.png">
     </div>
-    <form class="layui-form" action="/order/saveGoodOrder" method="post">
-        确认收货地址<br>
-        <input id="buyerId" name="buyerId" type="hidden" value="${order.buyerId}">
-        <input id="sellerId" name="sellerId" type="hidden" value="${order.sellerId}">
+    <form class="layui-form myform" action="/order/saveGoodOrder" method="post">
+        <div class="form-top">
+            <span class="front">确认收货地址</span>
+        </div>
+        <div class="form-foot">
+            <input id="buyerId" name="buyerId" type="hidden" value="${order.buyerId}">
+            <input id="sellerId" name="sellerId" type="hidden" value="${order.sellerId}">
 
-        <input id="buyerAddress" name="buyerAddress" style="border:0px;" readonly="readonly" type="hidden" value="${user.dormitoryAddress}">
-        <input id="buyerName" name="buyerName" style="border:0px; width: 40px;" readonly="readonly" type="hidden" value="${user.realName}">
-        <input id="phone" name="phone" style="border:0px;" readonly="readonly" type="hidden" value="${user.phone}">
+            <input id="buyerAddress" name="buyerAddress" style="border:0px;" readonly="readonly" type="hidden" value="${user.dormitoryAddress}">
+            <input id="buyerName" name="buyerName" style="border:0px; width: 40px;" readonly="readonly" type="hidden" value="${user.realName}">
+            <input id="phone" name="phone" style="border:0px;" readonly="readonly" type="hidden" value="${user.phone}">
 
-        <span>${user.dormitoryAddress}</span>
-        <span>（${user.realName}&nbsp;&nbsp;收）</span>
-        <span>${user.phone}</span>
-        <a id="editInfo" href="javascript:void(0);">修改信息</a>
+            <span id="address2">${user.dormitoryAddress}</span>
+            <span id="realName2">（${user.realName}&nbsp;&nbsp;收）</span>
+            <span id="phone2">${user.phone}</span>
+            <a id="editInfo" href="javascript:void(0);">修改信息</a>
+        </div>
     </form>
 
-        <br>
-        确认订单信息<br>
+        <span class="front"> 确认订单信息</span>
         <div class="cart-table-th">
             <%--<div class="th th-chk">--%>
             <%--<div class="select-all">--%>
@@ -137,7 +198,7 @@
                     数量
                 </div>
             </div>
-            <div class="th item_2">
+            <div class="th">
                 <div class="inner_item2">
                     小计
                 </div>
@@ -195,7 +256,7 @@
                                 </div>
                             </li>
                             <%--小计--%>
-                            <li class="th item_2">
+                            <li class="th">
                                 <span class="sum">
                                     <%--<input id="totalPrice_${status.index}" name="totalPrice_${status.index}" type="text" value="${order.singlePrice * order.goodNumber}">--%>
                                     ${order.singlePrice * order.goodNumber}
@@ -257,7 +318,7 @@
             <%--<div class="th Settlement">--%>
                 <%--<button class="layui-btn">结算</button>--%>
             <%--</div>--%>
-            <div class="th total">
+            <div class="th _total">
                 <p>应付：<span class="pieces-total">
                     ${bigPrice}
                     <%--<input name="bigTotalPrice" type="text" value="12">--%>
@@ -375,6 +436,13 @@
             area: ['650px', '500px'],
             content: '/user/userInfo1',
             end: function(){
+                var address = $("#buyerAddress1").val();
+                // var realName = $("#buyerName1").val();
+                // var phone = $("#phone1").val();
+                $("#address2").html(address);
+                // $("#realName2").html(realName);
+                // $("#phone2").html(phone);
+
                 //刷新收货地址信息
                 // $.post(
                 //     '/order/updateReceiverAddress',

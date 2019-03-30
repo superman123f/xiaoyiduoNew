@@ -604,8 +604,12 @@ public class S_USERController {
      */
     @RequestMapping("/userInfo1")
     public String userInfo1(String userId, Model model){
-        S_USER user = userService.selectByUserId(userId);
-        model.addAttribute("user", user);
+        S_USER currentUser = (S_USER)SecurityUtils.getSubject().getPrincipal();
+        if(currentUser != null) {
+            userId = currentUser.getUserId();
+            S_USER user = userService.selectByUserId(userId);
+            model.addAttribute("user", user);
+        }
         return "/shop/user/editUserInfo";
     }
     /**

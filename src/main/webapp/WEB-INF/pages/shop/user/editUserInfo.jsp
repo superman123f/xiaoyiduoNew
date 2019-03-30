@@ -114,7 +114,9 @@
             },
             function(data){
                 if(data.success){
-                    // layer.msg(data.msg);
+                    $("#buyerAddress1", parent.document).val(dormitoryAddress); //保存到iframe外部域
+                    $("#buyerName1", parent.document).val(realName);
+                    $("#phone1", parent.document).val(phone);
                     // 关闭iframe自身
                     var myIndex = parent.layer.getFrameIndex(window.name);
                     parent.layer.close(myIndex);

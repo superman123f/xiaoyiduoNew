@@ -53,19 +53,19 @@ public class OrderManageServiceImpl implements IOrderManageService {
         }
 
         S_USER currentUser = (S_USER)SecurityUtils.getSubject().getPrincipal();
+        S_USER user = new S_USER();
         List<B_GOOD_ORDER> orderList = new ArrayList<>();
         Double bigPrice = 0D;
         if(ObjectUtils.isEmpty(currentUser)){
 
         }else{
             String userId = currentUser.getUserId();
+            user = userMapper.selectByUserId(userId);
 
             for(int i = 0; i < goodId.length; i++) {
                 B_GOOD good  = goodMapper.selectByPrimaryKey(goodId[i]); //获取商品信息
                 if(ObjectUtils.isEmpty(good)){
-
                 } else {
-
                     Date date = new Date();
                     String orderId = UUID.randomUUID().toString().replaceAll("\\-","");
                     B_GOOD_ORDER order = new B_GOOD_ORDER();
@@ -99,7 +99,7 @@ public class OrderManageServiceImpl implements IOrderManageService {
             result.put("success", true);
             result.put("msg", "生成订单成功");
 //            result.put("orderId", orderId);
-            model.addAttribute("user", currentUser);
+            model.addAttribute("user", user);
             model.addAttribute("orderList", orderList);
             model.addAttribute("bigPrice", bigPrice);
         } else {
