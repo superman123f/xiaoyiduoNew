@@ -24,6 +24,44 @@
     .shopcart-content .th-common{
         width: 150px;
     }
+    .th1 {
+        float: left;
+    }
+    .th-clock {
+        width: 50%;
+        float: left;
+    }
+    .th-good {
+        width: 35%;
+        text-align: center;
+        float: left;
+    }
+    .th-second {
+        width: 19%;
+        float: left;
+    }
+    .th-origin {
+        width: 19%;
+        float: left;
+    }
+    .th-operation {
+        float: left;
+    }
+    .shopcart-content .item-content {
+        border: 1px solid #ececee;
+        border-bottom: 0;
+        height: auto;
+        padding: 30px 0;
+        box-sizing: border-box;
+        position: relative;
+    }
+    ul {
+        width: 100%;
+        float: left;
+    }
+    .dele-btn {
+        cursor: pointer;
+    }
 </style>
 <body>
 
@@ -35,17 +73,11 @@
             <div class="inner-cont1 w1200">
                 <div class="inner-cont2">
                     <a href="/shop/commodity" class="active">所有商品</a>
-                    <%--<a href="/shop/buytoday">今日团购</a>--%>
-                    <%--<a href="/shop/information">商品资讯</a>--%>
                     <a href="/shop/about">关于我们</a>
                 </div>
             </div>
         </div>
     </div>
-    <%--<div class="banner-bg w1200">--%>
-        <%--<h3>夏季清仓</h3>--%>
-        <%--<p>宝宝被子、宝宝衣服3折起</p>--%>
-    <%--</div>--%>
     <div class="cart w1200">
         <div class="crumb" style="margin-bottom: 23px;margin-top: 4px;">
             <a href="/shop/commodity">首页</a>
@@ -55,30 +87,32 @@
             <a href="javascript:;">收藏夹</a>
         </div>
         <div class="cart-table-th">
-            <div class="th th-chk">
-                <div class="select-all">
-                    <div class="cart-checkbox">
-                        <input class="check-all check" id="allCheckked" type="checkbox" value="true">
+            <div class="th-clock">
+                <div class="th th-chk">
+                    <div class="select-all">
+                        <div class="cart-checkbox">
+                            <input class="check-all check" id="allCheckked" type="checkbox" value="true">
+                        </div>
+                        <label>&nbsp;&nbsp;全选</label>
                     </div>
-                    <label>&nbsp;&nbsp;全选</label>
+                </div>
+                <div class="th1 th-good">
+                    <div class="">
+                        商品
+                    </div>
                 </div>
             </div>
-            <div class="th th-item">
-                <div class="th-common">
-                    商品
-                </div>
-            </div>
-            <div class="th th-common">
+            <div class="th1 th-second">
                 <div class="th-inner">
                     转卖价
                 </div>
             </div>
-            <div class="th th-common">
+            <div class="th1 th-origin">
                 <div class="th-inner">
                     原价
                 </div>
             </div>
-            <div class="th th-common">
+            <div class="th1 th-operation">
                 <div class="th-inner">
                     操作
                 </div>
@@ -89,34 +123,35 @@
                 <c:if test="${not empty folderList}">
                     <c:forEach items="${folderList}" var="folder">
                         <ul class="item-content layui-clear">
-                            <li class="th th-chk">
-                                <div class="select-all">
-                                    <div class="cart-checkbox">
-                                        <input class="CheckBoxShop check"  type="checkbox" num="all" name="select-all" value="true">
+                            <div class="th-clock">
+                                <li class="th th-chk">
+                                    <div class="select-all">
+                                        <div class="cart-checkbox">
+                                            <input class="CheckBoxShop check"  type="checkbox" num="all" name="select-all" value="true">
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-
-                            <c:set value="${folder.good.imgUrlResource}" var="resources"/>
-                            <li class="th th-item">
-                                <div class="item-cont">
-                                    <c:forEach items="${resources}" var="resource" end="0">
-                                        <a href="/good/toGoodDetailPage?goodId=${folder.good.goodId}"><img src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}" alt=""></a>
-                                    </c:forEach>
-                                    <div class="text">
-                                        <div class="title1"><a href="/good/toGoodDetailPage?goodId=${folder.good.goodId}">${folder.good.goodName}</a> </div>
-                                            <%--<p><span>粉色</span>  <span>130</span>cm</p>--%>
+                                </li>
+                                <c:set value="${folder.good.imgUrlResource}" var="resources"/>
+                                <li class="th th-item">
+                                    <div class="item-cont">
+                                        <c:forEach items="${resources}" var="resource" end="0">
+                                            <a href="/good/toGoodDetailPage?goodId=${folder.good.goodId}"><img src="${pageContext.request.contextPath}/good/displayImage?imageUrl=${resource.url}" alt=""></a>
+                                        </c:forEach>
+                                        <div class="text">
+                                            <div class="title1"><a href="/good/toGoodDetailPage?goodId=${folder.good.goodId}">${folder.good.goodName}</a> </div>
+                                                <%--<p><span>粉色</span>  <span>130</span>cm</p>--%>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                            <li class="th th-common">
+                                </li>
+                            </div>
+                            <li class="th-origin">
                                 <span class="th-su">${folder.good.originPrice}</span>
                             </li>
 
-                            <li class="th th-common">
+                            <li class="th-second">
                                 <span class="th-su">${folder.good.secondPrice}</span>
                             </li>
-                            <li class="th th-common">
+                            <li class="th-operation">
                                     <%--<span class="dele-btn" onclick="delCartItem('${cart.cartId}');">删除</span>--%>
                                 <span class="dele-btn">删除</span>
                                 <input type="hidden" id="folderId" class="folderId" value="${folder.goodId}">

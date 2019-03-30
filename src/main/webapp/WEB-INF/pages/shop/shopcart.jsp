@@ -30,18 +30,11 @@
             <div class="inner-cont1 w1200">
                 <div class="inner-cont2">
                     <a href="/shop/commodity" class="active">所有商品</a>
-                    <%--<a href="/shop/buytoday">今日团购</a>--%>
-                    <%--<a href="/shop/information">商品资讯</a>--%>
                     <a href="/shop/about">关于我们</a>
                 </div>
             </div>
         </div>
     </div>
-    <%--大图显示--%>
-    <%--<div class="banner-bg w1200">--%>
-        <%--<h3>夏季清仓</h3>--%>
-        <%--<p>宝宝被子、宝宝衣服3折起</p>--%>
-    <%--</div>--%>
     <div class="cart w1200">
         <div class="crumb" style="margin-bottom: 23px;margin-top: 4px;">
             <a href="/shop/commodity">首页</a>
