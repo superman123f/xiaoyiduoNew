@@ -18,7 +18,7 @@
         margin-top: 15px;
     }
 </style>
-<body>
+<body bgcolor="white" style="margin:15px;">
 <fieldset class="layui-elem-field">
     <legend>权限管理 - 角色列表</legend>
     <div class="layui-field-box">

@@ -56,11 +56,14 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <dd><a class="layui-this"  href="javascript:void(0);" onclick="choose('/notice/toNoticePage');">公告必读</a></dd>
+                </li>
                 <shiro:hasPermission name="用户管理">
-                    <li class="layui-nav-item layui-nav-itemed">
+                    <li class="layui-nav-item">
                         <a href="javascript:void(0);">用户管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a class="layui-this"  href="javascript:void(0);" onclick="choose('/admin/userAdmin');">用户列表</a></dd>
+                            <dd><a href="javascript:void(0);" onclick="choose('/admin/userAdmin');">用户列表</a></dd>
                         </dl>
                     </li>
                 </shiro:hasPermission>
@@ -155,7 +158,7 @@
     <div class="layui-body">
         <!-- 内容主体区域 -->
         <div style="">
-            <iframe id="iframeBody" frameborder="0" width="100%" height="720px" src="/admin/userAdmin"></iframe>
+            <iframe id="iframeBody" frameborder="0" width="100%" height="720px" src="/notice/toNoticePage"></iframe>
         </div>
     </div>
 

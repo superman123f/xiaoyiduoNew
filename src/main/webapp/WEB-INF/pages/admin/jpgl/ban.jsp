@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="${ctx}/styles/layui/css/layui.css">
     <link rel="stylesheet" href="${ctx}/styles/admin/jpgl/banGoodAdmin.css">
 </head>
-<body>
+<body bgcolor="white" style="margin:15px;">
 <fieldset class="layui-elem-field">
     <legend>禁品管理 - 禁品列表</legend>
     <div class="layui-field-box">

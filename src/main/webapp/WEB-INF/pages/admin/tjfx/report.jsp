@@ -10,9 +10,18 @@
 <head>
     <title>统计分析</title>
 </head>
+<style>
+    .main {
+        /*width: 100%;*/
+        height:285px;
+        margin-top: 40px;
+        margin-left: 30px;
+        margin-right: 10px;
+    }
+</style>
 <body>
 <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-<div id="main" style="width: 100%;height:285px; margin-top: 30px;"></div>
+<div id="main" class="main" style=""></div>
 </body>
 <script type="text/javascript" src="${ctx}/scripts/jquery.min.js"></script>
 <script type="text/javascript" src="${ctx}/scripts/echarts/echarts.js"></script>
@@ -50,9 +59,12 @@
                     type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
                 }
             },
-            title: {
-                text: '商品发布量统计'
-            },
+            title: [{
+                text: '商品发布量统计',
+                textStyle: {
+                    fontWeight: 'normal'
+                }
+            }],
             legend: {
                 data:['发布量']
             },
