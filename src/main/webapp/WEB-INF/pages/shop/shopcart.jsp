@@ -21,8 +21,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 </head>
+<style>
+    .shopcart-content .item-content{
+        border: 1px solid #ececee;
+        border-bottom: 0;
+        height: auto;
+        padding: 30px 0;
+        box-sizing: border-box;
+        position: relative;
+    }
+</style>
 <body>
-
 <%@ include file="../shop_header.jsp"%> <!--引入头部jsp样式-->
 <div class="content content-nav-base shopcart-content">
     <div class="main-nav">
