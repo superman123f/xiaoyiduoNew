@@ -33,7 +33,7 @@
         </form>
         <hr>
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-xs layui-btn-normal dw-dailog" dw-url="/role/editPermission" dw-title="新增权限" dw-width="100%" dw-height="100%">
+            <button class="layui-btn layui-btn-xs layui-btn-normal dw-dailog" dw-url="/role/editPermission" dw-title="新增权限" dw-width="500px" dw-height="172px">
                 <i class="layui-icon">&#xe654;</i>新增
             </button>
             <button id="deleteData" class="layui-btn layui-btn-xs layui-btn-danger" data-type="deleteData">
@@ -109,6 +109,7 @@
                 shade: 0.8,
                 area: [dw_width, dw_height],
                 content: dw_url,
+                offset: '30%',
                 cancel: function (index, layero) {
                     $(".layui-laypage-btn").trigger('click');
                     window.location.reload();
@@ -303,13 +304,15 @@
                 var editBan = layer.open(
                     {
                         type: 2,
-                        title: '编辑公告信息',
+                        title: '编辑权限信息',
                         // skin: 'layui-layer-molv', //样式
                         shadeClose: false,
                         shade: 0.8,
-                        area: ['500px', '250px'],
+                        area: ['500px', '172px'],
+                        offset: '30%',
                         maxmin: true,
-                        content: '/permission/editpermission?permissionId=' + data.permissionId,//跳转的页面
+                        content: '/role/editPermission?permissionId=' + data.permissionId,//跳转的页面
+                        // content: ['/role/editPermission'],
                         cancel: function (index)
                         {
                             $(".layui-laypage-btn").click();//这里用于关闭Open时触发回调函数  刷新父页面数据  一定要引入Jquery

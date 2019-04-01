@@ -21,7 +21,7 @@
 <body bgcolor="white" style="margin:15px;">
 <input type="hidden" id="roleId" value="${roleId}">
 <fieldset class="layui-elem-field">
-    <legend>权限管理 - 权限列表</legend>
+    <legend>权限管理 - 关联权限</legend>
     <div class="layui-field-box">
         <form class="layui-form" action="">
             <div class="layui-form-item" style="text-align:center;">
@@ -85,6 +85,10 @@
         <%--</button>--%>
     <%--</div>--%>
 </script>
+<%--LayUI模板引擎，增加序号--%>
+<script type="text/html" id="indexTpl">
+    {{d.LAY_TABLE_INDEX+1}}
+</script>
 </body>
 <script type="text/javascript" src="${ctx}/scripts/jquery.min.js"></script>
 <script type="text/javascript" src="${ctx}/styles/layui/layui.js"></script>
@@ -139,9 +143,10 @@
             ,cols: [[ //表头
                 // {type: 'checkbox'},
                 {type: 'radio'},
-                {field: 'permissionId', title: '权限编号', sort: true, width:200},
+                {title: '序号', templet: '#indexTpl', width:280},
+                {field: 'permissionId', title: '权限编号', sort: true, width:200, hide: true},
                 // {field: 'permissionId', title: '公告编号',  sort: true, hide: true} , <!--隐藏-->
-                {field: 'permissionName', title: '权限名称',  sort: true, width: 500},
+                {field: 'permissionName', title: '权限名称',  sort: true},
                 {field: 'roleId', title: '角色编号',  sort: true, width: 500, hide: true},
                 // {field: 'releaseTime', title: '发布时间', sort: true, template: "<div>{{layui.util.toDateString(releaseTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 // {fixed: 'right', title: '操作', toolbar: '#barDemo', width:134, align:'center', unresize: true}

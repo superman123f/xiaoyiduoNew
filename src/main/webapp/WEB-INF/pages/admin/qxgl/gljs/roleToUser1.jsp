@@ -18,10 +18,10 @@
         margin-top: 15px;
     }
 </style>
-<body>
+<body bgcolor="white" style="margin:15px;">
 <input type="hidden" id="userId" value="${userId}">
 <fieldset class="layui-elem-field">
-    <legend>角色管理 - 角色列表</legend>
+    <legend>角色管理 - 关联角色</legend>
     <div class="layui-field-box">
         <form class="layui-form" action="">
             <div class="layui-form-item" style="text-align:center;">
@@ -148,9 +148,9 @@
             ,cols: [[ //表头
                 // {type: 'checkbox'}, //复选框
                 {type: 'radio'},
-                {field: 'roleId', title: '角色编号', sort: true, width:200},
+                {field: 'roleId', title: '角色编号', sort: true},
                 // {field: 'roleId', title: '公告编号',  sort: true, hide: true} , <!--隐藏-->
-                {field: 'roleName', title: '角色名称',  sort: true, width: 500},
+                {field: 'roleName', title: '角色名称',  sort: true},
                 {field: 'userId', title: '用户编号',  sort: true, width: 500, hide: true},
                 // {field: 'releaseTime', title: '发布时间', sort: true, template: "<div>{{layui.util.toDateString(releaseTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {fixed: 'right', title: '操作', toolbar: '#barDemo', width:134, align:'center', unresize: true}

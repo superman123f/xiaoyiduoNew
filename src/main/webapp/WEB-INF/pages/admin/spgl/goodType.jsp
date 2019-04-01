@@ -33,7 +33,7 @@
                 <div class="layui-field-box">
                     <hr>
                     <div class="layui-btn-group">
-                        <button class="layui-btn layui-btn-xs layui-btn-normal dw-dailog" dw-url="/type/editGoodFatherType" dw-title="新增商品父类" dw-width="880px" dw-height="500px">
+                        <button class="layui-btn layui-btn-xs layui-btn-normal dw-dailog" dw-url="/type/editGoodFatherType" dw-title="新增商品父类" dw-width="500px" dw-height="175px">
                             <i class="layui-icon">&#xe654;</i>新增
                         </button>
                         <button id="deleteData" class="layui-btn layui-btn-xs layui-btn-danger" data-type="deleteData">

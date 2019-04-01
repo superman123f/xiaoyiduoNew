@@ -29,9 +29,9 @@ layui.use(['table', 'layer', 'form', 'element'], function(){
             title: dw_title,
             shadeClose: true,
             shade: 0.8,
-            offset: '20px',
             area: [dw_width, dw_height],
             content: dw_url,
+            offset: '25%',
             end: function(){
                 //执行重载
                 table.reload('userId', //与table中的id要一致
@@ -285,9 +285,10 @@ layui.use(['table', 'layer', 'form', 'element'], function(){
                     shadeClose: false,
                     offset: '20px',
                     shade: 0.8,
-                    area: ['500px', '180px'],
+                    area: ['500px', '175px'],
                     // maxmin: true, //最大最小化
                     content: '/type/editGoodFatherType?fatherId=' + data.fatherId,//跳转的页面
+                    offset: '25%',
                     end: function(){ // open撤销时触发回调函数
                         $(".layui-laypage-btn").click(); // 这是分页工具中的“确定”按钮，相当于点击当前页，查询结果
                     },
@@ -355,8 +356,9 @@ layui.use(['table', 'layer', 'form', 'element'], function(){
                 shadeClose: true,
                 shade: 0.8,
                 offset: '20px',
-                area: ['880px', '500px'],
+                area: ['500px', '175px'],
                 content: '/type/editGoodSonType?fatherId='+fatherId,
+                offset: '25%',
                 end: function(){
                     //执行重载
                     table.reload('sonId', //与table中的id要一致
@@ -431,9 +433,10 @@ layui.use(['table', 'layer', 'form', 'element'], function(){
                     shadeClose: false,
                     offset: '20px',
                     shade: 0.8,
-                    area: ['500px', '180px'],
+                    area: ['500px', '175px'],
                     // maxmin: true, //最大最小化
                     content: '/type/editGoodSonType?sonId=' + data.sonId,//跳转的页面
+                    offset: '25%',
                     end: function(){ // open撤销时触发回调函数
                         $(".layui-laypage-btn").click(); // 这是分页工具中的“确定”按钮，相当于点击当前页，查询结果
                     },

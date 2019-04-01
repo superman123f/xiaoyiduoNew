@@ -269,9 +269,9 @@ layui.use(['table', 'layer', 'form'], function(){
                     title: '编辑商品信息',
                     // skin: 'layui-layer-molv', //样式
                     shadeClose: false,
-                    offset: '20px',
+                    // offset: '20px',
                     shade: 0.8,
-                    area: ['880px', '500px'],
+                    area: ['100%', '100%'],
                     // maxmin: true, //最大最小化
                     content: '/good/goodInfo?goodId=' + data.goodId,//跳转的页面
                     end: function(){ // open撤销时触发回调函数

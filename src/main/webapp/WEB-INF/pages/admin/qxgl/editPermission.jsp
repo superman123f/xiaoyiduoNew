@@ -9,7 +9,7 @@
 <%@ include file="/WEB-INF/pages/header.jsp" %>
 <html>
 <head>
-    <title>权限管理</title>
+    <title>权限管理 - 编辑权限信息</title>
     <link rel="stylesheet" type="text/css" href="${ctx}/styles/layui/css/layui.css">
 </head>
 <body>
@@ -33,7 +33,7 @@
         <div class="layui-form-item">
             <div class="layui-input-block">
                 <input id="saveBtn" type="button" class="layui-btn" value="保存">
-                <input type="reset" class="layui-btn" value="重置">
+                <input id="closeBtn" type="button" class="layui-btn" value="关闭">
             </div>
         </div>
     </form>
@@ -49,6 +49,10 @@
         var table = layui.table();
     });
 
+    $("#closeBtn").click(function(){
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+    });
     $("#saveBtn").click(function(){
         var permissionId = $("#permissionId").val();
 

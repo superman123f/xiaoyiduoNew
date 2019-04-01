@@ -12,6 +12,21 @@
     <title>编辑商品父类类目信息</title>
     <link rel="stylesheet" type="text/css" href="${ctx}/styles/layui/css/layui.css">
 </head>
+<style>
+    .layui-form-label {
+        float: left;
+        display: block;
+        padding: 9px 0px 0px 9px;
+        width: auto;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: right;
+    }
+    .layui-input-block {
+        margin-left: 118px;
+        min-height: 36px;
+    }
+</style>
 <body>
 <div style="margin:16px 19px 0px 0px;">
     <form class="layui-form" action="/ban/updateBanGoodInfo" method="post">
@@ -26,7 +41,7 @@
         <div class="layui-form-item">
             <div class="layui-input-block">
                 <input id="saveBtn" type="button" class="layui-btn" value="保存">
-                <input type="reset" class="layui-btn" value="重置">
+                <input id="closeBtn" type="button" class="layui-btn" value="关闭">
             </div>
         </div>
     </form>
@@ -40,6 +55,11 @@
         var form = layui.form();
         var layer = layui.layer();
         var table = layui.table();
+    });
+
+    $("#closeBtn").click(function(){
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
     });
 
     $("#saveBtn").click(function(){

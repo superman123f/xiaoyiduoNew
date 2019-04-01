@@ -33,7 +33,7 @@
         </form>
         <hr>
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-xs layui-btn-normal dw-dailog" dw-url="/ban/banGoodInfo" dw-title="新增禁品信息" dw-width="100%" dw-height="100%">
+            <button class="layui-btn layui-btn-xs layui-btn-normal dw-dailog" dw-url="/ban/banGoodInfo" dw-title="新增禁品信息" dw-width="500" dw-height="225">
                 <i class="layui-icon">&#xe654;</i>新增
             </button>
             <button id="deleteData" class="layui-btn layui-btn-xs layui-btn-danger" data-type="deleteData">
@@ -105,6 +105,7 @@
                 shade: 0.8,
                 area: [dw_width, dw_height],
                 content: dw_url,
+                offset: '25%',
                 cancel: function (index, layero) {
                     $(".layui-laypage-btn").trigger('click');
                     // return false;
@@ -298,9 +299,10 @@
                         // skin: 'layui-layer-molv', //样式
                         shadeClose: false,
                         shade: 0.8,
-                        area: ['500px', '250px'],
+                        area: ['500px', '225px'],
                         maxmin: true,
                         content: '/ban/banGoodInfo?banId=' + data.banId,//跳转的页面
+                        offset: '25%',
                         cancel: function (index)
                         {
                             $(".layui-laypage-btn").click();//这里用于关闭Open时触发回调函数  刷新父页面数据  一定要引入Jquery

@@ -30,7 +30,7 @@
         <div class="layui-form-item">
             <div class="layui-input-block">
                 <input id="saveBtn" type="button" class="layui-btn" value="保存">
-                <input type="reset" class="layui-btn" value="重置">
+                <input id="closeBtn" type="button" class="layui-btn" value="关闭">
             </div>
         </div>
     </form>
@@ -44,6 +44,11 @@
         var form = layui.form();
         var layer = layui.layer();
         var table = layui.table();
+    });
+
+    $("#closeBtn").click(function(){
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
     });
 
     $("#saveBtn").click(function(){

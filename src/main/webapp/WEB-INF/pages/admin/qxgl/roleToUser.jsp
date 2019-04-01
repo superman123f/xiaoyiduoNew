@@ -50,8 +50,8 @@
             <%--<button class="layui-btn layui-btn-xs layui-btn-normal dw-dailog" dw-url="/user/userInfo" dw-title="新增用户信息" dw-width="880px" dw-height="500px">--%>
                 <%--<i class="layui-icon">&#xe654;</i>新增--%>
             <%--</button>--%>
-            <button id="giveUserRole" class="layui-btn layui-btn-xs layui-btn-danger" data-type="giveUserRole">
-                <i class="layui-icon">&#xe640;</i>关联角色
+            <button id="giveUserRole" class="layui-btn layui-btn-xs layui-btn-normal" data-type="giveUserRole">
+                <i class="layui-icon">&#xe654;</i>关联角色
             </button>
             <%--<button class="layui-btn layui-btn-xs dw-refresh">--%>
             <%--<i class="layui-icon">&#x1002;</i>刷新--%>
