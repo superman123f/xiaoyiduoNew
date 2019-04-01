@@ -85,7 +85,8 @@
     <%--</button>--%>
     <div class="layui-btn-group">
         <button class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">
-            <i class="layui-icon">&#xe642;</i>查看权限
+            <%--<i class="layui-icon">&#xe642;</i>查看权限--%>
+            <i class="layui-icon"></i>查看权限
         </button>
         <%--<button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">--%>
             <%--<i class="layui-icon">&#xe640;</i>删除--%>

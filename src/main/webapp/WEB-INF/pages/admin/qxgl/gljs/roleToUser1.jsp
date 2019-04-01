@@ -62,8 +62,8 @@
             <button id="getCheckData" class="layui-btn layui-btn-xs layui-btn-normal"  data-type="getCheckData">
                 <i class="layui-icon">&#xe654;</i>关联角色
             </button>
-            <button id="celRole" class="layui-btn layui-btn-xs layui-btn-normal"  data-type="celRole">
-            <i class="layui-icon">&#xe654;</i>取消角色
+            <button id="celRole" class="layui-btn layui-btn-xs layui-btn-danger"  data-type="celRole">
+                <i class="layui-icon">&#xe640;</i>取消角色
             </button>
         </div>
         <%--</script>--%>
@@ -86,7 +86,7 @@
     <%--</button>--%>
     <div class="layui-btn-group">
         <button class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">
-            <i class="layui-icon">&#xe642;</i>查看角色
+            <i class="layui-icon"></i>查看角色
         </button>
         <%--<button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">--%>
         <%--<i class="layui-icon">&#xe640;</i>删除--%>

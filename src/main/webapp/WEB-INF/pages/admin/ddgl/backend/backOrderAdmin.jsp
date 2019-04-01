@@ -73,9 +73,10 @@
     <%--</button>--%>
     <div class="layui-btn-group">
         <button class="layui-btn layui-btn-xs layui-btn-normal" lay-event="print">
-            <i class="layui-icon">&#xe642;</i>查看
+            <%--<i class="layui-icon">&#xe642;</i>查看--%>
+            <i class="layui-icon"></i>查看
         </button>
-        <button class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">
+        <button class="layui-btn layui-btn-xs " lay-event="edit">
             <i class="layui-icon">&#xe642;</i>编辑
         </button>
         <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">

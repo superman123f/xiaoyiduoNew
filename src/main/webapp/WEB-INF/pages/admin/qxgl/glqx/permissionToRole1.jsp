@@ -45,8 +45,8 @@
             <button id="getCheckData" class="layui-btn layui-btn-xs layui-btn-normal"  data-type="getCheckData">
                 <i class="layui-icon">&#xe654;</i>关联权限
             </button>
-            <button id="celPermission" class="layui-btn layui-btn-xs layui-btn-normal"  data-type="celPermission">
-                <i class="layui-icon">&#xe654;</i>取消权限
+            <button id="celPermission" class="layui-btn layui-btn-xs layui-btn-danger"  data-type="celPermission">
+                <i class="layui-icon">&#xe640;</i>取消权限
             </button>
             <%--<button id="deleteData" class="layui-btn layui-btn-xs layui-btn-danger" data-type="deleteData">--%>
                 <%--<i class="layui-icon">&#xe640;</i>批删--%>
