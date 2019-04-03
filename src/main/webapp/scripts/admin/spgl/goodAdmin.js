@@ -28,7 +28,9 @@ layui.use(['table', 'layer', 'form'], function(){
             title: dw_title,
             shadeClose: true,
             shade: 0.8,
-            offset: '20px',
+            offset: '0px', //顶部距离
+            scrollbar: false,
+            maxmin: true, //最大最小化
             area: [dw_width, dw_height],
             content: dw_url,
             end: function(){
@@ -268,12 +270,14 @@ layui.use(['table', 'layer', 'form'], function(){
                     type: 2,
                     title: '编辑商品信息',
                     // skin: 'layui-layer-molv', //样式
+                    scrollbar: false,
                     shadeClose: false,
-                    // offset: '20px',
+                    offset: '0px',
                     shade: 0.8,
                     area: ['100%', '100%'],
-                    // maxmin: true, //最大最小化
-                    content: '/good/goodInfo?goodId=' + data.goodId,//跳转的页面
+                    maxmin: true, //最大最小化
+                    content: ['/good/goodInfo?goodId=' + data.goodId],//跳转的页面
+
                     end: function(){ // open撤销时触发回调函数
                         $(".layui-laypage-btn").click(); // 这是分页工具中的“确定”按钮，相当于点击当前页，查询结果
                     },

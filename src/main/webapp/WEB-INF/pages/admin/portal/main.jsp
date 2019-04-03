@@ -155,11 +155,9 @@
         </div>
     </div>
 
-    <div class="layui-body">
+    <div class="layui-body" style="overflow-y: hidden;">
         <!-- 内容主体区域 -->
-        <div style="">
-            <iframe id="iframeBody" frameborder="0" width="100%" height="720px" src="/notice/toNoticePage"></iframe>
-        </div>
+        <iframe id="iframeBody" frameborder="0" style="width:100%; height:100%;" src="/notice/toNoticePage"></iframe>
     </div>
 
     <div class="layui-footer">
@@ -181,6 +179,15 @@
     });
 
     $(function(){
+        //获取窗口大小
+        var a = $(window).width();
+        var b = $(window).height();
+
+        var width = $(".layui-body").width();
+        var height = $(".layui-body").height();
+        $("#iframeBody").css("width", width);
+        $("#iframeBody").css("height", height);
+
         $('#jbzl').click(function(){
             layer.open({
                 title: '基本资料',
