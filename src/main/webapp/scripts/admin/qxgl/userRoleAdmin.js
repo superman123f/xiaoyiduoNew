@@ -143,7 +143,6 @@ layui.use(['table', 'layer', 'form'], function(){
                 // layer.alert(JSON.stringify(data));
                 var str = "";
                 if(data.length > 0){
-                    layer.alert('delete?');
                     for(var i = 0; i < data.length; i++){
                         str += data[i].userId + "，";
                     }

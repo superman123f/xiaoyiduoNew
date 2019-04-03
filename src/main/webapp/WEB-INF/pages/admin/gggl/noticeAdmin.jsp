@@ -80,6 +80,8 @@
         var layer = layui.layer;
         var form = layui.form;
         var $ = layui.jquery;
+
+        var my_table;
         // +----------------------------------------------------------------------
         // | 弹出层
         // +----------------------------------------------------------------------
@@ -108,14 +110,18 @@
                 offset: '25%',
                 cancel: function (index, layero) {
                     $(".layui-laypage-btn").trigger('click');
-                    window.location.reload();
+                    // window.location.reload();
                     // return false;
+                },
+                end: function() {
+                    // $(".layui-laypage-btn").trigger('click');
+                    my_table.reload();
                 }
             });
         });
 
         //第一个实例
-        table.render({
+        my_table = table.render({
             id: 'noticeId', //隐藏的列
             elem: '#demo'
             ,url: '/notice/getAllNotices' //数据接口
@@ -124,10 +130,10 @@
             // ,initSort: {field: 'studentNo', type: 'desc'} //设置初始排序
             ,cols: [[ //表头
                 {type: 'checkbox'},
-                {field: 'title', title: '公告标题', sort: true, width:200},
+                {field: 'title', title: '公告标题', sort: true, width:'12%'},
                 // {field: 'noticeId', title: '公告编号',  sort: true, hide: true} , <!--隐藏-->
-                {field: 'content', title: '公告内容',  sort: true, width: 500},
-                {field: 'releaseTime', title: '发布时间', sort: true, template: "<div>{{layui.util.toDateString(releaseTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'content', title: '公告内容',  sort: true, width:'40%'},
+                {field: 'releaseTime', title: '发布时间', sort: true, width:'12%', template: "<div>{{layui.util.toDateString(releaseTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {fixed: 'right', title: '操作', toolbar: '#barDemo', width:134, align:'center', unresize: true}
             ]]
             ,height: '472'
@@ -304,9 +310,13 @@
                         maxmin: true,
                         content: '/notice/editNotice?noticeId=' + data.noticeId,//跳转的页面
                         offset: '25%',
-                        cancel: function (index)
-                        {
+                        cancel: function (index){
                             $(".layui-laypage-btn").click();//这里用于关闭Open时触发回调函数  刷新父页面数据  一定要引入Jquery
+                        },
+                        end: function() {
+                            // my_table.render();
+                            my_table.reload();
+                            // $(".layui-laypage-btn").click();
                         }
 
                     });

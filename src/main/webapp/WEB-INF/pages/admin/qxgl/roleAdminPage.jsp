@@ -114,6 +114,10 @@
                     $(".layui-laypage-btn").trigger('click');
                     window.location.reload();
                     // return false;
+                },
+                end: function() {
+                    $(".layui-laypage-btn").trigger('click');
+                    // window.location.reload();
                 }
             });
         });
@@ -128,13 +132,13 @@
             // ,initSort: {field: 'studentNo', type: 'desc'} //设置初始排序
             ,cols: [[ //表头
                 {type: 'checkbox'},
-                {title: '序号', templet: '#indexTpl'},
+                {title: '序号', templet: '#indexTpl', width:'40%'},
                 {field: 'permissionId', title: '权限编号', sort: true, hide: true},
                 // {field: 'permissionId', title: '公告编号',  sort: true, hide: true} , <!--隐藏-->
-                {field: 'permissionName', title: '权限名称',  sort: true},
+                {field: 'permissionName', title: '权限名称',  sort: true, width:'40%'},
                 {field: 'roleId', title: '角色编号',  sort: true, hide: true},
                 // {field: 'releaseTime', title: '发布时间', sort: true, template: "<div>{{layui.util.toDateString(releaseTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
-                {fixed: 'right', title: '操作', toolbar: '#barDemo', width:134, align:'center', unresize: true}
+                {fixed: 'right', title: '操作', toolbar: '#barDemo', width:140, align:'center', unresize: true}
             ]]
             ,height: '472'
             ,method: 'post'
@@ -291,9 +295,10 @@
                         {permissionId: data.permissionId},
                         function(data){
                             if(data.success){
-                                layer.msg(data.msg);
-                                obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                                layer.msg("删除成功");
+                                // obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
                                 layer.close(index);
+                                $(".layui-laypage-btn").click();
                             } else {
                                 layer.msg(data.msg);
                             }
@@ -301,6 +306,7 @@
                     );
                 });
             } else if(layEvent === 'edit'){ //编辑
+                // alert(1);
                 var editBan = layer.open(
                     {
                         type: 2,
@@ -313,8 +319,9 @@
                         maxmin: true,
                         content: '/role/editPermission?permissionId=' + data.permissionId,//跳转的页面
                         // content: ['/role/editPermission'],
-                        cancel: function (index)
+                        end: function (index)
                         {
+                            // alert(1);
                             $(".layui-laypage-btn").click();//这里用于关闭Open时触发回调函数  刷新父页面数据  一定要引入Jquery
                         }
 

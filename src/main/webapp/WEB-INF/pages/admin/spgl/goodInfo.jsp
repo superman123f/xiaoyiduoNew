@@ -132,7 +132,13 @@
         <%--按钮区--%>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <input id="saveGoodBtn" type="button" class="layui-btn" value="发布商品">
+                <c:if test="${empty status}">
+                    <input id="releaseBtn" type="button" class="layui-btn" value="发布">
+                </c:if>
+                <c:if test="${not empty status}">
+                    <input id="saveGoodBtn" type="button" class="layui-btn" value="保存">
+                </c:if>
+                <input id="closeBtn" type="button" class="layui-btn" value="取消">
                 <%--<input type="reset" class="layui-btn" value="重置">--%>
             </div>
         </div>
@@ -291,7 +297,8 @@
     }
 
     function goodSave(){
-        $("#saveGoodBtn").click(function(){
+
+        $("#releaseBtn").click(function(){
             var sonId = $("#sonId").val();
             var goodName = $("#goodName").val();
             var information = $("#information").val();
@@ -314,10 +321,47 @@
                 },function(data){
                     if (data.success){
                         layer.alert("发布成功");
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
                     } else {
                         layer.alert("发布失败");
                     }
             });
         });
+        $("#saveGoodBtn").click(function(){
+            var sonId = $("#sonId").val();
+            var goodName = $("#goodName").val();
+            var information = $("#information").val();
+            var originPrice = $("#originPrice").val();
+            var secondPrice = $("#secondPrice").val();
+            var degree = $("#degree").val();
+            var goodNumber = $("#goodNumber").val();
+            var imgUrls = $("#imgUrls").val();
+
+            $.post("/good/saveGoodInfo",
+                {
+                    sonId: sonId,
+                    goodName: goodName,
+                    information: information,
+                    originPrice: originPrice,
+                    secondPrice: secondPrice,
+                    degree: degree,
+                    goodNumber: goodNumber,
+                    imgUrls: imgUrls
+                },function(data){
+                    if (data.success){
+                        layer.alert("保存成功");
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
+                    } else {
+                        layer.alert("保存失败");
+                    }
+                });
+        });
     }
+
+    $("#closeBtn").click(function(){
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+    });
 </script>

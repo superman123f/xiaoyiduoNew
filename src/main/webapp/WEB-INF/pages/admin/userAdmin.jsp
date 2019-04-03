@@ -55,7 +55,10 @@
         </div>
         <hr>
 
-        <table id="demo" lay-filter="test"></table>
+        <%--<div style="width: 100%; height: 100%;">--%>
+            <table style="width:100%; height: 100%;" id="demo" lay-filter="test"></table>
+        <%--</div>--%>
+
 
     </div>
 </fieldset>

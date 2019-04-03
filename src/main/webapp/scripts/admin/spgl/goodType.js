@@ -34,15 +34,16 @@ layui.use(['table', 'layer', 'form', 'element'], function(){
             offset: '25%',
             end: function(){
                 //执行重载
-                table.reload('userId', //与table中的id要一致
-                    {
-                        page:
-                            {
-                                curr: 1 //重新从第 1 页开始
-                            }
-                        , where: {}//这里传参  向后台
-                        , method: 'post'
-                    });
+                // table.reload('userId', //与table中的id要一致
+                //     {
+                //         page:
+                //             {
+                //                 curr: 1 //重新从第 1 页开始
+                //             }
+                //         , where: {}//这里传参  向后台
+                //         , method: 'post'
+                //     });
+                $(".layui-laypage-btn").click(); // 这是分页工具中的“确定”按钮，相当于点击当前页，查询结果
             },
             cancel: function (index, layero) {
                 // $(".layui-laypage-btn").trigger('click');
@@ -62,7 +63,7 @@ layui.use(['table', 'layer', 'form', 'element'], function(){
         ,cols: [[ //表头
             {type: 'checkbox'},
             {field: 'fatherId', title: '商品父类id',  sort: true, hide: true} , <!--隐藏-->
-            {field: 'fatherName', title: '商品父类名称',  sort: true},
+            {field: 'fatherName', title: '商品父类名称',  sort: true, width: '81%'},
             // 经检验template日期转换无效，在数据库与实体类映射时转换即可
             // {field: 'createTime', title: '创建时间', width: 200, sort: true, template: "<div>{{layui.util.toDateString(createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
             {fixed: 'right', title: '操作', toolbar: '#barDemo', width:134, align:'center', unresize: true}
@@ -170,7 +171,7 @@ layui.use(['table', 'layer', 'form', 'element'], function(){
                 // layer.alert(JSON.stringify(data));
                 var str = "";
                 if (data.length > 0) {
-                    layer.alert('delete?');
+                    // layer.alert('delete?');
                     for (var i = 0; i < data.length; i++) {
                         str += data[i].sonId + "，";
                     }
@@ -332,7 +333,7 @@ layui.use(['table', 'layer', 'form', 'element'], function(){
             ,cols: [[ //表头
                 {type: 'checkbox'},
                 {field: 'sonId', title: '商品子类id',  sort: true, hide: true} , <!--隐藏-->
-                {field: 'sonName', title: '商品子类名称',  sort: true},
+                {field: 'sonName', title: '商品子类名称',  sort: true, width:'81%'},
                 {field: 'fatherId', title: '商品父类id',  sort: true, hide: true} , <!--隐藏-->
                 // 经检验template日期转换无效，在数据库与实体类映射时转换即可
                 // {field: 'createTime', title: '创建时间', width: 200, sort: true, template: "<div>{{layui.util.toDateString(createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
@@ -361,15 +362,16 @@ layui.use(['table', 'layer', 'form', 'element'], function(){
                 offset: '25%',
                 end: function(){
                     //执行重载
-                    table.reload('sonId', //与table中的id要一致
-                        {
-                            page:
-                                {
-                                    curr: 1 //重新从第 1 页开始
-                                }
-                            , where: {}//这里传参  向后台
-                            , method: 'post'
-                        });
+                    // table.reload('sonId', //与table中的id要一致
+                    //     {
+                    //         page:
+                    //             {
+                    //                 curr: 1 //重新从第 1 页开始
+                    //             }
+                    //         , where: {}//这里传参  向后台
+                    //         , method: 'post'
+                    //     });
+                    $(".layui-laypage-btn").click(); // 这是分页工具中的“确定”按钮，相当于点击当前页，查询结果
                 },
                 cancel: function (index, layero) {
                     // $(".layui-laypage-btn").trigger('click');

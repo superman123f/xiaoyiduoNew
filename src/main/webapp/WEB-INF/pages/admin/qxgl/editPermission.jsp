@@ -68,13 +68,13 @@
             function(data){
                 if(data.success){
                     layer.msg(data.msg);
-                    // var mylay = parent.layer.getFrameIndex(window.name);
-                    // parent.layer.close(mylay);
                     // table.reload();
                 } else {
                     // alert(data.msg);
                     layer.msg(data.msg);
                 }
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.layer.close(index);
             });
     });
 

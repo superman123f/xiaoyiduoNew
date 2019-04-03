@@ -62,18 +62,18 @@ layui.use(['table', 'layer', 'form'], function(){
         // ,initSort: {field: 'studentNo', type: 'desc'} //设置初始排序
         ,cols: [[ //表头
             {type: 'checkbox'},
-            {field: 'orderId', title: '订单编号',  sort: true, hide: false} , <!--隐藏-->
-            {field: 'buyerName', title: '收货人姓名',  sort: true},
+            {field: 'orderId', title: '订单编号',  sort: true, hide: false, width:'13%'} ,
+            {field: 'buyerName', title: '收货人姓名',  sort: true, width:'10%'},
             // {field: 'buyerAddress', title: '收货地址',  sort: true},
-            {field: 'phone', title: '联系电话',  sort: true, hide: true},
+            {field: 'phone', title: '联系电话',  sort: true, hide: true}, <!--隐藏-->
             // {field: 'email', title: '电子邮箱', sort: true},
             // {field: 'deliveryMethod', title: '配送方式', sort: true, hide: false},
             // {field: 'sellerId', title: '卖家id',  sort: true},
-            {field: 'singlePrice', title: '商品单价', sort: true},
-            {field: 'goodNumber', title: '商品数量',  sort: true},
-            {field: 'totalPrice', title: '订单总价', sort: true},
-            {field: 'orderCreateTime', title: '订单生成时间',  sort: true},
-            {field: 'orderStatus', title: '订单状态',  sort: true},
+            {field: 'singlePrice', title: '商品单价', sort: true, width:'10%'},
+            {field: 'goodNumber', title: '商品数量',  sort: true, width:'10%'},
+            {field: 'totalPrice', title: '订单总价', sort: true, width:'10%'},
+            {field: 'orderCreateTime', title: '订单生成时间',  sort: true, width:'15%'},
+            {field: 'orderStatus', title: '订单状态',  sort: true, width:'10%'},
             // {field: 'orderMessage', title: '订单留言',  sort: true},
             // {field: 'buyerId', title: '买家id', sort: true},
             // {field: 'goodId', title: '商品id',  sort: true},
@@ -81,7 +81,7 @@ layui.use(['table', 'layer', 'form'], function(){
             // 经检验template日期转换无效，在数据库与实体类映射时转换即可
             // {field: 'createTime', title: '创建时间', sort: true, template: "<div>{{layui.util.toDateString(createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
             // {field: 'createTime', title: '创建时间', width: 200, sort: true, "<div>{{layui.util.toDateString(createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
-            {fixed: 'right', title: '操作', toolbar: '#barDemo', width:180, align:'center', unresize: true}
+            {fixed: 'right', title: '操作', toolbar: '#barDemo', width:185, align:'center', unresize: true}
         ]]
         ,height: '472'
         ,method: 'post'
@@ -132,7 +132,6 @@ layui.use(['table', 'layer', 'form'], function(){
                 // layer.alert(JSON.stringify(data));
                 var str = "";
                 if(data.length > 0){
-                    layer.alert('delete?');
                     for(var i = 0; i < data.length; i++){
                         str += data[i].orderId + "，";
                     }

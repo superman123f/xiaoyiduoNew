@@ -49,33 +49,45 @@ layui.use(['table', 'layer', 'form'], function(){
         });
     });
 
+    var my_width = 10;
+    var w = $("#demo").width() - 48 - 150;
+    // w = w * 10
+    // alert(w);
     //第一个实例
     var ins1 = table.render({
         id: 'userId' //隐藏的列
         ,title: '用户信息表'
-        // ,height: 312
         ,elem: '#demo'
         ,url: '/user/getAllUsers' //数据接口
-        // ,where: {studentNo: "3"}
         ,page: true //开启分页
-        // ,limits: [6, 7, 8, 9]
-        // ,initSort: {field: 'studentNo', type: 'desc'} //设置初始排序
         ,cols: [[ //表头
             {type: 'checkbox'},
             {field: 'userId', title: '用户编号',  sort: true, hide: true} , <!--隐藏-->
-            {field: 'studentNo', title: '学号',  sort: true},
-            {field: 'nickname', title: '昵称',  sort: true},
-            {field: 'password', title: '密码',  sort: true, hide: true},
-            {field: 'realName', title: '真实姓名', sort: true},
-            {field: 'sex', title: '性别',  sort: true},
-            {field: 'email', title: '电子邮箱', sort: true},
-            {field: 'phone', title: '手机号',  sort: true},
-            {field: 'dormitoryAddress', title: '宿舍地址', sort: true, hide: false},
-            // {fixed: 'createTime', title: '创建时间', width: 200},
+            {field: 'studentNo', title: '学号',  sort: true, width:'10%'},
+            {field: 'nickname', title: '昵称',  sort: true, width:'10%'},
+            // {field: 'password', title: '密码',  sort: true, hide: true},
+            {field: 'realName', title: '真实姓名', sort: true, width:'10%'},
+            {field: 'sex', title: '性别',  sort: true, width:'10%'},
+            {field: 'email', title: '电子邮箱', sort: true, width:'10%'},
+            {field: 'phone', title: '手机号',  sort: true, width:'10%'},
+            {field: 'dormitoryAddress', title: '宿舍地址', sort: true, width:'10%'},
             // 经检验template日期转换无效，在数据库与实体类映射时转换即可
-            {field: 'createTime', title: '创建时间', sort: true, template: "<div>{{layui.util.toDateString(createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
-            // {field: 'createTime', title: '创建时间', width: 200, sort: true, "<div>{{layui.util.toDateString(createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
-            {fixed: 'right', title: '操作', toolbar: '#barDemo', width:134, align:'center', unresize: true}
+            {field: 'createTime', width:'10%', title: '创建时间', sort: true, template: "<div>{{layui.util.toDateString(createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+            {fixed: 'right', title: '操作', toolbar: '#barDemo', width:150, align:'center', unresize: true}
+
+            // {type: 'checkbox'},
+            // {field: 'userId', title: '用户编号',  sort: true, hide: true} , <!--隐藏-->
+            // {field: 'studentNo', title: '学号',  sort: true, },
+            // {field: 'nickname', title: '昵称',  sort: true, },
+            // // {field: 'password', title: '密码',  sort: true, hide: true},
+            // {field: 'realName', title: '真实姓名', sort: true, },
+            // {field: 'sex', title: '性别',  sort: true, },
+            // {field: 'email', title: '电子邮箱', sort: true, },
+            // {field: 'phone', title: '手机号',  sort: true},
+            // {field: 'dormitoryAddress', title: '宿舍地址', sort: true, hide: false,},
+            // // 经检验template日期转换无效，在数据库与实体类映射时转换即可
+            // {field: 'createTime', title: '创建时间', sort: true, template: "<div>{{layui.util.toDateString(createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+            // {fixed: 'right', title: '操作', toolbar: '#barDemo', align:'center', unresize: true}
         ]]
         ,height: '472'
         ,method: 'post'
@@ -154,7 +166,6 @@ layui.use(['table', 'layer', 'form'], function(){
                 // layer.alert(JSON.stringify(data));
                 var str = "";
                 if(data.length > 0){
-                    layer.alert('delete?');
                     for(var i = 0; i < data.length; i++){
                         str += data[i].userId + "，";
                     }

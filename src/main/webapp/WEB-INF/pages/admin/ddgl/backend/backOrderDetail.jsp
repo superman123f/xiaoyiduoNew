@@ -263,6 +263,8 @@
                 success: function(data){
                    if(data.success) {
                        layer.msg("保存成功");
+                       var index = parent.layer.getFrameIndex(window.name);
+                       parent.layer.close(index);
                    } else {
                        layer.msg("保存失败");
                    }

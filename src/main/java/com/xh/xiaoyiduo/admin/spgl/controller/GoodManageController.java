@@ -514,11 +514,12 @@ public class GoodManageController {
      * @return
      */
     @RequestMapping("/goodInfo")
-    public String userInfo(String goodId, Model model){
+    public String userInfo(String goodId, String status, Model model){
         B_GOOD good = goodManageService.getGoodDetailByGoodId(goodId, model);
         List<B_GOOD_FATHER> fatherList = goodManageService.getGoodFatherList();
         model.addAttribute("good", good);
         model.addAttribute("fatherList", fatherList);
+        model.addAttribute("status", status);
         return "/admin/spgl/goodInfo";
     }
 
