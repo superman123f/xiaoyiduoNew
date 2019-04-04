@@ -61,6 +61,9 @@
                 <button id="getCheckData" class="layui-btn layui-btn-xs layui-btn-normal"  data-type="getCheckData">
                     <i class="layui-icon">&#xe654;</i>关联权限
                 </button>
+                <button id="celPermission" class="layui-btn layui-btn-xs layui-btn-danger"  data-type="celPermission">
+                    <i class="layui-icon">&#xe640;</i>取消权限
+                </button>
                 <%--<button id="celPermission" class="layui-btn layui-btn-xs layui-btn-normal"  data-type="celPermission">--%>
                     <%--<i class="layui-icon">&#xe654;</i>取消权限--%>
                 <%--</button>--%>
@@ -152,10 +155,10 @@
             ,cols: [[ //表头
                 // {type: 'checkbox'}, //复选框
                 {type: 'radio'},
-                {title: '序号', templet: '#indexTpl'},
+                {title: '序号', templet: '#indexTpl', width:'41%'},
                 {field: 'roleId', title: '角色编号', sort: true, hide: true},
                 // {field: 'roleId', title: '公告编号',  sort: true, hide: true} , <!--隐藏-->
-                {field: 'roleName', title: '角色名称',  sort: true},
+                {field: 'roleName', title: '角色名称',  sort: true, width:'41%'},
                 {field: 'userId', title: '用户编号',  sort: true, hide: true},
                 // {field: 'releaseTime', title: '发布时间', sort: true, template: "<div>{{layui.util.toDateString(releaseTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {fixed: 'right', title: '操作', toolbar: '#barDemo', width:134, align:'center', unresize: true}
@@ -225,7 +228,7 @@
                     if(data.length > 0) {
                         var roleId = data[0].roleId;
                         // layer.alert(JSON.stringify(data)+"add");
-                        window.location.href="/role/toRoleAdminPage1?roleId="+roleId;
+                        window.location.href="/role/toRoleAdminPage1?roleId="+roleId+"&status=true";
                     } else {
                         layer.alert("请选择角色");
                     }
@@ -236,7 +239,10 @@
                     var checkStatus = table.checkStatus('roleId') //此时的id为render的id,获取选中行状态
                         ,data = checkStatus.data; //获取选中行数据
                     if(data.length > 0) {
-                        layer.alert(JSON.stringify(data)+"cancel");
+                        // layer.alert(JSON.stringify(data)+"cancel");
+                        var roleId = data[0].roleId;
+                        // layer.alert(JSON.stringify(data)+"add");
+                        window.location.href="/role/toRoleAdminPage1?roleId="+roleId+"&status=false";
                     } else {
                         layer.alert("请选择角色");
                     }

@@ -10,8 +10,8 @@ import java.util.List;
 /**
  */
 public interface IRoleManageService {
-    int getPermissionCount(String permissionName); // 获取权限总数
-    List<S_USER_PERMISSIONS> selectAllPermissions(String pageSize, String currentPage, String permissionName); //分页查询
+    int getPermissionCount(String roleId, String status, String permissionName); // 获取权限总数
+    List<S_USER_PERMISSIONS> selectAllPermissions(String roleId, String status, String pageSize, String currentPage, String permissionName); //分页查询
     S_USER_PERMISSIONS selectByPrimaryKey(String permissionId); //查看
     int insert(S_USER_PERMISSIONS permission); //新增权限
     int updatePermissionInfoByPermissionId(S_USER_PERMISSIONS rolePermissionId); //更新权限
@@ -23,6 +23,7 @@ public interface IRoleManageService {
     S_USER_ROLES seeRolePermissions(String roleId); // 查看角色权限
     int giveRolePermission(S_USER_ROLEPERMISSIONS record); //给予角色权限
     int cancelRolePermission(String roleId, String permissionId); //取消角色权限
+
 
 //    -------------------------用户角色--------------
     S_USER seeUserRoles(String userId); // 查看角色权限

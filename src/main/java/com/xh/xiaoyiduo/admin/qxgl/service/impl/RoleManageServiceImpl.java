@@ -32,13 +32,13 @@ public class RoleManageServiceImpl implements IRoleManageService {
     S_USERMapper userMapper;
 
     @Override
-    public int getPermissionCount(String permissionName) {
-        return permissionsMapper.getPermissionCount(permissionName);
+    public int getPermissionCount(String roleId, String status, String permissionName) {
+        return permissionsMapper.getPermissionCount(roleId, status, permissionName);
     }
 
     @Override
-    public List<S_USER_PERMISSIONS> selectAllPermissions(String pageSize, String currentPage, String permissionName) {
-        return permissionsMapper.selectAllPermissions(pageSize,currentPage,permissionName);
+    public List<S_USER_PERMISSIONS> selectAllPermissions(String roleId, String status, String pageSize, String currentPage, String permissionName) {
+        return permissionsMapper.selectAllPermissions(roleId, status, pageSize,currentPage,permissionName);
     }
 
     @Override

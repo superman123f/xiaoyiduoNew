@@ -20,6 +20,6 @@ public interface S_USER_PermissionsMapper {
 
     int updateByPrimaryKey(S_USER_PERMISSIONS record);
 
-    int getPermissionCount(@Param("permissionName")String permissionName); // 获取权限总数
-    List<S_USER_PERMISSIONS> selectAllPermissions(@Param("pageSize") String pageSize, @Param("currentPage") String currentPage, @Param("permissionName")String permissionName); //分页查询
+    int getPermissionCount(@Param("roleId")String roleId, @Param("status")String status, @Param("permissionName")String permissionName); // 获取权限总数
+    List<S_USER_PERMISSIONS> selectAllPermissions(@Param("roleId")String roleId, @Param("status")String status, @Param("pageSize") String pageSize, @Param("currentPage") String currentPage, @Param("permissionName")String permissionName); //分页查询
 }

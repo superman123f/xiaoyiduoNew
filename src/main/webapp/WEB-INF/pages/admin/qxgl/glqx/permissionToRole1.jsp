@@ -132,11 +132,12 @@
             });
         });
 
+        var roleId = $("#roleId").val();
         //第一个实例
         table.render({
             id: 'permissionId', //隐藏的列
             elem: '#demo'
-            ,url: '/role/getAllPermissions' //数据接口
+            ,url: '/role/getAllPermissions?roleId=' + roleId //数据接口
             // ,where: {studentNo: "3"}
             ,page: true //开启分页
             // ,initSort: {field: 'studentNo', type: 'desc'} //设置初始排序

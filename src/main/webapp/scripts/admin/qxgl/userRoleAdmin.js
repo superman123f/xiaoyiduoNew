@@ -64,17 +64,17 @@ layui.use(['table', 'layer', 'form'], function(){
             // {type: 'checkbox'},
             {type: 'radio'},
             {field: 'userId', title: '用户编号',  sort: true, hide: true} , <!--隐藏-->
-            {field: 'studentNo', title: '学号',  sort: true},
-            {field: 'nickname', title: '昵称',  sort: true},
-            {field: 'password', title: '密码',  sort: true, hide: true},
-            {field: 'realName', title: '真实姓名', sort: true},
-            {field: 'sex', title: '性别',  sort: true},
-            {field: 'email', title: '电子邮箱', sort: true},
-            {field: 'phone', title: '手机号',  sort: true},
-            {field: 'dormitoryAddress', title: '宿舍地址', sort: true, hide: false},
+            {field: 'studentNo', title: '学号',  sort: true, width: '10%'},
+            {field: 'nickname', title: '昵称',  sort: true, width: '10%'},
+            {field: 'password', title: '密码',  sort: true, hide: true},<!--隐藏-->
+            {field: 'realName', title: '真实姓名', sort: true, width: '10%'},
+            {field: 'sex', title: '性别',  sort: true, width: '7%'},
+            {field: 'email', title: '电子邮箱', sort: true, width: '10%'},
+            {field: 'phone', title: '手机号',  sort: true, width: '10%'},
+            {field: 'dormitoryAddress', title: '宿舍地址', sort: true, width: '15%'},
             // {fixed: 'createTime', title: '创建时间', width: 200},
             // 经检验template日期转换无效，在数据库与实体类映射时转换即可
-            {field: 'createTime', title: '创建时间', sort: true, template: "<div>{{layui.util.toDateString(createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+            {field: 'createTime', title: '创建时间', sort: true, width: '11%' , template: "<div>{{layui.util.toDateString(createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
             // {field: 'createTime', title: '创建时间', width: 200, sort: true, "<div>{{layui.util.toDateString(createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
             {fixed: 'right', title: '操作', toolbar: '#barDemo', width:134, align:'center', unresize: true}
         ]]

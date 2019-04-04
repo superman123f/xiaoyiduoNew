@@ -17,27 +17,63 @@
   </select>
   <!--获取权限总数-->
   <select id="getPermissionCount" resultType="int">
-    select
-    count(1)
-    from S_USER_PERMISSIONS
-    <if test="permissionName != null">
-      where PERMISSION_NAME like concat('%',concat(#{permissionName,jdbcType=VARCHAR}, '%'))
-    </if>
+    <choose>
+      <when test="roleId != null">
+        select count(1) from S_USER_PERMISSIONS p where p.permission_id
+        <if test="status == true">
+          not in
+        </if>
+        <if test="status == false">
+          in
+        </if>
+        (select  rp.permission_id from S_USER_ROLEPERMISSIONS rp where rp.role_id = #{roleId,jdbcType=VARCHAR})
+      </when>
+      <otherwise>
+        select
+        count(1)
+        from S_USER_PERMISSIONS
+        <if test="permissionName != null">
+          where PERMISSION_NAME like concat('%',concat(#{permissionName,jdbcType=VARCHAR}, '%'))
+        </if>
+      </otherwise>
+    </choose>
   </select>
   <!--分页获取权限-->
   <select id="selectAllPermissions" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    SELECT *
-    FROM (SELECT r.*,ROWNUM rn
-    FROM(
-    select
-    <include refid="Base_Column_List" />
-    from S_USER_PERMISSIONS t
-    <if test="permissionName != null">
-      where PERMISSION_NAME like concat('%',concat(#{permissionName,jdbcType=VARCHAR}, '%'))
-    </if>
-    ) r
-    where ROWNUM &lt;= #{pageSize} * #{currentPage}
-    ) WHERE rn > #{pageSize} * ( #{currentPage} - 1)
+    <choose>
+      <when test="roleId != null">
+        SELECT *
+        FROM (SELECT r.*,ROWNUM rn
+        FROM(
+          select p.* from S_USER_PERMISSIONS p where
+            p.permission_name like concat('%', concat(#{permissionName,jdbcType=VARCHAR}, '%')) and
+            p.permission_id
+            <if test="status == true">
+              not in
+            </if>
+            <if test="status == false">
+              in
+            </if>
+            (select  rp.permission_id from S_USER_ROLEPERMISSIONS rp where rp.role_id = #{roleId,jdbcType=VARCHAR})
+        ) r
+        where ROWNUM &lt;= #{pageSize} * #{currentPage}
+        ) WHERE rn > #{pageSize} * ( #{currentPage} - 1)
+      </when>
+      <otherwise>
+        SELECT *
+        FROM (SELECT r.*,ROWNUM rn
+        FROM(
+        select
+        <include refid="Base_Column_List" />
+        from S_USER_PERMISSIONS t
+        <if test="permissionName != null">
+          where PERMISSION_NAME like concat('%',concat(#{permissionName,jdbcType=VARCHAR}, '%'))
+        </if>
+        ) r
+        where ROWNUM &lt;= #{pageSize} * #{currentPage}
+        ) WHERE rn > #{pageSize} * ( #{currentPage} - 1)
+      </otherwise>
+    </choose>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from S_USER_PERMISSIONS

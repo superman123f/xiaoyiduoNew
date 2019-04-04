@@ -392,27 +392,38 @@ public class GoodManageController {
 //        Long currentUserId = (Long) SecurityUtils.getSubject().getSession().getAttribute("currentUserId");
         String[] imgUrlList = imgUrls.split(",");
         Map<String, Object> result = new HashMap<>();
-        //保存商品信息
-        String goodId = UUID.randomUUID().toString().replaceAll("\\-", "");
-        good.setGoodId(goodId);
-        good.setUserId(currentUserId);
-        int g = goodManageService.insert(good);
-        if(g > 0) {
-            result.put("success", true);
-            System.out.println("保存商品成功");
 
-            if(imgUrlList.length > 0){
-                for(int i = 0; i < imgUrlList.length; i++){
-                    System.out.println("imgs path is" + imgUrlList[i]);
-                    String resourceId = UUID.randomUUID().toString().replaceAll("\\-", "");
-                    //保存商品图片路径到resources表
-                    goodManageService.saveGoodImageUrls(resourceId, "1", imgUrlList[i], goodId);
-                }
+        if(good != null && good.getGoodId() != "") { //更改信息
+            int i = goodManageService.updateByPrimaryKeySelective(good);
+            if(i > 0) {
+                result.put("success", true);
+                result.put("msg", "保存成功");
+            } else {
+                result.put("msg", "保存失败");
             }
         } else {
-            System.out.println("保存商品失败");
-            result.put("success", false);
+            //保存商品信息
+            String goodId = UUID.randomUUID().toString().replaceAll("\\-", "");
+            good.setGoodId(goodId);
+            good.setUserId(currentUserId);
+            int g = goodManageService.insert(good);
+            if(g > 0) {
+                result.put("success", true);
+                result.put("msg", "发布成功");
+
+                if(imgUrlList.length > 0){
+                    for(int i = 0; i < imgUrlList.length; i++){
+                        System.out.println("imgs path is" + imgUrlList[i]);
+                        String resourceId = UUID.randomUUID().toString().replaceAll("\\-", "");
+                        //保存商品图片路径到resources表
+                        goodManageService.saveGoodImageUrls(resourceId, "1", imgUrlList[i], goodId);
+                    }
+                }
+            } else {
+                result.put("msg", "发布失败");
+            }
         }
+
         return result;
     }
 

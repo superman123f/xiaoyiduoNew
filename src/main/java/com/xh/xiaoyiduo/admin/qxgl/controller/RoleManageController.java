@@ -67,9 +67,9 @@ public class RoleManageController {
      */
     @RequestMapping("/getAllPermissions")
     @ResponseBody
-    public String getAllPermissions(String limit, String page){
-        int count = roleManageService.getPermissionCount(null); // 获取权限的总数量
-        List<S_USER_PERMISSIONS> permissionList = roleManageService.selectAllPermissions(limit, page, null); //获取所有权限的信息
+    public String getAllPermissions(String roleId, String status, String limit, String page){
+        int count = roleManageService.getPermissionCount(null, status, roleId); // 获取权限的总数量
+        List<S_USER_PERMISSIONS> permissionList = roleManageService.selectAllPermissions(roleId, status, limit, page, null); //获取所有权限的信息
         String permissionListJson = JSON.toJSONString(permissionList); //将对象转换为json
         String json = "{\"code\":0,\"msg\":\"\",\"count\":" + count + ",\"data\":" + permissionListJson + "}";
         return json;
@@ -191,9 +191,9 @@ public class RoleManageController {
     @RequestMapping("/searchPermission")
     @ResponseBody
     public String searchPermission(String limit, String page, String permissionName, HttpServletResponse response){
-        int count = roleManageService.getPermissionCount(permissionName); // 获取公告的总数量
+        int count = roleManageService.getPermissionCount(null, null, permissionName); // 获取公告的总数量
 
-        List<S_USER_PERMISSIONS> permissionList = roleManageService.selectAllPermissions(limit, page, permissionName);
+        List<S_USER_PERMISSIONS> permissionList = roleManageService.selectAllPermissions(null, null, limit, page, permissionName);
         String permissionListJson = JSON.toJSONString(permissionList);
         String json = "{\"code\":0,\"msg\":\"\",\"count\":" + count + ",\"data\":" + permissionListJson + "}";
 

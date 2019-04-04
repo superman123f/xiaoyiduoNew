@@ -27,6 +27,9 @@
 <%--GOOD_NUMBER	商品数量--%>
 <%--STATUS	商品状态（1售卖中，2已售出，3已下架）--%>
 <%--USER_ID	用户编号--%>
+
+<input id="goodId" name="goodId" type="hidden" value="${good.goodId}">
+
 <div style="margin: 25px 26px 0px 8px;">
     <form class="layui-form" action="/user/register" method="post">
         <div class="layui-form-item">
@@ -297,8 +300,9 @@
     }
 
     function goodSave(){
-
+        //发布商品
         $("#releaseBtn").click(function(){
+            var goodId = $("#goodId").val();
             var sonId = $("#sonId").val();
             var goodName = $("#goodName").val();
             var information = $("#information").val();
@@ -307,9 +311,10 @@
             var degree = $("#degree").val();
             var goodNumber = $("#goodNumber").val();
             var imgUrls = $("#imgUrls").val();
-
+            // alert(goodId);
             $.post("/good/saveGoodInfo",
                 {
+                    goodId: goodId,
                     sonId: sonId,
                     goodName: goodName,
                     information: information,
@@ -320,15 +325,18 @@
                     imgUrls: imgUrls
                 },function(data){
                     if (data.success){
-                        layer.alert("发布成功");
+                        layer.alert(data.msg);
                         var index = parent.layer.getFrameIndex(window.name);
                         parent.layer.close(index);
                     } else {
-                        layer.alert("发布失败");
+                        layer.alert(data.msg);
                     }
             });
         });
+
+        //保存商品
         $("#saveGoodBtn").click(function(){
+            var goodId = $("#goodId").val();
             var sonId = $("#sonId").val();
             var goodName = $("#goodName").val();
             var information = $("#information").val();
@@ -337,9 +345,11 @@
             var degree = $("#degree").val();
             var goodNumber = $("#goodNumber").val();
             var imgUrls = $("#imgUrls").val();
+            // alert(goodId);
 
             $.post("/good/saveGoodInfo",
                 {
+                    goodId: goodId,
                     sonId: sonId,
                     goodName: goodName,
                     information: information,
@@ -350,15 +360,17 @@
                     imgUrls: imgUrls
                 },function(data){
                     if (data.success){
-                        layer.alert("保存成功");
+                        layer.alert(data.msg);
                         var index = parent.layer.getFrameIndex(window.name);
                         parent.layer.close(index);
                     } else {
-                        layer.alert("保存失败");
+                        layer.alert(data.msg);
                     }
                 });
         });
     }
+
+
 
     $("#closeBtn").click(function(){
         var index = parent.layer.getFrameIndex(window.name);
