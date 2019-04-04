@@ -20,6 +20,7 @@
 </style>
 <body bgcolor="white" style="margin:15px;">
 <input type="hidden" id="roleId" value="${roleId}">
+<input type="hidden" id="status" value="${status}">
 <fieldset class="layui-elem-field">
     <legend>权限管理 - 关联权限</legend>
     <div class="layui-field-box">
@@ -42,12 +43,16 @@
             <%--<button class="layui-btn layui-btn-xs layui-btn-normal dw-dailog" dw-url="/role/editPermission" dw-title="新增权限" dw-width="100%" dw-height="100%">--%>
                 <%--<i class="layui-icon">&#xe654;</i>新增--%>
             <%--</button>--%>
-            <button id="getCheckData" class="layui-btn layui-btn-xs layui-btn-normal"  data-type="getCheckData">
-                <i class="layui-icon">&#xe654;</i>关联权限
-            </button>
-            <button id="celPermission" class="layui-btn layui-btn-xs layui-btn-danger"  data-type="celPermission">
-                <i class="layui-icon">&#xe640;</i>取消权限
-            </button>
+            <c:if test="${status == 'true'}">
+                <button id="getCheckData" class="layui-btn layui-btn-xs layui-btn-normal"  data-type="getCheckData">
+                    <i class="layui-icon">&#xe654;</i>关联权限
+                </button>
+            </c:if>
+            <c:if test="${status == 'false'}">
+                <button id="celPermission" class="layui-btn layui-btn-xs layui-btn-danger"  data-type="celPermission">
+                    <i class="layui-icon">&#xe640;</i>取消关联
+                </button>
+            </c:if>
             <%--<button id="deleteData" class="layui-btn layui-btn-xs layui-btn-danger" data-type="deleteData">--%>
                 <%--<i class="layui-icon">&#xe640;</i>批删--%>
             <%--</button>--%>
@@ -133,11 +138,18 @@
         });
 
         var roleId = $("#roleId").val();
+        var status = $("#status").val();
+        var msg = "";
+        if(status === 'true') {
+            msg = "已具备所有权限";
+        } else {
+            msg = "该角色未关联权限";
+        }
         //第一个实例
-        table.render({
+        var my_table = table.render({
             id: 'permissionId', //隐藏的列
             elem: '#demo'
-            ,url: '/role/getAllPermissions?roleId=' + roleId //数据接口
+            ,url: '/role/getAllPermissions?roleId=' + roleId + '&status=' + status//数据接口
             // ,where: {studentNo: "3"}
             ,page: true //开启分页
             // ,initSort: {field: 'studentNo', type: 'desc'} //设置初始排序
@@ -154,6 +166,9 @@
             ]]
             ,height: '472'
             ,method: 'post'
+            ,text: {
+                none: msg
+            }
         });
 
 
@@ -261,7 +276,13 @@
                            url: "/role/giveRolePermission",
                            success: function(data){
                                if(data.success){
-                                   layer.alert("关联成功");
+                                   layer.confirm("关联成功", {
+                                       btn: ['确定']
+                                   },function(index){
+                                       layer.close(index);
+                                       $(".layui-laypage-btn").trigger('click');
+                                   });
+
                                } else {
                                    layer.alert("关联失败");
                                }
@@ -296,7 +317,12 @@
                             url: "/role/cancelRolePermission",
                             success: function(data){
                                 if(data.success){
-                                    layer.alert("取消关联成功");
+                                    layer.confirm("取消关联成功", {
+                                        btn: ['确定']
+                                    },function(index){
+                                        layer.close(index);
+                                        $(".layui-laypage-btn").trigger('click');
+                                    });
                                 } else {
                                     layer.alert("取消关联失败");
                                 }

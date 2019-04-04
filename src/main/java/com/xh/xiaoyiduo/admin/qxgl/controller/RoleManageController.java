@@ -39,8 +39,9 @@ public class RoleManageController {
      * @return
      */
     @RequestMapping("/toRoleAdminPage1")
-    public String toRoleAdminPage1(String roleId, Model model) {
+    public String toRoleAdminPage1(String roleId, String status, Model model) {
         model.addAttribute("roleId", roleId);
+        model.addAttribute("status", status);
         return "/admin/qxgl/glqx/permissionToRole1";
     }
 
@@ -68,7 +69,7 @@ public class RoleManageController {
     @RequestMapping("/getAllPermissions")
     @ResponseBody
     public String getAllPermissions(String roleId, String status, String limit, String page){
-        int count = roleManageService.getPermissionCount(null, status, roleId); // 获取权限的总数量
+        int count = roleManageService.getPermissionCount(roleId, status, null); // 获取权限的总数量
         List<S_USER_PERMISSIONS> permissionList = roleManageService.selectAllPermissions(roleId, status, limit, page, null); //获取所有权限的信息
         String permissionListJson = JSON.toJSONString(permissionList); //将对象转换为json
         String json = "{\"code\":0,\"msg\":\"\",\"count\":" + count + ",\"data\":" + permissionListJson + "}";

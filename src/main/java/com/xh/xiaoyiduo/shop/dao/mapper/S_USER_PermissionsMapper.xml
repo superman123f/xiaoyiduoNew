@@ -18,12 +18,12 @@
   <!--获取权限总数-->
   <select id="getPermissionCount" resultType="int">
     <choose>
-      <when test="roleId != null">
+      <when test="roleId != null and status != null">
         select count(1) from S_USER_PERMISSIONS p where p.permission_id
-        <if test="status == true">
+        <if test="'true' eq status">
           not in
         </if>
-        <if test="status == false">
+        <if test="'false' eq status">
           in
         </if>
         (select  rp.permission_id from S_USER_ROLEPERMISSIONS rp where rp.role_id = #{roleId,jdbcType=VARCHAR})
@@ -41,17 +41,17 @@
   <!--分页获取权限-->
   <select id="selectAllPermissions" resultMap="BaseResultMap" parameterType="java.lang.String" >
     <choose>
-      <when test="roleId != null">
+      <when test="roleId != null and status != null">
         SELECT *
         FROM (SELECT r.*,ROWNUM rn
         FROM(
           select p.* from S_USER_PERMISSIONS p where
             p.permission_name like concat('%', concat(#{permissionName,jdbcType=VARCHAR}, '%')) and
             p.permission_id
-            <if test="status == true">
+            <if test="'true' eq status">
               not in
             </if>
-            <if test="status == false">
+            <if test="'false' eq status">
               in
             </if>
             (select  rp.permission_id from S_USER_ROLEPERMISSIONS rp where rp.role_id = #{roleId,jdbcType=VARCHAR})
