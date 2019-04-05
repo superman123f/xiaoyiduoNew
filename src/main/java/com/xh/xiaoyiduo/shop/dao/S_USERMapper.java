@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository("userMapper")
 public interface S_USERMapper {
@@ -38,4 +39,6 @@ public interface S_USERMapper {
     int cancelAssociateRoleByUserId(@Param("userId")String userId);
 
     S_USER seeUserRoles(String userId);
+
+    List<String> getUserPermissions(String userId); //获取用户权限
 }

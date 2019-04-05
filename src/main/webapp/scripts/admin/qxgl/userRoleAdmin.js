@@ -167,6 +167,7 @@ layui.use(['table', 'layer', 'form'], function(){
                 }
             },
 
+            //关联角色
             giveUserRole: function(){
                 // alert(1);
                 var checkStatus = table.checkStatus('userId') //此时的id为render的id,获取选中行状态
@@ -175,7 +176,20 @@ layui.use(['table', 'layer', 'form'], function(){
                     var userId = data[0].userId;
                     // alert(userId);
                     // layer.alert(JSON.stringify(data)+"add");
-                    window.location.href="/role/toUserAdminPage1?userId="+userId;
+                    window.location.href="/role/toUserAdminPage1?userId="+userId+"&status=true";
+                } else {
+                    layer.alert("请选择角色");
+                }
+            },
+            //取消角色
+            celUserRole: function() {
+                var checkStatus = table.checkStatus('userId') //此时的id为render的id,获取选中行状态
+                    ,data = checkStatus.data; //获取选中行数据
+                if(data.length > 0) {
+                    // layer.alert(JSON.stringify(data)+"cancel");
+                    var userId = data[0].userId;
+                    // layer.alert(JSON.stringify(data)+"add");
+                    window.location.href="/role/toUserAdminPage1?userId="+userId+"&status=false";
                 } else {
                     layer.alert("请选择角色");
                 }
@@ -203,6 +217,11 @@ layui.use(['table', 'layer', 'form'], function(){
 
     //关联角色
     $('#giveUserRole').on('click', function() {
+        var type = $(this).data('type');
+        active[type] ? active[type].call(this) : '';
+    });
+    //取消角色
+    $('#celUserRole').on('click', function() {
         var type = $(this).data('type');
         active[type] ? active[type].call(this) : '';
     });
@@ -259,12 +278,13 @@ layui.use(['table', 'layer', 'form'], function(){
             layer.open(
                 {
                     type: 2,
-                    title: '查看用户角色',
+                    title: '用户角色信息',
                     // skin: 'layui-layer-molv', //样式
                     shadeClose: false,
                     offset: '20px',
                     shade: 0.8,
-                    area: ['880px', '500px'],
+                    area: ['500px', '300px'],
+                    offset: '25%',
                     // maxmin: true, //最大最小化
                     content: '/role/seeUserRoles?userId=' + data.userId,//跳转的页面
                     end: function(){ // open撤销时触发回调函数

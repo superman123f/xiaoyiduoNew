@@ -53,6 +53,9 @@
             <button id="giveUserRole" class="layui-btn layui-btn-xs layui-btn-normal" data-type="giveUserRole">
                 <i class="layui-icon">&#xe654;</i>关联角色
             </button>
+            <button id="celUserRole" class="layui-btn layui-btn-xs layui-btn-danger"  data-type="celUserRole">
+                <i class="layui-icon">&#xe640;</i>取消角色
+            </button>
             <%--<button class="layui-btn layui-btn-xs dw-refresh">--%>
             <%--<i class="layui-icon">&#x1002;</i>刷新--%>
             <%--</button>--%>

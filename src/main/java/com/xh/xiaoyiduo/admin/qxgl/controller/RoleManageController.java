@@ -50,8 +50,9 @@ public class RoleManageController {
      * @return
      */
     @RequestMapping("/toUserAdminPage1")
-    public String toUserAdminPage1(String userId, Model model) {
+    public String toUserAdminPage1(String userId, String status, Model model) {
         model.addAttribute("userId", userId);
+        model.addAttribute("status", status);
         return "/admin/qxgl/gljs/roleToUser1";
     }
 
@@ -209,9 +210,9 @@ public class RoleManageController {
      */
     @RequestMapping("/getAllRoles")
     @ResponseBody
-    public String getAllRoles(String limit, String page, String roleName){
-        int count = roleManageService.getRolesCount(null); // 获取权限的总数量
-        List<S_USER_ROLES> roleList = roleManageService.selectAllRoles(limit, page, null); //获取所有权限的信息
+    public String getAllRoles(String userId, String status, String limit, String page, String roleName){
+        int count = roleManageService.getRolesCount(userId, status, roleName); // 获取角色的总数量
+        List<S_USER_ROLES> roleList = roleManageService.selectAllRoles(userId, status, limit, page, null); //获取所有角色的信息
         String roleListJson = JSON.toJSONString(roleList); //将对象转换为json
         String json = "{\"code\":0,\"msg\":\"\",\"count\":" + count + ",\"data\":" + roleListJson + "}";
         return json;
@@ -225,9 +226,9 @@ public class RoleManageController {
     @RequestMapping("/searchRole")
     @ResponseBody
     public String searchRole(String limit, String page, String roleName, HttpServletResponse response){
-        int count = roleManageService.getRolesCount(roleName); // 获取角色的总数量
+        int count = roleManageService.getRolesCount(null, null, roleName); // 获取角色的总数量
 
-        List<S_USER_ROLES> roleList = roleManageService.selectAllRoles(limit, page, roleName);
+        List<S_USER_ROLES> roleList = roleManageService.selectAllRoles(null, null, limit, page, roleName);
         String roleListJson = JSON.toJSONString(roleList);
         String json = "{\"code\":0,\"msg\":\"\",\"count\":" + count + ",\"data\":" + roleListJson + "}";
 
@@ -255,8 +256,7 @@ public class RoleManageController {
      */
     @RequestMapping("/seeUserRoles")
     public String seeUserRoles(String userId, Model model) {
-        S_USER user = roleManageService.seeUserRoles(userId);
-        model.addAttribute("user", user);
+        roleManageService.seeUserRoles(userId, model);
         return "/admin/qxgl/seeUserRoles";
     }
 

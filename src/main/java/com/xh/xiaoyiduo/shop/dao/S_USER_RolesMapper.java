@@ -21,7 +21,7 @@ public interface S_USER_RolesMapper {
     int updateByPrimaryKey(S_USER_ROLES record);
 
     //    -------------------------角色--------------
-    int getRolesCount(@Param("roleName")String roleName); // 获取权限总数
-    List<S_USER_ROLES> selectAllRoles(@Param("pageSize")String pageSize, @Param("currentPage")String currentPage, @Param("roleName")String roleName); //分页查询
+    int getRolesCount(@Param("userId")String userId, @Param("status")String status, @Param("roleName")String roleName); // 获取权限总数
+    List<S_USER_ROLES> selectAllRoles(@Param("userId")String userId, @Param("status")String status, @Param("pageSize")String pageSize, @Param("currentPage")String currentPage, @Param("roleName")String roleName); //分页查询
     S_USER_ROLES seeRolePermissions(String roleId); // 查看角色权限
 }

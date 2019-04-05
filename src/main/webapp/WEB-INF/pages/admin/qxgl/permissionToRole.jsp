@@ -331,11 +331,12 @@
                 var editBan = layer.open(
                     {
                         type: 2,
-                        title: '查看角色权限',
+                        title: '角色权限信息',
                         // skin: 'layui-layer-molv', //样式
                         shadeClose: false,
                         shade: 0.8,
-                        area: ['500px', '250px'],
+                        area: ['500px', '300px'],
+                        offset: '25%',
                         maxmin: true,
                         content: '/role/seeRolePermissions?roleId=' + data.roleId,//跳转的页面
                         cancel: function (index)

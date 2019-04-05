@@ -13,8 +13,10 @@ import com.xh.xiaoyiduo.shop.pojo.S_USER_PERMISSIONS;
 import com.xh.xiaoyiduo.shop.pojo.S_USER_ROLES;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  */
@@ -62,13 +64,13 @@ public class RoleManageServiceImpl implements IRoleManageService {
     }
 
     @Override
-    public int getRolesCount(String roleName) {
-        return rolesMapper.getRolesCount(roleName);
+    public int getRolesCount(String userId, String status, String roleName) {
+        return rolesMapper.getRolesCount(userId, status, roleName);
     }
 
     @Override
-    public List<S_USER_ROLES> selectAllRoles(String pageSize, String currentPage, String roleName) {
-        return rolesMapper.selectAllRoles(pageSize, currentPage, roleName);
+    public List<S_USER_ROLES> selectAllRoles(String userId, String status, String pageSize, String currentPage, String roleName) {
+        return rolesMapper.selectAllRoles(userId, status, pageSize, currentPage, roleName);
     }
 
     @Override
@@ -97,7 +99,11 @@ public class RoleManageServiceImpl implements IRoleManageService {
     }
 
     @Override
-    public S_USER seeUserRoles(String userId) {
-        return userMapper.seeUserRoles(userId);
+    public S_USER seeUserRoles(String userId, Model model) {
+        List<String> permissionList = userMapper.getUserPermissions(userId);
+        S_USER user = userMapper.seeUserRoles(userId);
+        model.addAttribute("permissionList", permissionList);
+        model.addAttribute("user", user);
+        return null;
     }
 }

@@ -20,6 +20,7 @@
 </style>
 <body bgcolor="white" style="margin:15px;">
 <input type="hidden" id="userId" value="${userId}">
+<input type="hidden" id="status" value="${status}">
 <fieldset class="layui-elem-field">
     <legend>角色管理 - 关联角色</legend>
     <div class="layui-field-box">
@@ -59,12 +60,16 @@
         <%--<button id="exportExl" class="layui-btn layui-btn-xs" data-type="exportExl">导出Excel</button>--%>
         <%--</div>--%>
         <div class="layui-btn-group">
-            <button id="getCheckData" class="layui-btn layui-btn-xs layui-btn-normal"  data-type="getCheckData">
-                <i class="layui-icon">&#xe654;</i>关联角色
-            </button>
-            <button id="celRole" class="layui-btn layui-btn-xs layui-btn-danger"  data-type="celRole">
-                <i class="layui-icon">&#xe640;</i>取消角色
-            </button>
+            <c:if test="${status == 'true'}">
+                <button id="getCheckData" class="layui-btn layui-btn-xs layui-btn-normal"  data-type="getCheckData">
+                    <i class="layui-icon">&#xe654;</i>关联角色
+                </button>
+            </c:if>
+            <c:if test="${status == 'false'}">
+                <button id="celRole" class="layui-btn layui-btn-xs layui-btn-danger"  data-type="celRole">
+                    <i class="layui-icon">&#xe640;</i>取消角色
+                </button>
+            </c:if>
         </div>
         <%--</script>--%>
         <hr>
@@ -92,6 +97,10 @@
         <%--<i class="layui-icon">&#xe640;</i>删除--%>
         <%--</button>--%>
     </div>
+</script>
+<%--LayUI模板引擎，增加序号--%>
+<script type="text/html" id="indexTpl">
+    {{d.LAY_TABLE_INDEX+1}}
 </script>
 </body>
 <script type="text/javascript" src="${ctx}/scripts/jquery.min.js"></script>
@@ -136,11 +145,19 @@
             });
         });
 
+        var userId = $("#userId").val();
+        var status = $("#status").val();
+        var msg = "";
+        if(status === 'true') {
+            msg = "已具备所有角色";
+        } else {
+            msg = "该角色未关联角色";
+        }
         //第一个实例
         table.render({
             id: 'roleId', //隐藏的列
             elem: '#demo'
-            ,url: '/role/getAllRoles' //数据接口
+            ,url: '/role/getAllRoles?userId=' + userId + '&status=' + status//数据接口
             // ,toolbar: '#toolbarDemo' //绑定工具栏
             // ,where: {studentNo: "3"}
             ,page: true //开启分页
@@ -148,15 +165,18 @@
             ,cols: [[ //表头
                 // {type: 'checkbox'}, //复选框
                 {type: 'radio'},
-                {field: 'roleId', title: '角色编号', sort: true},
-                // {field: 'roleId', title: '公告编号',  sort: true, hide: true} , <!--隐藏-->
-                {field: 'roleName', title: '角色名称',  sort: true},
+                {title: '序号', templet: '#indexTpl', width:280},
+                {field: 'roleId', title: '角色编号', hide: true},
                 {field: 'userId', title: '用户编号',  sort: true, width: 500, hide: true},
+                {field: 'roleName', title: '角色名称',  sort: true, width:'55%'},
                 // {field: 'releaseTime', title: '发布时间', sort: true, template: "<div>{{layui.util.toDateString(releaseTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {fixed: 'right', title: '操作', toolbar: '#barDemo', width:134, align:'center', unresize: true}
             ]]
             ,height: '472'
             ,method: 'post'
+            ,text: {
+                none: msg
+            }
         });
 
         //搜索 ----------------------------------------------- Begin-----------------------------------------------------------
@@ -234,7 +254,12 @@
                             url: "/role/giveUserRole",
                             success: function (data) {
                                 if (data.success) {
-                                    layer.alert("关联成功");
+                                    layer.confirm("关联成功", {
+                                        btn: ['确定']
+                                    },function(index){
+                                        layer.close(index);
+                                        $(".layui-laypage-btn").trigger('click');
+                                    });
                                 } else {
                                     layer.alert("关联失败");
                                 }
@@ -269,7 +294,12 @@
                             url: "/role/cancelUserRole",
                             success: function (data) {
                                 if (data.success) {
-                                    layer.alert("取消关联成功");
+                                    layer.confirm("取消关联成功", {
+                                        btn: ['确定']
+                                    },function(index){
+                                        layer.close(index);
+                                        $(".layui-laypage-btn").trigger('click');
+                                    });
                                 } else {
                                     layer.alert("取消关联失败");
                                 }
