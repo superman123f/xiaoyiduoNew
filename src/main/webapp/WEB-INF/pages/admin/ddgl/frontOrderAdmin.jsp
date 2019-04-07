@@ -25,6 +25,14 @@
     .shopcart-content .th-common{
         width: 150px;
     }
+    .shopcart-content .item-content {
+        border: 1px solid #ececee;
+        border-bottom: 0;
+        height: auto;
+        padding: 30px 0;
+        box-sizing: border-box;
+        position: relative;
+    }
 </style>
 <body>
 
@@ -131,7 +139,7 @@
                             <span class="">${order.orderStatus}</span>
                         </li>
                         <li class="th th-op">
-                                <%--<span class="dele-btn" onclick="delCartItem('${cart.cartId}');">删除</span>--%>
+                            <%--<span class="dele-btn" onclick="delCartItem('${cart.cartId}');">删除</span>--%>
                             <span class="dele-btn">删除</span>
                             <span class="order_detail">详情</span>
                             <input type="hidden" id="orderId" class="orderId" value="${order.orderId}">

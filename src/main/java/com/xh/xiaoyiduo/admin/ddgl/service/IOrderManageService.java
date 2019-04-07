@@ -24,7 +24,7 @@ public interface IOrderManageService {
     int getOrderCount(String sellerId,String orderId, String buyerName, String orderStatus); //订单个数
     List<B_GOOD_ORDER> getAllOrdersBackend(String sellerId,String orderId, String buyerName, String orderStatus,String currentPage, String pageSize);// 后端获取所有订单
     int deleteOrderByOrderId(String orderId); //删除订单
-    B_GOOD_ORDER showBackGoodOrdel(String orderId); //查看订单详情
+    B_GOOD_ORDER showBackGoodOrdel(String orderId, Model model); //查看订单详情
     int saveBackOrderDetail(B_GOOD_ORDER order); //更新订单详情
 
 }

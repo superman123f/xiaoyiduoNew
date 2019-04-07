@@ -124,12 +124,12 @@
     select t.* from (SELECT *
     FROM (SELECT r.*,ROWNUM rn
     FROM(
-    select b.* from B_GOOD b
+    select b.* from B_GOOD b where b.good_number > 0
     <if test="sonId != null">
-      where son_id = #{sonId,jdbcType=VARCHAR}
+      and son_id = #{sonId,jdbcType=VARCHAR}
     </if>
     <if test="goodName != null">
-      where good_Name
+      and good_Name
       like concat('%',concat(#{goodName,jdbcType=VARCHAR},'%'))
     </if>
 
@@ -186,13 +186,13 @@
   <!--获取子类商品个数-->
   <select id="getSonGoodCount" resultType="java.lang.Integer" parameterType="java.lang.String" >
     select sum(1)
-    from B_GOOD b
+    from B_GOOD b where  b.good_number > 0
     <if test="sonId != null">
-      where b.son_id = #{sonId,jdbcType=VARCHAR}
+      and b.son_id = #{sonId,jdbcType=VARCHAR}
     </if>
 
     <if test="goodName != null">
-      where good_Name
+      and good_Name
       like concat('%',concat(#{goodName,jdbcType=VARCHAR},'%'))
     </if>
   </select>
@@ -327,6 +327,12 @@
       </if>
     </trim>
   </insert>
+  <!--更新商品库存-->
+  <update id="updateGoodStock">
+    update B_GOOD set good_number = good_number - 1
+    where good_id = #{goodId,jdbcType=VARCHAR}
+    and good_number = #{goodNumber,jdbcType=DECIMAL}
+  </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD" >
     update B_GOOD
     <set >

@@ -4,6 +4,7 @@ import com.xh.xiaoyiduo.admin.spgl.pojo.B_GOOD;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +33,8 @@ public interface B_GOODMapper {
     int updateByPrimaryKeySelective(B_GOOD record);
 
     int updateByPrimaryKey(B_GOOD record);
+
+    int updateGoodStock(@Param("goodId")String goodId, @Param("goodNumber")BigDecimal goodNumber);
 
     int saveGoodImageUrls(@Param("resourceId")String resourceId, @Param("type")String type, @Param("imgUrl") String imgUrl, @Param("sonId")String sonId); //保存商品图片路径
 

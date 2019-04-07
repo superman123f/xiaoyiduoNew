@@ -233,7 +233,7 @@
                                         <%--订单留言--%>
                                         <div class="layui-form-item order-item">
                                             <label class="layui-form-label" style="padding: 0px 0px;">订单留言</label>
-                                            <div class="layui-input-inline">
+                                            <div class="layui-input-inline" style="margin-left: 7px;">
                                                 <input id="orderMessage_${status.index}" name="orderMessage_${status.index}" style=""  type="text" value="${order.orderMessage}">
                                             </div>
                                         </div>

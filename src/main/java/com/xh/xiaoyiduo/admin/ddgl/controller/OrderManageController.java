@@ -121,7 +121,7 @@ public class OrderManageController {
             userService.updateUserInfoByUserId(currentUser); //更新余额
             String[] orderId = orderIds.split(",");
             for(int i = 0; i < orderId.length; i++) {
-                B_GOOD_ORDER order = orderManageService.showBackGoodOrdel(orderId[i]);
+                B_GOOD_ORDER order = orderManageService.showBackGoodOrdel(orderId[i], model);
                 order.setOrderStatus("已付款");
                 int f = orderManageService.saveBackOrderDetail(order);
                 if(f > 0) {
@@ -306,7 +306,7 @@ public class OrderManageController {
      */
     @RequestMapping("/toBackOrderDetailPage")
     public String toBackOrderDetailPage(String orderId, String type, Model model) {
-        B_GOOD_ORDER order = orderManageService.showBackGoodOrdel(orderId);
+        B_GOOD_ORDER order = orderManageService.showBackGoodOrdel(orderId, model);
         model.addAttribute("order", order);
         model.addAttribute("type", type);
         return "/admin/ddgl/backend/backOrderDetail";

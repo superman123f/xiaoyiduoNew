@@ -232,9 +232,9 @@ layui.use(['table', 'layer', 'form'], function(){
                     maxmin: true,
                     // skin: 'layui-layer-molv', //样式
                     shadeClose: false,
-                    offset: '20px',
+                    offset: '0px',
                     shade: 0.8,
-                    area: ['880px', '500px'],
+                    area: ['625px', '100%'],
                     // maxmin: true, //最大最小化
                     content: '/order/toBackOrderDetailPage?orderId=' + data.orderId,//跳转的页面
                     end: function(){ // open撤销时触发回调函数
@@ -254,9 +254,9 @@ layui.use(['table', 'layer', 'form'], function(){
                     maxmin: true,
                     // skin: 'layui-layer-molv', //样式
                     shadeClose: false,
-                    offset: '20px',
+                    offset: '0px',
                     shade: 0.8,
-                    area: ['880px', '500px'],
+                    area: ['625px', '100%'],
                     // maxmin: true, //最大最小化
                     content: '/order/toBackOrderDetailPage?orderId=' + data.orderId + "&type=1",//跳转的页面
                     end: function(){ // open撤销时触发回调函数

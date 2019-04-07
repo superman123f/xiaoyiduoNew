@@ -19,6 +19,7 @@ import org.springframework.util.ObjectUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -135,29 +136,34 @@ public class OrderManageServiceImpl implements IOrderManageService {
             int carIndex = 0;
 
             for(B_GOOD_ORDER order: orderList) {
-                B_GOOD _good = goodMapper.selectByPrimaryKey(order.getGoodId());
+                B_GOOD _good = goodMapper.selectByPrimaryKey(order.getGoodId()); //商品信息
                 if(_good != null && !_good.equals("")) {
-                    orderIds += order.getOrderId() + ",";
-                    smallPrice = _good.getSecondPrice() * order.getGoodNumber(); //小计
-                    bigPrice += smallPrice;
-
-                    order.setBuyerId(userId);
-                    order.setSellerId(_good.getUserId());
-                    order.setOrderCreateTime(date);
-                    order.setDeliveryMethod("卖家配送");
-                    order.setSinglePrice(_good.getSecondPrice());
-                    order.setTotalPrice(smallPrice);
-                    order.setOrderStatus("未付款");
-
-                    //保存订单
-                    int i = orderMapper.insert(order);
-                    if(i > 0) {
-                        if(!carId[carIndex].equals("")) {
-                            cartMapper.deleteByPrimaryKey(carId[carIndex]); //删除购物项
+                    int goodNum = _good.getGoodNumber().intValue();
+                    if( goodNum > 0 ) { //有库存
+                        int result = goodMapper.updateGoodStock(_good.getGoodId(), _good.getGoodNumber()); //判断是否被其它线程修改
+                        if(result == 0) {
+                            continue;
                         }
+                        orderIds += order.getOrderId() + ",";
+                        smallPrice = _good.getSecondPrice() * order.getGoodNumber(); //小计
+                        bigPrice += smallPrice;
 
-                        //减少商品数量
-                        count++;
+                        order.setBuyerId(userId);
+                        order.setSellerId(_good.getUserId());
+                        order.setOrderCreateTime(date);
+                        order.setDeliveryMethod("卖家配送");
+                        order.setSinglePrice(_good.getSecondPrice());
+                        order.setTotalPrice(smallPrice);
+                        order.setOrderStatus("未付款");
+
+                        int i = orderMapper.insert(order); //保存订单
+                        if(i > 0) {
+                            if(!carId[carIndex].equals("")) {
+                                cartMapper.deleteByPrimaryKey(carId[carIndex]); //删除购物项
+                            }
+
+                            count++; //减少商品数量
+                        }
                     }
                 }
                 carIndex++;
@@ -191,12 +197,6 @@ public class OrderManageServiceImpl implements IOrderManageService {
         return orderMapper.deleteByPrimaryKey(orderId);
     }
 
-//    @Override
-//    public List<B_GOOD_ORDER> selectAllOrderBackend(String sellerId) {
-//        return orderMapper.selectAllOrderBackend(sellerId);
-//    }
-
-
     @Override
     public int getOrderCount(String sellerId,String orderId, String buyerName,String orderStatus) {
         return orderMapper.getOrderCount(sellerId,orderId,buyerName,orderStatus);
@@ -213,7 +213,12 @@ public class OrderManageServiceImpl implements IOrderManageService {
     }
 
     @Override
-    public B_GOOD_ORDER showBackGoodOrdel(String orderId) {
+    public B_GOOD_ORDER showBackGoodOrdel(String orderId, Model model) {
+        B_GOOD_ORDER order = orderMapper.selectByPrimaryKey(orderId);
+        B_GOOD good = goodMapper.selectByPrimaryKey(order.getGoodId());
+        S_USER seller = userMapper.selectByUserId(good.getUserId());
+        model.addAttribute("good", good);
+        model.addAttribute("seller", seller);
         return orderMapper.showBackGoodOrdel(orderId);
     }
 
