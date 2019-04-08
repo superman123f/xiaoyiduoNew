@@ -14,6 +14,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 </head>
+<style>
+    .pay_success {
+        float: left;
+        position: relative;
+        width: 360px;
+        margin-top: 52px;
+        margin-left: calc(50% - 180px);
+    }
+    .pay_img {
+        width: 135px;
+        height: 135px;
+    }
+    .pay_son {
+        width: 100%;
+        float: left;
+    }
+    .pay_pic {
+        float: left;
+    }
+    .word_pay {
+        width: 100px;
+        margin-bottom: 17px;
+        font-size: 22px
+    }
+    .word_price {
+        width: 100px;
+        font-size: 20px;
+    }
+    .word_title {
+        margin-top: 32px;
+        margin-left: 10px;
+        float: left;
+    }
+    .link_to_order {
+        margin-left: 25px;
+        margin-top: 9px;
+        float: left;
+    }
+    .footer {
+        margin-top: 360px;
+    }
+</style>
 
 <body>
 
@@ -34,7 +76,25 @@
         <img src="${ctx}/images/qrdd3.png">
     </div>
 
-    付款成功
+    <div class="pay_success">
+        <div class="pay_son">
+            <div class="pay_pic">
+                <img class="pay_img" src="${ctx}/images/pay.png">
+            </div>
+            <div class="word_title">
+                <div class="word_pay">
+                    <span>付款成功</span>
+                </div>
+                <div class="word_price">
+                    ${bigPrice}元
+                </div>
+            </div>
+        </div>
+        <div class="link_to_order">
+            点击转至&nbsp;&nbsp;<a href="/order/toFrontOrderAdminPage">我的订单</a>
+        </div>
+    </div>
+
     <%--订单编号${order.orderId}<br>--%>
     <%--&lt;%&ndash;用户编号${order.userId}<br>&ndash;%&gt;--%>
     <%--买家id${order.buyerId}<br>--%>

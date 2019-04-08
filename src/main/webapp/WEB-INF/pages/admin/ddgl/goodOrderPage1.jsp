@@ -14,6 +14,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 </head>
+<style>
+    .money {
+        padding: 9px 0px;
+        line-height: 20px;
+    }
+    .main_mata {
+        margin-top: 36px;
+        margin-left: 5%;
+        margin-bottom: 55px;
+    }
+</style>
 
 <body>
 
@@ -37,23 +48,33 @@
     <input id="orderIds" name="orderIds" type="hidden" value="${orderIds}">
 
 
-    <div class="layui-form-item">
-        <label class="layui-form-label">总价</label>
-        <div class="layui-input-inline">
-            <input id="bigPrice" name="bigPrice" style=""  type="text" value="${bigPrice}">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">余额</label>
-        <div class="layui-input-inline">
-            <input id="userBalance" name="userBalance" style=""  type="text" value="${user.userBalance}">
-        </div>
-    </div>
+    <div class="main_mata">
+        <div class="layui-form-item">
+            <label class="layui-form-label"><strong>需付(元)</strong>:</label>
+            <div class="layui-input-inline">
+                <div class="money">
+                    <span>${bigPrice}</span>
+                </div>
 
-    <div class="layui-form-item">
-        <div class="layui-input-block">
-            <button id="pay" class="layui-btn" lay-submit lay-filter="formDemo">付款</button>
-            <%--<button type="reset" class="layui-btn layui-btn-primary">重置</button>--%>
+                <input id="bigPrice" name="bigPrice" style=""  type="hidden" value="${bigPrice}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><strong>余额(元)</strong>:</label>
+            <div class="layui-input-inline">
+
+                <div class="money">
+                    <span>${user.userBalance}</span>
+                </div>
+                <input id="userBalance" name="userBalance" style=""  type="hidden" value="${user.userBalance}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button id="pay" class="layui-btn" lay-submit lay-filter="formDemo">付款</button>
+                <%--<button type="reset" class="layui-btn layui-btn-primary">重置</button>--%>
+            </div>
         </div>
     </div>
 </div>
@@ -103,7 +124,7 @@
                    },
                     success: function(data){
                         if(data.success) {
-                            window.location.href="/order/showGoodOrderPage3";
+                            window.location.href="/order/showGoodOrderPage3?bigPrice="+bigPrice;
                         } else {
                             layer.alert("付款失败");
                         }
