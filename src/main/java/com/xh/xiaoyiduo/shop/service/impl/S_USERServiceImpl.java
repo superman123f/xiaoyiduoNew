@@ -3,6 +3,7 @@ package com.xh.xiaoyiduo.shop.service.impl;
 import com.xh.xiaoyiduo.shop.dao.S_USERMapper;
 import com.xh.xiaoyiduo.shop.pojo.S_USER;
 import com.xh.xiaoyiduo.shop.service.IS_USERService;
+import com.xh.xiaoyiduo.utils.ShiroSHAUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -100,5 +101,21 @@ public class S_USERServiceImpl implements IS_USERService {
     @Override
     public int associateRoleByRoleId(String userRoleId, String userId, String roleId) {
         return userMapper.associateRoleByRoleId(userRoleId, userId, roleId);
+    }
+
+    @Override
+    public int resetPwd(String phone, String password) {
+        S_USER user = userMapper.selectByPhone(phone);
+        if(user == null) {
+            return 0;
+        }
+
+        String newPwd = ShiroSHAUtil.sha1ToPassword(user.getNickname(), password);
+        user.setPassword(newPwd);
+        int result = userMapper.updateUserInfoByUserId(user);
+        if(result == 0) {
+            return 0;
+        }
+        return 1;
     }
 }

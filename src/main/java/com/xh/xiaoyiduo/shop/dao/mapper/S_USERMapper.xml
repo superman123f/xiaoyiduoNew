@@ -257,13 +257,12 @@
   <insert id="insert" parameterType="com.xh.xiaoyiduo.shop.pojo.S_USER" >
     insert into S_USER (USER_ID, STUDENT_NO, NICKNAME, 
       PASSWORD, REAL_NAME, SEX, 
-      EMAIL, PHONE, DORMITORY_ADDRESS, CREATE_TIME
+      EMAIL, PHONE, DORMITORY_ADDRESS, CREATE_TIME, USER_BALANCE
       )
     values (#{userId,jdbcType=VARCHAR}, #{studentNo,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{dormitoryAddress,jdbcType=VARCHAR},
-      <!--#{createTime,jdbcType=DATE}-->
-      sysdate
+      sysdate, #{userBalance,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.xh.xiaoyiduo.shop.pojo.S_USER" >

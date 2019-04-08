@@ -165,7 +165,8 @@
       #{buyerName,jdbcType=VARCHAR}, #{buyerAddress,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{orderCreateTime,jdbcType=TIMESTAMP}, #{totalPrice,jdbcType=FLOAT}, 
       #{orderStatus,jdbcType=VARCHAR}, #{deliveryMethod,jdbcType=VARCHAR}, #{sellerId,jdbcType=VARCHAR},
-      #{singlePrice,jdbcType=FLOAT},#{goodNumber,jdbcType=DOUBLE},#{orderMessage,jdbcType=VARCHAR}, #{goodId,jdbcType=VARCHAR}
+      #{singlePrice,jdbcType=FLOAT},#{goodNumber,jdbcType=DOUBLE},#{orderMessage,jdbcType=VARCHAR},
+      #{goodId,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.xh.xiaoyiduo.admin.ddgl.pojo.B_GOOD_ORDER" >

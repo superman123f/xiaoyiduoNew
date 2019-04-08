@@ -284,6 +284,7 @@ public class S_USERController {
                 user.setUserId(uuid);  //插入主键
                 //user.setCreateTime(date);  //时间用sql生成，sysdate
                 user.setPassword(passowrd);
+                user.setUserBalance(5000f);
                 int i = userService.insert(user); //添加用户
 
                 RESOURCES resources = new RESOURCES();
@@ -319,6 +320,23 @@ public class S_USERController {
         }
 
         return data;
+    }
+
+    /**
+     * 修改密码
+     * @param phone
+     * @param password
+     * @param model
+     * @return
+     */
+    @RequestMapping("/resetPwd")
+    @ResponseBody
+    public Map<String, Object> resetPwd(String phone, String password, Model model) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        int result = userService.resetPwd(phone, password);
+        boolean falg = result > 0;
+        map.put("success", falg);
+        return map;
     }
 
 

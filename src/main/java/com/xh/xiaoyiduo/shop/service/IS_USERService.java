@@ -2,6 +2,7 @@ package com.xh.xiaoyiduo.shop.service;
 
 import com.xh.xiaoyiduo.shop.pojo.S_USER;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -34,5 +35,7 @@ public interface IS_USERService {
     int updateUserInfoByUserId(S_USER user); //更新用户信息
 
     int associateRoleByRoleId(String userRoleId, String userId, String roleId); //关联角色
+
+    int resetPwd(String phone, String password); //修改密码
 
 }

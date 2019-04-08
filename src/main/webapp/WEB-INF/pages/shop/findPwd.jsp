@@ -17,7 +17,6 @@
     <link rel="stylesheet" type="text/css" href="../../../styles/shop/main.css">
     <link rel="stylesheet" type="text/css" href="../../../styles/shop/findPwd.css">
     <link rel="stylesheet" type="text/css" href="../../../styles/layui/css/layui.css">
-    <script type="text/javascript" src="${ctx}/scripts/shop/findPwd.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 </head>
@@ -29,6 +28,26 @@
         /*border: 1px solid #ccc;*/
         /*border-radius: 5px;*/
         cursor: pointer;
+    }
+    .step_content {
+        float: left;
+        margin-top: 15px;
+        margin-bottom: 38px;
+    }
+    .phone_verify {
+        float: left;
+        padding: 5px 10px;
+        background-color: #009688;
+    }
+    .reset_password {
+        float: left;
+        margin-left: 4px;
+        padding: 5px 10px;
+        background-color: #949494;
+    }
+    .reset_title {
+        font-size: 17px;
+        color: white;
     }
 </style>
 <body>
@@ -48,10 +67,14 @@
     </div>
 
     <div style="margin: 20px 0px 120px 63px;">
-        <div>
-            手机验证
-            重置密码
-            <%--设置成功--%>
+        <div class="step_content">
+            <div class="phone_verify">
+                <span class="reset_title">1.手机验证</span>
+                <%--设置成功--%>
+            </div>
+            <div class="reset_password">
+                <span class="reset_title">2.重置密码</span>
+            </div>
         </div>
 
         <%--手机验证--%>
@@ -72,7 +95,7 @@
                         </div>
 
                         <div class="layui-form-mid" style="padding: 0!important;">
-                            <button type="button" class="layui-btn layui-btn-normal">获取验证码</button>
+                            <input type="button" class="layui-btn layui-btn-normal" id="find"  value="获取验证码" />
                         </div>
                     </div>
                 </div>
@@ -108,37 +131,11 @@
         </div>
     </div>
 </div>
-
-<div class="footer">
-    <div class="ng-promise-box">
-        <div class="ng-promise w1200">
-            <p class="text">
-                <a class="icon1" href="javascript:;">7天无理由退换货</a>
-                <a class="icon2" href="javascript:;">满99元全场免邮</a>
-                <a class="icon3" style="margin-right: 0" href="javascript:;">100%品质保证</a>
-            </p>
-        </div>
-    </div>
-    <div class="mod_help w1200">
-        <p>
-            <a href="javascript:;">关于我们</a>
-            <span>|</span>
-            <a href="javascript:;">帮助中心</a>
-            <span>|</span>
-            <a href="javascript:;">售后服务</a>
-            <span>|</span>
-            <a href="javascript:;">商品资讯</a>
-            <span>|</span>
-            <a href="javascript:;">关于货源</a>
-        </p>
-        <p class="coty">校益多商城版权所有 &copy; 2018-2050</p>
-    </div>
-</div>
 <%@ include file="/WEB-INF/pages/shop_rooter.jsp" %> <!--引入尾部样式-->
-
 </body>
 <script type="text/javascript" src="../../../scripts/jquery.min.js"></script>
 <script type="text/javascript" src="../../../styles/layui/layui.js"></script>
+<script type="text/javascript" src="${ctx}/scripts/shop/findPwd.js"></script>
 </html>
 <script>
     layui.use('layer', 'form', function(){

@@ -56,7 +56,7 @@ public class OrderManageController {
     }
 
     @RequestMapping("/showGoodOrderPage3")
-    public String showGoodOrderPage3(String orderId, String bigPrice, Model model){
+    public String showGoodOrderPage3(String orderId, Double bigPrice, Model model){
 //        orderManageService.showGoodOrdel(orderId, model);
         model.addAttribute("bigPrice", bigPrice);
         return "/admin/ddgl/goodOrderPage3";
