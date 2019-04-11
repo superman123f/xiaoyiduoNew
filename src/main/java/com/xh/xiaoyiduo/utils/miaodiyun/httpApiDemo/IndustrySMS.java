@@ -30,7 +30,7 @@ public class IndustrySMS
 	{
 		String to = phoneNumber;
 		System.out.println("手机号为" + to);
-		String smsContent = "【途乐行】您的验证码为" + random + "，请于30分钟内正确输入，如非本人操作，请忽略此短信。";
+		String smsContent = "【校益多】您的验证码为" + random + "，请于30分钟内正确输入，如非本人操作，请忽略此短信。";
 		System.out.println("短信内容为" + smsContent);
 		String tmpSmsContent = null;
 	    try{

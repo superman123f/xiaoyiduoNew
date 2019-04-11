@@ -16,12 +16,14 @@
     <result column="GOOD_NAME" property="goodName" jdbcType="VARCHAR" />
     <result column="SINGLE_PRICE" property="singlePrice" jdbcType="FLOAT" />
     <result column="GOOD_NUMBER" property="goodNumber" jdbcType="INTEGER" />
+    <association property="good" column="GOOD_ID" select="com.xh.xiaoyiduo.admin.spgl.dao.B_GOODMapper.selectByPrimaryKey"/>
     <collection property="resources" ofType="com.xh.xiaoyiduo.admin.spgl.pojo.RESOURCES">
       <id column="RESOURCE_ID" property="resourceId"></id>
       <result column="TYPE" property="type"/>
       <result column="URL" property="url"/>
       <result column="SOURCE_ID" property="sourceId"/>
     </collection>
+
   </resultMap>
   <sql id="Base_Column_List" >
     CART_ID, GOOD_ID, USER_ID, GOOD_NAME, SINGLE_PRICE, GOOD_NUMBER

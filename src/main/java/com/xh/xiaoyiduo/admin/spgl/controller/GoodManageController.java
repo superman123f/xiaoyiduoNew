@@ -406,6 +406,8 @@ public class GoodManageController {
             String goodId = UUID.randomUUID().toString().replaceAll("\\-", "");
             good.setGoodId(goodId);
             good.setUserId(currentUserId);
+            BigDecimal big = new BigDecimal(0);
+            good.setCollectNumber(big);
             int g = goodManageService.insert(good);
             if(g > 0) {
                 result.put("success", true);
@@ -451,8 +453,10 @@ public class GoodManageController {
 
         //获取该商品所属者的所有商品
         List<B_GOOD> userGoodList = goodManageService.getUserReleaseAllGood(goodDetail.getUserId());
-        //获取卖家昵称
-        String userName = (String)userService.selectByUserId(goodDetail.getUserId()).getUserId();
+        //卖家id
+        S_USER seller = userService.selectByUserId(goodDetail.getUserId());
+        String userName = seller.getUserId();
+        String nickName = seller.getNickname();
 
         int messageCount = messageManageService.getMessageCount(goodId);
 
@@ -462,6 +466,7 @@ public class GoodManageController {
         model.addAttribute("goodDetail", goodDetail);
         model.addAttribute("userGoodList", userGoodList);
         model.addAttribute("userName", userName);
+        model.addAttribute("nickName", nickName);
         model.addAttribute("messageCount", messageCount);
         model.addAttribute("messageList", messageList);
         return "/shop/details";

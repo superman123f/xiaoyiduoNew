@@ -104,12 +104,12 @@
             </div>
             <div class="th1 th-second">
                 <div class="th-inner">
-                    转卖价
+                    原价
                 </div>
             </div>
             <div class="th1 th-origin">
                 <div class="th-inner">
-                    原价
+                    转卖价
                 </div>
             </div>
             <div class="th1 th-operation">
@@ -149,7 +149,7 @@
                             </li>
 
                             <li class="th-second">
-                                <span class="th-su">${folder.good.secondPrice}</span>
+                                <span class="th-su" style="color:red;"><strong>${folder.good.secondPrice}</strong></span>
                             </li>
                             <li class="th-operation">
                                     <%--<span class="dele-btn" onclick="delCartItem('${cart.cartId}');">删除</span>--%>

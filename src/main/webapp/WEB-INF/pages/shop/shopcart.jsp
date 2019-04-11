@@ -118,7 +118,7 @@
                             <div class="box-btn layui-clear" style="padding-left: 38px;">
                                 <div class="less layui-btn">-</div>
                                 <input class="Quantity-input" type="" name="" value="${cart.goodNumber}" disabled="disabled">
-                                <div class="add layui-btn">+</div><div style="margin-top:11px;float: right;"><span class="title" style="color:#888888;font-size: 12px;">&nbsp;&nbsp;(库存${cart.goodNumber}件)</span></div>
+                                <div class="add layui-btn">+</div><div style="margin-top:11px;float: right;"><span class="title" style="color:#888888;font-size: 12px;">&nbsp;&nbsp;(库存${cart.good.goodNumber}件)</span></div>
                             </div>
                         </li>
                         <li class="th th-sum">

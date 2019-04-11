@@ -109,6 +109,10 @@
                 cancel: function (index, layero) {
                     $(".layui-laypage-btn").trigger('click');
                     // return false;
+                },
+                end: function() {
+                    // alert(1);
+                    $(".layui-laypage-btn").click();//这里用于关闭Open时触发回调函数  刷新父页面数据  一定要引入Jquery
                 }
             });
         });
@@ -124,8 +128,8 @@
             ,cols: [[ //表头
                 {type: 'checkbox'},
                 {field: 'banId', title: '禁品编号',  sort: true, hide: true} , <!--隐藏-->
-                {field: 'banLabel', title: '禁品标签',  sort: true},
-                {field: 'banName', title: '禁品名称',  sort: true},
+                {field: 'banLabel', title: '禁品标签',  sort: true, width: '40%'},
+                {field: 'banName', title: '禁品名称',  sort: true, width: '41%'},
                 // {field: 'createTime', title: '创建时间', width: 200, sort: true, template: "<div>{{layui.util.toDateString(createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {fixed: 'right', title: '操作', toolbar: '#barDemo', width:134, align:'center', unresize: true}
             ]]
@@ -268,6 +272,10 @@
                         cancel: function (index)
                         {
                             $(".layui-layer-molv").click(); ///这里用于关闭Open时触发回调函数  刷新父页面数据  一定要引入Jquery
+                        },
+                        end: function() {
+                            // alert(1);
+                            $(".layui-laypage-btn").click();//这里用于关闭Open时触发回调函数  刷新父页面数据  一定要引入Jquery
                         }
                     });
 
@@ -305,6 +313,10 @@
                         offset: '25%',
                         cancel: function (index)
                         {
+                            $(".layui-laypage-btn").click();//这里用于关闭Open时触发回调函数  刷新父页面数据  一定要引入Jquery
+                        },
+                        end: function() {
+                            // alert(1);
                             $(".layui-laypage-btn").click();//这里用于关闭Open时触发回调函数  刷新父页面数据  一定要引入Jquery
                         }
 

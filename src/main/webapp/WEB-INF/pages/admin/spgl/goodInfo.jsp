@@ -122,7 +122,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label"><font style="color:red;margin-right:7px;">*</font>新旧程度</label>
             <div class="layui-input-inline">
-                <input type="text" id="degree" name="degree" class="layui-input" placeholder="请输入新旧程度" autocomplete="off" value="${good.degree}">
+                <input type="text" id="degree" name="degree" class="layui-input" placeholder="请输入新旧程度(0-100)" autocomplete="off" value="${good.degree}">
             </div>
         </div>
         <div class="layui-form-item">

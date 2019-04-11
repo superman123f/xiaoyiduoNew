@@ -66,7 +66,7 @@ layui.use(['table', 'layer', 'form'], function(){
             {type: 'checkbox'},
             {field: 'goodId', title: '商品编号',  sort: true, hide: true} , <!--隐藏-->
             // {field: 'sonId', title: '子类别编号',  sort: true},
-            {field: 'goodName', title: '商品名称',  sort: true, width:'22%'},
+            {field: 'goodName', title: '商品名称',  sort: true, width:'32%'},
             {field: 'information', title: '商品简介',  sort: true, hide: true}, <!--隐藏-->
             {field: 'originPrice', title: '原价', sort: true, width:'10%'},
             {field: 'secondPrice', title: '二手价',  sort: true, width:'10%'},
@@ -74,7 +74,7 @@ layui.use(['table', 'layer', 'form'], function(){
             {field: 'collectNumber', title: '收藏数',  sort: true, width:'10%'},
             {field: 'goodNumber', title: '商品数量', sort: true, hide: false, width:'10%'},
             // {field: 'goodStatus', title: '商品状态', sort: true, hide: false},
-            {field: 'userId', title: '用户编号', sort: true, hide: false, width:'10%'},
+            {field: 'userId', title: '用户编号', sort: true, hide: true, width:'10%'},
             // {fixed: 'createTime', title: '创建时间', width: 200},
             // 经检验template日期转换无效，在数据库与实体类映射时转换即可
             // {field: 'createTime', title: '创建时间', sort: true, template: "<div>{{layui.util.toDateString(createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},

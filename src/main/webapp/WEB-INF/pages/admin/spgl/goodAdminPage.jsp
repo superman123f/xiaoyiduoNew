@@ -1,3 +1,4 @@
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: guyuanhui
@@ -26,12 +27,14 @@
                     <div class="layui-input-inline">
                         <input id="goodName" autocomplete="off" class="layui-input" placeholder="商品名称" type="text" name="goodName" value="">
                     </div>
-                    <div class="layui-input-inline">
-                        <input id="nickname" autocomplete="off" class="layui-input" placeholder="用户昵称" type="text" name="nickname" value="">
-                    </div>
-                    <div class="layui-input-inline">
-                        <input id="realName" autocomplete="off" class="layui-input" placeholder="真实姓名" type="text" name="realName" value="">
-                    </div>
+                    <%--<shiro:hasAnyRoles name="admin">--%>
+                        <%--<div class="layui-input-inline">--%>
+                            <%--<input id="nickname" autocomplete="off" class="layui-input" placeholder="用户昵称" type="text" name="nickname" value="">--%>
+                        <%--</div>--%>
+                        <%--<div class="layui-input-inline">--%>
+                            <%--<input id="realName" autocomplete="off" class="layui-input" placeholder="真实姓名" type="text" name="realName" value="">--%>
+                        <%--</div>--%>
+                    <%--</shiro:hasAnyRoles>--%>
                 </div>
                 <div class="layui-inline" style="text-align:left;">
                     <div class="layui-input-inline">

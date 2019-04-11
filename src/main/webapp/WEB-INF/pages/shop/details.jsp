@@ -85,7 +85,7 @@
         </div>
         <div class="layui-clear">
             <div class="aside">
-                <h4><a href="javascript:void(0);" onclick="sellerInfo('${userName}');">${userName}</a>商品橱窗</h4>
+                <h4><a href="javascript:void(0);" onclick="sellerInfo('${userName}');">${nickName}</a>商品橱窗</h4>
                 <div class="item-list">
                     <%--原模板样式--%>
                     <%--<div class="item">--%>
@@ -361,6 +361,7 @@
                 ]
             });
 
+            //发表留言
             //编辑器外部操作
             var active = {
                 content: function(){

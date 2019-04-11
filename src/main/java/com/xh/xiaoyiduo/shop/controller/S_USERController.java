@@ -9,6 +9,8 @@ import com.xh.xiaoyiduo.admin.utils.newImageCut;
 import com.xh.xiaoyiduo.shop.pojo.S_USER;
 import com.xh.xiaoyiduo.shop.service.IS_USERService;
 import com.xh.xiaoyiduo.utils.ShiroSHAUtil;
+import com.xh.xiaoyiduo.utils.miaodiyun.httpApiDemo.AccountInfo;
+import com.xh.xiaoyiduo.utils.miaodiyun.httpApiDemo.IndustrySMS;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -288,10 +290,13 @@ public class S_USERController {
                 int i = userService.insert(user); //添加用户
 
                 RESOURCES resources = new RESOURCES();
-                String userImgUrl = "H:/1MyGraduateProject/XIAOYIDUO/resources/user/default.jpg";   // 为了开发与演示，先设为绝对路径
+//                String userImgUrl = "H:/1MyGraduateProject/XIAOYIDUO/resources/user/default.jpg";   // 为了开发与演示，先设为绝对路径
+                String userImgUrl = "E:/guyuanhui/NewGraduateProject/xiaoyiduo/resources/user/default.jpg";   // 为了开发与演示，先设为绝对路径
+
                 resources.setResourceId(uuid);
                 resources.setUrl(userImgUrl);
                 resources.setSourceId(uuid);
+                resources.setType("0");
                 resourcesManageService.insert(resources); //用户默认头像
 
                 if(i > 0){
@@ -305,13 +310,13 @@ public class S_USERController {
                 }
 
                 //赋予买家权限
-                int j = userService.associateRoleByRoleId(uuid, uuid, "3"); //3为买家
-
-                if(j > 0){
-                    System.out.println("赋予买家权限成功");
-                } else {
-                    System.out.println("赋予买家权限失败");
-                }
+//                int j = userService.associateRoleByRoleId(uuid, uuid, "3"); //3为买家
+//
+//                if(j > 0){
+//                    System.out.println("赋予买家权限成功");
+//                } else {
+//                    System.out.println("赋予买家权限失败");
+//                }
             }
         }else {
             System.out.println("验证码失效，请重新获取");
@@ -361,11 +366,11 @@ public class S_USERController {
         session.setAttribute("sendDate", sendDate);
 
 //        秒滴云发送验证码，系统完成时，需要启动下面这两行代码
-//        AccountInfo.execute(); // 获取开发者账号信息
-//        String messageResult = IndustrySMS.execute(phoneNumber, random); // 返回结果
+        AccountInfo.execute(); // 获取开发者账号信息
+        String messageResult = IndustrySMS.execute(phoneNumber, random); // 返回结果
 
 //        模拟返回结果，系统完成时，需注释这行代码
-        String messageResult = "{\"respCode\":\"00000\",\"respDesc\":\"请求成功。\",\"failCount\":\"0\",\"failList\":[],\"smsId\":\"bad667c2f1d94b749a1f3c46672d383d\"}";
+//        String messageResult = "{\"respCode\":\"00000\",\"respDesc\":\"请求成功。\",\"failCount\":\"0\",\"failList\":[],\"smsId\":\"bad667c2f1d94b749a1f3c46672d383d\"}";
 
         //获取json格式中的值
         JSONObject jsonObject = JSON.parseObject(messageResult);
@@ -379,7 +384,8 @@ public class S_USERController {
 
         if(respCode.equals("00000")) {
             result.put("success", true);
-            result.put("msg", "验证码发送成功，验证码为：" + random + ",为了方便测试。");
+            result.put("msg", "验证码发送成功");
+//            result.put("msg", "验证码发送成功，验证码为：" + random + ",为了方便测试。");
         }else {
             result.put("success", false);
             result.put("msg", "验证码发送失败");
