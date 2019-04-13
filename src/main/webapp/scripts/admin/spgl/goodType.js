@@ -43,7 +43,10 @@ layui.use(['table', 'layer', 'form', 'element'], function(){
                 //         , where: {}//这里传参  向后台
                 //         , method: 'post'
                 //     });
-                $(".layui-laypage-btn").click(); // 这是分页工具中的“确定”按钮，相当于点击当前页，查询结果
+                // alert(1);
+                window.location.href="/type/toGoodTypePage";
+                // window.reload();
+                // $(".layui-laypage-btn").click(); // 这是分页工具中的“确定”按钮，相当于点击当前页，查询结果
             },
             cancel: function (index, layero) {
                 // $(".layui-laypage-btn").trigger('click');

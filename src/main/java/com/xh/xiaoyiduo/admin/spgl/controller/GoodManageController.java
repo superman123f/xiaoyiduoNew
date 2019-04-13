@@ -108,7 +108,7 @@ public class GoodManageController {
      * @return
      */
     @RequestMapping("/getSonGoodList")
-    public String getSonGoodList(String sonId, String currentPage, String pageSize, Model model, HttpServletRequest request){
+    public String getSonGoodList(Model model, HttpServletRequest request){
         String goodName1 =request.getParameter("goodName1")=="" ? "":request.getParameter("goodName1");
         S_USER user = (S_USER) SecurityUtils.getSubject().getPrincipal();
         HttpSession session = request.getSession();
@@ -122,20 +122,15 @@ public class GoodManageController {
                 session.setAttribute("cartGoodCount", 0); //保存当前登录用户的购物车商品个数
             }
         }
-
         List<B_GOOD_FATHER> goodFatherList = goodManageService.getGoodTypeList(); //获取商品菜单栏列表
-        List<B_GOOD> sonGoodList = goodManageService.getSonGoodList(null, null, null, null, null, null, "1", "2"); //获取对应商品子类物品
-//        Integer sonGoodCount = goodManageService.getSonGoodCount(sonId); //某个子类商品总数
-
+        List<B_GOOD> sonGoodList = goodManageService.getSonGoodList(null, null, null,
+                null, null, null, "1", "2"); //获取对应商品子类物品
         model.addAttribute("goodFatherList", goodFatherList);
         model.addAttribute("sonGoodList", sonGoodList);
         model.addAttribute("cartGoodCount", cartGoodCount);
         model.addAttribute("goodName1", goodName1);
         model.addAttribute("user", user);
-//        model.addAttribute("sonGoodCount", sonGoodCount);
-
-        return "/shop/commodity";
-    }
+        return "/shop/commodity"; }
 
     /**
      * 商品列表（分页）
